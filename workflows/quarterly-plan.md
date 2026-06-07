@@ -158,7 +158,32 @@ TURBO GEAR -- INTRA-QUARTER TRAJECTORY
 
 Pick the **2-3 metrics that matter most for Q[next]** and name them explicitly. Everything else is noise this round.
 
-**End of Part A:** state elapsed time. Target was 25 min.
+### Phase 3b: Monthly Health Trend Review (~8 min)
+
+Pull the **3 Monthly Meeting Log entries** from the outgoing quarter (chronological). Build domain-health and life-context tables:
+
+```
+WORK DOMAIN HEALTH -- INTRA-QUARTER
+| Domain      | Mo1 | Mo2 | Mo3 | Streak        |
+|-------------|-----|-----|-----|---------------|
+| Chrome Lot  | H/U |     |     | N mos Unhealthy |
+| Turbo Gear  | H/U |     |     |               |
+```
+
+Data source: `Chrome Lot Health` and `Turbo Gear Health` select properties on each Monthly Meeting Log entry. For months before those properties existed, annotate `(no monthly snapshot)` and **do not false-trigger** the strategy gate.
+
+Also show life-category context (not a separate gate — monthly Phase 1d handles life):
+
+```
+LIFE HEALTH -- UNHEALTHY COUNT PER MONTH
+| Month | Spirituality | Fitness | Work | Social | Admin | Parenting | Total Unhealthy |
+|-------|--------------|---------|------|--------|-------|-----------|-----------------|
+| Mo1   | H/U          |         |      |        |       |           | N/6             |
+```
+
+**Streak computation:** For each work domain, count consecutive months rated Unhealthy ending at Mo3. A streak of **3** (all months in the quarter) triggers the **Sustained Unhealthy Domain Gate** before Part C.
+
+**End of Part A:** state elapsed time. Target was 33 min (was 25 min; +8 min for Phase 3b).
 
 ---
 
@@ -204,6 +229,20 @@ This surfaces the "I wanted Q[X] to be about TG but 60% of my hours went to CL f
 ## Part C -- Look Forward Strategically (per domain) -- ~35 min
 
 **Pre-step (shared, ~2 min):** ensure Quarter Tracker (`121f40c2-487b-802e`) has records for Q[next+1], Q[next+2], Q[next+3]. Create any that are missing via `personal_notion_create_database_entry` so future-quarter project assignments in 7C/8C/9C have somewhere to land.
+
+### Sustained Unhealthy Domain Gate (conditional, before domain blocks)
+
+**Triggers when Chrome Lot or Turbo Gear was Unhealthy for all 3 months of the outgoing quarter** (from Phase 3b streak table).
+
+When triggered for a domain:
+
+1. **Pause** that domain's Part C block (Phase 8 for CL, Phase 9 for TG) until the gate completes.
+2. Mandatory strategy rethink via `AskQuestion`: What approach failed? What gets cut, delegated, or restructured?
+3. Name **1–3 structural changes** (not KPI tweaks) before committing Q[next] theme and roadmap for that domain.
+4. Log outcomes in Quarterly Meeting Log `Lessons Learned` (Phase 14) and append a **Health Intervention Notes** block to the quarterly page body via `personal_notion_append_blocks`.
+5. An Unhealthy domain **cannot receive "more projects"** in Part D until rethink is documented — cut or restructure first.
+
+If no 3-month unhealthy streaks: proceed directly to domain blocks.
 
 Each domain block follows the same shape: context recap → name a theme → walk the roadmap → name the no-list.
 
@@ -337,9 +376,19 @@ Block in Google Calendar (Aaron's calendar) for the full quarter:
 
 These are the dates that get eaten first when things get busy. Block them now so they have to be explicitly moved.
 
+### Phase 13b: Planning Context Capture (~3 min)
+
+**Purpose:** Commit quarter-level priority stack and parked domains so monthly + weekly plans inherit reliable context.
+
+**Required every quarterly plan.** Store in session state (`quarterly_priority_stack`, `quarterly_domains_parked`) for Phase 14.
+
+1. **Draft Priority Stack** (max 5 numbered lines) from Part C themes + Part D project commits. Format: `N. [Domain] — [one-line focus]`.
+2. **AskQuestion (multi-select):** "Which domains are **parked** for Q[next]?" Options: Turbo Gear | Chrome Lot New Business | External TG Demos | Personal Projects | Dating Outreach | Custody (hold) | Other | None — all domains active. Derive from no-lists and explicit pause decisions in Part C.
+3. Confirm with Aaron before Phase 14.
+
 ### Phase 14: Commit & Log (~5 min)
 
-1. Verify: all project assignments saved (quarter relations set), Due Dates on current-quarter projects, KPI targets on all three Outcomes pages, themes as callouts at top, no-lists as sections, department health statuses current, future Quarter Tracker records exist.
+1. Verify: all project assignments saved (quarter relations set), Due Dates on current-quarter projects, KPI targets on all three Outcomes pages, themes as callouts at top, no-lists as sections, department health statuses current, future Quarter Tracker records exist. **Also verify** Phase 13b planning context captured.
 2. **Log to Quarterly Meeting Log** (`344f40c2-487b-80ed`) via `personal_notion_create_database_entry`. New entry linked to the outgoing quarter with:
    - Meeting Date, Quarter relation
    - Wellness averages (PHQ-2, GAD-2, Energy -- averaged from Weekly Meeting Log entries)
@@ -349,6 +398,9 @@ These are the dates that get eaten first when things get busy. Block them now so
    - Project counts (Assigned, Completed, Carried Over, broken out by Personal/CL/TG)
    - Business metrics (CL Revenue, CL Customer Count, CL Churn, TG Demos Given, TG Features Shipped)
    - Starved Values, Key Wins, Key Misses
+   - **Planning context (REQUIRED — monthly + weekly plans read these):**
+     - `Priority Stack` (rich_text) — from Phase 13b (`quarterly_priority_stack`)
+     - `Domains Parked` (multi_select) — from Phase 13b (`quarterly_domains_parked`)
    - **Lessons Learned** -- from Phase 1 narrative retro
    - **Next Quarter Focus** -- the three per-domain themes from 7B/8B/9B, one paragraph each
 3. **Append per-user Pipedrive detail sections** to the Quarterly Meeting Log page using `personal_notion_append_blocks`. Pull completed activities from the past ~90 days (use `pipedrive_get_activities` with `done: "1"` and `updated_since` set to the 1st day of the outgoing quarter, then filter by `marked_as_done_time` within the quarter). Also pull all open activities per user. Append the following structure:
@@ -416,7 +468,8 @@ These are the dates that get eaten first when things get busy. Block them now so
 - **Part B Phase 4–6:** Relationship action commitments; environment narrative captured to Quarterly Meeting Log in Phase 14; Hubstaff/calendar gap surfaced.
 - **Part C Phase 7–9:** Quarterly Outcomes scaffolding (themes, no-lists prepared for Phase 11); Dev Projects quarter assignments cleared for every live row; Quarter Tracker futures created where missing.
 - **Part D Phase 10–11:** Current-quarter commits (6–10 projects), Due Dates, KPI targets with instrumentation gate; Quarterly Outcomes pages updated.
-- **Part E Phase 12–14:** Calendar infrastructure for quarter/cadences; Quarterly Meeting Log entry with full rollup + Team Activity Details; context updates (`values.md`, `current-priorities.md`, `capacity-rules.md`, `people/index.md`).
+- **Part E Phase 13b:** Priority Stack + Domains Parked captured (session state).
+- **Part E Phase 12–14:** Calendar infrastructure for quarter/cadences; Quarterly Meeting Log entry with full rollup + planning context fields + Team Activity Details; context updates (`values.md`, `current-priorities.md`, `capacity-rules.md`, `people/index.md`).
 
 ## Failure modes & graceful degradation
 

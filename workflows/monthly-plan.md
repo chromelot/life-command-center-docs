@@ -113,7 +113,7 @@ Before other pulls, resolve both Months pages. Store `planning_month_page_id` an
 
 Then pull the rest of the data via MCP tools in parallel:
 
-1. **Weekly Meeting Log DB** (`322f40c2-487b-81bd`): all entries from **review month** (PHQ-2, GAD-2, energy scores, structured KPI fields). These ~4 entries are used for **intra-month week-over-week trajectory analysis** within the review month.
+1. **Weekly Meeting Log DB** (`322f40c2-487b-81bd`): (a) all entries from **review month** (PHQ-2, GAD-2, energy scores, structured KPI fields) for intra-month trajectory; (b) **last 6 entries by Meeting Date** (may span month boundaries) for life-health streak detection in Phase 1d.
 2. **Monthly Meeting Log DB** (`344f40c2-487b-806d`): last entry (month before review month) for **month-over-month comparison**. This is the baseline for every metric in every phase. Also check whether a review-month entry already exists (skip duplicate create in Phase 12 if present).
 3. **Quarterly Meeting Log DB** (`344f40c2-487b-80ed`): entry linked to **current quarter** (Quarter Tracker `Current` = "Current") — completeness gate for Phase 1c
 4. **Notion Workouts DB** (`127f40c2-487b-80ba`): **review month** workout log
@@ -157,6 +157,22 @@ WELLNESS -- INTRA-MONTH TRAJECTORY
 - Month-over-month delta exceeds 20% in either direction
 - A target exists and the metric is below 80% of target
 
+**Life Health Trajectory** — plot the last up-to-6 Weekly Meeting Log entries (chronological) using the life-health select properties (`Spirituality Health` … `Parenting Health`). For weeks before those properties existed, annotate `(no weekly snapshot — used Values DB)` and use current Values DB Health as fallback; **do not false-trigger** streak gates on inferred data.
+
+```
+LIFE HEALTH -- WEEKLY TRAJECTORY (last N weeks)
+| Category     | Wk-4 | Wk-3 | Wk-2 | Wk-1 | Streak        |
+|--------------|------|------|------|------|---------------|
+| Spirituality | H/U  |      |      |      | N wks Unhealthy |
+| Fitness      |      |      |      |      |               |
+| Work         |      |      |      |      |               |
+| Social       |      |      |      |      |               |
+| Admin        |      |      |      |      |               |
+| Parenting    |      |      |      |      |               |
+```
+
+**Streak computation:** For each category, count consecutive weeks rated Unhealthy ending at the most recent week with data. A streak of **3+** triggers Phase 1d.
+
 Then proceed with qualitative assessment:
 1. Values category check: pull Health statuses from Values DB (`342f40c2-487b-80c5`). Which of the 6 categories got attention and which got starved?
 2. Social connectedness trend: Small Talk count this month vs. last month from Monthly Meeting Log.
@@ -169,20 +185,22 @@ Then proceed with qualitative assessment:
 
 **Purpose:** Am I living in alignment with my values, or just checking boxes?
 
-Read `context/self/values.md` for the 6 value categories and their Pictures of Success. For each category, do a binary honest assessment:
+Read `context/self/values.md` for the 6 value categories and their Pictures of Success. For each category, do a binary honest assessment — **Healthy** or **Unhealthy** (same scale as weekly plan and Values DB). One `AskQuestion` per category.
 
-1. **Spirituality** -- Am I practicing state management (meditation, breathwork, journaling) regularly? On track / Slipping / Stalled
-2. **Fitness** -- Am I training consistently and connecting body to mind? On track / Slipping / Stalled
-3. **Work** -- Did I show up, build the platform, and build relationships this month? On track / Slipping / Stalled
-4. **Social** -- Am I building friendships and going toward people? On track / Slipping / Stalled
-5. **Admin** -- Are duties under control or piling up? On track / Slipping / Stalled
-6. **Parenting** -- Am I investing in Matthew? On track / Slipping / Stalled
+1. **Spirituality** — practicing state management regularly?
+2. **Fitness** — training consistently and connecting body to mind?
+3. **Work** — showed up, built the platform, built relationships?
+4. **Social** — building friendships and going toward people?
+5. **Admin** — duties under control or piling up?
+6. **Parenting** — investing in Matthew?
 
-Cross-reference with the Health statuses in the Values DB. If a category is rated "Unhealthy" in Notion and "Slipping/Stalled" here, it's a priority intervention.
+Cross-reference with the weekly life-health trajectory from Phase 1 and Values DB. Discrepancies (e.g. mostly Healthy weeks but Unhealthy monthly rating) are discussion points.
 
-For any area rated "Slipping" or "Stalled," generate one specific action for the coming month. Don't over-plan -- one action per flagged area.
+For any area rated **Unhealthy**, generate one specific action for **planning month**. Don't over-plan — one action per flagged area.
 
-**Outputs:** Log ratings to Monthly Meeting notes. Surface flagged areas in relevant later phases.
+Store ratings in session state (`monthly_life_health`) for Phase 12 commit.
+
+**Outputs:** `monthly_life_health` map captured. Surface flagged areas in relevant later phases.
 
 ## Phase 1c: Quarterly Plan Checkpoint (~5 min)
 
@@ -210,7 +228,21 @@ Whether or not the full quarterly session happened, review what's committed **on
 3. **KPI pace preview:** Which KPI rows have targets? Any already >50% behind expected pace for the month we're in? (Full actuals update happens in Phase 9.)
 4. **Alignment check:** Flag if proposed **planning month** priorities (surfaced in Phases 3–4) don't serve the quarterly theme — force a reconcile before committing.
 
-**Outputs:** Quarterly alignment notes carried into Phases 3–4 and Phase 9. If gate failed, monthly plan **stops here** — no Phase 2+. Escalation to full quarterly plan is mandatory unless Aaron explicitly overrides.
+**Outputs:** Quarterly alignment notes carried into Phases 3–4 and Phase 9. If gate failed, monthly plan **stops here** — no Phase 1d or Phase 2+. Escalation to full quarterly plan is mandatory unless Aaron explicitly overrides.
+
+## Phase 1d: Sustained Unhealthy Gate (~10 min, conditional)
+
+**Triggers when any life category has been Unhealthy for 3+ consecutive weeks** (from Phase 1 life-health trajectory, including weeks spanning month boundaries).
+
+When triggered:
+
+1. **Pause** Phases 2–11 until this gate completes. Do not set planning-month goals while a sustained-unhealthy area lacks a substantive response.
+2. Present the streak table + one-sentence evidence per flagged category (KPI data from weekly logs).
+3. One `AskQuestion` per flagged category: name **one substantive change** for planning month — approach shift, boundary, delegation, or cut (not a task tweak).
+4. Draft `Health Intervention Notes` for Phase 12 (category → change committed).
+5. Resume monthly plan only after all flagged categories have a named change.
+
+If no 3-week streaks: skip silently (~0 min).
 
 ## Phase 2: Fitness Review & Reprioritization (~5 min)
 
@@ -442,6 +474,20 @@ Data sources: Knack Invoices (`object_18`) for CL revenue/AR. QuickBooks for P&L
 
 **Outputs:** Todoist tasks for 1:1s and performance conversations. Hiring decisions noted. Updated `context/people/index.md` for any roster changes.
 
+## Phase 8b: Work Domain Health Rating (~5 min)
+
+**Purpose:** Rate Chrome Lot and Turbo Gear as Healthy or Unhealthy at the domain level. Results stored on Monthly Meeting Log in Phase 12.
+
+1. **Chrome Lot brief:** Summarize review-month signals from Phases 4 (sales), 6 (financial), and 7 (CS health) — revenue trend, churn, invoice aging, pipeline velocity.
+2. **Turbo Gear brief:** Summarize from Phases 3 and 5 — dev velocity, features shipped, demos, deep work minutes.
+3. Optional reference: surface CL Departments (`341f40c2-487b-80cc`) and TG Departments (`341f40c2-487b-80c9`) Health statuses as context — domain rating is the two business-level selects, not per-sub-department re-rating (quarterly deep read unchanged).
+4. One `AskQuestion`: **Chrome Lot — Healthy or Unhealthy?**
+5. One `AskQuestion`: **Turbo Gear — Healthy or Unhealthy?**
+
+Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 commit.
+
+**Outputs:** Domain health ratings captured for Phase 12.
+
 ## Phase 9: Quarterly KPI Update (~5 min)
 
 **Purpose:** Monthly touchpoint for quarterly tracking. Update KPI actuals on each Quarterly Outcomes page.
@@ -494,6 +540,19 @@ Data sources: Knack Invoices (`object_18`) for CL revenue/AR. QuickBooks for P&L
 
 **Outputs:** Calendar blocks. Todoist handoff tasks. Teams notification if needed.
 
+## Phase 11b: Planning Context Capture (~3 min)
+
+**Purpose:** Commit structured planning context so weekly plans can read priorities and pause status reliably — not from skill text or `current-priorities.md`.
+
+**Required every monthly plan.** Store in session state (`monthly_priority_stack`, `monthly_domains_parked`, `monthly_active_cl_sprint`) for Phase 12.
+
+1. **Draft Priority Stack** (max 5 numbered lines) from session outcomes + quarterly alignment. Format: `N. [Domain] — [one-line focus]`. Domains: Personal | Chrome Lot | Turbo Gear.
+2. **AskQuestion (multi-select):** "Which domains are **parked** for [planning month]?" Options: Turbo Gear | Chrome Lot New Business | External TG Demos | Personal Projects | Dating Outreach | Custody (hold) | Other | None — all domains active.
+3. **AskQuestion (single):** "Which CL repair sprint is active for [planning month]?" Options: A — Pipedrive+Todoist | B — 1:1 Cadence | C — Customer Service | D — Photographer Performance | E — Sales Management | Maintenance (departments at currency).
+4. Confirm stack + parked + sprint with Aaron before Phase 12.
+
+**Outputs:** `monthly_priority_stack`, `monthly_domains_parked`, `monthly_active_cl_sprint` ready for Monthly Meeting Log write.
+
 ## Phase 12: Commit (~3 min)
 
 **Purpose:** Final review, execute remaining actions, log everything.
@@ -511,7 +570,15 @@ Data sources: Knack Invoices (`object_18`) for CL revenue/AR. QuickBooks for P&L
    - **Watch metrics** (from Phase 2): Sleep Avg, Heart Rate Avg, Resting HR Avg, HRV Avg, Steps Avg (**review month** means from `health_get_summary` daily slice) plus Sleep Delta, Heart Rate Delta, Resting HR Delta, HRV Delta, Steps Delta (review-month avg minus prior-month avg, signed). Also Workout Active Minutes (**review month** total in minutes). Omit any field where the underlying data is null.
    - Project counts (Completed, In Progress, broken out by Personal/CL/TG for **review month**)
    - Business metrics for **review month** (CL Revenue, CL Customer Count, CL Churn, TG Demos Given, TG Features Shipped)
-   - Starved Values, Key Wins, Key Misses, Action Items (Action Items commit **planning month** priorities)
+   - **Life health** (from Phase 1b): all 6 select properties (`Spirituality Health` … `Parenting Health`)
+   - **Work domain health** (from Phase 8b): `Chrome Lot Health`, `Turbo Gear Health`
+   - **Health Intervention Notes** (from Phase 1d, if gate fired)
+   - **Planning context (REQUIRED — weekly plan reads these):**
+     - `Priority Stack` (rich_text) — from Phase 11b (`monthly_priority_stack`)
+     - `Domains Parked` (multi_select) — from Phase 11b (`monthly_domains_parked`)
+     - `Active CL Sprint` (select) — from Phase 11b (`monthly_active_cl_sprint`)
+   - `Starved Values` — derived from life-health selects (categories rated Unhealthy)
+   - Key Wins, Key Misses, Action Items (Action Items commit **planning month** priorities)
    Compare against last month's entry to show trend direction.
 5. **Append per-user Pipedrive detail sections** to the Monthly Meeting Log page using `personal_notion_append_blocks`. Pull completed activities from **review month** (use `pipedrive_get_activities` with `done: "1"` and filter by `marked_as_done_time` within review month bounds). Also pull all open activities per user. Append the following structure:
 
@@ -569,6 +636,15 @@ Data sources: Knack Invoices (`object_18`) for CL revenue/AR. QuickBooks for P&L
    ## Planning commitments
    (Numbered list — same items as Action Items on the Monthly Meeting Log)
 
+   ## Priority stack
+   (Same numbered list as `Priority Stack` property on Monthly Meeting Log)
+
+   ## Domains parked
+   (Same as `Domains Parked` multi-select — e.g., Turbo Gear)
+
+   ## Active CL sprint
+   (Same as `Active CL Sprint` select)
+
    ## Quarterly alignment
    (One line per domain tying planning month to current quarter theme)
 
@@ -594,9 +670,10 @@ Data sources: Knack Invoices (`object_18`) for CL revenue/AR. QuickBooks for P&L
 ## Outputs
 
 - **Phase 0:** Silent data refresh (Withings, persister, health MCP) and parallel MCP/database pulls.
-- **Phase 1:** Observation notes; intervention tasks only if needed.
-- **Phase 1b:** Identity ratings logged to Monthly Meeting notes; flagged areas for later phases.
+- **Phase 1:** Wellness + life-health trajectory tables; observation notes; intervention tasks only if needed.
+- **Phase 1b:** `monthly_life_health` ratings captured; flagged areas for later phases.
 - **Phase 1c:** Quarterly alignment notes; escalation to full quarterly plan if gate failed.
+- **Phase 1d:** Health Intervention Notes drafted when 3+ week unhealthy streaks fire; pauses Phases 2–11 until resolved.
 - **Phase 2:** Fitness targets; optional Todoist recurring updates; body-comp for Phase 12 Monthly Log.
 - **Phase 3:** Dev Projects updates; dev goals; Todoist if needed.
 - **Phase 3b:** Idea Roadmap Scrub across TG / CL / Personal — Idea→Not started promotions (cap 3/Type), delegations, archives; held items annotated with hold count for next month.
@@ -605,9 +682,11 @@ Data sources: Knack Invoices (`object_18`) for CL revenue/AR. QuickBooks for P&L
 - **Phase 6:** Financial Todoist and observation notes.
 - **Phase 7:** CS observations; delegation; data-hygiene Todoist.
 - **Phase 8:** 1:1/hiring Todoist; updated `context/people/index.md`.
+- **Phase 8b:** `monthly_cl_health` and `monthly_tg_health` captured for Phase 12.
 - **Phase 9:** Manual KPI updates on Quarterly Outcomes; Todoist for empty targets; flags.
 - **Phase 10–11:** Calendar events; Todoist prep and handoff tasks; Teams optional.
-- **Phase 12:** New Monthly Meeting Log entry (review month) with full KPI rollup; Team Activity Details append; **planning month Months page plan log**; context file updates.
+- **Phase 11b:** Priority Stack + Domains Parked + Active CL Sprint captured (session state).
+- **Phase 12:** New Monthly Meeting Log entry (review month) with full KPI rollup + planning context fields + life/work health selects + Health Intervention Notes; Team Activity Details append; **planning month Months page plan log**; context file updates.
 
 ## Failure modes & graceful degradation
 

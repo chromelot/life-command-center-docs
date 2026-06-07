@@ -74,6 +74,14 @@
 
 ---
 
+## Weekly plan integration
+
+**Phase 5 Part A0 (mandatory):** Before planning sales stops, run **`deal gaps`** in a CL Bot 1:1 chat. Clear every Aaron-owned open deal (Sales / CS / Social Media) missing `next_activity_date` via the Adaptive Card **Schedule** buttons. The weekly-planning skill pre-pulls the gap list via Pipedrive MCP as a checklist; the bot is where scheduling happens.
+
+**Phase 5 Part A1:** Use **`stale deals`** to cross-check stale Sales deals before the one-by-one cold-pool review (Pipeline 12). See `context/skills/weekly-planning/SKILL.md` Phase 5.
+
+---
+
 ## Permissions
 
 Source: **Airtable** `Admin / Payable Employees` → cached in bot `staticData.peopleCache`.

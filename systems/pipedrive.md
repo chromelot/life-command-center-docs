@@ -11,7 +11,11 @@ Chrome Lot's CRM. Domain: `chromelot`.
 | 1 | Sales | Prospects being sold to. Stages include Aware, Warm, Hot. |
 | 6 | Customer Service (CS) | Existing photo customers. Deal names follow pattern `[Company] CS` (e.g., "Earth Motorcars CS", "One Legacy Motors CS"). No "Social" in title. |
 | 13 | Social Media | Social product customers (`field_396` in Knack). Titles fuzzy-match customer name; not `[Company] Social CS` on Pipeline 6. |
-| 12 | Not Actively Working | Dormant / archived deals. |
+| 12 | Not Actively Working | Dormant / archived deals. Also called the **cold sales pool** in weekly planning. |
+
+### Cold sales pool (weekly plan convention)
+
+During **weekly plan Phase 5**, stale Sales Pipeline 1 deals Aaron no longer actively pursues move to **Pipeline 12** after one-by-one review. Each move requires case-by-case approval before `pipedrive_update_deal`. Stale detection uses the **Stale** label (same signal as CL Bot `stale deals`); fallback: no activity in 14+ days.
 
 ## CS pipeline stages (Pipeline 6)
 
