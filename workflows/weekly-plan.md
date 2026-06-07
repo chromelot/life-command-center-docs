@@ -29,15 +29,20 @@ Load via the router. Read these before starting:
 
 ## Execution Protocol (mandatory — read `context/workflow-execution.md`)
 
-1. **Init ledger** at session start: `node scripts/workflow-progress.mjs init --workflow weekly-plan --week-of <next-monday>`
-2. **Every turn:** `node scripts/workflow-progress.mjs status --workflow weekly-plan` — present only `current_step`
-3. **Phase banner** on every user-facing message: `**[Weekly Plan · Phase X.Y — title]**`
-4. **One sub-step per turn** — never bundle 1.2 + 1.3 + 1.4 + 1.5 + 1.6 + 1.7 (each life domain is a separate step)
-5. **Table contract is the spec** — each sub-step lists the **exact tables** to present (column headers fixed). Fill every cell from the named data source; use `—` when data is missing. Do not add metrics, sections, or discussion topics outside that step's tables.
-6. **One question per turn** — PHQ-2/GAD-2 items are separate turns
-7. **Advance after complete:** `node scripts/workflow-progress.mjs advance --workflow weekly-plan --step <id>`
-8. **Phase gates:** `node scripts/workflow-progress.mjs gate --workflow weekly-plan --phase <1|2>` before Phase 2 (work) or Phase 4 (commit)
-9. **Tangents:** fix/interrupt, then resume ledger `current_step` — do not skip ahead
+1. **Date context (every turn, before any weekday or "this week" language):**
+   ```
+   node scripts/planning-dates.mjs [--today=YYYY-MM-DD] [--week-of=<ledger week_of>]
+   ```
+   Aaron may run weekly plan on **any day** — never assume session day = Monday. Use script output for review week, planning week, and weekday→ISO mapping. `Today's date` from `user_info` must match `--today` (CT).
+2. **Init ledger** at session start: `node scripts/workflow-progress.mjs init --workflow weekly-plan` — omit `--week-of` to auto-set canonical planning Monday from today; if set manually, must be a Monday and should match `planning-dates.mjs`. Weekly log title = `Week of <planning Monday>`.
+3. **Every turn:** `node scripts/workflow-progress.mjs status --workflow weekly-plan` — present only `current_step` (status includes date warnings if ledger `week_of` is wrong)
+4. **Phase banner** on every user-facing message: `**[Weekly Plan · Phase X.Y — title]**`
+5. **One sub-step per turn** — never bundle 1.2 + 1.3 + 1.4 + 1.5 + 1.6 + 1.7 (each life domain is a separate step)
+6. **Table contract is the spec** — each sub-step lists the **exact tables** to present (column headers fixed). Fill every cell from the named data source; use `—` when data is missing. Do not add metrics, sections, or discussion topics outside that step's tables.
+7. **One question per turn** — PHQ-2/GAD-2 items are separate turns
+8. **Advance after complete:** `node scripts/workflow-progress.mjs advance --workflow weekly-plan --step <id>`
+9. **Phase gates:** `node scripts/workflow-progress.mjs gate --workflow weekly-plan --phase <1|2>` before Phase 2 (work) or Phase 4 (commit)
+10. **Tangents:** fix/interrupt, then resume ledger `current_step` — do not skip ahead
 
 ## Interaction Style
 
@@ -447,7 +452,13 @@ Deprioritized reason → note in `Social Review`. Append social row to `Intentio
 | Social day block | yes / no / N/A | |
 | Organic only | yes / no | |
 
-Execute calendar/Todoist with approval (Personal Time Blocks calendar `10283d615faeb91862fc0ccd8f3ac216c7299a58f2196185e912be8f3e3cbe83@group.calendar.google.com`). Append booked events to `Social Intentions`.
+Execute calendar/Todoist with approval. **Actual bookings** → Personal calendar (`hoegenauera@gmail.com`). **Time-block goals** → Personal Time Blocks calendar (`10283d615…@group.calendar.google.com`).
+
+**Calendar weekday guard (required before any create/update from a weekday name):**
+```
+node scripts/lib/ct-weekday.mjs --today <YYYY-MM-DD> --weekday Wednesday
+```
+Uses canonical planning Monday for `--today`. Confirm stdout shows correct ISO + weekday before `calendar_create_event`. **Never** map weekday → date by mental math or `week_of + N`.
 
 ### 1.6 Parenting — Review · Rate · Intentions (~4 min)
 
