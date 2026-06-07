@@ -28,6 +28,17 @@ Load via the router. Read these before starting:
 - `context/work/chrome-lot/operations.md` — Phase 7 photographer review logic
 - `context/work/turbo-gear/overview.md` — TG strategic sequence (for Phase 3.4 project selection)
 
+## Execution Protocol (mandatory — read `context/workflow-execution.md`)
+
+1. **Init ledger** at session start: `node scripts/workflow-progress.mjs init --workflow weekly-plan --week-of <next-monday>`
+2. **Every turn:** `node scripts/workflow-progress.mjs status --workflow weekly-plan` — present only `current_step`
+3. **Phase banner** on every user-facing message: `**[Weekly Plan · Phase X.Y — title]**`
+4. **One sub-step per turn** — never bundle 1.1 + 1.2 + 1.3; never jump to 1.4 before 1.3 is advanced
+5. **One AskQuestion per turn** — PHQ-2 items are separate turns
+6. **Advance after complete:** `node scripts/workflow-progress.mjs advance --workflow weekly-plan --step <id>`
+7. **Phase gates:** `node scripts/workflow-progress.mjs gate --workflow weekly-plan --phase <1|2|3>` before Phase 2, 3, or 4
+8. **Tangents:** fix/interrupt, then resume ledger `current_step` — do not skip ahead
+
 ## Interaction Style
 
 - **One question at a time.** Never present a wall of choices. Walk through decisions sequentially.
@@ -74,6 +85,11 @@ Output: `output/weekly-wellness-trends-YYYY-MM-DD.md`. **Canonical source for 4-
 node "scripts/weekly-habit-summary.mjs"
 ```
 Output: `output/weekly-habits-YYYY-MM-DD.md`. Canonical last-week habit numbers + actionable Dev Projects slate. Do not re-query habit DBs ad-hoc.
+
+```
+node "scripts/daily-mindbody-pull.mjs"
+```
+Output: stdout **Mind / Fitness / Sleep** section tables for Phase 1.1 (days as columns). Run after health pulls.
 
 ```
 node "scripts/withings-sync.mjs" --days 28 --write
@@ -153,127 +169,108 @@ DATA INTEGRITY CHECK
 
 **Purpose:** Complete spiritual, mental, and physical review and planning **before any work content.** Highly structured — same sections every week.
 
-Create the **new week's** Weekly Meeting Log entry at the start of Phase 1 (Name = `Week of [next Monday YYYY-MM-DD]`, Meeting Date = today). All Phase 1 fields write to this entry; KPI numbers from **last week** are copied from habit summary + health MCP into the structured properties during Phase 1.1.
+### 1.0 Create Weekly Log Entry
 
-### 1.1 Habit Scorecard + Insights (~5 min)
+Create the **new week's** Weekly Meeting Log entry (Name = `Week of [next Monday YYYY-MM-DD]`, Meeting Date = today). All Phase 1 fields write to this entry; KPI numbers from **last week** are copied during 1.1.
 
-Present **last week's** metrics (from `weekly-habits-*.md` + `health_get_summary` last-7-day slice + prior-week log). Include a **4-week trend sidebar** from `weekly-wellness-trends-*.md`.
+**Advance ledger:** `1.0` → then present 1.1 only.
 
-```
-MIND & BODY SCORECARD — LAST WEEK
-| Metric              | Last Wk | 4-wk trend        | Target   | Insight |
-|---------------------|---------|-------------------|----------|---------|
-| Spirit Minutes      |         | wk-4→wk-1 sparkline from log | 105-140 | |
-| Strength Sessions   |         |                   | 5/week (adjust in 1.6) | |
-| Cardio Sessions     |         |                   | —        | |
-| Sleep Avg (hours)   |         |                   | 7-8      | |
-| Deep/REM (optional) |         | from daily sleep  | —        | |
-| Weight / BF / Lean  |         |                   | hold/grow| |
-| Steps Avg/day       |         |                   | 8000+    | |
-| Journal Count       |         |                   | —        | |
-| PHQ-2 / GAD-2 / Energy | from prior log if not yet re-screened | 4-wk from trends file | — | |
-```
+### 1.1 Mind · Fitness · Sleep Review + Rank + Intentions (~12 min)
 
-**Insights (required):** After the table, state 2-3 bullet observations — not just numbers. Examples: spirit minutes up but sleep still under 6h; strength hit target but cardio absent 3 weeks; weight trend favorable but energy score dropping.
+**Purpose:** Review last week's mind, fitness, and sleep; insights per domain; rank domain health; set forward intentions — before wellness screening or work.
 
-Write last week's computed KPIs to the Weekly Meeting Log entry: Strength Sessions, Cardio Sessions, Spirit Minutes, Journal Count, Weight/Body Fat/Lean Avg, Sleep Avg, Heart Rate Avg, Resting HR Avg, HRV Avg, Steps Avg, Workout Active Minutes.
+**Data:** `weekly-habits-*.md`, `weekly-wellness-trends-*.md`, `health_get_summary({ days: 28 })`, `node scripts/daily-health-sections.mjs`.
 
-### 1.2 Sleep & Wake Schedule (~4 min)
+**No Small Talk** (Phase 2). **No Deep Work / Ops / Field** (Phase 3).
 
-**Purpose:** Flag erratic wake times and poor sleep quality before planning the week.
+**Opening — prior intentions:** Read prior `Mind Intentions`, `Fitness Intentions`, `Sleep Intentions` (or legacy `Week Intentions`). Brief review → write `Intentions Review`.
 
-From `health_get_summary.daily` last 7 days with `wake_time` / `wake_minutes`:
+---
 
-```
-SLEEP & WAKE — LAST 7 NIGHTS
-| Date       | Sleep h | Wake time | Bedtime | Deep min | Awake min |
-|------------|---------|-----------|---------|----------|-----------|
-| (each day) |         |           |         |          |           |
-```
+**Section A — Mind**
 
-Compute **wake time std dev** (minutes) across nights with data. Classify `Sleep Schedule Rating`:
-- **Consistent** — σ ≤ 30 min
-- **Moderate Variance** — σ 31–60 min
-- **Erratic** — σ > 60 min
-- **Unknown** — fewer than 4 nights with wake data
+Aggregate: Spirit Minutes, Journal Count (+ 4-wk trend from wellness file).
 
-Present one insight line: e.g. "Wake times ranged 5:12–8:47 (σ 94 min) — schedule is erratic; sleep avg 5.3h is below target."
+Daily breakdown (days = columns): Spirit min, Journal — MIND section from `daily-health-sections.mjs`.
 
-Store on Weekly Meeting Log: `Wake Time Std Dev Min`, `Sleep Schedule Rating`.
+**Mind insights:** 1-2 bullets.
 
-### 1.3 Last Week Intentions Review (~3 min)
+---
 
-Read **prior week's** `Week Intentions` and `Behavioral Adjustments` from `weekly-wellness-trends-*.md` (or prior log entry).
+**Section B — Fitness**
 
-```
-INTENTIONS REVIEW — PRIOR WEEK
-| Intention (from last Week Intentions) | Evidence | Met? |
-|---------------------------------------|----------|------|
-| (each line)                           |          | ✓/~/✗ |
-```
+Aggregate: Strength, Cardio, Weight/BF/Lean avg, Steps avg, Workout Active Min (+ 4-wk trend).
 
-Compare against habit scorecard + Dev Projects completions. Ask Aaron one AskQuestion: overall — **Mostly met / Partially met / Missed / N/A (none set)**.
+Daily breakdown: Strength, Cardio, Weight, Steps — FITNESS section.
 
-Write `Intentions Review` (rich_text) on the **new** week's log: bullet list of each intention + outcome.
+**Fitness insights:** 1-2 bullets.
 
-### 1.4 Wellness Screening (~3 min)
+---
 
-**PHQ-2** (0-3 each, total 0-6) and **GAD-2** (0-3 each, total 0-6) — one question at a time via AskQuestion.
+**Section C — Sleep**
+
+Aggregate: Sleep avg (recorded nights only), Nights Tracked, Wake-up σ, Bedtime σ, Schedule Rating.
+
+Daily breakdown: Sleep, Wake-up, Bedtime, Deep min, REM min — SLEEP section.
+
+**Wake-up** = got out of bed (watch session end, CT). **Bedtime** = session start.
+
+**Sleep insights:** 1-2 bullets.
+
+Write last-week KPIs: Spirit Minutes, Journal Count, Strength/Cardio Sessions, Weight/Body Fat/Lean Avg, Steps Avg, Sleep Avg, Sleep Nights Tracked, Wake/Bedtime Std Dev Min, Sleep Schedule Rating, Workout Active Minutes (+ HR/RHR/HRV if available).
+
+---
+
+**Section D — Rank + intentions (end of 1.1)**
+
+| Domain | Rate Healthy/Unhealthy | Log field |
+|--------|------------------------|-----------|
+| Mind | | `Mind Health` |
+| Fitness | | `Fitness Health` |
+| Sleep | | `Sleep Health` |
+
+Forward intentions (1-3 bullets each; Aaron approves before Notion write):
+
+| Domain | Fields |
+|--------|--------|
+| Mind | `Mind Intentions` |
+| Fitness | `Fitness Intentions`, `Strength Target`, `Cardio Target` |
+| Sleep | `Sleep Intentions`, `Sleep Target Hours`, `Target Wake Time` |
+
+Also `Behavioral Adjustments` for calendar moves.
+
+**HARD GATE:** Do not open 1.2 until 1.1 ratings + intentions committed (with approval).
+
+### 1.2 Wellness Screening (~3 min)
+
+**PHQ-2** (0-3 each, total 0-6) and **GAD-2** (0-3 each, total 0-6) — one question at a time.
 
 **Energy & Capacity** — 1-10 scale.
 
-Derive severity selects (None / Mild / Moderate / Moderately Severe / Severe) per standard cutoffs. Write PHQ-2, GAD-2, Energy, severity selects to Weekly Meeting Log immediately.
+Derive severity selects. Write PHQ-2, GAD-2, Energy, severities to Weekly Meeting Log.
 
-### 1.5 Values Pulse + Life Health + Fuel (~4 min)
+### 1.3 Values Pulse — Work · Social · Admin · Parenting (~4 min)
+
+Mind/Fitness/Sleep health + intentions are **1.1**. This step covers remaining Values categories.
 
 **Manual Values Review:** Link to [Values Database](https://www.notion.so/342f40c2487b80c5a2aee48ca48b4a20). Wait for confirmation.
 
-Present Values Pulse table (spirituality/fitness focus — work metrics deferred to Phase 3; social deep-dive in Phase 2):
-
 ```
-VALUES PULSE -- HEALTH + TIME TARGETS vs. ACTUAL
-| Category      | Health     | Time Target                | Actual This Week        |
-|---------------|------------|----------------------------|-------------------------|
-| Spirituality  | Healthy    | (from "How to Spend Time") | X min (Spirit DB)       |
-| Fitness       | Healthy    | (from "How to Spend Time") | X strength + X cardio   |
-| Work          | Unhealthy  | (from "How to Spend Time") | X min (Business Dev DB) |
-| Social        | Healthy    | (from "How to Spend Time") | X Small Talk entries    |
-| Admin         | Healthy    | (from "How to Spend Time") | (qualitative)           |
-| Parenting     | Healthy    | (from "How to Spend Time") | (qualitative)           |
+VALUES PULSE — REMAINING CATEGORIES
+| Category  | Health (rate now) | Time Target | Actual Last Week |
+| Work      |                   |             | Deep Work + Ops + Field mins |
+| Social    |                   |             | Small Talk count (preliminary) |
+| Admin     |                   |             | qualitative |
+| Parenting |                   |             | qualitative |
 ```
 
-The actual columns map to source DBs like this:
-- **Spirituality** -> Spirit (`2aaf40c2-487b-8070`) Total Time sum
-- **Fitness** -> Workouts count + Body Comp + Recovery callout from `health_get_summary({ days: 28 })`. Format:
-  - `Body comp: 7d avg <X> lbs (Δ<±Y> lbs) · Body Fat <X>% (Δ<±Y>%) · Lean <X> lbs (Δ<±Y> lbs)` (from `stats.weight_lbs.avg`, `trend.weight_lbs`, etc.)
-  - `Recovery: Sleep avg <X.X>h (Δ<±Y>h) · HR avg <X> bpm (Δ<±Y>) · RHR avg <X> bpm (Δ<±Y>) · HRV avg <X> ms (Δ<±Y>)` (from `stats.sleep_hours.avg`, `trend.sleep_hours`, `stats.heart_rate_avg_bpm.avg`, `trend.heart_rate_avg_bpm`, `stats.resting_hr.avg`, `trend.resting_hr`, `stats.hrv_rmssd.avg`, `trend.hrv_rmssd`). RHR + HRV remain null until those Health Sync folders are enabled -- render them as `--` until then.
-  - `Activity: Steps avg <X>/day (Δ<±Y>) · Workouts <N> sessions / <M> active min (Δ<±workout_active_minutes>)` (from `stats.steps.avg`, `trend.steps`, `stats.workout_count.total`, `stats.workout_active_minutes.total`, `trend.workout_active_minutes`)
-  - If `sources.health_sync.ok = false`, drop the Recovery + Activity lines and append "(Health Sync data missing -- run `npm test` in `mcp/health-data` to diagnose)". If `sources.notion.error`, surface body-comp blank as "Withings sync needs attention".
-- **Work** -> Business Development (`127f40c2-487b-803e`) Total Time sum + Chrome Lot Ops (`136f40c2-487b-80ba`) Total Time sum + Field Work (`237f40c2-487b-80ab`) Total Time sum (all three are formula-typed numeric properties)
-- **Social** -> Small Talk (`121f40c2-487b-802d`) count
-- **Admin, Parenting** -> no direct time KPI (qualitative reflection)
+Rate **Work, Social, Admin, Parenting** — Healthy or Unhealthy. Write `Work Health`, `Social Health`, `Admin Health`, `Parenting Health`. Phase 2 deepens Social.
 
-**Life Health Rating:** One AskQuestion per category — Healthy or Unhealthy. Store in `weekly_life_health` for Phase 9 commit. Social evidence from Small Talk count is preliminary — Phase 2 deepens.
-
-**Fuel Check (eros):** Per [eros.md](../../self/eros.md). If contaminated/divided two weeks running (check 4-week trends), flag for Phase 8.
+**Fuel Check (eros):** Per [eros.md](../../self/eros.md). Flag for Phase 8 if contaminated/divided two weeks running.
 
 **Capacity gate:** If PHQ-2 ≥ 3 or GAD-2 ≥ 3 or Energy ≤ 4, note reduced work capacity before Phase 3.
 
-### 1.6 Adjustments & Weekly Targets (~3 min)
-
-**Purpose:** Plan concrete mind/body adjustments for the **upcoming** week before touching work.
-
-Propose based on 1.1–1.5 evidence (sleep erratic → fixed wake target; missed strength → realistic floor; low spirit → protected block):
-
-1. **Workout targets** — AskQuestion: Strength sessions target (default 4–5)? Cardio sessions target (0–2)?
-2. **Sleep targets** — Target wake time (e.g. `6:30 AM CT`) and sleep hours target (default 7–7.5h).
-3. **Calendar adjustments** — Propose specific blocks: recovery time, long cardio session, early bedtime wind-down, PTO/rest half-day if wellness screening flagged high anxiety/low energy.
-4. **Week Intentions** — 3–5 bullets (mind/body + max 1–2 personal; **social → Phase 2**; **dev/work → Phase 3**).
-
-Write to Weekly Meeting Log:
-- `Strength Target`, `Cardio Target`, `Sleep Target Hours`, `Target Wake Time`, `Week Intentions`, `Behavioral Adjustments`
-
-**FIELD CHECK — Phase 1:** `Strength Sessions`, `Cardio Sessions`, `Spirit Minutes`, `Journal Count`, `Weight Avg`, `Body Fat Avg`, `Lean Mass Avg`, `Sleep Avg`, `Heart Rate Avg`, `Steps Avg`, `Workout Active Minutes` (+ RHR/HRV if available), `Wake Time Std Dev Min`, `Sleep Schedule Rating`, `Intentions Review`, `PHQ-2 Score`, `GAD-2 Score`, `PHQ-2 Severity`, `GAD-2 Severity`, `Energy Rating`, `Strength Target`, `Cardio Target`, `Sleep Target Hours`, `Target Wake Time`, `Week Intentions`, `Behavioral Adjustments`. **Do not proceed to Phase 2 until complete.**
+**FIELD CHECK — Phase 1:** Last-week KPIs (`Strength Sessions`, `Cardio Sessions`, `Spirit Minutes`, `Journal Count`, `Weight Avg`, `Body Fat Avg`, `Lean Mass Avg`, `Sleep Avg`, `Sleep Nights Tracked`, `Wake/Bedtime Std Dev Min`, `Sleep Schedule Rating`, `Steps Avg`, `Workout Active Minutes`), `Intentions Review`, domain ratings (`Mind Health`, `Fitness Health`, `Sleep Health`, `Work/Social/Admin/Parenting Health`), domain intentions (`Mind/Fitness/Sleep Intentions`), targets (`Strength/Cardio/Sleep Target Hours`, `Target Wake Time`), `Behavioral Adjustments`, wellness screen (`PHQ-2`, `GAD-2`, `Energy`, severities). **Do not proceed to Phase 2 (Social) until complete.**
 
 ## Phase 2: Social Review & Planning (~8 min)
 

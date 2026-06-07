@@ -15,7 +15,7 @@ Chrome Lot's CRM. Domain: `chromelot`.
 
 ### Cold sales pool (weekly plan convention)
 
-During **weekly plan Phase 5**, stale Sales Pipeline 1 deals Aaron no longer actively pursues move to **Pipeline 12** after one-by-one review. Each move requires case-by-case approval before `pipedrive_update_deal`. Stale detection uses the **Stale** label (same signal as CL Bot `stale deals`); fallback: no activity in 14+ days.
+During **weekly plan Phase 6**, stale Sales Pipeline 1 deals Aaron no longer actively pursues move to **Pipeline 12** after one-by-one review. Each move requires case-by-case approval before `pipedrive_update_deal`. Stale detection uses the **Stale** label (same signal as CL Bot `stale deals`); fallback: no activity in 14+ days.
 
 ## CS pipeline stages (Pipeline 6)
 

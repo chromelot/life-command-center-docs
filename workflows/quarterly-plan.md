@@ -28,6 +28,10 @@ Load via the router:
 
 This is the rarest recurring planning session, so it carries the most weight. The goal is not to tactically pick projects and set KPIs — that's mostly the output. The goal is to produce strategic clarity: what matters, what's changed, what we're building toward over the next 2-3 quarters, and what we're deliberately saying no to.
 
+## Execution Protocol (mandatory)
+
+Read `context/workflow-execution.md`. Init `node scripts/workflow-progress.mjs init --workflow quarterly-plan` at start; one Part (A–E) sub-block per turn; advance ledger before proceeding.
+
 ## Procedure
 
 ## Project Assessment Rules (apply everywhere in this workflow)

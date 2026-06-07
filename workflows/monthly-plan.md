@@ -54,6 +54,10 @@ Load via the router. Read these before starting:
 - `context/work/turbo-gear/overview.md` — Phase 3 dev work review
 - `context/skills/quarterly-plan/SKILL.md` — Phase 1c quarterly gate + escalation path
 
+## Execution Protocol (mandatory)
+
+Read `context/workflow-execution.md`. Init `node scripts/workflow-progress.mjs init --workflow monthly-plan` at start; one sub-step per turn; advance ledger before proceeding.
+
 ## Interaction Style
 
 - **One question at a time.** Never present a wall of choices. Walk through decisions sequentially.
