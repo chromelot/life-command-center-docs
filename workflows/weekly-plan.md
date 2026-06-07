@@ -4,7 +4,7 @@
 
 ## Trigger
 
-This skill activates when Aaron says "weekly plan", "weekly meeting", "plan this week", "sprint planning", or "Monday review". Target duration: ~78 minutes (Phase 1 life review ~28 min · Phase 2 work ~45 min · Phase 3 personal + commit ~10 min).
+This skill activates when Aaron says "weekly plan", "weekly meeting", "plan this week", "sprint planning", or "Monday review". Target duration: ~78 minutes (Phase 1 life review ~32 min · Phase 2 work ~45 min · Phase 4 commit ~5 min).
 
 ## Inputs
 
@@ -17,9 +17,8 @@ Load via the router. Read these before starting:
 - `context/systems/knack-fields.md` — Customer + Photographer field references
 - `context/systems/hubstaff.md` — member IDs, weekly-report tool
 - `context/systems/health-data.md` — MCP architecture, expected fields
-- `context/self/values.md` — six categories and current Health statuses (Phase 1.1 context; per-domain ratings in Phase 1 + 2.2 + 3)
-- `context/self/eros.md` — primary fuel doctrine (Phase 1.5 fuel check, Phase 3 integration)
-- `context/self/dating.md` — relationship status + integration guardrails + risk surface (Phase 3)
+- `context/self/values.md` — six categories and current Health statuses (Phase 1.1 context; per-domain ratings in Phase 1 + 2.2)
+- `context/self/eros.md` — primary fuel doctrine (Phase 1.5 fuel check)
 - `context/self/social.md` — sarges, Small Talk targets, isolation signals (Phase 1.5)
 - **Planning context (canonical):** Monthly + Quarterly Meeting Log fields — pulled in Phase 0; see Phase 2.1. `context/self/current-priorities.md` is fallback only.
 - `context/people/index.md` — delegation matrix, 1:1 tracking
@@ -33,11 +32,11 @@ Load via the router. Read these before starting:
 1. **Init ledger** at session start: `node scripts/workflow-progress.mjs init --workflow weekly-plan --week-of <next-monday>`
 2. **Every turn:** `node scripts/workflow-progress.mjs status --workflow weekly-plan` — present only `current_step`
 3. **Phase banner** on every user-facing message: `**[Weekly Plan · Phase X.Y — title]**`
-4. **One sub-step per turn** — never bundle 1.2 + 1.3 + 1.4 + 1.5 (mind / fitness / sleep / social are separate steps)
+4. **One sub-step per turn** — never bundle 1.2 + 1.3 + 1.4 + 1.5 + 1.6 + 1.7 (each life domain is a separate step)
 5. **Table contract is the spec** — each sub-step lists the **exact tables** to present (column headers fixed). Fill every cell from the named data source; use `—` when data is missing. Do not add metrics, sections, or discussion topics outside that step's tables.
 6. **One question per turn** — PHQ-2/GAD-2 items are separate turns
 7. **Advance after complete:** `node scripts/workflow-progress.mjs advance --workflow weekly-plan --step <id>`
-8. **Phase gates:** `node scripts/workflow-progress.mjs gate --workflow weekly-plan --phase <1|2>` before Phase 2 (work) or Phase 3 (personal)
+8. **Phase gates:** `node scripts/workflow-progress.mjs gate --workflow weekly-plan --phase <1|2>` before Phase 2 (work) or Phase 4 (commit)
 9. **Tangents:** fix/interrupt, then resume ledger `current_step` — do not skip ahead
 
 ## Interaction Style
@@ -53,7 +52,7 @@ Each phase ends with an inline **FIELD CHECK** listing its required Weekly Meeti
 
 **Gate rules:**
 - Before **Phase 2 (Work)**: Phase 1 FIELD CHECK (`1.check`) must pass.
-- Before **Phase 3 (Personal)**: Phase 2 work block complete (through `2.8` + `2.check`).
+- Before **Phase 4 (Commit)**: Phase 2 work block complete (through `2.8` + `2.check`).
 - Each phase delivers **only** its table contract (see per-phase **Present** blocks below).
 
 ## Procedure
@@ -168,9 +167,9 @@ DATA INTEGRITY CHECK
 
 ## Phase 1: Life Review (~28 min)
 
-**Purpose:** Values context first, then mind → fitness → sleep → social one domain at a time (review → rate health → set intentions). Mind includes wellness screening. Work health rates in Phase 2.2; Admin/Parenting in Phase 3.
+**Purpose:** Values context first, then mind → fitness → sleep → social → parenting → personal enjoyment — one domain at a time (review → rate health where applicable → set intentions). Mind includes wellness screening. Work health rates in Phase 2.2.
 
-**Phase 1 order:** `1.0` → `1.1` Values → `1.2` Mind (incl. wellness) → `1.3` Fitness → `1.4` Sleep → `1.5` Social → `1.check`
+**Phase 1 order:** `1.0` → `1.1` Values → `1.2` Mind (incl. wellness) → `1.3` Fitness → `1.4` Sleep → `1.5` Social → `1.6` Parenting → `1.7` Personal enjoyment → `1.check`
 
 ### 1.0 Create Weekly Log Entry
 
@@ -416,7 +415,7 @@ Append fitness row to `Intentions Review`.
 
 | Signal | This week | Two weeks running? | → Action |
 |--------|-----------|-------------------|----------|
-| Fuel clean / contaminated / divided | Aaron rates | yes / no | Flag for Phase 3 if contaminated or divided two weeks running |
+| Fuel clean / contaminated / divided | Aaron rates | yes / no | Route to [eros.md](../../self/eros.md) daily container if contaminated or divided two weeks running |
 
 **Table 1.5-F — Social health**
 
@@ -443,6 +442,65 @@ Deprioritized reason → note in `Social Review`. Append social row to `Intentio
 
 Execute calendar/Todoist with approval (Personal Time Blocks calendar `10283d615faeb91862fc0ccd8f3ac216c7299a58f2196185e912be8f3e3cbe83@group.calendar.google.com`). Append booked events to `Social Intentions`.
 
+### 1.6 Parenting — Review · Rate · Intentions (~4 min)
+
+**Data sources:** Prior week's `Parenting Intentions`, custody calendar (Phase 0), prior week's Weekly Meeting Log parenting notes.
+
+**Present exactly these tables in order** (health and intentions separate turns):
+
+**Table 1.6-A — Prior parenting intention**
+
+| Last week's `Parenting Intentions` | Evidence | Met? |
+|------------------------------------|----------|------|
+| (each line) | 1-line summary | ✓ / ~ / ✗ |
+
+**Table 1.6-B — Parenting review (last week)**
+
+| Metric | Last Week |
+|--------|-----------|
+| Custody schedule | days / pattern |
+| Activities planned vs done | |
+| Quality of time together | 1-line |
+
+**Table 1.6-C — Parenting insights**
+
+| Insight 1 | Insight 2 |
+|-----------|-----------|
+| | |
+
+**Table 1.6-D — Parenting health**
+
+| Rating | → Notion field |
+|--------|----------------|
+| Healthy / Unhealthy | `Parenting Health` |
+
+**Table 1.6-E — Parenting intentions (upcoming week)**
+
+| Intentions (1–3 bullets) | → Notion field |
+|--------------------------|----------------|
+| e.g. custody activities, quality time blocks | `Parenting Intentions` |
+
+Append parenting row to `Intentions Review`.
+
+### 1.7 Personal Enjoyment (~2 min)
+
+**Present exactly these tables:**
+
+**Table 1.7-A — Last week**
+
+| Item | Detail |
+|------|--------|
+| Purely fun on calendar | list events (beyond Phase 1.5 social pre-commit) |
+| Unscheduled enjoyment | anything fun not on calendar |
+
+**Table 1.7-B — Enjoyment intention (upcoming week)**
+
+| Intention (1–2 bullets) | On calendar? |
+|-------------------------|--------------|
+| what fun to plan or protect | yes / no / propose block |
+
+→ Write `Personal Enjoyment` (rich_text — last week + forward intention). Propose Personal Time Blocks calendar events with approval.
+
 **FIELD CHECK — Phase 1** *(Table 1.check)*
 
 | Group | Required Notion fields |
@@ -451,6 +509,8 @@ Execute calendar/Todoist with approval (Personal Time Blocks calendar `10283d615
 | 1.2 | `Intentions Review` (mind row), `Mind Health`, `Mind Intentions`, `PHQ-2 Score`, `GAD-2 Score`, `Energy Rating`, `PHQ-2 Severity`, `GAD-2 Severity` |
 | 1.3–1.4 | `Fitness/Sleep Health`, `Fitness/Sleep Intentions`, `Strength Target`, `Cardio Target`, `Sleep Target Hours`, `Target Wake Time`, `Behavioral Adjustments` |
 | 1.5 | `Small Talk Count`, `Social Events Count`, `Social Review`, `Social Intentions Met`, `Social Health`, `Social Priority`, `Social Intentions` |
+| 1.6 | `Parenting Health`, `Parenting Intentions` |
+| 1.7 | `Personal Enjoyment` |
 
 **Do not proceed to Phase 2 (Work) until Table 1.check passes.**
 
@@ -780,56 +840,7 @@ Then state the **active repair sprint** from Phase 2.1 `Active CL Sprint` (seque
 
 **Outputs:** Todoist tasks for photographer actions. Calendar events for 1:1 meetings. Knack updates for missing performance grades (with approval). Teams messages if needed.
 
-**Do not proceed to Phase 3 (Personal) until Phase 2 work block is complete.**
-
-## Phase 3: Personal Life (~5 min)
-
-**Present exactly these tables:**
-
-**Table 3.1 — Parenting**
-
-| Question | Answer | → Notion field |
-|----------|--------|----------------|
-| Parenting Health | Healthy / Unhealthy | `Parenting Health` |
-| Custody schedule this week | | |
-| Activities planned | | |
-| Quality of recent time together | | |
-
-**Table 3.2 — Relationship integration** *(see [dating.md](../../self/dating.md))*
-
-| Signal | Answer |
-|--------|--------|
-| Present & integrated vs divided/hiding | |
-| Eros clean / contaminated / divided | |
-| Impact on morning keystone, sleep, Bus time | |
-| Work/relationship boundary concerns | |
-| Fuel flag from Table 1.5-E (two weeks running) | route to [eros.md](../../self/eros.md) daily container if yes |
-
-**Table 3.3 — Compulsion scan**
-
-| Pattern | Present? | Notes |
-|---------|----------|-------|
-| Apps / substances / avoidance / hidden space | yes / no | per [capacity-rules.md](../../systems/capacity-rules.md) |
-
-**Table 3.4 — Personal enjoyment**
-
-| Item | On calendar? |
-|------|--------------|
-| Purely fun (beyond Phase 1.5 social pre-commit) | |
-
-**Table 3.5 — Admin health**
-
-| Rating | 1-line actual last week | → Notion field |
-|--------|-------------------------|----------------|
-| Healthy / Unhealthy | | `Admin Health` |
-
-**Table 3.6 — Unhealthy Values follow-up**
-
-| Category (Unhealthy anywhere this week) | Discussion note |
-|----------------------------------------|-----------------|
-| (one row per Unhealthy category) | |
-
-**Outputs:** Calendar blocks for personal time (use Personal Time Blocks calendar `10283d615faeb91862fc0ccd8f3ac216c7299a58f2196185e912be8f3e3cbe83@group.calendar.google.com`). Todoist reminders if needed.
+**Do not proceed to Phase 4 (Commit) until Phase 2 work block is complete.**
 
 ## Phase 4: Commit (~5 min)
 
@@ -840,7 +851,7 @@ Then state the **active repair sprint** from Phase 2.1 `Active CL Sprint` (seque
 3. **Confirm "This Week" checkboxes:** Verify all selected Dev Projects have `This Week = true` and no deselected ones still have it checked.
 4. **Store project KPIs on Weekly Meeting Log:** Write `Projects Completed` (count of projects marked Done this week) and `Projects In Progress` (count of projects with This Week checked for the new week).
 5. **Store activity KPIs on Weekly Meeting Log:** Write `Aaron Activities`, `Lexie Activities`, `Tristen Activities`, `Ran Activities`, `Total Activities` (if not already set in Phase 2.5).
-6. **Verify all FIELD CHECKs (REQUIRED):** Re-run Phase 1 (`1.check`), Phase 2 (`2.check` + CL ops), and confirm Phase 3 fields. Confirm nothing is blank without N/A + reason.
+6. **Verify all FIELD CHECKs (REQUIRED):** Re-run Phase 1 (`1.check`) and Phase 2 (`2.check` + CL ops). Confirm nothing is blank without N/A + reason.
 7. **Append per-user Pipedrive detail sections** to the Weekly Meeting Log page using `personal_notion_append_blocks`. Use the Pipedrive data already pulled in Phase 0 (completed activities from the past 7 days + all open activities per user). Append the following structure:
 
    ```
@@ -877,9 +888,9 @@ Then state the **active repair sprint** from Phase 2.1 `Active CL Sprint` (seque
 
    Each activity line: `[type] subject -- deal name -- date`. For completed activities, show `marked_as_done_time` date. For open activities, show `due_date`. Prefix overdue open activities with `[OVERDUE]`. If a user has 0 activities in a section, show "None" instead of an empty list. Use `---` dividers between users.
 
-8. **Record life health ratings (REQUIRED):** Verify all 6 selects are set — `Mind Health` (→ `Spirituality Health` in Phase 4), `Fitness Health` (1.3), `Social Health` (1.5), `Work Health` (2.2), `Admin Health` (3.5), `Parenting Health` (3.1). Values: `Healthy` or `Unhealthy`.
+8. **Record life health ratings (REQUIRED):** Verify weekly-rated selects are set — `Mind Health` (→ `Spirituality Health` in Phase 4), `Fitness Health` (1.3), `Social Health` (1.5), `Parenting Health` (1.6), `Work Health` (2.2). Values: `Healthy` or `Unhealthy`. Admin is not rated in weekly plan.
 9. **Update Values DB Health (with approval):** For each category where this week's rating differs from current Values DB Health, update via `personal_notion_update_page` on the category page in Values DB (`342f40c2-487b-80c5`).
-10. **Record Starved Values:** Derive from life health ratings — set `Starved Values` multi_select to every category rated **Unhealthy** (Spirituality, Fitness, Work, Social, Admin, Parenting). Do not use a separate "felt off-track" question; health ratings are the source of truth.
+10. **Record Starved Values:** Derive from weekly health ratings — set `Starved Values` multi_select to every **rated** category marked **Unhealthy** (Spirituality, Fitness, Work, Social, Parenting). Admin excluded from weekly rating.
 11. **Confirm accomplishment fields (REQUIRED):** Verify Phase 2.2 wrote `Logged/Unlogged/Total Accomplishments Count`, `Focused Output Hours Estimate`, and `Accomplishments`. Backfill from habit summary if missing.
 12. **Body comp already persisted.** Withings written in Phase 0 (`--days 28`). Don't re-run here.
 13. **Execute remaining:** Create any Todoist/Calendar/Pipedrive/Notion items not yet committed during earlier phases.
@@ -888,7 +899,7 @@ Then state the **active repair sprint** from Phase 2.1 `Active CL Sprint` (seque
 
 ## Cross-Cutting Rules
 
-- **Table contract per phase.** Phase 1 = Values → Mind → Fitness → Sleep → Social → `1.check`. Phase 2 = development (`2.1`–`2.4` + `2.check`) + CL ops (`2.5`–`2.8`). Phase 3 = personal tables. Ledger `current_step` determines which tables are in scope.
+- **Table contract per phase.** Phase 1 = Values → Mind → Fitness → Sleep → Social → Parenting → Personal enjoyment → `1.check`. Phase 2 = development (`2.1`–`2.4` + `2.check`) + CL ops (`2.5`–`2.8`). Ledger `current_step` determines which tables are in scope.
 - **FIELD CHECK gates.** Run `1.check` before Phase 2 work; `2.check` after development; verify all in Phase 4 commit.
 - **Retire-a-slice (catch-up forcing).** Name the slice in Phase 2.5 CL Currency Check; confirm at Phase 4 commit it was archived / scheduled / assigned an owner.
 - **Route every item into a bucket.** Each surfaced item is Automated (n8n), Delegated (team 1:1s), or a Scheduled slice (calendar + Todoist mirror).
@@ -905,9 +916,8 @@ Then state the **active repair sprint** from Phase 2.1 `Active CL Sprint` (seque
 - **Pre-Phase 0:** Monthly plan gate pass (or full monthly plan run + resume).
 - **Phase 0:** Wellness + social + work data pulls; trend files; 4-week log history.
 - **Phase 0b:** Data integrity table; remediation before Phase 1.
-- **Phase 1:** Life review (values, mind, fitness, sleep, social) + targets on Weekly Meeting Log.
+- **Phase 1:** Life review (values, mind, fitness, sleep, social, parenting, personal enjoyment) + targets on Weekly Meeting Log.
 - **Phase 2:** All work — dev review, CL ops, CS, sales, people.
-- **Phase 3:** Personal (parenting, relationship, compulsion, admin health).
 - **Phase 4:** Full Weekly Meeting Log finalized + all FIELD CHECKs; Values DB sync (with approval).
 
 ## Failure modes & graceful degradation
