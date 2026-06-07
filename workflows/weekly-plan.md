@@ -112,7 +112,7 @@ node "scripts/social-phase-pull.mjs"
 Output: stdout **Small Talk list, days since last entry, daily counts, calendar social events** for the review week. Canonical source for Phase 1.5 Tables 1.5-B/C. Also run after logging a new Small Talk entry mid-session.
 
 - **Small Talk DB** (`121f40c2-487b-802d`): script queries all entries; uses `Created Date` when set.
-- **Google Calendar (last 7 days):** script pulls primary + Personal Time Blocks (`10283d615faeb91862fc0ccd8f3ac216c7299a58f2196185e912be8f3e3cbe83@group.calendar.google.com`). Flags social-looking events (fitness classes, hangouts, Meetup, etc.; skips Morning Routine / Business Development blocks). Count → `Social Events Count`.
+- **Google Calendar (last 7 days):** script pulls **Personal calendar only** (`hoegenauera@gmail.com` — actual booked events). **Exclude** Personal Time Blocks (`10283d615…@group.calendar.google.com`) — those are time-spending goals, not real events. Flags social-looking events (hangouts, Meetup, dates, fitness classes, etc.). Count → `Social Events Count`.
 
 ### Development + work pulls (after wellness/social; silent until Phase 2+)
 
