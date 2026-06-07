@@ -4,7 +4,7 @@
 
 ## Trigger
 
-This skill activates when Aaron says "weekly plan", "weekly meeting", "plan this week", "sprint planning", or "Monday review". Target duration: ~73 minutes (mind/body ~18 min + social ~8 min before work).
+This skill activates when Aaron says "weekly plan", "weekly meeting", "plan this week", "sprint planning", or "Monday review". Target duration: ~78 minutes (mind/body ~18 min + social ~8 min + development ~22 min before CL operating phases).
 
 ## Inputs
 
@@ -18,15 +18,15 @@ Load via the router. Read these before starting:
 - `context/systems/hubstaff.md` — member IDs, weekly-report tool
 - `context/systems/health-data.md` — MCP architecture, expected fields
 - `context/self/values.md` — six categories and current Health statuses (Phase 1 Values Pulse)
-- `context/self/eros.md` — primary fuel doctrine (Phase 1 Fuel Check, Phase 9 integration)
-- `context/self/dating.md` — relationship status + integration guardrails + risk surface (Phase 9)
+- `context/self/eros.md` — primary fuel doctrine (Phase 1 Fuel Check, Phase 8 integration)
+- `context/self/dating.md` — relationship status + integration guardrails + risk surface (Phase 8)
 - `context/self/social.md` — sarges, Small Talk targets, isolation signals (Phase 2)
-- **Planning context (canonical):** Monthly + Quarterly Meeting Log fields — pulled in Phase 0; see Phase 3. `context/self/current-priorities.md` is fallback only.
+- **Planning context (canonical):** Monthly + Quarterly Meeting Log fields — pulled in Phase 0; see Phase 3.1. `context/self/current-priorities.md` is fallback only.
 - `context/people/index.md` — delegation matrix, 1:1 tracking
-- `context/work/chrome-lot/customer-service.md` — Phase 6 logic
-- `context/work/chrome-lot/sales.md` — Phase 7 logic
-- `context/work/chrome-lot/operations.md` — Phase 8 photographer review logic
-- `context/work/turbo-gear/overview.md` — TG strategic sequence (for Phase 5 project selection)
+- `context/work/chrome-lot/customer-service.md` — Phase 5 logic
+- `context/work/chrome-lot/sales.md` — Phase 6 logic
+- `context/work/chrome-lot/operations.md` — Phase 7 photographer review logic
+- `context/work/turbo-gear/overview.md` — TG strategic sequence (for Phase 3.4 project selection)
 
 ## Interaction Style
 
@@ -35,24 +35,14 @@ Load via the router. Read these before starting:
 - **Exclude Shopping List** (Todoist project `6W36wRPXj8qC2RCc`) from all analysis.
 - **Data integrity:** All Knack/Pipedrive/Notion/Todoist write operations require explicit user approval before execution (Todoist case-by-case - never batch or assume).
 
-## Required Notion fields by section
+## Required Notion fields — index
 
-Every phase that ends with log writes must populate its fields **before leaving the phase** (or confirm at Phase 10 gate). Agent presents a one-line **FIELD CHECK** checklist at each section boundary.
+Each phase ends with an inline **FIELD CHECK** listing its required Weekly Meeting Log properties. Phase 9 (Commit) verifies all sections. Monthly planning context lives on **Monthly Meeting Log** (`Priority Stack`, `Domains Parked`, `Active CL Sprint`) — backfill in Phase 3.1 if missing.
 
-| Section | Phase | Required Weekly Meeting Log fields |
-|---------|-------|-----------------------------------|
-| Mind & Body | 1.1 | `Strength Sessions`, `Cardio Sessions`, `Spirit Minutes`, `Journal Count`, `Weight Avg`, `Body Fat Avg`, `Lean Mass Avg`, `Sleep Avg`, `Heart Rate Avg`, `Steps Avg`, `Workout Active Minutes` (+ RHR/HRV if available) |
-| Mind & Body | 1.2 | `Wake Time Std Dev Min`, `Sleep Schedule Rating` |
-| Mind & Body | 1.3 | `Intentions Review` |
-| Mind & Body | 1.4 | `PHQ-2 Score`, `GAD-2 Score`, `PHQ-2 Severity`, `GAD-2 Severity`, `Energy Rating` |
-| Mind & Body | 1.5 | (session state `weekly_life_health` — written Phase 10) |
-| Mind & Body | 1.6 | `Strength Target`, `Cardio Target`, `Sleep Target Hours`, `Target Wake Time`, `Week Intentions`, `Behavioral Adjustments` |
-| Social | 2 | `Small Talk Count`, `Social Events Count`, `Social Review`, `Social Intentions Met`, `Social Priority`, `Social Intentions` |
-| Work review | 4 | `Deep Work Minutes`, `Ops Minutes`, `Field Work Minutes`, `Aaron/Lexie/Tristen/Ran/Total Activities` |
-| Work review | 4 | `Accomplishments`, `Logged/Unlogged/Total Accomplishments Count`, `Focused Output Hours Estimate` (at Phase 10 if not earlier) |
-| Commit | 10 | `Spirituality/Fitness/Work/Social/Admin/Parenting Health`, `Starved Values`, `Projects Completed`, `Projects In Progress`, `Key Decisions`, `Action Items` + **verify all rows above** |
-
-**Gate rule:** Before Phase 3 (planning context), Phases 1 + 2 field rows must be complete or explicitly marked N/A with reason in the log.
+**Gate rules:**
+- Before **Phase 3 (Development)**: Phases 1 + 2 FIELD CHECKs must pass.
+- Before **Phase 4 (CL Operations)**: Phase 3 FIELD CHECK must pass.
+- No CL operating discussion (Phases 4+) during Phases 1–3.
 
 ## Procedure
 
@@ -67,7 +57,7 @@ The weekly plan assumes a committed monthly frame. Do not start Phase 0 until th
    - **Pause** this workflow. Run `context/skills/monthly-plan/SKILL.md` end-to-end.
    - After monthly plan Phase 12 commits the review-month entry, **resume** weekly plan from Phase 0 below.
    - Do **not** offer to skip or proceed weekly-only — monthly plan is a hard prerequisite.
-4. **If entry exists:** Hold it for Phase 3. Continue to Phase 0.
+4. **If entry exists:** Hold for Phase 3.1. Continue to Phase 0.
 
 ## Phase 0: Data Pull (silent, before conversation)
 
@@ -103,7 +93,7 @@ Also query **Weekly Meeting Log** (`322f40c2-487b-81bd`) — last **4 entries** 
 - **Small Talk DB** (`121f40c2-487b-802d`): all entries from **last 7 days** — list Description + Created Date (habit summary has count; Phase 2 needs the list).
 - **Google Calendar (last 7 days):** Pull Aaron's primary + Personal Time Blocks calendars. Flag events that look social: friend hangouts, fitness classes, group events, Meetup, dates (non-work). Count → `Social Events Count`.
 
-### Work pulls (after wellness/social data; silent until Phase 4+)
+### Development + work pulls (after wellness/social; silent until Phase 3+)
 
 ```
 node "scripts/weekly-data-pull.mjs"
@@ -238,7 +228,7 @@ Derive severity selects (None / Mild / Moderate / Moderately Severe / Severe) pe
 
 **Manual Values Review:** Link to [Values Database](https://www.notion.so/342f40c2487b80c5a2aee48ca48b4a20). Wait for confirmation.
 
-Present Values Pulse table (spirituality/fitness focus — work metrics deferred to Phase 4; social deep-dive in Phase 2):
+Present Values Pulse table (spirituality/fitness focus — work metrics deferred to Phase 3; social deep-dive in Phase 2):
 
 ```
 VALUES PULSE -- HEALTH + TIME TARGETS vs. ACTUAL
@@ -263,11 +253,11 @@ The actual columns map to source DBs like this:
 - **Social** -> Small Talk (`121f40c2-487b-802d`) count
 - **Admin, Parenting** -> no direct time KPI (qualitative reflection)
 
-**Life Health Rating:** One AskQuestion per category — Healthy or Unhealthy. Store in `weekly_life_health` for Phase 10 commit. Social evidence from Small Talk count is preliminary — Phase 2 deepens.
+**Life Health Rating:** One AskQuestion per category — Healthy or Unhealthy. Store in `weekly_life_health` for Phase 9 commit. Social evidence from Small Talk count is preliminary — Phase 2 deepens.
 
-**Fuel Check (eros):** Per [eros.md](../../self/eros.md). If contaminated/divided two weeks running (check 4-week trends), flag for Phase 9.
+**Fuel Check (eros):** Per [eros.md](../../self/eros.md). If contaminated/divided two weeks running (check 4-week trends), flag for Phase 8.
 
-**Capacity gate:** If PHQ-2 ≥ 3 or GAD-2 ≥ 3 or Energy ≤ 4, note reduced work capacity before Phase 4.
+**Capacity gate:** If PHQ-2 ≥ 3 or GAD-2 ≥ 3 or Energy ≤ 4, note reduced work capacity before Phase 3.
 
 ### 1.6 Adjustments & Weekly Targets (~3 min)
 
@@ -278,12 +268,12 @@ Propose based on 1.1–1.5 evidence (sleep erratic → fixed wake target; missed
 1. **Workout targets** — AskQuestion: Strength sessions target (default 4–5)? Cardio sessions target (0–2)?
 2. **Sleep targets** — Target wake time (e.g. `6:30 AM CT`) and sleep hours target (default 7–7.5h).
 3. **Calendar adjustments** — Propose specific blocks: recovery time, long cardio session, early bedtime wind-down, PTO/rest half-day if wellness screening flagged high anxiety/low energy.
-4. **Week Intentions** — 3–5 bullets (mind/body + max 1–2 personal; **social → Phase 2**; work → Phase 5).
+4. **Week Intentions** — 3–5 bullets (mind/body + max 1–2 personal; **social → Phase 2**; **dev/work → Phase 3**).
 
 Write to Weekly Meeting Log:
 - `Strength Target`, `Cardio Target`, `Sleep Target Hours`, `Target Wake Time`, `Week Intentions`, `Behavioral Adjustments`
 
-**Outputs:** Present **FIELD CHECK — Phase 1** against the Mind & Body rows in the table above. Mind/body plan captured on Weekly Meeting Log. **Do not proceed to Phase 2 until complete.**
+**FIELD CHECK — Phase 1:** `Strength Sessions`, `Cardio Sessions`, `Spirit Minutes`, `Journal Count`, `Weight Avg`, `Body Fat Avg`, `Lean Mass Avg`, `Sleep Avg`, `Heart Rate Avg`, `Steps Avg`, `Workout Active Minutes` (+ RHR/HRV if available), `Wake Time Std Dev Min`, `Sleep Schedule Rating`, `Intentions Review`, `PHQ-2 Score`, `GAD-2 Score`, `PHQ-2 Severity`, `GAD-2 Severity`, `Energy Rating`, `Strength Target`, `Cardio Target`, `Sleep Target Hours`, `Target Wake Time`, `Week Intentions`, `Behavioral Adjustments`. **Do not proceed to Phase 2 until complete.**
 
 ## Phase 2: Social Review & Planning (~8 min)
 
@@ -349,52 +339,117 @@ AskQuestion: **Pre-commit tactic this week?**
 
 Execute with approval: calendar events on Personal Time Blocks calendar (`10283d615faeb91862fc0ccd8f3ac216c7299a58f2196185e912be8f3e3cbe83@group.calendar.google.com`) or Todoist reminder. Append booked events to `Social Intentions`.
 
-**Outputs:** Present **FIELD CHECK — Phase 2** against Social rows. **Do not proceed to Phase 3 (work/planning) until Phases 1 + 2 fields are complete.**
+**FIELD CHECK — Phase 2:** `Small Talk Count`, `Social Events Count`, `Social Review`, `Social Intentions Met`, `Social Priority`, `Social Intentions`. **Do not proceed to Phase 3 until Phases 1 + 2 are complete.**
 
-## Phase 3: Planning Context Review (~3 min)
+## Phase 3: Development Review & Planning (~22 min)
 
-**Purpose:** Ground the week in committed quarter + month context before tactical project selection. **Do not infer priorities from skill text or `current-priorities.md` when log fields are populated.**
+**Purpose:** Ground in **monthly development priorities**, honestly review last week's dev output, then queue next week's project slate — **before** CL operating phases (Pipedrive currency, CS, sales). Mind/body is Phase 1; social is Phase 2.
+
+Load: `weekly-wellness-trends-*.md` (dev KPI trends), `weekly-habits-*.md` (completed projects + actionable slate + unlogged sweep), Phase 0 monthly/quarterly log pulls, prior week `Dev Intentions` + `Dev Projects Intended`.
+
+### 3.1 Current Development Priority (~4 min)
+
+**Purpose:** Name the larger-scale priority frame before reviewing last week.
 
 Present from Phase 0 pulls:
 
 ```
-PLANNING CONTEXT — week of [YYYY-MM-DD]
+DEVELOPMENT PRIORITY CONTEXT — week of [YYYY-MM-DD]
 | Source | Field | Value |
 |--------|-------|-------|
 | Quarterly ([Q# YYYY]) | Priority Stack | numbered list from Quarterly Meeting Log |
-| Quarterly | Domains Parked | multi-select (empty = nothing parked at quarter level) |
-| Monthly ([planning month]) | Priority Stack | numbered list from review-month Monthly Log |
-| Monthly | Domains Parked | multi-select — **authoritative for what's on pause this week** |
+| Quarterly | Domains Parked | multi-select |
+| Monthly ([planning month]) | Priority Stack | numbered list — **authoritative dev focus** |
+| Monthly | Domains Parked | multi-select — **what's on pause** (e.g. Turbo Gear) |
 | Monthly | Active CL Sprint | select — current CL repair sprint (A–E or Maintenance) |
-| Monthly | Action Items | bullet summary (planning month commitments) |
-| Monthly | Key Wins / Misses | one line each from review month close-out |
+| Monthly | Action Items | planning-month commitments |
 ```
 
-**Enforcement rules (read aloud if violated):**
-- If `Domains Parked` includes **Turbo Gear**, do not select TG Dev Projects in Phase 5 unless Aaron explicitly overrides this week.
-- `Active CL Sprint` drives Phase 4 CL Currency Check — name the sprint from the log, not from memory.
-- If `Priority Stack` or `Domains Parked` is empty on the Monthly Log, fall back to Quarterly Log, then `context/self/current-priorities.md`, and flag: "Planning context incomplete — rerun monthly Phase 11b next month."
+**Monthly log backfill gate:** If review-month Monthly Log is missing `Priority Stack`, `Domains Parked`, or `Active CL Sprint`:
+1. Pull from Quarterly Log → `context/self/current-priorities.md` as draft.
+2. Ask Aaron to confirm values (AskQuestion per field or one confirmation).
+3. Write to Monthly Meeting Log with approval (`personal_notion_update_page`).
+4. Flag: "Planning context was backfilled — rerun monthly Phase 11b properly next month."
 
-Ask via AskQuestion (multi-select): "Anything from the planning context that must get a slice **this** week?" Options: one per `Priority Stack` line + one per distinct `Action Items` theme + "None — plan is on track as written."
+Write snapshot to Weekly Meeting Log `Dev Priority Context` (rich_text — copy the table narrative).
 
-**Outputs:** Flagged priorities carried into Phase 5 (One Thing check, capacity sanity) and Phase 10 commit. No Notion writes.
+**Enforcement (read aloud):**
+- If `Domains Parked` includes **Turbo Gear**, do not select TG Dev Projects in 3.4 unless Aaron explicitly overrides.
+- `Active CL Sprint` drives Phase 4 CL Currency Check.
 
-## Phase 4: Work Review (~10 min)
+Ask via AskQuestion (multi-select): "Anything from the priority context that must get a dev slice **this** week?" Options: one per `Priority Stack` line + one per distinct `Action Items` theme + "None — on track as written."
 
-**Purpose:** Review last week's work output and operating currency. Mind/body scorecard is in Phase 1 — do not repeat.
+### 3.2 Last Week — Development Scorecard (~7 min)
 
-### Part A -- Work Habit Metrics (last week)
+```
+DEVELOPMENT SCORECARD — LAST WEEK
+| Metric | Last Wk | 4-wk trend | Notes |
+|--------|---------|------------|-------|
+| Deep Work Minutes | | from trends file | Business Dev DB |
+| Ops Minutes | | | CL ops crowding dev? |
+| Field Work Minutes | | | |
+| Logged accomplishments | | | Dev Projects → Done |
+| Unlogged (Aaron-flagged) | | | from sweep |
+| Total accomplishments | | | logged + unlogged |
+| Focused output hours est. | | | trend signal |
+```
 
-| Metric | Last Wk | Notes |
-|--------|---------|-------|
-| Deep Work Minutes | | |
-| Ops Minutes | | Monitor vs dev crowding |
-| Field Work Minutes | | |
-| Small Talk Count | | |
+**What was set out:** Read prior week's `Dev Intentions` + `Dev Projects Intended` (or infer from Dev Projects with `This Week = true` last week via habit summary completed section + carryover list).
 
-Write to Weekly Meeting Log if not already set.
+**What shipped:**
+1. **Logged:** Dev Projects marked Done last 7 days — list from `weekly-habits-*.md` "Dev Projects completed" section, grouped Personal / Chrome Lot / Turbo Gear.
+2. **Unlogged accomplishments sweep** (data from Phase 0 / habit summary footer):
 
-### Part B -- Pipedrive Activity Scorecard
+```
+UNLOGGED ACCOMPLISHMENTS -- LAST 7 DAYS
+| Source | Count | Highlights |
+```
+
+After presenting, ask: "Any of these count as meaningful shipped slices?" Fold Aaron-flagged items into the accomplishment narrative.
+
+**Project-by-project narrative:** For each parent that had `This Week` items last week — quick story: done / stalled / why. Mark Done sub-items with approval. Defer 3+ times → delegation framework.
+
+AskQuestion (single): **How did last week go overall?** → maps to `Dev Week Rating`: Exceeded / Met / Partial / Missed / Deprioritized.
+
+If prior week had `Dev Intentions`, write `Dev Intentions Met` (same scale + N/A).
+
+Write: `Deep Work Minutes`, `Ops Minutes`, `Field Work Minutes`, `Logged/Unlogged/Total Accomplishments Count`, `Focused Output Hours Estimate`, `Accomplishments` (narrative bullets), `Dev Review` (rich_text — scorecard + intended vs actual + rating).
+
+### 3.3 Trend Assessment (~3 min)
+
+From `weekly-wellness-trends-*.md` dev columns + last 4 weeks of `Dev Week Rating` / accomplishment counts (when populated):
+
+State 2–3 qualitative bullets — e.g., deep work minutes rising but accomplishments flat; CL ops eating dev time; strong ship week hidden by low logging.
+
+Write `Dev Trend Notes`.
+
+### 3.4 Plan Next Week (~8 min)
+
+**Capacity assessment:** Combine Hubstaff last week, Phase 1 wellness gate (PHQ/GAD/Energy), calendar load, and 3.3 trends. State realistic dev hours available (~25h baseline minus trip/PTO/custody).
+
+Write `Dev Capacity Note`. If underperforming vs intentions, propose concrete moves (drop a slice, defer TG, protect morning block, delegate) → `Dev Adjustments`.
+
+**Queue projects (Notion `This Week`):**
+1. Tell Aaron: "Open Dev Projects and toggle `This Week = true` on every project/sub-item you intend this week." [Dev Projects](https://www.notion.so/341f40c2487b80acae1fd344d334096c) — wait for confirmation.
+2. Read **"This Week — actionable slate"** from `weekly-habits-*.md`. Group by parent; show Type/Status/Completion/Due Date.
+3. **One Thing check** (AskQuestion, single-select parent): capture in `Key Decisions`.
+4. **Capacity sanity:** >12 sub-items or >available hours → recommend a cut before proceeding.
+
+Write `Dev Intentions` (1–3 bullets — the week's dev focus) + `Dev Projects Intended` (snapshot list of selected sub-items/parents).
+
+**Personal projects → Todoist (required for Personal-type selections):**
+Personal work does not run in the protected dev block. For each **Personal** sub-item selected:
+1. Decide when in the week (day/slot) with Aaron.
+2. Propose Todoist mirror (due date, project) — **case-by-case approval before create**.
+3. Custody items: 1–2 concrete tasks in planned slot, not a floating worry.
+
+**FIELD CHECK — Phase 3:** `Dev Priority Context`, `Deep Work Minutes`, `Ops Minutes`, `Field Work Minutes`, `Dev Review`, `Dev Week Rating`, `Dev Intentions Met`, `Dev Trend Notes`, `Dev Capacity Note`, `Dev Adjustments`, `Dev Intentions`, `Dev Projects Intended`, `Accomplishments`, `Logged/Unlogged/Total Accomplishments Count`, `Focused Output Hours Estimate`. **Do not proceed to Phase 4 until complete.**
+
+## Phase 4: CL Operations Review (~8 min)
+
+**Purpose:** Pipedrive activity scorecard + CL operating currency. Development review is Phase 3 — do not repeat project selection here.
+
+### Part A -- Pipedrive Activity Scorecard
 
 Pull completed activities for the past week using `pipedrive_get_activities` with `done: "1"` and `updated_since` set to the Monday of the target week. Filter results client-side to activities where `marked_as_done_time` falls within the 7-day window. Present as:
 
@@ -413,7 +468,7 @@ COMPLETED ACTIVITIES -- WEEK-OVER-WEEK
 
 **Store per-user totals on the Weekly Meeting Log entry:** Aaron Activities, Lexie Activities, Tristen Activities, Ran Activities, Total Activities.
 
-### Part C -- Chrome Lot Currency Check (catch-up forcing)
+### Part B -- Chrome Lot Currency Check (catch-up forcing)
 
 **Purpose:** surface, in one glance, how far behind the operating business is, so the meeting orients around *retiring* backlog rather than just re-planning. Present a small standing scorecard from data already pulled in Phase 0:
 
@@ -428,106 +483,11 @@ CL CURRENCY CHECK
 | Photographers w/ missing grade  |             |                  |
 ```
 
-Then state the **active repair sprint** from the Monthly Log `Active CL Sprint` field (sequence: A Pipedrive+Todoist → B 1:1 cadence → C customer service → D photographer performance → E sales → Maintenance). Name the specific backlog slice this meeting will retire. This feeds the retire-a-slice rule at commit.
+Then state the **active repair sprint** from Phase 3.1 `Active CL Sprint` (sequence: A Pipedrive+Todoist → B 1:1 cadence → C customer service → D photographer performance → E sales → Maintenance). Name the specific backlog slice this meeting will retire. This feeds the retire-a-slice rule at commit.
 
-### Part D -- Project Review
+**FIELD CHECK — Phase 4:** `Aaron Activities`, `Lexie Activities`, `Tristen Activities`, `Ran Activities`, `Total Activities`.
 
-Pull Dev Projects where `This Week = true` (last week's selections, including sub-items):
-1. Group items by top-level parent. For each parent, list selected sub-items + their statuses.
-2. Ask Aaron for a quick narrative per parent: which sub-items got done, which didn't move, why?
-3. **Sub-items are the unit of completion.** Mark Done sub-items with `Status = Done`. Their `This Week = true` stays as historical record OR can be unchecked -- Aaron's choice. Phase 5's manual selection is what defines next week's `This Week` set.
-4. **Parent-level closure:** A parent is only marked `Status = Done` when ALL its sub-items are Done. Otherwise it stays In progress and continues across weeks naturally.
-5. For sub-items that didn't move at all and were carryover from a previous week, decide: keep, defer, delegate, or drop. If deferred 3+ times, route through the delegation framework before keeping.
-
-**Outputs:** Sub-item Status updates where applicable. Aaron resets `This Week` during Phase 5 in Notion.
-
-### Part E -- Unlogged Accomplishments Sweep
-
-**Purpose:** Surface shipped work that isn't tracked in Dev Projects DB, so the weekly briefing reflects the *full* week's output. Aaron frequently ships meaningful work organically (bot deploys, n8n workflow updates, ad-hoc system fixes, infra changes) that never gets a Notion project entry. Without this sweep, those wins are invisible to the weekly plan and Aaron undercounts his own throughput, which distorts capacity calibration for the following week.
-
-Pull from these sources (silent in Phase 0, present here):
-
-1. **Code changes in workspace (last 7 days):**
-   - **If workspace has `.git`:** run `git log --since="7 days ago" --pretty=format:'%h | %ad | %s' --date=short`. Group commits by directory/component. Highlight any commit cluster with 5+ commits or any commit touching a deploy script (`deploy-*.mjs`).
-   - **If no git** (this workspace currently doesn't have `.git`): fall back to file-mtime scan via Node script:
-     ```
-     node -e "const {readdirSync,statSync}=require('fs');const path=require('path');const cutoff=Date.now()-7*86400000;function walk(d){const out=[];try{for(const e of readdirSync(d,{withFileTypes:true})){if(e.name.startsWith('.')||e.name==='node_modules')continue;const p=path.join(d,e.name);if(e.isDirectory())out.push(...walk(p));else{const s=statSync(p);if(s.mtimeMs>=cutoff)out.push({p,mt:s.mtimeMs});}}}catch{}return out;}const dirs=['scripts','n8n','context','mcp'];const all=dirs.flatMap(d=>walk(d));all.sort((a,b)=>b.mt-a.mt);for(const f of all)console.log(new Date(f.mt).toISOString().slice(0,10)+' | '+f.p);"
-     ```
-   - Group resulting files by top-level directory. Flag any cluster with 5+ files or any deploy/build artifact change.
-
-2. **n8n workflow deployments / changes:**
-   - Check `n8n/bots/cl-bot/deploy-teams-bot.mjs` (or stub `n8n/deploy-teams-bot.mjs`) and other `n8n/**/deploy-*.mjs` for mtime in the last 7 days.
-   - Check `n8n/teams-app/build/*.zip` for new builds in the last 7 days.
-   - Check the `n8n/` folder generally for new or modified workflow JSON files (last 7 days).
-
-3. **Notion writes outside Dev Projects (last 7 days):**
-   - Query Weekly Meeting Log, Monthly Meeting Log, Quarterly Outcomes, and other system-of-record DBs for entries created or substantially edited in the last 7 days.
-   - This catches workflow runs (weekly/monthly/quarterly meeting logs themselves), KPI updates, and standalone documentation.
-
-4. **Other system writes (best effort):**
-   - Knack object creations the bot performed on Aaron's behalf (object_77 perf meetings, object_75 call-ins) — pull only if the source script has these counts.
-   - Process Street workflows started/completed in the last 7 days.
-
-**Present as:**
-
-```
-UNLOGGED ACCOMPLISHMENTS -- LAST 7 DAYS
-| Source         | Count | Highlights                                              |
-|----------------|------:|---------------------------------------------------------|
-| Git commits    |    XX | <top 3 themes by commit volume>                         |
-| n8n deploys    |    XX | <list deploy scripts touched + bot zip rebuilds>        |
-| Notion writes  |    XX | <list system DBs with substantial new entries>          |
-| Process Street |    XX | <workflows completed>                                   |
-```
-
-After presenting, **ask Aaron:** "Any of these represent a *meaningful shipped slice* that should be counted alongside the Dev Projects completions? If yes, name them — I'll fold them into the weekly accomplishment count."
-
-**Crucial principle:** Don't try to auto-classify which commits/deploys are "real" accomplishments — surface the data, let Aaron flag what counts. The goal is to *catch* hidden work, not to grade it.
-
-**Outputs:** Combined accomplishment count for capacity calibration in Phase 5. Store on Weekly Meeting Log `Accomplishments` at Phase 10.
-
-## Phase 5: Project Selection for This Week (~12 min)
-
-**Purpose:** Choose this week's focus projects from the current quarter's docket, accounting for carryover work.
-
-**Why manual selection in Notion:** Most of Aaron's parent projects are multi-week containers with their own sub-item hierarchies already broken out in the Dev Projects DB. The natural unit of weekly work is a **specific sub-item**, not a whole parent. A Q&A-driven selection flow forces the agent to redundantly model that hierarchy in chat. Faster: Aaron toggles `This Week` directly on the projects/sub-items he wants in Notion, then the agent reads the result and confirms.
-
-### Step 1: Pause and Direct to Notion
-Tell Aaron: "Open the Dev Projects DB and toggle `This Week = true` on every project AND sub-item you intend to work on this week. Pick parents only when you mean the whole project; pick specific sub-items when you only want a slice. Carryover (anything still `This Week = true` from last week) is already accounted for. Tell me when you're done."
-
-Direct link: [Dev Projects](https://www.notion.so/341f40c2487b80acae1fd344d334096c)
-
-Wait for Aaron's confirmation before continuing. **Do NOT use AskQuestion to enumerate parents/sub-items**; that's what this step replaces.
-
-### Step 2: Pull the Selection
-Once confirmed, read the **"This Week — actionable slate"** section from `output/weekly-habits-YYYY-MM-DD.md` (already produced in Phase 0). Do not re-query raw `This Week` counts — the script filters Done items and Done-parent children. Then:
-- Group results by top-level parent (use the `Parent item` relation; if empty the item is itself a top-level parent).
-- For each parent, show its `Type`, `Status`, `Completion`, `Due Date`, and the list of selected sub-items beneath it.
-- Show a domain count summary: how many items per Type (Personal / Chrome Lot / Turbo Gear).
-
-### Step 3: One Thing Check
-Ask via AskQuestion: "Of everything you've marked, which **one** parent project (if you finish its slice this week) makes the most other stuff easier or irrelevant?" Single-select from the parents present. Flag the answer as the priority for the week and capture in the Weekly Meeting Log's Key Decisions.
-
-### Step 4: Capacity Sanity Check
-Total selected sub-items across all parents. Heuristic: each sub-item averages 2-4 hours of focused work. If total > 12 sub-items or projected hours > available capacity (~25h baseline minus trip/PTO time), recommend trimming a slice before proceeding. **Capacity is non-negotiable** -- if Aaron says "keep it all," push back once with a specific cut suggestion before deferring to him.
-
-### Step 5: Confirm and Move On
-No further Notion writes are needed in this phase -- Aaron has already set `This Week = true` directly. The agent's only write here is logging the priority project to the Weekly Meeting Log in Phase 10.
-
-### Step 6: Personal Project Scheduling + Todoist Mirrors
-Personal-type projects (custody modification, taxes / Bench->QuickBooks, personal dev, admin) lack the forcing function that Chrome Lot work gets from the 9am Pipedrive->Todoist sync and that Turbo Gear gets from the protected morning builder block. Left untracked, they drift. So for the **Personal** sub-items selected this week:
-1. With Aaron, decide **when** in the week he'll work each one (day/slot), respecting capacity caps and protected blocks.
-2. **Propose a Todoist mirror** for each (e.g., project Office / Same Day To Do) with the chosen due date so it surfaces in daily execution. Honor the 5-must-do/day cap.
-3. **Custody is kept in bounds here** — scheduled as one or two concrete tasks in its planned slot, not left as a floating worry. This replaces any standalone recurring custody block. (Custody source: `context/family/custody/index.md`.)
-4. **Todoist writes require case-by-case approval** (per `context/rules.md`) — propose the mirrors, create on Aaron's go.
-
-**Note:** Todoist is NOT used for Chrome Lot or Turbo Gear Dev Project tracking — those stay at the Notion project level (CL also surfaces via the 9am Pipedrive->Todoist sync; TG lives in the morning builder block). **The Personal-project exception above (Step 6) is deliberate:** Personal items get scheduled + mirrored into Todoist because nothing else forces them.
-
-**Key principle:** The weekly plan pulls from the *current quarter's* assigned projects, not the full roadmap/backlog. If the quarterly docket is empty or wrong, that's a signal to run the quarterly plan.
-
-**Outputs:** Selection summary captured for Phase 10. Priority parent flagged. **Personal-project work scheduled with Todoist mirrors (Step 6, created with approval).**
-
-## Phase 6: CS Management (~10 min)
+## Phase 5: CS Management (~10 min)
 
 **Purpose:** Keep customer relationships healthy with structured 60-day check-in cadence and invoice accountability.
 
@@ -584,7 +544,7 @@ Personal-type projects (custody modification, taxes / Bench->QuickBooks, persona
 
 **Outputs:** Pipedrive stop activities for check-ins. Pipedrive escalation activities for invoice issues. Knack/Pipedrive updates if account status changed (with approval).
 
-## Phase 7: Sales Management (~12 min)
+## Phase 6: Sales Management (~12 min)
 
 **Purpose:** Drive new revenue and manage the full sales team's pipeline activity.
 
@@ -594,7 +554,7 @@ Personal-type projects (custody modification, taxes / Bench->QuickBooks, persona
 
 1. Pre-pull Aaron-owned open deals in Sales (pipeline 1), CS (pipeline 6), and Social Media (pipeline 13) with **no `next_activity_date`** via Pipedrive MCP. Present as a numbered checklist.
 2. Instruct Aaron to run CL Bot **`deal gaps`** in Teams ([`cl-bot.md`](../../systems/notion-guides/cl-bot.md)) and schedule every gap via the Adaptive Card **Schedule** buttons (+3 days default).
-3. **Gate:** Do not plan new sales stops until gaps = 0. If Aaron explicitly defers a deal, log the deal name + reason in Phase 10 `Key Decisions` and exclude it from the gap count.
+3. **Gate:** Do not plan new sales stops until gaps = 0. If Aaron explicitly defers a deal, log the deal name + reason in Phase 9 `Key Decisions` and exclude it from the gap count.
 
 **A1 — Stale deal review (one-by-one)**
 
@@ -621,7 +581,7 @@ Personal-type projects (custody modification, taxes / Bench->QuickBooks, persona
 
 **Outputs:** Pipedrive activities for Aaron's sales stops. Pipedrive activities or nudges for team sales. Todoist tasks for follow-ups.
 
-## Phase 8: People Management (~10 min)
+## Phase 7: People Management (~10 min)
 
 **Purpose:** Keep team relationships healthy, catch photographer and staff performance issues early.
 
@@ -669,7 +629,7 @@ Personal-type projects (custody modification, taxes / Bench->QuickBooks, persona
 
 **Outputs:** Todoist tasks for photographer actions. Calendar events for 1:1 meetings. Knack updates for missing performance grades (with approval). Teams messages if needed.
 
-## Phase 9: Personal Life (~5 min)
+## Phase 8: Personal Life (~5 min)
 
 **Purpose:** Parenting, relationship integration, compulsion scan — **social connectedness is Phase 2.** Don't repeat Small Talk review here.
 
@@ -687,7 +647,7 @@ Personal-type projects (custody modification, taxes / Bench->QuickBooks, persona
 
 **Outputs:** Calendar blocks for personal time (use Personal Time Blocks calendar `10283d615faeb91862fc0ccd8f3ac216c7299a58f2196185e912be8f3e3cbe83@group.calendar.google.com`). Todoist reminders if needed.
 
-## Phase 10: Commit (~5 min)
+## Phase 9: Commit (~5 min)
 
 **Purpose:** Final review, capacity check, execute remaining actions, log everything.
 
@@ -695,8 +655,8 @@ Personal-type projects (custody modification, taxes / Bench->QuickBooks, persona
 2. **Final capacity check:** Total planned hours vs. available hours. If total exceeds available, something must move. This is non-negotiable.
 3. **Confirm "This Week" checkboxes:** Verify all selected Dev Projects have `This Week = true` and no deselected ones still have it checked.
 4. **Store project KPIs on Weekly Meeting Log:** Write `Projects Completed` (count of projects marked Done this week) and `Projects In Progress` (count of projects with This Week checked for the new week).
-5. **Store activity KPIs on Weekly Meeting Log:** Write `Aaron Activities`, `Lexie Activities`, `Tristen Activities`, `Ran Activities`, `Total Activities` (computed in Phase 4 Part B).
-6. **Verify wellness + social fields (REQUIRED):** Cross-check **Required Notion fields by section** table — Phases 1, 2, and 4 rows must be populated. Explicitly confirm: `Week Intentions`, `Intentions Review`, targets, sleep fields, `Social Review`, `Social Intentions`, `Social Priority`, `Social Intentions Met`, `Small Talk Count`, `Social Events Count`.
+5. **Store activity KPIs on Weekly Meeting Log:** Write `Aaron Activities`, `Lexie Activities`, `Tristen Activities`, `Ran Activities`, `Total Activities` (if not already set in Phase 4).
+6. **Verify all FIELD CHECKs (REQUIRED):** Re-run Phase 1, 2, 3, and 4 FIELD CHECK lists. Confirm nothing is blank without N/A + reason.
 7. **Append per-user Pipedrive detail sections** to the Weekly Meeting Log page using `personal_notion_append_blocks`. Use the Pipedrive data already pulled in Phase 0 (completed activities from the past 7 days + all open activities per user). Append the following structure:
 
    ```
@@ -736,12 +696,7 @@ Personal-type projects (custody modification, taxes / Bench->QuickBooks, persona
 8. **Record life health ratings (REQUIRED):** Write all 6 select properties from Phase 1.5 (`Spirituality Health`, `Fitness Health`, `Work Health`, `Social Health`, `Admin Health`, `Parenting Health`) on the Weekly Meeting Log entry. Values: `Healthy` or `Unhealthy`.
 9. **Update Values DB Health (with approval):** For each category where Phase 1 rating differs from current Values DB Health, update via `personal_notion_update_page` on the category page in Values DB (`342f40c2-487b-80c5`).
 10. **Record Starved Values:** Derive from life health ratings — set `Starved Values` multi_select to every category rated **Unhealthy** (Spirituality, Fitness, Work, Social, Admin, Parenting). Do not use a separate "felt off-track" question; health ratings are the source of truth.
-11. **Record Accomplishments (REQUIRED -- enables week-over-week throughput trend analysis):**
-   - `Logged Accomplishments Count` = count of Dev Projects with Status -> Done in past 7 days (from Phase 4 Part D).
-   - `Unlogged Accomplishments Count` = count of unlogged shipped slices Aaron flagged as real wins (from Phase 4 Part E sweep).
-   - `Total Accomplishments Count` = Logged + Unlogged.
-   - `Focused Output Hours Estimate` = best-effort total of focused work hours (logged Deep Work from Business Dev DB + Aaron-validated estimate of unlogged sweep effort). Be conservative -- this is a trend signal, not an exact measure.
-   - `Accomplishments` (rich_text) = full narrative bullet list, grouped by Personal / Chrome Lot / Turbo Gear / Other-Infrastructure. Include both Dev Projects Done items and the Aaron-flagged unlogged slices. Format: `- [Domain] Item name (source: dev_projects | unlogged_sweep)`.
+11. **Confirm accomplishment fields (REQUIRED):** Verify Phase 3.2 wrote `Logged/Unlogged/Total Accomplishments Count`, `Focused Output Hours Estimate`, and `Accomplishments`. Backfill from habit summary if missing.
 12. **Body comp already persisted.** Withings written in Phase 0 (`--days 28`). Don't re-run here.
 13. **Execute remaining:** Create any Todoist/Calendar/Pipedrive/Notion items not yet committed during earlier phases.
 14. **Log to Notion:** Finalize the Weekly Meeting Log entry (`322f40c2-487b-81bd`) with key decisions, action items, and plan summary.
@@ -749,16 +704,16 @@ Personal-type projects (custody modification, taxes / Bench->QuickBooks, persona
 
 ## Cross-Cutting Rules
 
-- **Mind/body + social before work.** Phases 0b–2 must complete before Phase 3 (planning context) or any work phase. No work discussion during Phases 1–2.
-- **FIELD CHECK gates.** Present the section checklist from the table before leaving Phases 1, 2, and 10.
-- **Retire-a-slice (catch-up forcing).** Name the slice in Phase 4 CL Currency Check; confirm at Phase 10 commit it was archived / scheduled / assigned an owner.
+- **Mind/body + social + development before CL operating work.** Phases 0b–2 before Phase 3; Phase 3 before Phase 4+. No work discussion during Phases 1–2.
+- **FIELD CHECK gates.** Present inline FIELD CHECK before leaving Phases 1, 2, 3, 4; verify all in Phase 9.
+- **Retire-a-slice (catch-up forcing).** Name the slice in Phase 4 CL Currency Check; confirm at Phase 9 commit it was archived / scheduled / assigned an owner.
 - **Route every item into a bucket.** Each surfaced item is Automated (n8n), Delegated (team 1:1s), or a Scheduled slice (calendar + Todoist mirror).
 - **Capacity is non-negotiable.** If total planned work exceeds available hours minus 10-15% buffer, the system pushes back. Something must move.
 - **Delegation by default.** For any task deferred 3+ times, suggest delegation before rescheduling. Use the delegation framework in `context/systems/capacity-rules.md`.
 - **Max 3 Pipedrive activities per day.** Cap at sustainable levels.
 - **Max 5 must-do Todoist tasks per day.** If morning briefing shows >5, defer.
 - **Pipedrive accountability is #1 neglected area.** Always check activities completed vs. planned.
-- **All data pulls happen in Phase 0 silently.** The 60 minutes is for discussion and decisions.
+- **All data pulls happen in Phase 0 silently.** ~78 minutes is for discussion and decisions.
 - **Quarterly docket is the source.** Weekly project selection pulls only from the current quarter's assigned projects. Don't ad-hoc backlog items.
 
 ## Outputs
@@ -768,11 +723,10 @@ Personal-type projects (custody modification, taxes / Bench->QuickBooks, persona
 - **Phase 0b:** Data integrity table; remediation before Phases 1–2.
 - **Phase 1:** Mind/body review + targets on Weekly Meeting Log.
 - **Phase 2:** Social review + intentions + optional pre-commit (Meetup / fitness class).
-- **Phase 3:** Planning context table; flagged priorities for Phase 5 / Phase 10.
-- **Phase 4:** Work metrics, Pipedrive, CL currency, projects, accomplishments.
-- **Phase 5:** Project selection + Todoist mirrors.
-- **Phase 6–9:** CS, sales, people, personal (parenting/relationship/compulsion).
-- **Phase 10:** Full Weekly Meeting Log finalized + FIELD CHECK all sections; Values DB sync (with approval).
+- **Phase 3:** Dev priority context, last-week scorecard, trends, next-week queue + Personal Todoist mirrors.
+- **Phase 4:** Pipedrive scorecard + CL currency check.
+- **Phase 5–8:** CS, sales, people, personal (parenting/relationship/compulsion).
+- **Phase 9:** Full Weekly Meeting Log finalized + all FIELD CHECKs; Values DB sync (with approval).
 
 ## Failure modes & graceful degradation
 
