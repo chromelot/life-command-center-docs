@@ -451,7 +451,7 @@ Execute calendar/Todoist with approval (Personal Time Blocks calendar `10283d615
 
 ### 1.6 Parenting — Review · Rate · Intentions (~4 min)
 
-**Data sources:** Prior week's `Parenting Intentions`, custody calendar (Phase 0), prior week's Weekly Meeting Log parenting notes.
+**Data sources:** Prior week's `Parenting Intentions`, prior Weekly Meeting Log parenting notes. **Do not** report legal custody schedule (2-2-5-5 is case context only — see `context/family/custody/`, not weekly planning). **Matthew days** for the upcoming week: read **Personal Time Blocks** calendar (`10283d615…@group.calendar.google.com`) — look for `Bus` / `Parent Time` blocks (stable week-to-week; exceptions like camp are Aaron's narrative).
 
 **Present exactly these tables in order** (health and intentions separate turns):
 
@@ -465,9 +465,9 @@ Execute calendar/Todoist with approval (Personal Time Blocks calendar `10283d615
 
 | Metric | Last Week |
 |--------|-----------|
-| Custody schedule | days / pattern |
-| Activities planned vs done | |
-| Quality of time together | 1-line |
+| Time with Matthew | Aaron's narrative — camp, exchanges, letters, trips, etc. |
+| Activities planned vs done | booked Personal-calendar events + anything notable |
+| Quality / presence | 1-line |
 
 **Table 1.6-C — Parenting insights**
 
@@ -485,7 +485,7 @@ Execute calendar/Todoist with approval (Personal Time Blocks calendar `10283d615
 
 | Intentions (1–3 bullets) | → Notion field |
 |--------------------------|----------------|
-| e.g. custody activities, quality time blocks | `Parenting Intentions` |
+| concrete plans (outings, rhythm) + summer sanity note | `Parenting Intentions` |
 
 Append parenting row to `Intentions Review`.
 
