@@ -33,11 +33,12 @@ Load via the router. Read these before starting:
 1. **Init ledger** at session start: `node scripts/workflow-progress.mjs init --workflow weekly-plan --week-of <next-monday>`
 2. **Every turn:** `node scripts/workflow-progress.mjs status --workflow weekly-plan` — present only `current_step`
 3. **Phase banner** on every user-facing message: `**[Weekly Plan · Phase X.Y — title]**`
-4. **One sub-step per turn** — never bundle 1.1 + 1.2 + 1.3; never jump to 1.4 before 1.3 is advanced
-5. **One AskQuestion per turn** — PHQ-2 items are separate turns
-6. **Advance after complete:** `node scripts/workflow-progress.mjs advance --workflow weekly-plan --step <id>`
-7. **Phase gates:** `node scripts/workflow-progress.mjs gate --workflow weekly-plan --phase <1|2|3>` before Phase 2, 3, or 4
-8. **Tangents:** fix/interrupt, then resume ledger `current_step` — do not skip ahead
+4. **One sub-step per turn** — never bundle 1.2 + 1.3 + 1.4 (mind / fitness / sleep are separate steps)
+5. **Table contract is the spec** — each sub-step lists the **exact tables** to present (column headers fixed). Fill every cell from the named data source; use `—` when data is missing. Do not add metrics, sections, or discussion topics outside that step's tables.
+6. **One question per turn** — PHQ-2/GAD-2 items are separate turns
+7. **Advance after complete:** `node scripts/workflow-progress.mjs advance --workflow weekly-plan --step <id>`
+8. **Phase gates:** `node scripts/workflow-progress.mjs gate --workflow weekly-plan --phase <1|2|3>` before Phase 2, 3, or 4
+9. **Tangents:** fix/interrupt, then resume ledger `current_step` — do not skip ahead
 
 ## Interaction Style
 
@@ -53,7 +54,7 @@ Each phase ends with an inline **FIELD CHECK** listing its required Weekly Meeti
 **Gate rules:**
 - Before **Phase 3 (Development)**: Phases 1 + 2 FIELD CHECKs must pass.
 - Before **Phase 4 (CL Operations)**: Phase 3 FIELD CHECK must pass.
-- No CL operating discussion (Phases 4+) during Phases 1–3.
+- Each phase delivers **only** its table contract (see per-phase **Present** blocks below).
 
 ## Procedure
 
@@ -87,9 +88,9 @@ node "scripts/weekly-habit-summary.mjs"
 Output: `output/weekly-habits-YYYY-MM-DD.md`. Canonical last-week habit numbers + actionable Dev Projects slate. Do not re-query habit DBs ad-hoc.
 
 ```
-node "scripts/daily-mindbody-pull.mjs"
+node "scripts/daily-health-sections.mjs"
 ```
-Output: stdout **Mind / Fitness / Sleep** section tables for Phase 1.1 (days as columns). Run after health pulls.
+Output: stdout **Mind / Fitness / Sleep** section tables for Phase 1.2–1.4 (days as columns). Run after health pulls.
 
 ```
 node "scripts/withings-sync.mjs" --days 28 --write
@@ -165,178 +166,317 @@ DATA INTEGRITY CHECK
 
 **Outputs:** Integrity table presented; remediation attempted; known gaps flagged for Phase 1 footers.
 
-## Phase 1: Mind & Body Review (~18 min)
+## Phase 1: Mind & Body Review (~20 min)
 
-**Purpose:** Complete spiritual, mental, and physical review and planning **before any work content.** Highly structured — same sections every week.
+**Purpose:** Values orientation first, then mind → fitness → sleep one domain at a time (review → rate health → set intentions), then wellness screening and remaining category ratings.
+
+**Phase 1 order:** `1.0` → `1.1` Values → `1.2` Mind → `1.3` Fitness → `1.4` Sleep → `1.5` Wellness → `1.6` Work/Social/Admin/Parenting → `1.check`
 
 ### 1.0 Create Weekly Log Entry
 
-Create the **new week's** Weekly Meeting Log entry (Name = `Week of [next Monday YYYY-MM-DD]`, Meeting Date = today). All Phase 1 fields write to this entry; KPI numbers from **last week** are copied during 1.1.
+Create the **new week's** Weekly Meeting Log entry (Name = `Week of [next Monday YYYY-MM-DD]`, Meeting Date = today). All Phase 1 fields write to this entry.
 
-**Advance ledger:** `1.0` → then present 1.1 only.
+**Advance ledger:** `1.0` → then present `1.1` only.
 
-### 1.1 Mind · Fitness · Sleep Review + Rank + Intentions (~12 min)
+### 1.1 Values Review (~2 min) — **first question to Aaron**
 
-**Purpose:** Review last week's mind, fitness, and sleep; insights per domain; rank domain health; set forward intentions — before wellness screening or work.
+**Purpose:** Orient to the six Values categories before any domain deep-dive. This is the **first interactive step** after log creation.
 
-**Data:** `weekly-habits-*.md`, `weekly-wellness-trends-*.md`, `health_get_summary({ days: 28 })`, `node scripts/daily-health-sections.mjs`.
+**Data source:** Values DB (`342f40c2-487b-80c5`) — pulled in Phase 0.
 
-**No Small Talk** (Phase 2). **No Deep Work / Ops / Field** (Phase 3).
+**Present exactly these tables:**
 
-**Opening — prior intentions:** Read prior `Mind Intentions`, `Fitness Intentions`, `Sleep Intentions` (or legacy `Week Intentions`). Brief review → write `Intentions Review`.
+**Table 1.1-A — Values DB**
 
----
+Share [Values Database](https://www.notion.so/342f40c2487b80c5a2aee48ca48b4a20). Wait for Aaron to confirm he reviewed it.
 
-**Section A — Mind**
+**Table 1.1-B — Six categories (current state)**
 
-Aggregate: Spirit Minutes, Journal Count (+ 4-wk trend from wellness file).
+| Category | Values DB Health | Time Target | 1-line note |
+|----------|------------------|-------------|-------------|
+| Spirituality | from Values DB | from Values DB | |
+| Fitness | from Values DB | from Values DB | |
+| Work | from Values DB | from Values DB | |
+| Social | from Values DB | from Values DB | |
+| Admin | from Values DB | from Values DB | |
+| Parenting | from Values DB | from Values DB | |
 
-Daily breakdown (days = columns): Spirit min, Journal — MIND section from `daily-health-sections.mjs`.
+No ratings written yet — context only. Domain health ratings happen in steps 1.2–1.4 (mind/fitness/sleep) and 1.6 (work/social/admin/parenting).
 
-**Mind insights:** 1-2 bullets.
+### 1.2 Mind — Review · Rate · Intentions (~4 min)
 
----
+**Data sources:** `weekly-habits-*.md`, `weekly-wellness-trends-*.md`, `node scripts/daily-health-sections.mjs` (MIND section), prior week's `Mind Intentions`.
 
-**Section B — Fitness**
+**Present exactly these tables, then ask health rating, then intentions** (separate turns):
 
-Aggregate: Strength, Cardio, Weight/BF/Lean avg, Steps avg, Workout Active Min (+ 4-wk trend).
+**Table 1.2-A — Prior mind intention**
 
-Daily breakdown: Strength, Cardio, Weight, Steps — FITNESS section.
+| Last week's `Mind Intentions` | Evidence | Met? |
+|-----------------------------|----------|------|
+| | 1-line summary | ✓ / ~ / ✗ |
 
-**Fitness insights:** 1-2 bullets.
+**Table 1.2-B — Mind aggregate**
 
----
+| Metric | Last Week | 4-wk trend | → Notion field |
+|--------|-----------|------------|----------------|
+| Spirit Minutes | | from wellness file | `Spirit Minutes` |
+| Journal Count | | from wellness file | `Journal Count` |
 
-**Section C — Sleep**
+**Table 1.2-C — Mind daily** *(from `daily-health-sections.mjs` MIND section)*
 
-Aggregate: Sleep avg (recorded nights only), Nights Tracked, Wake-up σ, Bedtime σ, Schedule Rating.
+| Metric | Mon M/D | Tue M/D | Wed M/D | Thu M/D | Fri M/D | Sat M/D | Sun M/D |
+|--------|---------|---------|---------|---------|---------|---------|---------|
+| Spirit min | | | | | | | |
+| Journal | | | | | | | |
 
-Daily breakdown: Sleep, Wake-up, Bedtime, Deep min, REM min — SLEEP section.
+**Table 1.2-D — Mind insights**
 
-**Wake-up** = got out of bed (watch session end, CT). **Bedtime** = session start.
+| Insight 1 | Insight 2 |
+|-----------|-----------|
+| | |
 
-**Sleep insights:** 1-2 bullets.
+**Table 1.2-E — Mind health** *(Aaron confirms; write with approval)*
 
-Write last-week KPIs: Spirit Minutes, Journal Count, Strength/Cardio Sessions, Weight/Body Fat/Lean Avg, Steps Avg, Sleep Avg, Sleep Nights Tracked, Wake/Bedtime Std Dev Min, Sleep Schedule Rating, Workout Active Minutes (+ HR/RHR/HRV if available).
+| Rating | → Notion field |
+|--------|----------------|
+| Healthy / Unhealthy | `Mind Health` |
 
----
+**Table 1.2-F — Mind intentions (upcoming week)** *(Aaron approves before Notion write)*
 
-**Section D — Rank + intentions (end of 1.1)**
+| Intentions (1–3 bullets) | → Notion field |
+|--------------------------|----------------|
+| | `Mind Intentions` |
 
-| Domain | Rate Healthy/Unhealthy | Log field |
-|--------|------------------------|-----------|
-| Mind | | `Mind Health` |
-| Fitness | | `Fitness Health` |
-| Sleep | | `Sleep Health` |
+Append mind row to `Intentions Review` on the Weekly Meeting Log.
 
-Forward intentions (1-3 bullets each; Aaron approves before Notion write):
+### 1.3 Fitness — Review · Rate · Intentions (~5 min)
 
-| Domain | Fields |
-|--------|--------|
-| Mind | `Mind Intentions` |
-| Fitness | `Fitness Intentions`, `Strength Target`, `Cardio Target` |
-| Sleep | `Sleep Intentions`, `Sleep Target Hours`, `Target Wake Time` |
+**Data sources:** `weekly-habits-*.md`, `weekly-wellness-trends-*.md`, `health_get_summary({ days: 28 })`, `daily-health-sections.mjs` (FITNESS section), prior week's `Fitness Intentions`.
 
-Also `Behavioral Adjustments` for calendar moves.
+**Present exactly these tables, then health rating, then intentions:**
 
-**HARD GATE:** Do not open 1.2 until 1.1 ratings + intentions committed (with approval).
+**Table 1.3-A — Prior fitness intention**
 
-### 1.2 Wellness Screening (~3 min)
+| Last week's `Fitness Intentions` | Evidence | Met? |
+|----------------------------------|----------|------|
+| | 1-line summary | ✓ / ~ / ✗ |
 
-**PHQ-2** (0-3 each, total 0-6) and **GAD-2** (0-3 each, total 0-6) — one question at a time.
+**Table 1.3-B — Fitness aggregate**
 
-**Energy & Capacity** — 1-10 scale.
+| Metric | Last Week | 4-wk trend | → Notion field |
+|--------|-----------|------------|----------------|
+| Strength Sessions | | | `Strength Sessions` |
+| Cardio Sessions | | | `Cardio Sessions` |
+| Weight Avg (lbs) | | | `Weight Avg` |
+| Body Fat Avg (%) | | | `Body Fat Avg` |
+| Lean Mass Avg (lbs) | | | `Lean Mass Avg` |
+| Steps Avg | | | `Steps Avg` |
+| Workout Active Min | | | `Workout Active Minutes` |
+| Heart Rate Avg (bpm) | | | `Heart Rate Avg` |
+| Resting HR Avg (bpm) | | | `Resting HR Avg` |
+| HRV Avg (ms) | | | `HRV Avg` |
 
-Derive severity selects. Write PHQ-2, GAD-2, Energy, severities to Weekly Meeting Log.
+**Table 1.3-C — Fitness daily** *(from `daily-health-sections.mjs` FITNESS section)*
 
-### 1.3 Values Pulse — Work · Social · Admin · Parenting (~4 min)
+| Metric | Mon M/D | Tue M/D | Wed M/D | Thu M/D | Fri M/D | Sat M/D | Sun M/D |
+|--------|---------|---------|---------|---------|---------|---------|---------|
+| Strength | | | | | | | |
+| Cardio | | | | | | | |
+| Weight (lbs) | | | | | | | |
+| Steps | | | | | | | |
 
-Mind/Fitness/Sleep health + intentions are **1.1**. This step covers remaining Values categories.
+**Table 1.3-D — Fitness insights**
 
-**Manual Values Review:** Link to [Values Database](https://www.notion.so/342f40c2487b80c5a2aee48ca48b4a20). Wait for confirmation.
+| Insight 1 | Insight 2 |
+|-----------|-----------|
+| | |
 
-```
-VALUES PULSE — REMAINING CATEGORIES
-| Category  | Health (rate now) | Time Target | Actual Last Week |
-| Work      |                   |             | Deep Work + Ops + Field mins |
-| Social    |                   |             | Small Talk count (preliminary) |
-| Admin     |                   |             | qualitative |
-| Parenting |                   |             | qualitative |
-```
+**Table 1.3-E — Fitness health**
 
-Rate **Work, Social, Admin, Parenting** — Healthy or Unhealthy. Write `Work Health`, `Social Health`, `Admin Health`, `Parenting Health`. Phase 2 deepens Social.
+| Rating | → Notion field |
+|--------|----------------|
+| Healthy / Unhealthy | `Fitness Health` |
 
-**Fuel Check (eros):** Per [eros.md](../../self/eros.md). Flag for Phase 8 if contaminated/divided two weeks running.
+**Table 1.3-F — Fitness intentions (upcoming week)**
 
-**Capacity gate:** If PHQ-2 ≥ 3 or GAD-2 ≥ 3 or Energy ≤ 4, note reduced work capacity before Phase 3.
+| Intentions (1–3 bullets) | Strength target | Cardio target | → Notion field(s) |
+|--------------------------|-----------------|---------------|-------------------|
+| | | | `Fitness Intentions`, `Strength Target`, `Cardio Target` |
 
-**FIELD CHECK — Phase 1:** Last-week KPIs (`Strength Sessions`, `Cardio Sessions`, `Spirit Minutes`, `Journal Count`, `Weight Avg`, `Body Fat Avg`, `Lean Mass Avg`, `Sleep Avg`, `Sleep Nights Tracked`, `Wake/Bedtime Std Dev Min`, `Sleep Schedule Rating`, `Steps Avg`, `Workout Active Minutes`), `Intentions Review`, domain ratings (`Mind Health`, `Fitness Health`, `Sleep Health`, `Work/Social/Admin/Parenting Health`), domain intentions (`Mind/Fitness/Sleep Intentions`), targets (`Strength/Cardio/Sleep Target Hours`, `Target Wake Time`), `Behavioral Adjustments`, wellness screen (`PHQ-2`, `GAD-2`, `Energy`, severities). **Do not proceed to Phase 2 (Social) until complete.**
+Append fitness row to `Intentions Review`.
+
+### 1.4 Sleep — Review · Rate · Intentions (~5 min)
+
+**Data sources:** `health_get_summary({ days: 28 })`, `daily-health-sections.mjs` (SLEEP section), prior week's `Sleep Intentions`.
+
+**Present exactly these tables, then health rating, then intentions:**
+
+**Table 1.4-A — Prior sleep intention**
+
+| Last week's `Sleep Intentions` | Evidence | Met? |
+|--------------------------------|----------|------|
+| | 1-line summary | ✓ / ~ / ✗ |
+
+**Table 1.4-B — Sleep aggregate**
+
+| Metric | Last Week | → Notion field |
+|--------|-----------|----------------|
+| Sleep Avg (recorded nights only) | | `Sleep Avg` |
+| Nights Tracked | e.g. `2/7` | `Sleep Nights Tracked` |
+| Wake-up Std Dev (min) | | `Wake Time Std Dev Min` |
+| Bedtime Std Dev (min) | | `Bedtime Std Dev Min` |
+| Schedule Rating | Consistent / Moderate Variance / Erratic / Unknown | `Sleep Schedule Rating` |
+
+*Wake-up* = got out of bed (watch session end, CT). *Bedtime* = session start.
+
+**Table 1.4-C — Sleep daily** *(from `daily-health-sections.mjs` SLEEP section)*
+
+| Metric | Mon M/D | Tue M/D | Wed M/D | Thu M/D | Fri M/D | Sat M/D | Sun M/D |
+|--------|---------|---------|---------|---------|---------|---------|---------|
+| Sleep | | | | | | | |
+| Wake-up | | | | | | | |
+| Bedtime | | | | | | | |
+| Deep min | | | | | | | |
+| REM min | | | | | | | |
+
+**Table 1.4-D — Sleep insights**
+
+| Insight 1 | Insight 2 |
+|-----------|-----------|
+| | |
+
+**Table 1.4-E — Sleep health**
+
+| Rating | → Notion field |
+|--------|----------------|
+| Healthy / Unhealthy | `Sleep Health` |
+
+**Table 1.4-F — Sleep intentions (upcoming week)**
+
+| Intentions (1–3 bullets) | Sleep target (h) | Wake target (CT) | → Notion field(s) |
+|--------------------------|------------------|------------------|-------------------|
+| | | | `Sleep Intentions`, `Sleep Target Hours`, `Target Wake Time` |
+
+**Table 1.4-G — Behavioral adjustments** *(if any calendar moves)*
+
+| Adjustment | Reason |
+|------------|--------|
+| | |
+
+→ Write `Behavioral Adjustments`. Append sleep row to `Intentions Review`.
+
+### 1.5 Wellness Screening (~3 min)
+
+**Present exactly Table 1.5** — one row at a time (one question per turn):
+
+| Item | Prompt | Score | → Notion field |
+|------|--------|-------|----------------|
+| PHQ-2 Q1 | Little interest or pleasure in doing things? | 0–3 | — |
+| PHQ-2 Q2 | Feeling down, depressed, or hopeless? | 0–3 | — |
+| PHQ-2 Total | Q1 + Q2 | 0–6 | `PHQ-2 Score` |
+| PHQ-2 Severity | None / Mild / Moderate / Moderately Severe / Severe | derived | `PHQ-2 Severity` |
+| GAD-2 Q1 | Feeling nervous, anxious, or on edge? | 0–3 | — |
+| GAD-2 Q2 | Not being able to stop or control worrying? | 0–3 | — |
+| GAD-2 Total | Q1 + Q2 | 0–6 | `GAD-2 Score` |
+| GAD-2 Severity | None / Mild / Moderate / Moderately Severe / Severe | derived | `GAD-2 Severity` |
+| Energy | How is your energy and capacity this week? | 1–10 | `Energy Rating` |
+
+**Capacity note** (if PHQ-2 ≥ 3 or GAD-2 ≥ 3 or Energy ≤ 4): state reduced work capacity — recorded in Phase 3.4 `Dev Capacity Note`.
+
+### 1.6 Work · Social · Admin · Parenting (~4 min)
+
+**Purpose:** Rate remaining Values categories with last-week actuals. Mind/Fitness/Sleep already rated in 1.2–1.4.
+
+**Present exactly these tables:**
+
+**Table 1.6-A — Category ratings**
+
+| Category | Health (rate now) | Time Target (Table 1.1-B) | Actual Last Week | → Notion field |
+|----------|-------------------|---------------------------|------------------|----------------|
+| Work | Healthy / Unhealthy | | Deep Work __ min · Ops __ min · Field __ min | `Work Health` |
+| Social | Healthy / Unhealthy | | Small Talk count: __ (Phase 2 completes narrative) | `Social Health` |
+| Admin | Healthy / Unhealthy | | qualitative 1-line | `Admin Health` |
+| Parenting | Healthy / Unhealthy | | qualitative 1-line | `Parenting Health` |
+
+*Work actuals:* `Deep Work Minutes`, `Ops Minutes`, `Field Work Minutes` from `weekly-habits-*.md`.
+
+**Table 1.6-B — Fuel check** *(per [eros.md](../../self/eros.md))*
+
+| Signal | This week | Two weeks running? | → Action |
+|--------|-----------|-------------------|----------|
+| Fuel clean / contaminated / divided | Aaron rates | yes / no | Flag for Phase 8 if contaminated or divided two weeks running |
+
+**FIELD CHECK — Phase 1** *(Table 1.check)*
+
+| Group | Required Notion fields |
+|-------|------------------------|
+| Last-week KPIs | `Strength Sessions`, `Cardio Sessions`, `Spirit Minutes`, `Journal Count`, `Weight Avg`, `Body Fat Avg`, `Lean Mass Avg`, `Sleep Avg`, `Sleep Nights Tracked`, `Wake Time Std Dev Min`, `Bedtime Std Dev Min`, `Sleep Schedule Rating`, `Steps Avg`, `Workout Active Minutes` |
+| 1.2–1.4 | `Intentions Review`, `Mind/Fitness/Sleep Health`, `Mind/Fitness/Sleep Intentions`, `Strength Target`, `Cardio Target`, `Sleep Target Hours`, `Target Wake Time`, `Behavioral Adjustments` |
+| 1.5 | `PHQ-2 Score`, `GAD-2 Score`, `Energy Rating`, `PHQ-2 Severity`, `GAD-2 Severity` |
+| 1.6 | `Work/Social/Admin/Parenting Health` |
+
+**Do not proceed to Phase 2 until Table 1.check passes.**
 
 ## Phase 2: Social Review & Planning (~8 min)
 
-**Purpose:** Review social connectedness **before work.** Per [social.md](../../self/social.md) — target 3–5 Small Talk entries/week; isolation signal is days since last entry, not dating status. Social may be knowingly **deprioritized** (parenting, girlfriend, work crunch) — capture that explicitly, don't treat it as failure.
+**Purpose:** Review social connectedness. Per [social.md](../../self/social.md) — target 3–5 Small Talk entries/week; isolation signal is days since last entry.
 
-Load: Small Talk entries (Phase 0), last week's calendar social events (Phase 0), prior week's `Social Intentions` + `Social Review` from `weekly-wellness-trends-*.md` or prior log.
+**Data sources:** Small Talk DB (Phase 0), calendar social events (Phase 0), `weekly-wellness-trends-*.md`, prior week's `Social Intentions` / `Social Review`.
 
 ### 2.1 Last Week — What Happened (~3 min)
 
-```
-SOCIAL REVIEW — LAST WEEK
-| Signal | Count / Detail |
-|--------|----------------|
-| Small Talk entries | N (list each: date — description) |
-| Calendar social events | N (list: date — event title) |
-| Days since last Small Talk | N |
-| 4-wk Small Talk trend | from weekly-wellness-trends |
-```
+**Present exactly Table 2.1:**
 
-Ask one open question: **"Any social contact last week that didn't get logged — gym conversations, work hangouts, time with Lexie/Bus friends, etc.?"** Add missed items to the narrative (not necessarily new DB rows unless Aaron wants them logged).
+| Signal | Count / Detail | → Notion field |
+|--------|----------------|----------------|
+| Small Talk entries | N — list each: `date — description` | `Small Talk Count` |
+| Calendar social events | N — list each: `date — event title` | `Social Events Count` |
+| Days since last Small Talk | N | (in `Social Review`) |
+| 4-wk Small Talk trend | from wellness file | (in `Social Review`) |
+| Unlogged contact | Aaron's answer to: "Any social contact not logged?" | (in `Social Review`) |
 
-Write `Small Talk Count`, `Social Events Count`, `Social Review` (rich_text bullet narrative: what happened, what was missed, quality not just quantity).
+→ Write `Social Review` (rich_text bullets: what happened, missed, quality).
 
 ### 2.2 Prior Social Intentions (~2 min)
 
-If prior week had `Social Intentions`:
+**Present exactly Table 2.2** *(skip rows if prior week had no `Social Intentions`; set `Social Intentions Met` = N/A)*:
 
-```
-SOCIAL INTENTIONS REVIEW
 | Intention | Evidence | Met? |
 |-----------|----------|------|
-| (each line from prior Social Intentions) | | ✓ / ~ / ✗ |
-```
+| (each line from prior `Social Intentions`) | | ✓ / ~ / ✗ |
 
-AskQuestion (single): **Mostly met / Partially met / Missed / Deprioritized / N/A**
-
-Write `Social Intentions Met` select. If intentions were missed because Aaron chose parenting/work/Lexie time, use **Deprioritized** — not Missed.
+**Overall rating** (one question): Mostly met / Partially met / Missed / Deprioritized / N/A → `Social Intentions Met`.
 
 ### 2.3 Next Week — Goal & Priority (~2 min)
 
-AskQuestion (single): **Social priority this week?**
-- **Active** — pursuing 3–5 sarges / social day; pre-commit to events
-- **Maintenance** — keep existing plans, no new outreach push
-- **Deprioritized** — knowingly low; name why (parenting / girlfriend / work / recovery)
+**Present exactly Table 2.3:**
 
-Based on priority + last week's evidence, propose **one concrete social goal** for the upcoming week. Examples:
-- Active: "2 Small Talk entries + 1 fitness class pre-booked"
-- Maintenance: "Show up to existing Saturday coffee plan"
-- Deprioritized: "No social target — Bus week + custody email only"
+| Field | Value | → Notion field |
+|-------|-------|----------------|
+| Social Priority | Active / Maintenance / Deprioritized | `Social Priority` |
+| Deprioritized reason | if Deprioritized: parenting / girlfriend / work / recovery | (in `Social Review`) |
+| Social goal (1 concrete) | e.g. "2 Small Talk + 1 fitness class" | `Social Intentions` |
 
-Write `Social Priority` + `Social Intentions` (rich_text, 1–3 bullets for upcoming week).
+### 2.4 Pre-Commit (~1 min)
 
-### 2.4 Pre-Commit (conditional, ~1 min)
+**Present exactly Table 2.4** *(fill only when `Social Priority` = Active, or Maintenance with 0 calendar events)*:
 
-**Only when `Social Priority` = Active** (or Maintenance with zero events on calendar):
+| Tactic | Booked? | Calendar / Todoist |
+|--------|---------|-------------------|
+| Meetup event | yes / no / N/A | |
+| Fitness class | yes / no / N/A | |
+| Social day block | yes / no / N/A | |
+| Organic only | yes / no | |
 
-AskQuestion: **Pre-commit tactic this week?**
-- Check Meetup for one event → calendar block
-- Book a fitness class (gym schedule) → calendar block
-- Schedule coffee/social day block (Personal Time Blocks calendar)
-- Skip pre-commit — rely on organic opportunities
-- N/A — deprioritized
+Execute calendar/Todoist with approval (Personal Time Blocks calendar `10283d615faeb91862fc0ccd8f3ac216c7299a58f2196185e912be8f3e3cbe83@group.calendar.google.com`). Append booked events to `Social Intentions`.
 
-Execute with approval: calendar events on Personal Time Blocks calendar (`10283d615faeb91862fc0ccd8f3ac216c7299a58f2196185e912be8f3e3cbe83@group.calendar.google.com`) or Todoist reminder. Append booked events to `Social Intentions`.
+**FIELD CHECK — Phase 2** *(Table 2.check)*
 
-**FIELD CHECK — Phase 2:** `Small Talk Count`, `Social Events Count`, `Social Review`, `Social Intentions Met`, `Social Priority`, `Social Intentions`. **Do not proceed to Phase 3 until Phases 1 + 2 are complete.**
+| Required field |
+|----------------|
+| `Small Talk Count`, `Social Events Count`, `Social Review`, `Social Intentions Met`, `Social Priority`, `Social Intentions` |
+
+**Do not proceed to Phase 3 until Tables 1.check + 2.check pass.**
 
 ## Phase 3: Development Review & Planning (~22 min)
 
@@ -346,21 +486,18 @@ Load: `weekly-wellness-trends-*.md` (dev KPI trends), `weekly-habits-*.md` (comp
 
 ### 3.1 Current Development Priority (~4 min)
 
-**Purpose:** Name the larger-scale priority frame before reviewing last week.
+**Present exactly Table 3.1:**
 
-Present from Phase 0 pulls:
+| Source | Field | Value | → Notion |
+|--------|-------|-------|----------|
+| Quarterly ([Q# YYYY]) | Priority Stack | numbered list | |
+| Quarterly | Domains Parked | multi-select | |
+| Monthly ([planning month]) | Priority Stack | numbered list — authoritative dev focus | |
+| Monthly | Domains Parked | multi-select — what's on pause | |
+| Monthly | Active CL Sprint | A–E or Maintenance | feeds Phase 4 |
+| Monthly | Action Items | planning-month commitments | |
 
-```
-DEVELOPMENT PRIORITY CONTEXT — week of [YYYY-MM-DD]
-| Source | Field | Value |
-|--------|-------|-------|
-| Quarterly ([Q# YYYY]) | Priority Stack | numbered list from Quarterly Meeting Log |
-| Quarterly | Domains Parked | multi-select |
-| Monthly ([planning month]) | Priority Stack | numbered list — **authoritative dev focus** |
-| Monthly | Domains Parked | multi-select — **what's on pause** (e.g. Turbo Gear) |
-| Monthly | Active CL Sprint | select — current CL repair sprint (A–E or Maintenance) |
-| Monthly | Action Items | planning-month commitments |
-```
+→ Write `Dev Priority Context` (rich_text — copy table narrative).
 
 **Monthly log backfill gate:** If review-month Monthly Log is missing `Priority Stack`, `Domains Parked`, or `Active CL Sprint`:
 1. Pull from Quarterly Log → `context/self/current-priorities.md` as draft.
@@ -378,53 +515,84 @@ Ask via AskQuestion (multi-select): "Anything from the priority context that mus
 
 ### 3.2 Last Week — Development Scorecard (~7 min)
 
-```
-DEVELOPMENT SCORECARD — LAST WEEK
-| Metric | Last Wk | 4-wk trend | Notes |
-|--------|---------|------------|-------|
-| Deep Work Minutes | | from trends file | Business Dev DB |
-| Ops Minutes | | | CL ops crowding dev? |
-| Field Work Minutes | | | |
-| Logged accomplishments | | | Dev Projects → Done |
-| Unlogged (Aaron-flagged) | | | from sweep |
-| Total accomplishments | | | logged + unlogged |
-| Focused output hours est. | | | trend signal |
-```
+**Present exactly these tables:**
 
-**What was set out:** Read prior week's `Dev Intentions` + `Dev Projects Intended` (or infer from Dev Projects with `This Week = true` last week via habit summary completed section + carryover list).
+**Table 3.2-A — Development scorecard**
 
-**What shipped:**
-1. **Logged:** Dev Projects marked Done last 7 days — list from `weekly-habits-*.md` "Dev Projects completed" section, grouped Personal / Chrome Lot / Turbo Gear.
-2. **Unlogged accomplishments sweep** (data from Phase 0 / habit summary footer):
+| Metric | Last Wk | 4-wk trend | → Notion field |
+|--------|---------|------------|----------------|
+| Deep Work Minutes | | | `Deep Work Minutes` |
+| Ops Minutes | | | `Ops Minutes` |
+| Field Work Minutes | | | `Field Work Minutes` |
+| Logged accomplishments | | | `Logged Accomplishments Count` |
+| Unlogged (Aaron-flagged) | | | `Unlogged Accomplishments Count` |
+| Total accomplishments | | | `Total Accomplishments Count` |
+| Focused output hours est. | | | `Focused Output Hours Estimate` |
 
-```
-UNLOGGED ACCOMPLISHMENTS -- LAST 7 DAYS
+**Table 3.2-B — Intended vs actual**
+
+| Source | Content |
+|--------|---------|
+| Prior `Dev Intentions` | copy from prior log |
+| Prior `Dev Projects Intended` | copy from prior log |
+| Logged shipped | Dev Projects Done — grouped Personal / CL / TG from `weekly-habits-*.md` |
+| Unlogged sweep | from habit summary footer |
+
+**Table 3.2-C — Unlogged accomplishments**
+
 | Source | Count | Highlights |
-```
+|--------|-------|------------|
+| (from Phase 0 sweep) | | |
 
-After presenting, ask: "Any of these count as meaningful shipped slices?" Fold Aaron-flagged items into the accomplishment narrative.
+Ask: "Any of these count as meaningful shipped slices?" → fold into `Accomplishments`.
 
-**Project-by-project narrative:** For each parent that had `This Week` items last week — quick story: done / stalled / why. Mark Done sub-items with approval. Defer 3+ times → delegation framework.
+**Table 3.2-D — Project narrative** *(one row per parent with `This Week` items last week)*
 
-AskQuestion (single): **How did last week go overall?** → maps to `Dev Week Rating`: Exceeded / Met / Partial / Missed / Deprioritized.
+| Parent project | Status | Notes |
+|----------------|--------|-------|
+| | done / stalled / deferred | |
 
-If prior week had `Dev Intentions`, write `Dev Intentions Met` (same scale + N/A).
+**Table 3.2-E — Week rating**
 
-Write: `Deep Work Minutes`, `Ops Minutes`, `Field Work Minutes`, `Logged/Unlogged/Total Accomplishments Count`, `Focused Output Hours Estimate`, `Accomplishments` (narrative bullets), `Dev Review` (rich_text — scorecard + intended vs actual + rating).
+| Field | Value | → Notion field |
+|-------|-------|----------------|
+| Dev Week Rating | Exceeded / Met / Partial / Missed / Deprioritized | `Dev Week Rating` |
+| Dev Intentions Met | same scale + N/A | `Dev Intentions Met` |
+
+→ Write `Accomplishments`, `Dev Review`.
 
 ### 3.3 Trend Assessment (~3 min)
 
-From `weekly-wellness-trends-*.md` dev columns + last 4 weeks of `Dev Week Rating` / accomplishment counts (when populated):
+**Present exactly Table 3.3:**
 
-State 2–3 qualitative bullets — e.g., deep work minutes rising but accomplishments flat; CL ops eating dev time; strong ship week hidden by low logging.
+| Trend bullet | Evidence |
+|--------------|----------|
+| 1 | from `weekly-wellness-trends-*.md` + last 4 `Dev Week Rating` |
+| 2 | |
+| 3 | |
 
-Write `Dev Trend Notes`.
+→ Write `Dev Trend Notes`.
 
 ### 3.4 Plan Next Week (~8 min)
 
-**Capacity assessment:** Combine Hubstaff last week, Phase 1 wellness gate (PHQ/GAD/Energy), calendar load, and 3.3 trends. State realistic dev hours available (~25h baseline minus trip/PTO/custody).
+**Present exactly Table 3.4-A — Capacity**
 
-Write `Dev Capacity Note`. If underperforming vs intentions, propose concrete moves (drop a slice, defer TG, protect morning block, delegate) → `Dev Adjustments`.
+| Input | Value |
+|-------|-------|
+| Hubstaff last week | __ h |
+| Wellness gate (PHQ/GAD/Energy) | reduced? yes / no |
+| Calendar load | __ h blocked |
+| Realistic dev hours | __ h (~25h baseline − trip/PTO/custody) |
+
+→ Write `Dev Capacity Note`.
+
+**Table 3.4-B — Adjustments** *(if underperforming)*
+
+| Move | Reason |
+|------|--------|
+| | |
+
+→ Write `Dev Adjustments`.
 
 **Queue projects (Notion `This Week`):**
 1. Tell Aaron: "Open Dev Projects and toggle `This Week = true` on every project/sub-item you intend this week." [Dev Projects](https://www.notion.so/341f40c2487b80acae1fd344d334096c) — wait for confirmation.
@@ -440,7 +608,13 @@ Personal work does not run in the protected dev block. For each **Personal** sub
 2. Propose Todoist mirror (due date, project) — **case-by-case approval before create**.
 3. Custody items: 1–2 concrete tasks in planned slot, not a floating worry.
 
-**FIELD CHECK — Phase 3:** `Dev Priority Context`, `Deep Work Minutes`, `Ops Minutes`, `Field Work Minutes`, `Dev Review`, `Dev Week Rating`, `Dev Intentions Met`, `Dev Trend Notes`, `Dev Capacity Note`, `Dev Adjustments`, `Dev Intentions`, `Dev Projects Intended`, `Accomplishments`, `Logged/Unlogged/Total Accomplishments Count`, `Focused Output Hours Estimate`. **Do not proceed to Phase 4 until complete.**
+**FIELD CHECK — Phase 3** *(Table 3.check)*
+
+| Required field |
+|----------------|
+| `Dev Priority Context`, `Deep Work Minutes`, `Ops Minutes`, `Field Work Minutes`, `Dev Review`, `Dev Week Rating`, `Dev Intentions Met`, `Dev Trend Notes`, `Dev Capacity Note`, `Dev Adjustments`, `Dev Intentions`, `Dev Projects Intended`, `Accomplishments`, `Logged/Unlogged/Total Accomplishments Count`, `Focused Output Hours Estimate` |
+
+**Do not proceed to Phase 4 until Tables 1.check + 2.check + 3.check pass.**
 
 ## Phase 4: CL Operations Review (~8 min)
 
@@ -628,19 +802,43 @@ Then state the **active repair sprint** from Phase 3.1 `Active CL Sprint` (seque
 
 ## Phase 8: Personal Life (~5 min)
 
-**Purpose:** Parenting, relationship integration, compulsion scan — **social connectedness is Phase 2.** Don't repeat Small Talk review here.
+**Present exactly these tables:**
 
-1. **Parenting:** Custody schedule this week? Activities planned? Quality of recent time together?
-2. **Relationship integration check-in** (current status: in a relationship with Lexie — see [dating.md](../../self/dating.md)):
-   - Present and integrated this week, or divided/hiding? (carry over any flag from Phase 1 Fuel Check)
-   - Is the eros running clean — aimed outward and toward the relationship — or sliding toward secret-seeking?
-   - Did the relationship support or erode the morning keystone, sleep, and Bus time?
-   - Any work/relationship boundary concerns (fairness, operational distortion — she is also the ops manager)?
-   - If the Phase 1 Fuel Check flagged contaminated/divided two weeks running, **name it directly here** and route back to the eros daily container ([eros.md](../../self/eros.md)).
-3. **Compulsion scan:** Any obsessive patterns this week? (apps, substances, avoidance behaviors, re-forming a hidden space). Treat per the compulsive-transfer pattern in [capacity-rules.md](../../systems/capacity-rules.md) and the fuel-vs-compulsion line in [eros.md](../../self/eros.md).
-4. **Personal enjoyment:** Anything purely fun on the calendar beyond what Phase 2 scheduled?
+**Table 8.1 — Parenting**
 
-**Also check Values DB Health statuses.** If any category is Unhealthy, surface it here as a discussion point.
+| Question | Answer |
+|----------|--------|
+| Custody schedule this week | |
+| Activities planned | |
+| Quality of recent time together | |
+
+**Table 8.2 — Relationship integration** *(see [dating.md](../../self/dating.md))*
+
+| Signal | Answer |
+|--------|--------|
+| Present & integrated vs divided/hiding | |
+| Eros clean / contaminated / divided | |
+| Impact on morning keystone, sleep, Bus time | |
+| Work/relationship boundary concerns | |
+| Fuel flag from Table 1.3-C (two weeks running) | route to [eros.md](../../self/eros.md) daily container if yes |
+
+**Table 8.3 — Compulsion scan**
+
+| Pattern | Present? | Notes |
+|---------|----------|-------|
+| Apps / substances / avoidance / hidden space | yes / no | per [capacity-rules.md](../../systems/capacity-rules.md) |
+
+**Table 8.4 — Personal enjoyment**
+
+| Item | On calendar? |
+|------|--------------|
+| Purely fun (beyond Phase 2 social pre-commit) | |
+
+**Table 8.5 — Unhealthy Values follow-up**
+
+| Category (Unhealthy in Phase 1) | Discussion note |
+|---------------------------------|-----------------|
+| (one row per Unhealthy category) | |
 
 **Outputs:** Calendar blocks for personal time (use Personal Time Blocks calendar `10283d615faeb91862fc0ccd8f3ac216c7299a58f2196185e912be8f3e3cbe83@group.calendar.google.com`). Todoist reminders if needed.
 
@@ -690,7 +888,7 @@ Then state the **active repair sprint** from Phase 3.1 `Active CL Sprint` (seque
 
    Each activity line: `[type] subject -- deal name -- date`. For completed activities, show `marked_as_done_time` date. For open activities, show `due_date`. Prefix overdue open activities with `[OVERDUE]`. If a user has 0 activities in a section, show "None" instead of an empty list. Use `---` dividers between users.
 
-8. **Record life health ratings (REQUIRED):** Write all 6 select properties from Phase 1.5 (`Spirituality Health`, `Fitness Health`, `Work Health`, `Social Health`, `Admin Health`, `Parenting Health`) on the Weekly Meeting Log entry. Values: `Healthy` or `Unhealthy`.
+8. **Record life health ratings (REQUIRED):** Write all 6 select properties from Phase 1 (`Mind Health` → `Spirituality Health`, `Fitness Health`, `Work Health`, `Social Health`, `Admin Health`, `Parenting Health`). Values: `Healthy` or `Unhealthy`.
 9. **Update Values DB Health (with approval):** For each category where Phase 1 rating differs from current Values DB Health, update via `personal_notion_update_page` on the category page in Values DB (`342f40c2-487b-80c5`).
 10. **Record Starved Values:** Derive from life health ratings — set `Starved Values` multi_select to every category rated **Unhealthy** (Spirituality, Fitness, Work, Social, Admin, Parenting). Do not use a separate "felt off-track" question; health ratings are the source of truth.
 11. **Confirm accomplishment fields (REQUIRED):** Verify Phase 3.2 wrote `Logged/Unlogged/Total Accomplishments Count`, `Focused Output Hours Estimate`, and `Accomplishments`. Backfill from habit summary if missing.
@@ -701,8 +899,8 @@ Then state the **active repair sprint** from Phase 3.1 `Active CL Sprint` (seque
 
 ## Cross-Cutting Rules
 
-- **Mind/body + social + development before CL operating work.** Phases 0b–2 before Phase 3; Phase 3 before Phase 4+. No work discussion during Phases 1–2.
-- **FIELD CHECK gates.** Present inline FIELD CHECK before leaving Phases 1, 2, 3, 4; verify all in Phase 9.
+- **Table contract per phase.** Phase 1 = `1.1` Values → `1.2` Mind → `1.3` Fitness → `1.4` Sleep → `1.5` Wellness → `1.6` remaining categories → `1.check`. Phase 2 = Tables 2.1–2.check. Phase 3 = Tables 3.1–3.check. Ledger `current_step` determines which tables are in scope.
+- **FIELD CHECK gates.** Run Table 1.check / 2.check / 3.check before crossing phase boundaries; verify all in Phase 9.
 - **Retire-a-slice (catch-up forcing).** Name the slice in Phase 4 CL Currency Check; confirm at Phase 9 commit it was archived / scheduled / assigned an owner.
 - **Route every item into a bucket.** Each surfaced item is Automated (n8n), Delegated (team 1:1s), or a Scheduled slice (calendar + Todoist mirror).
 - **Capacity is non-negotiable.** If total planned work exceeds available hours minus 10-15% buffer, the system pushes back. Something must move.
