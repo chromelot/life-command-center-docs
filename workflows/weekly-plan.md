@@ -17,8 +17,8 @@ Load via the router. Read these before starting:
 - `context/systems/knack-fields.md` — Customer + Photographer field references
 - `context/systems/hubstaff.md` — member IDs, weekly-report tool
 - `context/systems/health-data.md` — MCP architecture, expected fields
-- `context/self/values.md` — six categories and current Health statuses (Phase 1 Values Pulse)
-- `context/self/eros.md` — primary fuel doctrine (Phase 1 Fuel Check, Phase 8 integration)
+- `context/self/values.md` — six categories and current Health statuses (Phase 1.1 context; per-domain ratings in Phases 1–3, 8)
+- `context/self/eros.md` — primary fuel doctrine (Phase 2 fuel check, Phase 8 integration)
 - `context/self/dating.md` — relationship status + integration guardrails + risk surface (Phase 8)
 - `context/self/social.md` — sarges, Small Talk targets, isolation signals (Phase 2)
 - **Planning context (canonical):** Monthly + Quarterly Meeting Log fields — pulled in Phase 0; see Phase 3.1. `context/self/current-priorities.md` is fallback only.
@@ -168,9 +168,9 @@ DATA INTEGRITY CHECK
 
 ## Phase 1: Mind & Body Review (~20 min)
 
-**Purpose:** Values orientation first, then mind → fitness → sleep one domain at a time (review → rate health → set intentions), then wellness screening and remaining category ratings.
+**Purpose:** Values context first, then mind → fitness → sleep one domain at a time (review → wellness screen in mind → rate health → set intentions). Work/Social/Admin/Parenting health ratings happen in their own phases (3, 2, 8).
 
-**Phase 1 order:** `1.0` → `1.1` Values → `1.2` Mind → `1.3` Fitness → `1.4` Sleep → `1.5` Wellness → `1.6` Work/Social/Admin/Parenting → `1.check`
+**Phase 1 order:** `1.0` → `1.1` Values → `1.2` Mind (incl. wellness screening) → `1.3` Fitness → `1.4` Sleep → `1.check`
 
 ### 1.0 Create Weekly Log Entry
 
@@ -178,19 +178,13 @@ Create the **new week's** Weekly Meeting Log entry (Name = `Week of [next Monday
 
 **Advance ledger:** `1.0` → then present `1.1` only.
 
-### 1.1 Values Review (~2 min) — **first question to Aaron**
+### 1.1 Values Context (~1 min) — **first table to Aaron**
 
-**Purpose:** Orient to the six Values categories before any domain deep-dive. This is the **first interactive step** after log creation.
+**Purpose:** Orient to the six Values categories before domain deep-dives. Health ratings and intentions are set per-domain in later steps — this step is context only.
 
 **Data source:** Values DB (`342f40c2-487b-80c5`) — pulled in Phase 0.
 
-**Present exactly these tables:**
-
-**Table 1.1-A — Values DB**
-
-Share [Values Database](https://www.notion.so/342f40c2487b80c5a2aee48ca48b4a20). Wait for Aaron to confirm he reviewed it.
-
-**Table 1.1-B — Six categories (current state)**
+**Present exactly Table 1.1:**
 
 | Category | Values DB Health | Time Target | 1-line note |
 |----------|------------------|-------------|-------------|
@@ -201,13 +195,11 @@ Share [Values Database](https://www.notion.so/342f40c2487b80c5a2aee48ca48b4a20).
 | Admin | from Values DB | from Values DB | |
 | Parenting | from Values DB | from Values DB | |
 
-No ratings written yet — context only. Domain health ratings happen in steps 1.2–1.4 (mind/fitness/sleep) and 1.6 (work/social/admin/parenting).
-
-### 1.2 Mind — Review · Rate · Intentions (~4 min)
+### 1.2 Mind — Review · Wellness · Rate · Intentions (~6 min)
 
 **Data sources:** `weekly-habits-*.md`, `weekly-wellness-trends-*.md`, `node scripts/daily-health-sections.mjs` (MIND section), prior week's `Mind Intentions`.
 
-**Present exactly these tables, then ask health rating, then intentions** (separate turns):
+**Present exactly these tables in order** (wellness rows one question per turn; health and intentions separate turns):
 
 **Table 1.2-A — Prior mind intention**
 
@@ -235,13 +227,29 @@ No ratings written yet — context only. Domain health ratings happen in steps 1
 |-----------|-----------|
 | | |
 
-**Table 1.2-E — Mind health** *(Aaron confirms; write with approval)*
+**Table 1.2-E — Wellness screening** *(one row per turn)*
+
+| Item | Prompt | Score | → Notion field |
+|------|--------|-------|----------------|
+| PHQ-2 Q1 | Little interest or pleasure in doing things? | 0–3 | — |
+| PHQ-2 Q2 | Feeling down, depressed, or hopeless? | 0–3 | — |
+| PHQ-2 Total | Q1 + Q2 | 0–6 | `PHQ-2 Score` |
+| PHQ-2 Severity | None / Mild / Moderate / Moderately Severe / Severe | derived | `PHQ-2 Severity` |
+| GAD-2 Q1 | Feeling nervous, anxious, or on edge? | 0–3 | — |
+| GAD-2 Q2 | Not being able to stop or control worrying? | 0–3 | — |
+| GAD-2 Total | Q1 + Q2 | 0–6 | `GAD-2 Score` |
+| GAD-2 Severity | None / Mild / Moderate / Moderately Severe / Severe | derived | `GAD-2 Severity` |
+| Energy | How is your energy and capacity this week? | 1–10 | `Energy Rating` |
+
+**Capacity note** (if PHQ-2 ≥ 3 or GAD-2 ≥ 3 or Energy ≤ 4): state reduced work capacity — recorded in Phase 3.4 `Dev Capacity Note`.
+
+**Table 1.2-F — Mind health** *(Aaron confirms; write with approval)*
 
 | Rating | → Notion field |
 |--------|----------------|
 | Healthy / Unhealthy | `Mind Health` |
 
-**Table 1.2-F — Mind intentions (upcoming week)** *(Aaron approves before Notion write)*
+**Table 1.2-G — Mind intentions (upcoming week)** *(Aaron approves before Notion write)*
 
 | Intentions (1–3 bullets) | → Notion field |
 |--------------------------|----------------|
@@ -365,55 +373,13 @@ Append fitness row to `Intentions Review`.
 
 → Write `Behavioral Adjustments`. Append sleep row to `Intentions Review`.
 
-### 1.5 Wellness Screening (~3 min)
-
-**Present exactly Table 1.5** — one row at a time (one question per turn):
-
-| Item | Prompt | Score | → Notion field |
-|------|--------|-------|----------------|
-| PHQ-2 Q1 | Little interest or pleasure in doing things? | 0–3 | — |
-| PHQ-2 Q2 | Feeling down, depressed, or hopeless? | 0–3 | — |
-| PHQ-2 Total | Q1 + Q2 | 0–6 | `PHQ-2 Score` |
-| PHQ-2 Severity | None / Mild / Moderate / Moderately Severe / Severe | derived | `PHQ-2 Severity` |
-| GAD-2 Q1 | Feeling nervous, anxious, or on edge? | 0–3 | — |
-| GAD-2 Q2 | Not being able to stop or control worrying? | 0–3 | — |
-| GAD-2 Total | Q1 + Q2 | 0–6 | `GAD-2 Score` |
-| GAD-2 Severity | None / Mild / Moderate / Moderately Severe / Severe | derived | `GAD-2 Severity` |
-| Energy | How is your energy and capacity this week? | 1–10 | `Energy Rating` |
-
-**Capacity note** (if PHQ-2 ≥ 3 or GAD-2 ≥ 3 or Energy ≤ 4): state reduced work capacity — recorded in Phase 3.4 `Dev Capacity Note`.
-
-### 1.6 Work · Social · Admin · Parenting (~4 min)
-
-**Purpose:** Rate remaining Values categories with last-week actuals. Mind/Fitness/Sleep already rated in 1.2–1.4.
-
-**Present exactly these tables:**
-
-**Table 1.6-A — Category ratings**
-
-| Category | Health (rate now) | Time Target (Table 1.1-B) | Actual Last Week | → Notion field |
-|----------|-------------------|---------------------------|------------------|----------------|
-| Work | Healthy / Unhealthy | | Deep Work __ min · Ops __ min · Field __ min | `Work Health` |
-| Social | Healthy / Unhealthy | | Small Talk count: __ (Phase 2 completes narrative) | `Social Health` |
-| Admin | Healthy / Unhealthy | | qualitative 1-line | `Admin Health` |
-| Parenting | Healthy / Unhealthy | | qualitative 1-line | `Parenting Health` |
-
-*Work actuals:* `Deep Work Minutes`, `Ops Minutes`, `Field Work Minutes` from `weekly-habits-*.md`.
-
-**Table 1.6-B — Fuel check** *(per [eros.md](../../self/eros.md))*
-
-| Signal | This week | Two weeks running? | → Action |
-|--------|-----------|-------------------|----------|
-| Fuel clean / contaminated / divided | Aaron rates | yes / no | Flag for Phase 8 if contaminated or divided two weeks running |
-
 **FIELD CHECK — Phase 1** *(Table 1.check)*
 
 | Group | Required Notion fields |
 |-------|------------------------|
 | Last-week KPIs | `Strength Sessions`, `Cardio Sessions`, `Spirit Minutes`, `Journal Count`, `Weight Avg`, `Body Fat Avg`, `Lean Mass Avg`, `Sleep Avg`, `Sleep Nights Tracked`, `Wake Time Std Dev Min`, `Bedtime Std Dev Min`, `Sleep Schedule Rating`, `Steps Avg`, `Workout Active Minutes` |
-| 1.2–1.4 | `Intentions Review`, `Mind/Fitness/Sleep Health`, `Mind/Fitness/Sleep Intentions`, `Strength Target`, `Cardio Target`, `Sleep Target Hours`, `Target Wake Time`, `Behavioral Adjustments` |
-| 1.5 | `PHQ-2 Score`, `GAD-2 Score`, `Energy Rating`, `PHQ-2 Severity`, `GAD-2 Severity` |
-| 1.6 | `Work/Social/Admin/Parenting Health` |
+| 1.2 | `Intentions Review` (mind row), `Mind Health`, `Mind Intentions`, `PHQ-2 Score`, `GAD-2 Score`, `Energy Rating`, `PHQ-2 Severity`, `GAD-2 Severity` |
+| 1.3–1.4 | `Fitness/Sleep Health`, `Fitness/Sleep Intentions`, `Strength Target`, `Cardio Target`, `Sleep Target Hours`, `Target Wake Time`, `Behavioral Adjustments` |
 
 **Do not proceed to Phase 2 until Table 1.check passes.**
 
@@ -447,19 +413,28 @@ Append fitness row to `Intentions Review`.
 
 **Overall rating** (one question): Mostly met / Partially met / Missed / Deprioritized / N/A → `Social Intentions Met`.
 
-### 2.3 Next Week — Goal & Priority (~2 min)
+### 2.3 Social Health · Priority · Intentions (~3 min)
 
-**Present exactly Table 2.3:**
+**Present exactly Table 2.3** *(health rating + forward plan in one step)*:
 
 | Field | Value | → Notion field |
 |-------|-------|----------------|
+| Social Health | Healthy / Unhealthy | `Social Health` |
 | Social Priority | Active / Maintenance / Deprioritized | `Social Priority` |
 | Deprioritized reason | if Deprioritized: parenting / girlfriend / work / recovery | (in `Social Review`) |
-| Social goal (1 concrete) | e.g. "2 Small Talk + 1 fitness class" | `Social Intentions` |
+| Social intentions (1–3 bullets) | e.g. "2 Small Talk + 1 fitness class" | `Social Intentions` |
 
-### 2.4 Pre-Commit (~1 min)
+### 2.4 Fuel Check (~1 min)
 
-**Present exactly Table 2.4** *(fill only when `Social Priority` = Active, or Maintenance with 0 calendar events)*:
+**Present exactly Table 2.4** *(per [eros.md](../../self/eros.md))*
+
+| Signal | This week | Two weeks running? | → Action |
+|--------|-----------|-------------------|----------|
+| Fuel clean / contaminated / divided | Aaron rates | yes / no | Flag for Phase 8 if contaminated or divided two weeks running |
+
+### 2.5 Pre-Commit (~1 min)
+
+**Present exactly Table 2.5** *(fill only when `Social Priority` = Active, or Maintenance with 0 calendar events)*:
 
 | Tactic | Booked? | Calendar / Todoist |
 |--------|---------|-------------------|
@@ -474,7 +449,7 @@ Execute calendar/Todoist with approval (Personal Time Blocks calendar `10283d615
 
 | Required field |
 |----------------|
-| `Small Talk Count`, `Social Events Count`, `Social Review`, `Social Intentions Met`, `Social Priority`, `Social Intentions` |
+| `Small Talk Count`, `Social Events Count`, `Social Review`, `Social Intentions Met`, `Social Health`, `Social Priority`, `Social Intentions` |
 
 **Do not proceed to Phase 3 until Tables 1.check + 2.check pass.**
 
@@ -561,6 +536,12 @@ Ask: "Any of these count as meaningful shipped slices?" → fold into `Accomplis
 
 → Write `Accomplishments`, `Dev Review`.
 
+**Table 3.2-F — Work health** *(after scorecard; Aaron confirms)*
+
+| Rating | Actual last week | → Notion field |
+|--------|------------------|----------------|
+| Healthy / Unhealthy | Deep Work __ min · Ops __ min · Field __ min (from Table 3.2-A) | `Work Health` |
+
 ### 3.3 Trend Assessment (~3 min)
 
 **Present exactly Table 3.3:**
@@ -612,7 +593,7 @@ Personal work does not run in the protected dev block. For each **Personal** sub
 
 | Required field |
 |----------------|
-| `Dev Priority Context`, `Deep Work Minutes`, `Ops Minutes`, `Field Work Minutes`, `Dev Review`, `Dev Week Rating`, `Dev Intentions Met`, `Dev Trend Notes`, `Dev Capacity Note`, `Dev Adjustments`, `Dev Intentions`, `Dev Projects Intended`, `Accomplishments`, `Logged/Unlogged/Total Accomplishments Count`, `Focused Output Hours Estimate` |
+| `Dev Priority Context`, `Deep Work Minutes`, `Ops Minutes`, `Field Work Minutes`, `Work Health`, `Dev Review`, `Dev Week Rating`, `Dev Intentions Met`, `Dev Trend Notes`, `Dev Capacity Note`, `Dev Adjustments`, `Dev Intentions`, `Dev Projects Intended`, `Accomplishments`, `Logged/Unlogged/Total Accomplishments Count`, `Focused Output Hours Estimate` |
 
 **Do not proceed to Phase 4 until Tables 1.check + 2.check + 3.check pass.**
 
@@ -806,11 +787,12 @@ Then state the **active repair sprint** from Phase 3.1 `Active CL Sprint` (seque
 
 **Table 8.1 — Parenting**
 
-| Question | Answer |
-|----------|--------|
-| Custody schedule this week | |
-| Activities planned | |
-| Quality of recent time together | |
+| Question | Answer | → Notion field |
+|----------|--------|----------------|
+| Parenting Health | Healthy / Unhealthy | `Parenting Health` |
+| Custody schedule this week | | |
+| Activities planned | | |
+| Quality of recent time together | | |
 
 **Table 8.2 — Relationship integration** *(see [dating.md](../../self/dating.md))*
 
@@ -820,7 +802,7 @@ Then state the **active repair sprint** from Phase 3.1 `Active CL Sprint` (seque
 | Eros clean / contaminated / divided | |
 | Impact on morning keystone, sleep, Bus time | |
 | Work/relationship boundary concerns | |
-| Fuel flag from Table 1.3-C (two weeks running) | route to [eros.md](../../self/eros.md) daily container if yes |
+| Fuel flag from Table 2.4 (two weeks running) | route to [eros.md](../../self/eros.md) daily container if yes |
 
 **Table 8.3 — Compulsion scan**
 
@@ -834,10 +816,16 @@ Then state the **active repair sprint** from Phase 3.1 `Active CL Sprint` (seque
 |------|--------------|
 | Purely fun (beyond Phase 2 social pre-commit) | |
 
-**Table 8.5 — Unhealthy Values follow-up**
+**Table 8.5 — Admin health**
 
-| Category (Unhealthy in Phase 1) | Discussion note |
-|---------------------------------|-----------------|
+| Rating | 1-line actual last week | → Notion field |
+|--------|-------------------------|----------------|
+| Healthy / Unhealthy | | `Admin Health` |
+
+**Table 8.6 — Unhealthy Values follow-up**
+
+| Category (Unhealthy anywhere this week) | Discussion note |
+|----------------------------------------|-----------------|
 | (one row per Unhealthy category) | |
 
 **Outputs:** Calendar blocks for personal time (use Personal Time Blocks calendar `10283d615faeb91862fc0ccd8f3ac216c7299a58f2196185e912be8f3e3cbe83@group.calendar.google.com`). Todoist reminders if needed.
@@ -888,8 +876,8 @@ Then state the **active repair sprint** from Phase 3.1 `Active CL Sprint` (seque
 
    Each activity line: `[type] subject -- deal name -- date`. For completed activities, show `marked_as_done_time` date. For open activities, show `due_date`. Prefix overdue open activities with `[OVERDUE]`. If a user has 0 activities in a section, show "None" instead of an empty list. Use `---` dividers between users.
 
-8. **Record life health ratings (REQUIRED):** Write all 6 select properties from Phase 1 (`Mind Health` → `Spirituality Health`, `Fitness Health`, `Work Health`, `Social Health`, `Admin Health`, `Parenting Health`). Values: `Healthy` or `Unhealthy`.
-9. **Update Values DB Health (with approval):** For each category where Phase 1 rating differs from current Values DB Health, update via `personal_notion_update_page` on the category page in Values DB (`342f40c2-487b-80c5`).
+8. **Record life health ratings (REQUIRED):** Verify all 6 selects are set — `Mind Health` (→ `Spirituality Health` in Phase 9), `Fitness Health` (1.3), `Social Health` (2.3), `Work Health` (3.2), `Admin Health` (8.5), `Parenting Health` (8.1). Values: `Healthy` or `Unhealthy`.
+9. **Update Values DB Health (with approval):** For each category where this week's rating differs from current Values DB Health, update via `personal_notion_update_page` on the category page in Values DB (`342f40c2-487b-80c5`).
 10. **Record Starved Values:** Derive from life health ratings — set `Starved Values` multi_select to every category rated **Unhealthy** (Spirituality, Fitness, Work, Social, Admin, Parenting). Do not use a separate "felt off-track" question; health ratings are the source of truth.
 11. **Confirm accomplishment fields (REQUIRED):** Verify Phase 3.2 wrote `Logged/Unlogged/Total Accomplishments Count`, `Focused Output Hours Estimate`, and `Accomplishments`. Backfill from habit summary if missing.
 12. **Body comp already persisted.** Withings written in Phase 0 (`--days 28`). Don't re-run here.
@@ -899,7 +887,7 @@ Then state the **active repair sprint** from Phase 3.1 `Active CL Sprint` (seque
 
 ## Cross-Cutting Rules
 
-- **Table contract per phase.** Phase 1 = `1.1` Values → `1.2` Mind → `1.3` Fitness → `1.4` Sleep → `1.5` Wellness → `1.6` remaining categories → `1.check`. Phase 2 = Tables 2.1–2.check. Phase 3 = Tables 3.1–3.check. Ledger `current_step` determines which tables are in scope.
+- **Table contract per phase.** Phase 1 = `1.1` Values → `1.2` Mind (incl. wellness) → `1.3` Fitness → `1.4` Sleep → `1.check`. Phase 2 = Tables 2.1–2.5 + fuel check. Phase 3 = Tables 3.1–3.check (incl. Work health). Phase 8 = Admin + Parenting health. Ledger `current_step` determines which tables are in scope.
 - **FIELD CHECK gates.** Run Table 1.check / 2.check / 3.check before crossing phase boundaries; verify all in Phase 9.
 - **Retire-a-slice (catch-up forcing).** Name the slice in Phase 4 CL Currency Check; confirm at Phase 9 commit it was archived / scheduled / assigned an owner.
 - **Route every item into a bucket.** Each surfaced item is Automated (n8n), Delegated (team 1:1s), or a Scheduled slice (calendar + Todoist mirror).
