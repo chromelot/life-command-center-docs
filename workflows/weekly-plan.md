@@ -106,8 +106,13 @@ Also query **Weekly Meeting Log** (`322f40c2-487b-81bd`) — last **4 entries** 
 
 ### Social pulls (with wellness; used in Phase 1.5)
 
-- **Small Talk DB** (`121f40c2-487b-802d`): all entries from **last 7 days** — list Description + Created Date (habit summary has count; Phase 2 needs the list).
-- **Google Calendar (last 7 days):** Pull Aaron's primary + Personal Time Blocks calendars. Flag events that look social: friend hangouts, fitness classes, group events, Meetup, dates (non-work). Count → `Social Events Count`.
+```
+node "scripts/social-phase-pull.mjs"
+```
+Output: stdout **Small Talk list, days since last entry, daily counts, calendar social events** for the review week. Canonical source for Phase 1.5 Tables 1.5-B/C. Also run after logging a new Small Talk entry mid-session.
+
+- **Small Talk DB** (`121f40c2-487b-802d`): script queries all entries; uses `Created Date` when set.
+- **Google Calendar (last 7 days):** script pulls primary + Personal Time Blocks (`10283d615faeb91862fc0ccd8f3ac216c7299a58f2196185e912be8f3e3cbe83@group.calendar.google.com`). Flags social-looking events (fitness classes, hangouts, Meetup, etc.; skips Morning Routine / Business Development blocks). Count → `Social Events Count`.
 
 ### Development + work pulls (after wellness/social; silent until Phase 2+)
 
@@ -390,11 +395,13 @@ Append fitness row to `Intentions Review`.
 
 **Table 1.5-B — Social aggregate**
 
+*Data source: `node scripts/social-phase-pull.mjs` (re-run after mid-session Small Talk logs).*
+
 | Metric | Last Week | 4-wk trend | → Notion field |
 |--------|-----------|------------|----------------|
 | Small Talk entries | N — list each: `date — description` | from wellness file | `Small Talk Count` |
-| Calendar social events | N — list each: `date — title` | | `Social Events Count` |
-| Days since last Small Talk | N | | (in `Social Review`) |
+| Calendar social events | N — list each: `date — title` | from script | `Social Events Count` |
+| Days since last Small Talk | N (0 = logged today) | | (in `Social Review`) |
 | Unlogged contact | Aaron's answer | | (in `Social Review`) |
 
 → Write `Social Review` (rich_text bullets: what happened, missed, quality).
