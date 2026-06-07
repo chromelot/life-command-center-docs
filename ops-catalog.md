@@ -43,7 +43,7 @@ Full schedule and tier ownership: [`cadences.md`](cadences.md). Agent intent rou
 <!-- AUTO:CADENCE_MATRIX -->
 | Workflow | Tier | Cadence | Duration | Phases | Gates | Triggers |
 |---|---|---|---|---|---|---|
-| weekly plan | Tier 2 (Cursor) | Weekly (~Fridays) | 60 min | 9 + Pre-Phase 0 gate | Monthly plan (review month) must exist | "weekly plan", "weekly meeting", "Monday review", "sprint planning" |
+| weekly plan | Tier 2 (Cursor) | Weekly (~Fridays) | 73 min | 10 + Pre-Phase 0 gate | Monthly plan (review month) must exist | "weekly plan", "weekly meeting", "Monday review", "sprint planning" |
 | monthly plan | Tier 2 (Cursor) | Monthly (first week) | 83 min | 14 | Quarterly plan must be committed | "monthly plan", "monthly review" |
 | quarterly plan | Tier 2 (Cursor) | Quarterly (week 1) + mid-quarter week 6 | 90–120 min / 15 min checkpoint | 5-part, 14 phases | None (top-level strategic gate) | "quarterly plan", "strategy review" |
 | scrub | Tier 2 (Cursor) | 3×/week (Mon/Wed/Fri rotation) | 10 min | inline in rule | None | "scrub", "micro-scrub", "review projects" |
@@ -106,7 +106,7 @@ Full phase-by-phase procedures live in Notion **sub-pages** (sidebar under this 
 <!-- AUTO:WORKFLOW_GUIDES -->
 | Workflow | Duration | Triggers | Workspace source |
 |---|---|---|---|
-| Weekly Plan | 60 min | "weekly plan", "weekly meeting", "Monday review", "sprint planning" | `context/skills/weekly-planning/SKILL.md` |
+| Weekly Plan | 73 min | "weekly plan", "weekly meeting", "Monday review", "sprint planning" | `context/skills/weekly-planning/SKILL.md` |
 | Monthly Plan | 83 min | "monthly plan", "monthly review", "plan this month" | `context/skills/monthly-plan/SKILL.md` |
 | Quarterly Plan | 90–120 min (+ 15 min mid-quarter checkpoint) | "quarterly plan", "strategy review", "quarterly review", "mid-quarter check" | `context/skills/quarterly-plan/SKILL.md` |
 | Micro-Scrub | 10 min | "scrub", "micro-scrub", "review projects", "scrub roadmap" | `.cursor/rules/micro-scrub.mdc` |
@@ -181,7 +181,7 @@ Full audit: `node scripts/audit-context.mjs`
 ## Last generated
 
 <!-- AUTO:LAST_GENERATED -->
-**2026-06-07 07:40:01** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
+**2026-06-07 07:45:43** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
 <!-- /AUTO:LAST_GENERATED -->
 
 ## See also
