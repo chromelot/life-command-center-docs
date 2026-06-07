@@ -3,197 +3,194 @@
 
 @import "{{ site.theme }}";
 
-// Dark mode — follows OS/browser prefers-color-scheme (GitHub-dark palette)
+/* Dark mode — follows OS/browser prefers-color-scheme (GitHub-dark palette) */
 @media (prefers-color-scheme: dark) {
-  $bg-default: #0d1117;
-  $bg-muted: #161b22;
-  $bg-subtle: #21262d;
-  $border-default: #30363d;
-  $text-primary: #c9d1d9;
-  $text-secondary: #8b949e;
-  $text-link: #58a6ff;
-  $text-link-hover: #79c0ff;
-
   body {
-    color: $text-primary;
-    background-color: $bg-default;
+    color: #c9d1d9;
+    background-color: #0d1117;
   }
 
   a {
-    color: $text-link;
+    color: #58a6ff;
+  }
 
-    &:hover {
-      color: $text-link-hover;
-    }
+  a:hover {
+    color: #79c0ff;
   }
 
   .markdown-body {
-    color: $text-primary;
+    color: #c9d1d9;
+  }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      color: $text-primary;
-      border-bottom-color: $border-default;
-    }
+  .markdown-body h1,
+  .markdown-body h2,
+  .markdown-body h3,
+  .markdown-body h4,
+  .markdown-body h5,
+  .markdown-body h6 {
+    color: #c9d1d9;
+    border-bottom-color: #30363d;
+  }
 
-    hr {
-      background-color: $border-default;
-    }
+  .markdown-body h6 {
+    color: #8b949e;
+  }
 
-    blockquote {
-      color: $text-secondary;
-      border-left-color: $border-default;
-    }
+  .markdown-body hr {
+    background-color: #30363d;
+  }
 
-    kbd {
-      color: $text-primary;
-      background-color: $bg-subtle;
-      border-color: $border-default;
-      border-bottom-color: darken($border-default, 4%);
-      box-shadow: inset 0 -1px 0 $border-default;
-    }
+  .markdown-body blockquote {
+    color: #8b949e;
+    border-left-color: #30363d;
+  }
 
-    code,
-    tt {
-      color: $text-primary;
-      background-color: $bg-muted;
-      border: 1px solid $border-default;
-      border-radius: 6px;
-      padding: 0.2em 0.4em;
-    }
+  .markdown-body kbd {
+    color: #c9d1d9;
+    background-color: #21262d;
+    border-color: #30363d;
+    border-bottom-color: #2d333b;
+    box-shadow: inset 0 -1px 0 #30363d;
+  }
 
-    pre {
-      color: $text-primary;
-      background-color: $bg-muted;
-      border: 1px solid $border-default;
-      border-radius: 6px;
+  .markdown-body code,
+  .markdown-body tt {
+    color: #c9d1d9;
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+  }
 
-      code,
-      tt {
-        background-color: transparent;
-        border: 0;
-        padding: 0;
-      }
-    }
+  .markdown-body pre,
+  .markdown-body .highlight pre {
+    color: #c9d1d9;
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+  }
 
-    table {
-      th,
-      td {
-        border-color: $border-default;
-      }
+  .markdown-body pre code,
+  .markdown-body pre tt {
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+  }
 
-      tr {
-        background-color: $bg-default;
-        border-top-color: $border-default;
-      }
+  .markdown-body table th,
+  .markdown-body table td {
+    border-color: #30363d;
+  }
 
-      tr:nth-child(2n) {
-        background-color: $bg-muted;
-      }
+  .markdown-body table tr {
+    background-color: #0d1117;
+    border-top-color: #30363d;
+  }
 
-      th {
-        background-color: $bg-subtle;
-      }
-    }
+  .markdown-body table tr:nth-child(2n) {
+    background-color: #161b22;
+  }
 
-    .highlight {
-      background-color: $bg-muted;
-      border: 1px solid $border-default;
-      border-radius: 6px;
-    }
+  .markdown-body table th {
+    background-color: #21262d;
+  }
 
-    // Rouge syntax — GitHub-dark-ish token colors
-    .highlight .c,
-    .highlight .c1,
-    .highlight .cm,
-    .highlight .cs,
-    .highlight .cd {
-      color: #8b949e;
-      font-style: italic;
-    }
+  .markdown-body .highlight {
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+  }
 
-    .highlight .k,
-    .highlight .kc,
-    .highlight .kd,
-    .highlight .kn,
-    .highlight .kp,
-    .highlight .kr,
-    .highlight .kt,
-    .highlight .kv {
-      color: #ff7b72;
-    }
+  .highlight {
+    background-color: #161b22;
+  }
 
-    .highlight .s,
-    .highlight .s1,
-    .highlight .s2,
-    .highlight .sb,
-    .highlight .sc,
-    .highlight .sd,
-    .highlight .se,
-    .highlight .sh,
-    .highlight .si,
-    .highlight .sx {
-      color: #a5d6ff;
-    }
+  /* Rouge syntax — GitHub-dark-ish token colors */
+  .highlight .c,
+  .highlight .c1,
+  .highlight .cm,
+  .highlight .cs,
+  .highlight .cd {
+    color: #8b949e;
+    font-style: italic;
+  }
 
-    .highlight .na,
-    .highlight .nb,
-    .highlight .nc,
-    .highlight .no,
-    .highlight .nf,
-    .highlight .nn,
-    .highlight .nt,
-    .highlight .nv,
-    .highlight .vc,
-    .highlight .vg,
-    .highlight .vi {
-      color: #d2a8ff;
-    }
+  .highlight .k,
+  .highlight .kc,
+  .highlight .kd,
+  .highlight .kn,
+  .highlight .kp,
+  .highlight .kr,
+  .highlight .kt,
+  .highlight .kv {
+    color: #ff7b72;
+  }
 
-    .highlight .m,
-    .highlight .mf,
-    .highlight .mh,
-    .highlight .mi,
-    .highlight .mo,
-    .highlight .il {
-      color: #79c0ff;
-    }
+  .highlight .s,
+  .highlight .s1,
+  .highlight .s2,
+  .highlight .sb,
+  .highlight .sc,
+  .highlight .sd,
+  .highlight .se,
+  .highlight .sh,
+  .highlight .si,
+  .highlight .sx {
+    color: #a5d6ff;
+  }
 
-    .highlight .o,
-    .highlight .ow {
-      color: #ff7b72;
-    }
+  .highlight .na,
+  .highlight .nb,
+  .highlight .nc,
+  .highlight .no,
+  .highlight .nf,
+  .highlight .nn,
+  .highlight .nt,
+  .highlight .nv,
+  .highlight .vc,
+  .highlight .vg,
+  .highlight .vi {
+    color: #d2a8ff;
+  }
 
-    .highlight .cp,
-    .highlight .gp,
-    .highlight .gh,
-    .highlight .gu {
-      color: #8b949e;
-    }
+  .highlight .m,
+  .highlight .mf,
+  .highlight .mh,
+  .highlight .mi,
+  .highlight .mo,
+  .highlight .il {
+    color: #79c0ff;
+  }
 
-    .highlight .gd {
-      color: #ffa198;
-      background-color: #490202;
-    }
+  .highlight .o,
+  .highlight .ow {
+    color: #ff7b72;
+  }
 
-    .highlight .gi {
-      color: #56d364;
-      background-color: #0f5323;
-    }
+  .highlight .cp,
+  .highlight .gp,
+  .highlight .gh,
+  .highlight .gu {
+    color: #8b949e;
+  }
 
-    .highlight .err {
-      color: #ffa198;
-      background-color: #490202;
-    }
+  .highlight .gd {
+    color: #ffa198;
+    background-color: #490202;
+  }
+
+  .highlight .gi {
+    color: #56d364;
+    background-color: #0f5323;
+  }
+
+  .highlight .err {
+    color: #ffa198;
+    background-color: #490202;
   }
 
   footer,
   .site-footer {
-    color: $text-secondary;
-    border-top-color: $border-default;
+    color: #8b949e;
+    border-top-color: #30363d;
   }
 }
