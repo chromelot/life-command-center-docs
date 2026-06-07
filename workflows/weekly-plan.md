@@ -241,7 +241,7 @@ Create the **new week's** Weekly Meeting Log entry (Name = `Week of [next Monday
 | GAD-2 Severity | None / Mild / Moderate / Moderately Severe / Severe | derived | `GAD-2 Severity` |
 | Energy | How is your energy and capacity this week? | 1–10 | `Energy Rating` |
 
-**Capacity note** (if PHQ-2 ≥ 3 or GAD-2 ≥ 3 or Energy ≤ 4): state reduced work capacity — recorded in Phase 3.4 `Dev Capacity Note`.
+**Capacity note** (if PHQ-2 ≥ 3 or GAD-2 ≥ 3 or Energy ≤ 4): state reduced work capacity — recorded in Phase 2.4 `Dev Capacity Note`.
 
 **Table 1.2-F — Mind health** *(Aaron confirms; write with approval)*
 
@@ -470,7 +470,7 @@ Load (development steps): `weekly-wellness-trends-*.md`, `weekly-habits-*.md`, P
 | Quarterly | Domains Parked | multi-select | |
 | Monthly ([planning month]) | Priority Stack | numbered list — authoritative dev focus | |
 | Monthly | Domains Parked | multi-select — what's on pause | |
-| Monthly | Active CL Sprint | A–E or Maintenance | feeds Phase 4 |
+| Monthly | Active CL Sprint | A–E or Maintenance | feeds Phase 2.5 |
 | Monthly | Action Items | planning-month commitments | |
 
 → Write `Dev Priority Context` (rich_text — copy table narrative).
@@ -528,7 +528,7 @@ Ask: "Any of these count as meaningful shipped slices?" → fold into `Accomplis
 |----------------|--------|-------|
 | | done / stalled / deferred | |
 
-**Table 3.2-E — Week rating**
+**Table 2.2-E — Week rating**
 
 | Field | Value | → Notion field |
 |-------|-------|----------------|
@@ -537,15 +537,15 @@ Ask: "Any of these count as meaningful shipped slices?" → fold into `Accomplis
 
 → Write `Accomplishments`, `Dev Review`.
 
-**Table 3.2-F — Work health** *(after scorecard; Aaron confirms)*
+**Table 2.2-F — Work health** *(after scorecard; Aaron confirms)*
 
 | Rating | Actual last week | → Notion field |
 |--------|------------------|----------------|
-| Healthy / Unhealthy | Deep Work __ min · Ops __ min · Field __ min (from Table 3.2-A) | `Work Health` |
+| Healthy / Unhealthy | Deep Work __ min · Ops __ min · Field __ min (from Table 2.2-A) | `Work Health` |
 
-### 3.3 Trend Assessment (~3 min)
+### 2.3 Trend Assessment (~3 min)
 
-**Present exactly Table 3.3:**
+**Present exactly Table 2.3:**
 
 | Trend bullet | Evidence |
 |--------------|----------|
@@ -555,9 +555,9 @@ Ask: "Any of these count as meaningful shipped slices?" → fold into `Accomplis
 
 → Write `Dev Trend Notes`.
 
-### 3.4 Plan Next Week (~8 min)
+### 2.4 Plan Next Week (~8 min)
 
-**Present exactly Table 3.4-A — Capacity**
+**Present exactly Table 2.4-A — Capacity**
 
 | Input | Value |
 |-------|-------|
@@ -568,7 +568,7 @@ Ask: "Any of these count as meaningful shipped slices?" → fold into `Accomplis
 
 → Write `Dev Capacity Note`.
 
-**Table 3.4-B — Adjustments** *(if underperforming)*
+**Table 2.4-B — Adjustments** *(if underperforming)*
 
 | Move | Reason |
 |------|--------|
@@ -590,17 +590,15 @@ Personal work does not run in the protected dev block. For each **Personal** sub
 2. Propose Todoist mirror (due date, project) — **case-by-case approval before create**.
 3. Custody items: 1–2 concrete tasks in planned slot, not a floating worry.
 
-**FIELD CHECK — Phase 3** *(Table 3.check)*
+**FIELD CHECK — Development** *(Table 2.check)*
 
 | Required field |
 |----------------|
 | `Dev Priority Context`, `Deep Work Minutes`, `Ops Minutes`, `Field Work Minutes`, `Work Health`, `Dev Review`, `Dev Week Rating`, `Dev Intentions Met`, `Dev Trend Notes`, `Dev Capacity Note`, `Dev Adjustments`, `Dev Intentions`, `Dev Projects Intended`, `Accomplishments`, `Logged/Unlogged/Total Accomplishments Count`, `Focused Output Hours Estimate` |
 
-**Do not proceed to Phase 4 until Tables 1.check + 2.check + 3.check pass.**
+### 2.5 CL Operations Review (~8 min)
 
-## Phase 4: CL Operations Review (~8 min)
-
-**Purpose:** Pipedrive activity scorecard + CL operating currency. Development review is Phase 3 — do not repeat project selection here.
+**Purpose:** Pipedrive activity scorecard + CL operating currency.
 
 ### Part A -- Pipedrive Activity Scorecard
 
@@ -636,11 +634,11 @@ CL CURRENCY CHECK
 | Photographers w/ missing grade  |             |                  |
 ```
 
-Then state the **active repair sprint** from Phase 3.1 `Active CL Sprint` (sequence: A Pipedrive+Todoist → B 1:1 cadence → C customer service → D photographer performance → E sales → Maintenance). Name the specific backlog slice this meeting will retire. This feeds the retire-a-slice rule at commit.
+Then state the **active repair sprint** from Phase 2.1 `Active CL Sprint` (sequence: A Pipedrive+Todoist → B 1:1 cadence → C customer service → D photographer performance → E sales → Maintenance). Name the specific backlog slice this meeting will retire. This feeds the retire-a-slice rule at commit.
 
-**FIELD CHECK — Phase 4:** `Aaron Activities`, `Lexie Activities`, `Tristen Activities`, `Ran Activities`, `Total Activities`.
+**FIELD CHECK — CL Ops:** `Aaron Activities`, `Lexie Activities`, `Tristen Activities`, `Ran Activities`, `Total Activities`.
 
-## Phase 5: CS Management (~10 min)
+### 2.6 CS Management (~10 min)
 
 **Purpose:** Keep customer relationships healthy with structured 60-day check-in cadence and invoice accountability.
 
@@ -697,7 +695,7 @@ Then state the **active repair sprint** from Phase 3.1 `Active CL Sprint` (seque
 
 **Outputs:** Pipedrive stop activities for check-ins. Pipedrive escalation activities for invoice issues. Knack/Pipedrive updates if account status changed (with approval).
 
-## Phase 6: Sales Management (~12 min)
+### 2.7 Sales Management (~12 min)
 
 **Purpose:** Drive new revenue and manage the full sales team's pipeline activity.
 
@@ -707,7 +705,7 @@ Then state the **active repair sprint** from Phase 3.1 `Active CL Sprint` (seque
 
 1. Pre-pull Aaron-owned open deals in Sales (pipeline 1), CS (pipeline 6), and Social Media (pipeline 13) with **no `next_activity_date`** via Pipedrive MCP. Present as a numbered checklist.
 2. Instruct Aaron to run CL Bot **`deal gaps`** in Teams ([`cl-bot.md`](../../systems/notion-guides/cl-bot.md)) and schedule every gap via the Adaptive Card **Schedule** buttons (+3 days default).
-3. **Gate:** Do not plan new sales stops until gaps = 0. If Aaron explicitly defers a deal, log the deal name + reason in Phase 9 `Key Decisions` and exclude it from the gap count.
+3. **Gate:** Do not plan new sales stops until gaps = 0. If Aaron explicitly defers a deal, log the deal name + reason in Phase 4 `Key Decisions` and exclude it from the gap count.
 
 **A1 — Stale deal review (one-by-one)**
 
@@ -734,7 +732,7 @@ Then state the **active repair sprint** from Phase 3.1 `Active CL Sprint` (seque
 
 **Outputs:** Pipedrive activities for Aaron's sales stops. Pipedrive activities or nudges for team sales. Todoist tasks for follow-ups.
 
-## Phase 7: People Management (~10 min)
+### 2.8 People Management (~10 min)
 
 **Purpose:** Keep team relationships healthy, catch photographer and staff performance issues early.
 
@@ -782,11 +780,13 @@ Then state the **active repair sprint** from Phase 3.1 `Active CL Sprint` (seque
 
 **Outputs:** Todoist tasks for photographer actions. Calendar events for 1:1 meetings. Knack updates for missing performance grades (with approval). Teams messages if needed.
 
-## Phase 8: Personal Life (~5 min)
+**Do not proceed to Phase 3 (Personal) until Phase 2 work block is complete.**
+
+## Phase 3: Personal Life (~5 min)
 
 **Present exactly these tables:**
 
-**Table 8.1 — Parenting**
+**Table 3.1 — Parenting**
 
 | Question | Answer | → Notion field |
 |----------|--------|----------------|
@@ -795,7 +795,7 @@ Then state the **active repair sprint** from Phase 3.1 `Active CL Sprint` (seque
 | Activities planned | | |
 | Quality of recent time together | | |
 
-**Table 8.2 — Relationship integration** *(see [dating.md](../../self/dating.md))*
+**Table 3.2 — Relationship integration** *(see [dating.md](../../self/dating.md))*
 
 | Signal | Answer |
 |--------|--------|
@@ -803,27 +803,27 @@ Then state the **active repair sprint** from Phase 3.1 `Active CL Sprint` (seque
 | Eros clean / contaminated / divided | |
 | Impact on morning keystone, sleep, Bus time | |
 | Work/relationship boundary concerns | |
-| Fuel flag from Table 2.4 (two weeks running) | route to [eros.md](../../self/eros.md) daily container if yes |
+| Fuel flag from Table 1.5-E (two weeks running) | route to [eros.md](../../self/eros.md) daily container if yes |
 
-**Table 8.3 — Compulsion scan**
+**Table 3.3 — Compulsion scan**
 
 | Pattern | Present? | Notes |
 |---------|----------|-------|
 | Apps / substances / avoidance / hidden space | yes / no | per [capacity-rules.md](../../systems/capacity-rules.md) |
 
-**Table 8.4 — Personal enjoyment**
+**Table 3.4 — Personal enjoyment**
 
 | Item | On calendar? |
 |------|--------------|
-| Purely fun (beyond Phase 2 social pre-commit) | |
+| Purely fun (beyond Phase 1.5 social pre-commit) | |
 
-**Table 8.5 — Admin health**
+**Table 3.5 — Admin health**
 
 | Rating | 1-line actual last week | → Notion field |
 |--------|-------------------------|----------------|
 | Healthy / Unhealthy | | `Admin Health` |
 
-**Table 8.6 — Unhealthy Values follow-up**
+**Table 3.6 — Unhealthy Values follow-up**
 
 | Category (Unhealthy anywhere this week) | Discussion note |
 |----------------------------------------|-----------------|
@@ -831,7 +831,7 @@ Then state the **active repair sprint** from Phase 3.1 `Active CL Sprint` (seque
 
 **Outputs:** Calendar blocks for personal time (use Personal Time Blocks calendar `10283d615faeb91862fc0ccd8f3ac216c7299a58f2196185e912be8f3e3cbe83@group.calendar.google.com`). Todoist reminders if needed.
 
-## Phase 9: Commit (~5 min)
+## Phase 4: Commit (~5 min)
 
 **Purpose:** Final review, capacity check, execute remaining actions, log everything.
 
@@ -839,8 +839,8 @@ Then state the **active repair sprint** from Phase 3.1 `Active CL Sprint` (seque
 2. **Final capacity check:** Total planned hours vs. available hours. If total exceeds available, something must move. This is non-negotiable.
 3. **Confirm "This Week" checkboxes:** Verify all selected Dev Projects have `This Week = true` and no deselected ones still have it checked.
 4. **Store project KPIs on Weekly Meeting Log:** Write `Projects Completed` (count of projects marked Done this week) and `Projects In Progress` (count of projects with This Week checked for the new week).
-5. **Store activity KPIs on Weekly Meeting Log:** Write `Aaron Activities`, `Lexie Activities`, `Tristen Activities`, `Ran Activities`, `Total Activities` (if not already set in Phase 4).
-6. **Verify all FIELD CHECKs (REQUIRED):** Re-run Phase 1, 2, 3, and 4 FIELD CHECK lists. Confirm nothing is blank without N/A + reason.
+5. **Store activity KPIs on Weekly Meeting Log:** Write `Aaron Activities`, `Lexie Activities`, `Tristen Activities`, `Ran Activities`, `Total Activities` (if not already set in Phase 2.5).
+6. **Verify all FIELD CHECKs (REQUIRED):** Re-run Phase 1 (`1.check`), Phase 2 (`2.check` + CL ops), and confirm Phase 3 fields. Confirm nothing is blank without N/A + reason.
 7. **Append per-user Pipedrive detail sections** to the Weekly Meeting Log page using `personal_notion_append_blocks`. Use the Pipedrive data already pulled in Phase 0 (completed activities from the past 7 days + all open activities per user). Append the following structure:
 
    ```
@@ -877,10 +877,10 @@ Then state the **active repair sprint** from Phase 3.1 `Active CL Sprint` (seque
 
    Each activity line: `[type] subject -- deal name -- date`. For completed activities, show `marked_as_done_time` date. For open activities, show `due_date`. Prefix overdue open activities with `[OVERDUE]`. If a user has 0 activities in a section, show "None" instead of an empty list. Use `---` dividers between users.
 
-8. **Record life health ratings (REQUIRED):** Verify all 6 selects are set — `Mind Health` (→ `Spirituality Health` in Phase 9), `Fitness Health` (1.3), `Social Health` (2.3), `Work Health` (3.2), `Admin Health` (8.5), `Parenting Health` (8.1). Values: `Healthy` or `Unhealthy`.
+8. **Record life health ratings (REQUIRED):** Verify all 6 selects are set — `Mind Health` (→ `Spirituality Health` in Phase 4), `Fitness Health` (1.3), `Social Health` (1.5), `Work Health` (2.2), `Admin Health` (3.5), `Parenting Health` (3.1). Values: `Healthy` or `Unhealthy`.
 9. **Update Values DB Health (with approval):** For each category where this week's rating differs from current Values DB Health, update via `personal_notion_update_page` on the category page in Values DB (`342f40c2-487b-80c5`).
 10. **Record Starved Values:** Derive from life health ratings — set `Starved Values` multi_select to every category rated **Unhealthy** (Spirituality, Fitness, Work, Social, Admin, Parenting). Do not use a separate "felt off-track" question; health ratings are the source of truth.
-11. **Confirm accomplishment fields (REQUIRED):** Verify Phase 3.2 wrote `Logged/Unlogged/Total Accomplishments Count`, `Focused Output Hours Estimate`, and `Accomplishments`. Backfill from habit summary if missing.
+11. **Confirm accomplishment fields (REQUIRED):** Verify Phase 2.2 wrote `Logged/Unlogged/Total Accomplishments Count`, `Focused Output Hours Estimate`, and `Accomplishments`. Backfill from habit summary if missing.
 12. **Body comp already persisted.** Withings written in Phase 0 (`--days 28`). Don't re-run here.
 13. **Execute remaining:** Create any Todoist/Calendar/Pipedrive/Notion items not yet committed during earlier phases.
 14. **Log to Notion:** Finalize the Weekly Meeting Log entry (`322f40c2-487b-81bd`) with key decisions, action items, and plan summary.
@@ -888,9 +888,9 @@ Then state the **active repair sprint** from Phase 3.1 `Active CL Sprint` (seque
 
 ## Cross-Cutting Rules
 
-- **Table contract per phase.** Phase 1 = `1.1` Values → `1.2` Mind (incl. wellness) → `1.3` Fitness → `1.4` Sleep → `1.check`. Phase 2 = Tables 2.1–2.5 + fuel check. Phase 3 = Tables 3.1–3.check (incl. Work health). Phase 8 = Admin + Parenting health. Ledger `current_step` determines which tables are in scope.
-- **FIELD CHECK gates.** Run Table 1.check / 2.check / 3.check before crossing phase boundaries; verify all in Phase 9.
-- **Retire-a-slice (catch-up forcing).** Name the slice in Phase 4 CL Currency Check; confirm at Phase 9 commit it was archived / scheduled / assigned an owner.
+- **Table contract per phase.** Phase 1 = Values → Mind → Fitness → Sleep → Social → `1.check`. Phase 2 = development (`2.1`–`2.4` + `2.check`) + CL ops (`2.5`–`2.8`). Phase 3 = personal tables. Ledger `current_step` determines which tables are in scope.
+- **FIELD CHECK gates.** Run `1.check` before Phase 2 work; `2.check` after development; verify all in Phase 4 commit.
+- **Retire-a-slice (catch-up forcing).** Name the slice in Phase 2.5 CL Currency Check; confirm at Phase 4 commit it was archived / scheduled / assigned an owner.
 - **Route every item into a bucket.** Each surfaced item is Automated (n8n), Delegated (team 1:1s), or a Scheduled slice (calendar + Todoist mirror).
 - **Capacity is non-negotiable.** If total planned work exceeds available hours minus 10-15% buffer, the system pushes back. Something must move.
 - **Delegation by default.** For any task deferred 3+ times, suggest delegation before rescheduling. Use the delegation framework in `context/systems/capacity-rules.md`.
@@ -904,13 +904,11 @@ Then state the **active repair sprint** from Phase 3.1 `Active CL Sprint` (seque
 
 - **Pre-Phase 0:** Monthly plan gate pass (or full monthly plan run + resume).
 - **Phase 0:** Wellness + social + work data pulls; trend files; 4-week log history.
-- **Phase 0b:** Data integrity table; remediation before Phases 1–2.
-- **Phase 1:** Mind/body review + targets on Weekly Meeting Log.
-- **Phase 2:** Social review + intentions + optional pre-commit (Meetup / fitness class).
-- **Phase 3:** Dev priority context, last-week scorecard, trends, next-week queue + Personal Todoist mirrors.
-- **Phase 4:** Pipedrive scorecard + CL currency check.
-- **Phase 5–8:** CS, sales, people, personal (parenting/relationship/compulsion).
-- **Phase 9:** Full Weekly Meeting Log finalized + all FIELD CHECKs; Values DB sync (with approval).
+- **Phase 0b:** Data integrity table; remediation before Phase 1.
+- **Phase 1:** Life review (values, mind, fitness, sleep, social) + targets on Weekly Meeting Log.
+- **Phase 2:** All work — dev review, CL ops, CS, sales, people.
+- **Phase 3:** Personal (parenting, relationship, compulsion, admin health).
+- **Phase 4:** Full Weekly Meeting Log finalized + all FIELD CHECKs; Values DB sync (with approval).
 
 ## Failure modes & graceful degradation
 
