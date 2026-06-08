@@ -14,7 +14,7 @@ This skill activates when Aaron says **"weekly ops"**, **"ops review"**, **"CL o
 
 Load via the router. Read these before starting:
 
-- `context/systems/notion-databases.md` — DB IDs (Weekly Meeting Log, Monthly Meeting Log; Weekly Ops Meeting Log TBD)
+- `context/systems/notion-databases.md` — DB IDs (Weekly Ops Meeting Log `379f40c2-487b-8130`, Weekly Meeting Log, Monthly Meeting Log)
 - `context/systems/pipedrive.md` — pipeline IDs, stages, user IDs, completion-time API quirks
 - `context/systems/knack-fields.md` — Customer + Photographer field references
 - `context/systems/hubstaff.md` — member IDs, weekly-report tool
@@ -80,9 +80,9 @@ Load via the router. Read these before starting:
 
 ## Required Notion fields — index
 
-Commit writes target **Weekly Ops Meeting Log** (dedicated Notion DB — **not yet created; DB ID TBD**). Until the Ops Log exists and has history:
+Commit writes target **Weekly Ops Meeting Log** (`379f40c2-487b-8130-916d-eba9ce85134c`).
 
-- **"Last Wk" activity totals** (Table 1-A) → read prior entry from **Weekly Meeting Log** (`322f40c2-487b-81bd-8953-ffc40ac6432d`) via `weekly-ops-pull.mjs` planning-context section
+- **"Last Wk" activity totals** (Table 1-A) → prior entry from **Weekly Ops Log** via `weekly-ops-pull.mjs`; falls back to **Weekly Meeting Log** (`322f40c2-487b-81bd`) until Ops Log has history
 - **Active CL Sprint** → read from **Monthly Meeting Log** (`344f40c2-487b-806d-98b2-ef710856bd07`) latest entry (`Active CL Sprint` field)
 
 **Gate rules:**
@@ -94,7 +94,7 @@ Commit writes target **Weekly Ops Meeting Log** (dedicated Notion DB — **not y
 | Weekly Plan | Weekly Ops |
 |-------------|------------|
 | Life review + dev planning (~78 min) | CL ops execution (~40 min) |
-| Weekly Meeting Log DB (`322f40c2-487b-81bd`) | Weekly Ops Meeting Log DB (separate — TBD) |
+| Weekly Meeting Log DB (`322f40c2-487b-81bd`) | Weekly Ops Meeting Log DB (`379f40c2-487b-8130`) |
 | `Ops Minutes` habit KPI (retrospective time logged) | Pipedrive activity scorecard (forward accountability) |
 | Phases 2.5–2.8 (legacy) | Phases 1–4 here |
 
@@ -205,7 +205,7 @@ COMPLETED ACTIVITIES — WEEK-OVER-WEEK
 
 "Last Wk" total comes from the **prior Weekly Meeting Log** entry (briefing planning context) until Weekly Ops Log has its own history. Flag any user with **0** completed activities.
 
-**Hold for commit (Weekly Ops Log):** Aaron Activities, Lexie Activities, Tristen Activities, Ran Activities, Total Activities.
+**Hold for commit (Weekly Ops Log `379f40c2-487b-8130`):** Aaron Activities, Lexie Activities, Tristen Activities, Ran Activities, Total Activities.
 
 ### Part B — Chrome Lot Currency Check (catch-up forcing)
 
@@ -445,11 +445,11 @@ Run: `node scripts/workflow-progress.mjs gate --workflow weekly-ops --phase chec
 
 **Purpose:** Create Weekly Ops Log entry, final capacity check, execute remaining actions, append Team Activity Details, log everything.
 
-**Weekly Ops Meeting Log DB:** TBD — when created, add ID to `notion-databases.md`. Until then, document planned writes and hold Notion creates until Aaron provides the DB.
+**Weekly Ops Meeting Log DB:** `379f40c2-487b-8130-916d-eba9ce85134c` — see `notion-databases.md`.
 
 ### Commit procedure
 
-1. **Create Weekly Ops Log entry** (when DB exists): Name = `Week of [planning Monday YYYY-MM-DD]`, Meeting Date = today (CT).
+1. **Create Weekly Ops Log entry:** Name = `Week of [planning Monday YYYY-MM-DD]`, Meeting Date = today (CT). Use `personal_notion_create_database_entry` on Weekly Ops Meeting Log DB.
 2. **Summary table:** Everything planned across Phases 1–4 (CS stops, sales stops, invoice escalations, photographer actions, 1:1s, retire-a-slice target)
 
 **Table commit-A — Ops summary**
@@ -539,11 +539,10 @@ Run: `node scripts/workflow-progress.mjs gate --workflow weekly-ops --phase chec
 - **Phase 3:** Deal gaps cleared + Aaron sales plan + team oversight actions.
 - **Phase 4:** Photographer reviews + 1:1 scheduling decisions.
 - **check:** Ops FIELD CHECK pass.
-- **commit:** Weekly Ops Log entry (when DB exists) + Team Activity Details + approved external writes.
+- **commit:** Weekly Ops Log entry + Team Activity Details + approved external writes.
 
 ## Failure modes & graceful degradation
 
-- **Weekly Ops Meeting Log DB not yet created:** Complete all phases and Table check; hold Notion creates; write summary to `output/weekly-ops-commit-YYYY-MM-DD.md` for manual paste when DB is ready.
 - **Weekly Plan log missing for planning week:** Warn in pre-0; Aaron may proceed ops-only or pause for Weekly Plan.
 - **weekly-ops-pull / weekly-data-pull script failure:** Fall back to parallel MCP pulls per Phase 0 list; note missing sections in Table 0b-A.
 - **Monthly Meeting Log missing `Active CL Sprint`:** Use `Maintenance` default; flag for monthly plan backfill.
