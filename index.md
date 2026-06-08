@@ -2,7 +2,7 @@
 
 Human-readable docs mirrored from the private workspace. **Edit in GitHub:** [`life-command-center`](https://github.com/chromelot/life-command-center) — this site rebuilds on push.
 
-Last built: 2026-06-07T17:24:38.691Z
+Last built: 2026-06-08T13:00:23.703Z
 
 ## Start here
 
@@ -12,6 +12,7 @@ Last built: 2026-06-07T17:24:38.691Z
 ## Tier 2 — Cursor workflows
 
 - [Weekly Plan](https://chromelot.github.io/life-command-center-docs/workflows/weekly-plan) — "weekly plan", "weekly meeting", "Monday review", "sprint planning"
+- [Weekly Ops](https://chromelot.github.io/life-command-center-docs/workflows/weekly-ops) — "weekly ops", "ops review", "CL ops meeting", "operations meeting"
 - [Monthly Plan](https://chromelot.github.io/life-command-center-docs/workflows/monthly-plan) — "monthly plan", "monthly review", "plan this month"
 - [Quarterly Plan](https://chromelot.github.io/life-command-center-docs/workflows/quarterly-plan) — "quarterly plan", "strategy review", "quarterly review", "mid-quarter check"
 - [Micro-Scrub](https://chromelot.github.io/life-command-center-docs/workflows/micro-scrub) — "scrub", "micro-scrub", "review projects", "scrub roadmap"

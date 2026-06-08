@@ -43,7 +43,8 @@ Full schedule and tier ownership: [`cadences.md`](cadences.md). Agent intent rou
 <!-- AUTO:CADENCE_MATRIX -->
 | Workflow | Tier | Cadence | Duration | Phases | Gates | Triggers |
 |---|---|---|---|---|---|---|
-| weekly plan | Tier 2 (Cursor) | Weekly (~Fridays) | 78 min | 9 + Pre-Phase 0 gate | Monthly plan (review month) must exist | "weekly plan", "weekly meeting", "Monday review", "sprint planning" |
+| weekly plan | Tier 2 (Cursor) | Weekly (~Fridays) | ~40 min (life + dev) | 1 life + 2 dev + commit | Monthly plan (review month) must exist | "weekly plan", "weekly meeting", "Monday review", "sprint planning" |
+| weekly ops | Tier 2 (Cursor) | Weekly (separate session) | ~40 min | ops + CS + sales + people + commit | Same planning week as weekly plan | "weekly ops", "ops review", "CL ops meeting", "operations meeting" |
 | monthly plan | Tier 2 (Cursor) | Monthly (first week) | 83 min | 14 | Quarterly plan must be committed | "monthly plan", "monthly review" |
 | quarterly plan | Tier 2 (Cursor) | Quarterly (week 1) + mid-quarter week 6 | 90–120 min / 15 min checkpoint | 5-part, 14 phases | None (top-level strategic gate) | "quarterly plan", "strategy review" |
 | scrub | Tier 2 (Cursor) | 3×/week (Mon/Wed/Fri rotation) | 10 min | inline in rule | None | "scrub", "micro-scrub", "review projects" |
@@ -86,7 +87,8 @@ Spec files: `n8n/conventions.md`, `n8n/bots/cl-bot/teams-bot.md`, `n8n/sync/pd-t
 <!-- AUTO:TIER2_WORKFLOWS -->
 | Triggers | Cursor rule | Skill / procedure | Core context |
 |---|---|---|---|
-| "weekly plan", "weekly meeting", "Monday review", "sprint planning" | `.cursor/rules/weekly-meeting.mdc` | `context/skills/weekly-planning/SKILL.md` | systems/cadences.md, systems/capacity-rules.md, systems/notion-databases.md, systems/pipedrive.md, systems/knack-fields.md, self/values.md, people/index.md |
+| "weekly plan", "weekly meeting", "Monday review", "sprint planning" | `.cursor/rules/weekly-meeting.mdc` | `context/skills/weekly-planning/SKILL.md` | systems/cadences.md, systems/capacity-rules.md, systems/notion-databases.md, self/values.md, people/index.md |
+| "weekly ops", "ops review", "CL ops meeting", "operations meeting" | `.cursor/rules/weekly-ops.mdc` | `context/skills/weekly-ops/SKILL.md` | systems/cadences.md, systems/pipedrive.md, systems/knack-fields.md, work/chrome-lot/, people/index.md |
 | "monthly plan", "monthly review" | `.cursor/rules/monthly-plan.mdc` | `context/skills/monthly-plan/SKILL.md` | systems/cadences.md, systems/notion-databases.md, self/values.md, people/index.md, work/chrome-lot/, work/turbo-gear/ |
 | "quarterly plan", "strategy review" | `.cursor/rules/strategy-review.mdc` | `context/skills/quarterly-plan/SKILL.md` | self/values.md, work/chrome-lot/, work/turbo-gear/, self/, people/index.md |
 | "scrub", "micro-scrub", "review projects" | `.cursor/rules/micro-scrub.mdc` | `(inline in rule)` | systems/cadences.md, systems/capacity-rules.md, self/values.md |
@@ -106,7 +108,8 @@ Full phase-by-phase procedures live in Notion **sub-pages** (sidebar under this 
 <!-- AUTO:WORKFLOW_GUIDES -->
 | Workflow | Duration | Triggers | Workspace source |
 |---|---|---|---|
-| Weekly Plan | 78 min | "weekly plan", "weekly meeting", "Monday review", "sprint planning" | `context/skills/weekly-planning/SKILL.md` |
+| Weekly Plan | ~40 min (life + dev) | "weekly plan", "weekly meeting", "Monday review", "sprint planning" | `context/skills/weekly-planning/SKILL.md` |
+| Weekly Ops | ~40 min | "weekly ops", "ops review", "CL ops meeting", "operations meeting" | `context/skills/weekly-ops/SKILL.md` |
 | Monthly Plan | 83 min | "monthly plan", "monthly review", "plan this month" | `context/skills/monthly-plan/SKILL.md` |
 | Quarterly Plan | 90–120 min (+ 15 min mid-quarter checkpoint) | "quarterly plan", "strategy review", "quarterly review", "mid-quarter check" | `context/skills/quarterly-plan/SKILL.md` |
 | Micro-Scrub | 10 min | "scrub", "micro-scrub", "review projects", "scrub roadmap" | `.cursor/rules/micro-scrub.mdc` |
@@ -166,10 +169,7 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 ## Health / staleness
 
 <!-- AUTO:HEALTH_REPORT -->
-⚠ **4 issue(s)** across 71 context files.
-
-### broken-see-also (1)
-- `context/systems/audiobook-pipeline.md` — ../../output/audiobook-handoff-2026-05-05.md
+⚠ **3 issue(s)** across 72 context files.
 
 ### missing-frontmatter (3)
 - `context/systems/notion-guides/cl-bot.md` — no-frontmatter
@@ -184,7 +184,7 @@ Full audit: `node scripts/audit-context.mjs`
 ## Last generated
 
 <!-- AUTO:LAST_GENERATED -->
-**2026-06-07 12:24:38** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
+**2026-06-08 08:00:23** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
 <!-- /AUTO:LAST_GENERATED -->
 
 ## See also
