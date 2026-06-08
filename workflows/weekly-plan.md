@@ -4,7 +4,7 @@
 
 ## Trigger
 
-This skill activates when Aaron says "weekly plan", "weekly meeting", "plan this week", "sprint planning", or "Monday review". Target duration: ~78 minutes (Phase 1 life review ~32 min · Phase 2 work ~45 min · Phase 4 commit ~5 min).
+This skill activates when Aaron says "weekly plan", "weekly meeting", "plan this week", "sprint planning", or "Monday review". Target duration: ~40 minutes (Phase 1 life review ~28 min · Phase 2 development ~10 min · Phase 4 commit ~5 min). **CL operations** (Pipedrive scorecard, CS, sales, people) run in a **separate Weekly Ops session** — `context/skills/weekly-ops/SKILL.md`.
 
 ## Inputs
 
@@ -22,9 +22,6 @@ Load via the router. Read these before starting:
 - `context/self/social.md` — sarges, Small Talk targets, isolation signals (Phase 1.5)
 - **Planning context (canonical):** Monthly + Quarterly Meeting Log fields — pulled in Phase 0; see Phase 2.1. `context/self/current-priorities.md` is fallback only.
 - `context/people/index.md` — delegation matrix, 1:1 tracking
-- `context/work/chrome-lot/customer-service.md` — Phase 2.6 logic
-- `context/work/chrome-lot/sales.md` — Phase 2.7 logic
-- `context/work/chrome-lot/operations.md` — Phase 2.8 photographer review logic
 - `context/work/turbo-gear/overview.md` — TG strategic sequence (for Phase 2.4 project selection)
 
 ## Execution Protocol (mandatory — read `context/workflow-execution.md`)
@@ -57,7 +54,7 @@ Each phase ends with an inline **FIELD CHECK** listing its required Weekly Meeti
 
 **Gate rules:**
 - Before **Phase 2 (Work)**: Phase 1 FIELD CHECK (`1.check`) must pass.
-- Before **Phase 4 (Commit)**: Phase 2 work block complete (through `2.8` + `2.check`).
+- Before **Phase 4 (Commit)**: Phase 2 development block complete (through `2.check`).
 - Each phase delivers **only** its table contract (see per-phase **Present** blocks below).
 
 ## Procedure
@@ -119,13 +116,9 @@ Output: stdout **Small Talk list, days since last entry, daily counts, calendar 
 - **Small Talk DB** (`121f40c2-487b-802d`): script queries all entries; uses `Created Date` when set.
 - **Google Calendar (last 7 days):** script pulls **Personal calendar only** (`hoegenauera@gmail.com` — actual booked events). **Exclude** Personal Time Blocks (`10283d615…@group.calendar.google.com`) — those are time-spending goals, not real events. Flags social-looking events (hangouts, Meetup, dates, fitness classes, etc.). Count → `Social Events Count`.
 
-### Development + work pulls (after wellness/social; silent until Phase 2+)
+### Development pulls (after wellness/social; silent until Phase 2+)
 
-```
-node "scripts/weekly-data-pull.mjs"
-```
-
-Pull via MCP in parallel:
+Pull via MCP in parallel (ops pulls — Pipedrive/Knack CS/photographers — live in **Weekly Ops** `scripts/weekly-ops-pull.mjs`):
 1. **Todoist**: Overdue, this week, completion stats (exclude Shopping List)
 2. **Dev Projects DB** (`341f40c2-487b-80ac`): `This Week = true` carryover; current-quarter projects Status ≠ Done
 3b. **Monthly Meeting Log** (`344f40c2-487b-806d`): review month entry — `Priority Stack`, `Domains Parked`, `Active CL Sprint`, `Action Items`, `Key Wins`, `Key Misses`
@@ -139,15 +132,11 @@ Pull via MCP in parallel:
    - Field Work (`237f40c2-487b-80ab`): query all, sum Total Time
    - Journal (`99c9e393-812f-4d73`): query all, count entries
 5. **Values DB** (`342f40c2-487b-80c5`): Pull all 6 categories with Health status
-6. **Notion Work**: CL tasks/projects status
-7. **Pipedrive**: Sales pipeline (pipeline 1), CS pipeline (pipeline 6, full pull), activities (overdue + this week). **For completed activity KPIs:** use `pipedrive_get_activities` with `done: "1"` and `updated_since` set to the Monday of the previous week (RFC3339), then filter results client-side by `marked_as_done_time` within the target week. Pull per-user for open activities (user_id: 18865844, 22704318, 20938631, 19274648) since omitting user_id only returns the authenticated user.
-8. **Knack Customers** (`object_2`): field_464 (Current Customer), field_1035 (HJD), field_1601 (Health Status), field_1438 (Account Manager), field_1410 (Invoice Follow Up Status), field_1428 (Adjusted Late Invoices), field_1491 (Aged Invoices)
-9. **Knack Photographers** (`object_7`): field_33 (Status), field_1267 (Call-ins Last Month), field_1362 (Avg Issues Per Car), field_1446 (Time Off Requests Last Month), field_1338 (Performance Grade)
-10. **Google Calendar**: Next week's events
-11. **Hubstaff**: Last week's hours per member via `hubstaff_get_weekly_report`
-12. **Health Data**: `health_get_summary({ days: 28 })` above — used throughout Phase 1.
+6. **Google Calendar**: Next week's events (dev capacity in Phase 2.4)
+7. **Hubstaff**: Last week's hours via `hubstaff_get_weekly_report` (dev capacity in Phase 2.4)
+8. **Health Data**: `health_get_summary({ days: 28 })` above — used throughout Phase 1.
 
-**Reconcile completions first** — before work phases, check what's already been done since last plan and mark complete.
+**Reconcile completions first** — before Phase 2, check what's already been done since last plan and mark complete.
 
 ## Phase 0b: Data Integrity Gate (~3 min)
 
@@ -532,9 +521,9 @@ Append parenting row to `Intentions Review`.
 
 **Do not proceed to Phase 2 (Work) until Table 1.check passes.**
 
-## Phase 2: Work (~45 min)
+## Phase 2: Development (~10 min)
 
-**Purpose:** All work content — development review, CL operations, CS, sales, people — after Phase 1 life review is complete.
+**Purpose:** Development review and next-week dev planning — after Phase 1 life review is complete. CL operations run in **Weekly Ops** (separate session).
 
 Load (development steps): `weekly-wellness-trends-*.md`, `weekly-habits-*.md`, Phase 0 monthly/quarterly log pulls, prior week `Dev Intentions` + `Dev Projects Intended`.
 
@@ -548,7 +537,7 @@ Load (development steps): `weekly-wellness-trends-*.md`, `weekly-habits-*.md`, P
 | Quarterly | Domains Parked | multi-select | |
 | Monthly ([planning month]) | Priority Stack | numbered list — authoritative dev focus | |
 | Monthly | Domains Parked | multi-select — what's on pause | |
-| Monthly | Active CL Sprint | A–E or Maintenance | feeds Phase 2.5 |
+| Monthly | Active CL Sprint | A–E or Maintenance | feeds Weekly Ops CL currency check |
 | Monthly | Action Items | planning-month commitments | |
 
 → Write `Dev Priority Context` (rich_text — copy table narrative).
@@ -563,7 +552,7 @@ Write snapshot to Weekly Meeting Log `Dev Priority Context` (rich_text — copy 
 
 **Enforcement (read aloud):**
 - If `Domains Parked` includes **Turbo Gear**, do not select TG Dev Projects in 2.4 unless Aaron explicitly overrides.
-- `Active CL Sprint` drives Phase 2.5 CL Currency Check.
+- `Active CL Sprint` is consumed in **Weekly Ops** Phase 1 (CL currency check), not this workflow.
 
 Ask via AskQuestion (multi-select): "Anything from the priority context that must get a dev slice **this** week?" Options: one per `Priority Stack` line + one per distinct `Action Items` theme + "None — on track as written."
 
@@ -674,259 +663,35 @@ Personal work does not run in the protected dev block. For each **Personal** sub
 |----------------|
 | `Dev Priority Context`, `Deep Work Minutes`, `Ops Minutes`, `Field Work Minutes`, `Work Health`, `Dev Review`, `Dev Week Rating`, `Dev Intentions Met`, `Dev Trend Notes`, `Dev Capacity Note`, `Dev Adjustments`, `Dev Intentions`, `Dev Projects Intended`, `Accomplishments`, `Logged/Unlogged/Total Accomplishments Count`, `Focused Output Hours Estimate` |
 
-### 2.5 CL Operations Review (~8 min)
-
-**Purpose:** Pipedrive activity scorecard + CL operating currency.
-
-### Part A -- Pipedrive Activity Scorecard
-
-Pull completed activities for the past week using `pipedrive_get_activities` with `done: "1"` and `updated_since` set to the Monday of the target week. Filter results client-side to activities where `marked_as_done_time` falls within the 7-day window. Present as:
-
-```
-COMPLETED ACTIVITIES -- WEEK-OVER-WEEK
-| User    | Stop | Call/Text | Task | Meeting | Total | Last Wk |
-|---------|------|-----------|------|---------|-------|---------|
-| Aaron   |      |           |      |         |       |         |
-| Lexie   |      |           |      |         |       |         |
-| Tristen |      |           |      |         |       |         |
-| Ran     |      |           |      |         |       |         |
-| Total   |      |           |      |         |       |         |
-```
-
-"Last Wk" total comes from the previous Weekly Meeting Log entry. Flag any user with 0 completed activities.
-
-**Store per-user totals on the Weekly Meeting Log entry:** Aaron Activities, Lexie Activities, Tristen Activities, Ran Activities, Total Activities.
-
-### Part B -- Chrome Lot Currency Check (catch-up forcing)
-
-**Purpose:** surface, in one glance, how far behind the operating business is, so the meeting orients around *retiring* backlog rather than just re-planning. Present a small standing scorecard from data already pulled in Phase 0:
-
-```
-CL CURRENCY CHECK
-| Signal                          | Count / Age | Trend vs last wk |
-|---------------------------------|-------------|------------------|
-| Todoist overdue (excl Shopping) |             |                  |
-| Pipedrive overdue activities    |             |                  |
-| Oldest open 1:1 (days)          |             |                  |
-| CS deals 60+ days stale         |             |                  |
-| Photographers w/ missing grade  |             |                  |
-```
-
-Then state the **active repair sprint** from Phase 2.1 `Active CL Sprint` (sequence: A Pipedrive+Todoist → B 1:1 cadence → C customer service → D photographer performance → E sales → Maintenance). Name the specific backlog slice this meeting will retire. This feeds the retire-a-slice rule at commit.
-
-**FIELD CHECK — CL Ops:** `Aaron Activities`, `Lexie Activities`, `Tristen Activities`, `Ran Activities`, `Total Activities`.
-
-### 2.6 CS Management (~10 min)
-
-**Purpose:** Keep customer relationships healthy with structured 60-day check-in cadence and invoice accountability.
-
-### Part A -- Check-in Cadence
-
-1. **Cross-reference Knack & Pipedrive:** Current customers in Knack (field_464=Yes) vs. open CS deals in Pipedrive (pipeline 6). Flag mismatches.
-2. **Staleness check:** Calculate days since last activity per CS deal. Flag any 60+ days overdue.
-3. **HJD flag:** Any customer with field_1035 > 10 gets flagged.
-4. **Health status review:** Check field_1601 for "Needs Attention" or "At Risk" accounts.
-5. **Propose weekly check-in batch:** ~6-9 stops, prioritized by:
-   - AT RISK / Needs Attention stage first
-   - Days overdue (most stale first)
-   - Account value
-   - Grouped by geography where possible
-6. **Delegation:** Assign stops to Tristen, Lexie, Ran, or Aaron based on deal ownership. Spread across the week.
-
-### Part B -- Late Invoice Review
-
-1. Pull customers where field_1410 (Invoice Follow Up Status) = "Account Manager Follow Up" or "Max Escalation"
-2. Pull customers where field_1428 (Adjusted Late Invoices) > 3 OR field_1491 (Aged Invoices) > 1
-3. Combine both lists (deduplicate). Review each flagged customer one by one.
-4. Create Pipedrive activities (escalation follow-up) assigned to either Aaron or the account manager (field_1438) associated with the account.
-
-**Invoice escalation trigger rule:**
-- field_1410 = "Account Manager Follow Up" or "Max Escalation" --> always flag
-- field_1428 (Adjusted Late Invoices) > 3 --> flag
-- field_1491 (Aged Invoices) > 1 --> flag
-- Any one of these triggers a review and Pipedrive activity
-
-### Knack Customer Field Reference
-
-| Field | Name | Trigger |
-|-------|------|---------|
-| field_464 | Current Customer | Filter active |
-| field_1035 | High Job Days | Flag if > 10 |
-| field_1601 | Customer Health Status | Flag Needs Attention / At Risk |
-| field_1438 | Account Manager | Determine delegation |
-| field_1410 | Invoice Follow Up Status | Flag "AM Follow Up" / "Max Escalation" |
-| field_1428 | Adjusted Late Invoices | Flag if > 3 |
-| field_1491 | Aged Invoices | Flag if > 1 |
-
-### Pipedrive Reference
-
-| ID | Meaning |
-|----|---------|
-| Pipeline 6 | CS Pipeline |
-| Stage 28 | Needs Attention |
-| Stage 61 | Happy |
-| Stage 26 | AT RISK |
-| User 18865844 | Aaron |
-| User 20938631 | Tristen |
-| User 22704318 | Lexie |
-| User 19274648 | Ran |
-
-**Outputs:** Pipedrive stop activities for check-ins. Pipedrive escalation activities for invoice issues. Knack/Pipedrive updates if account status changed (with approval).
-
-### 2.7 Sales Management (~12 min)
-
-**Purpose:** Drive new revenue and manage the full sales team's pipeline activity.
-
-### Part A -- Aaron's Sales Activity
-
-**A0 — Deal gaps cleanup (mandatory, before planning stops)**
-
-1. Pre-pull Aaron-owned open deals in Sales (pipeline 1), CS (pipeline 6), and Social Media (pipeline 13) with **no `next_activity_date`** via Pipedrive MCP. Present as a numbered checklist.
-2. Instruct Aaron to run CL Bot **`deal gaps`** in Teams ([`cl-bot.md`](../../systems/notion-guides/cl-bot.md)) and schedule every gap via the Adaptive Card **Schedule** buttons (+3 days default).
-3. **Gate:** Do not plan new sales stops until gaps = 0. If Aaron explicitly defers a deal, log the deal name + reason in Phase 4 `Key Decisions` and exclude it from the gap count.
-
-**A1 — Stale deal review (one-by-one)**
-
-1. Pull Aaron-owned **Sales Pipeline 1** deals with the **Stale** label (same signal as bot `stale deals`). Fallback if label missing: open deals with no activity in 14+ days.
-2. Present **one deal at a time** via `AskQuestion`: **Keep active** / **Move to cold pool (Pipeline 12)** / **Defer decision**.
-3. **Cold sales pool** = Pipeline 12 **Not Actively Working** ([`pipedrive.md`](../../systems/pipedrive.md)). Each **Move to Pipeline 12** requires case-by-case Pipedrive approval before `pipedrive_update_deal` — never batch-execute.
-4. Deferrals carry to next weekly plan; do not re-present deferred deals unless still stale.
-
-**A2 — Plan the week**
-
-1. Review Pipedrive sales pipeline (pipeline 1): new leads, remaining active stale deals, overdue activities
-2. Plan Aaron's sales stops for the week (realistically 2-3)
-3. Route planning: use Mapsly manually to cluster stops geographically
-4. Review any rescheduled-3x activities -- decide: do, delegate, or drop
-5. Accountability: activities completed last week vs. planned
-
-### Part B -- Team Sales Oversight
-
-1. Pull sales pipeline deals owned by Tristen, Lexie, and Ran
-2. Review each team member's sales activity: deals in progress, overdue activities, stale leads
-3. Flag any deals with no activity in 14+ days
-4. Propose reassignments or follow-up nudges where needed
-5. Create Pipedrive activities for team members as needed
-
-**Outputs:** Pipedrive activities for Aaron's sales stops. Pipedrive activities or nudges for team sales. Todoist tasks for follow-ups.
-
-### 2.8 People Management (~10 min)
-
-**Purpose:** Keep team relationships healthy, catch photographer and staff performance issues early.
-
-### Part A -- Photographer Performance Review
-
-1. Pull all active photographers from Knack (`object_7`, field_33 = "active")
-2. Flag any photographer meeting one or more criteria:
-   - field_1267 (Call-ins Last Month) > 3
-   - field_1362 (Average Issues Per Car) > 0.5
-   - field_1446 (Time Off Requests Last Month) > 3
-   - field_1338 (Performance Grade) contains "Below Expectations"
-   - field_1338 (Performance Grade) is blank/missing
-3. For each flagged photographer, pull the most recent comment from `object_57` where field_1006 = "Photographer" (matched via photographer connection)
-4. Present each flagged photographer one by one with: name, flag reasons, metrics, and most recent photographer comment
-5. Decide action: coaching conversation, written warning, schedule meeting, no action, etc.
-6. If Performance Grade is missing, set it during the session via `knack_update_record` (with approval)
-7. Create Todoist tasks for any decided actions
-
-### Knack Photographer Field Reference (object_7)
-
-| Field | Name | Trigger |
-|-------|------|---------|
-| field_30 | Name | Identity |
-| field_33 | Status | Filter active |
-| field_1267 | Call-ins Last Month | Flag if > 3 |
-| field_1362 | Average Issues Per Car | Flag if > 0.5 |
-| field_1446 | Time Off Requests Last Month | Flag if > 3 |
-| field_1338 | Performance Grade | Flag if "Below Expectations" or missing |
-
-### Knack Comments Reference (object_57)
-
-| Field | Name |
-|-------|------|
-| field_857 | Comment text |
-| field_858 | User who wrote it |
-| field_860 | Date |
-| field_1006 | Comment type (filter: "Photographer") |
-
-### Part B -- Staff & 1:1 Management
-
-1. Review people directory: who is overdue for a 1:1?
-2. Hubstaff hours: pull last week's report. Flag under-hours, low activity %, zero-hour days.
-3. Pick top 1-2 overdue 1:1s to schedule this week
-4. Any delegation decisions from earlier phases that need to be communicated
-
-**Outputs:** Todoist tasks for photographer actions. Calendar events for 1:1 meetings. Knack updates for missing performance grades (with approval). Teams messages if needed.
-
-**Do not proceed to Phase 4 (Commit) until Phase 2 work block is complete.**
+**Do not proceed to Phase 4 (Commit) until Phase 2 development block is complete (`2.check` passed).**
 
 ## Phase 4: Commit (~5 min)
 
 **Purpose:** Final review, capacity check, execute remaining actions, log everything.
 
-1. **Summary table:** Everything planned across all phases (project selections, CS stops, sales stops, invoice escalations, photographer actions, 1:1s, personal items)
+1. **Summary table:** Everything planned across all phases (project selections, personal items, dev intentions)
 2. **Final capacity check:** Total planned hours vs. available hours. If total exceeds available, something must move. This is non-negotiable.
 3. **Confirm "This Week" checkboxes:** Verify all selected Dev Projects have `This Week = true` and no deselected ones still have it checked.
 4. **Store project KPIs on Weekly Meeting Log:** Write `Projects Completed` (count of projects marked Done this week) and `Projects In Progress` (count of projects with This Week checked for the new week).
-5. **Store activity KPIs on Weekly Meeting Log:** Write `Aaron Activities`, `Lexie Activities`, `Tristen Activities`, `Ran Activities`, `Total Activities` (if not already set in Phase 2.5).
-6. **Verify all FIELD CHECKs (REQUIRED):** Re-run Phase 1 (`1.check`) and Phase 2 (`2.check` + CL ops). Confirm nothing is blank without N/A + reason.
-7. **Append per-user Pipedrive detail sections** to the Weekly Meeting Log page using `personal_notion_append_blocks`. Use the Pipedrive data already pulled in Phase 0 (completed activities from the past 7 days + all open activities per user). Append the following structure:
-
-   ```
-   ---
-   # Team Activity Details
-
-   ## Aaron Hoegenauer
-
-   **Completed Activities (X total)**
-   - [Stop] CS Check-in: Karma DFW -- Karma DFW CS -- Apr 8
-   - [Task] Invoice follow-up -- iDrive1 CS -- Apr 10
-   ...
-
-   **Open / Overdue Activities (Y total)**
-   - [OVERDUE] Follow up with Nabil -- Tradeline CS -- due Apr 7
-   - [Call/Text] Follow up with Marios -- DFW Motorcars CS -- due Apr 14
-   ...
-
-   ---
-
-   ## Lexie ...
-   (same structure)
-
-   ---
-
-   ## Tristen ...
-   (same structure)
-
-   ---
-
-   ## Ran ...
-   (same structure)
-   ```
-
-   Each activity line: `[type] subject -- deal name -- date`. For completed activities, show `marked_as_done_time` date. For open activities, show `due_date`. Prefix overdue open activities with `[OVERDUE]`. If a user has 0 activities in a section, show "None" instead of an empty list. Use `---` dividers between users.
-
-8. **Record life health ratings (REQUIRED):** Verify weekly-rated selects are set — `Mind Health` (→ `Spirituality Health` in Phase 4), `Fitness Health` (1.3), `Social Health` (1.5), `Parenting Health` (1.6), `Work Health` (2.2). Values: `Healthy` or `Unhealthy`. Admin is not rated in weekly plan.
-9. **Update Values DB Health (with approval):** For each category where this week's rating differs from current Values DB Health, update via `personal_notion_update_page` on the category page in Values DB (`342f40c2-487b-80c5`).
-10. **Record Starved Values:** Derive from weekly health ratings — set `Starved Values` multi_select to every **rated** category marked **Unhealthy** (Spirituality, Fitness, Work, Social, Parenting). Admin excluded from weekly rating.
-11. **Confirm accomplishment fields (REQUIRED):** Verify Phase 2.2 wrote `Logged/Unlogged/Total Accomplishments Count`, `Focused Output Hours Estimate`, and `Accomplishments`. Backfill from habit summary if missing.
-12. **Body comp already persisted.** Withings written in Phase 0 (`--days 28`). Don't re-run here.
-13. **Execute remaining:** Create any Todoist/Calendar/Pipedrive/Notion items not yet committed during earlier phases.
-14. **Log to Notion:** Finalize the Weekly Meeting Log entry (`322f40c2-487b-81bd`) with key decisions, action items, and plan summary.
-15. **Update context files** if anything changed.
+5. **Verify all FIELD CHECKs (REQUIRED):** Re-run Phase 1 (`1.check`) and Phase 2 (`2.check`). Confirm nothing is blank without N/A + reason. (Activity KPIs + Team Activity Details → **Weekly Ops** commit.)
+6. **Record life health ratings (REQUIRED):** Verify weekly-rated selects are set — `Mind Health` (→ `Spirituality Health` in Phase 4), `Fitness Health` (1.3), `Social Health` (1.5), `Parenting Health` (1.6), `Work Health` (2.2). Values: `Healthy` or `Unhealthy`. Admin is not rated in weekly plan.
+7. **Update Values DB Health (with approval):** For each category where this week's rating differs from current Values DB Health, update via `personal_notion_update_page` on the category page in Values DB (`342f40c2-487b-80c5`).
+8. **Record Starved Values:** Derive from weekly health ratings — set `Starved Values` multi_select to every **rated** category marked **Unhealthy** (Spirituality, Fitness, Work, Social, Parenting). Admin excluded from weekly rating.
+9. **Confirm accomplishment fields (REQUIRED):** Verify Phase 2.2 wrote `Logged/Unlogged/Total Accomplishments Count`, `Focused Output Hours Estimate`, and `Accomplishments`. Backfill from habit summary if missing.
+10. **Body comp already persisted.** Withings written in Phase 0 (`--days 28`). Don't re-run here.
+11. **Execute remaining:** Create any Todoist/Calendar/Pipedrive/Notion items not yet committed during earlier phases.
+12. **Log to Notion:** Finalize the Weekly Meeting Log entry (`322f40c2-487b-81bd`) with key decisions, action items, and plan summary.
+13. **Update context files** if anything changed.
 
 ## Cross-Cutting Rules
 
-- **Table contract per phase.** Phase 1 = Values → Mind → Fitness → Sleep → Social → Parenting → Personal enjoyment → `1.check`. Phase 2 = development (`2.1`–`2.4` + `2.check`) + CL ops (`2.5`–`2.8`). Ledger `current_step` determines which tables are in scope.
-- **FIELD CHECK gates.** Run `1.check` before Phase 2 work; `2.check` after development; verify all in Phase 4 commit.
-- **Retire-a-slice (catch-up forcing).** Name the slice in Phase 2.5 CL Currency Check; confirm at Phase 4 commit it was archived / scheduled / assigned an owner.
+- **Table contract per phase.** Phase 1 = Values → Mind → Fitness → Sleep → Social → Parenting → Personal enjoyment → `1.check`. Phase 2 = development (`2.1`–`2.4` + `2.check`) only. CL ops → **Weekly Ops** skill. Ledger `current_step` determines which tables are in scope.
+- **FIELD CHECK gates.** Run `1.check` before Phase 2 development; `2.check` after development; verify all in Phase 4 commit.
 - **Route every item into a bucket.** Each surfaced item is Automated (n8n), Delegated (team 1:1s), or a Scheduled slice (calendar + Todoist mirror).
 - **Capacity is non-negotiable.** If total planned work exceeds available hours minus 10-15% buffer, the system pushes back. Something must move.
 - **Delegation by default.** For any task deferred 3+ times, suggest delegation before rescheduling. Use the delegation framework in `context/systems/capacity-rules.md`.
-- **Max 3 Pipedrive activities per day.** Cap at sustainable levels.
 - **Max 5 must-do Todoist tasks per day.** If morning briefing shows >5, defer.
-- **Pipedrive accountability is #1 neglected area.** Always check activities completed vs. planned.
-- **All data pulls happen in Phase 0 silently.** ~78 minutes is for discussion and decisions.
+- **All data pulls happen in Phase 0 silently.** ~40 minutes is for discussion and decisions.
 - **Quarterly docket is the source.** Weekly project selection pulls only from the current quarter's assigned projects. Don't ad-hoc backlog items.
 
 ## Outputs
@@ -935,7 +700,7 @@ Then state the **active repair sprint** from Phase 2.1 `Active CL Sprint` (seque
 - **Phase 0:** Wellness + social + work data pulls; trend files; 4-week log history.
 - **Phase 0b:** Data integrity table; remediation before Phase 1.
 - **Phase 1:** Life review (values, mind, fitness, sleep, social, parenting, personal enjoyment) + targets on Weekly Meeting Log.
-- **Phase 2:** All work — dev review, CL ops, CS, sales, people.
+- **Phase 2:** Development review + next-week dev plan.
 - **Phase 4:** Full Weekly Meeting Log finalized + all FIELD CHECKs; Values DB sync (with approval).
 
 ## Failure modes & graceful degradation
@@ -961,5 +726,5 @@ Then state the **active repair sprint** from Phase 2.1 `Active CL Sprint` (seque
 - `../../systems/health-data.md`
 - `../../self/values.md`, `../../self/current-priorities.md`
 - `../../people/index.md`
-- `../../work/chrome-lot/customer-service.md`, `../../work/chrome-lot/sales.md`, `../../work/chrome-lot/operations.md`
+- `../weekly-ops/SKILL.md` — CL operations (separate session)
 - `../../work/turbo-gear/overview.md`
