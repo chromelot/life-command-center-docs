@@ -635,46 +635,62 @@ Append parenting row to `Intentions Review`.
 
 #### B — Plan for next week (one table per turn)
 
-**Table 2.1-D — Adjustments to try**
+**Table 2.1-D — Dev health review** *(agent summarizes; Aaron rates)*
 
-| Adjustment | Reason |
-|------------|--------|
-| | |
+Agent presents a short narrative — **no recommendations, no task list** (selection is **2.1-G**). Cover:
 
-→ Write `Dev Adjustments`.
+1. **Output** — accomplishments vs queued dev work (2.1-C counts + queue tree).
+2. **Time** — dev minutes logged (2.1-B) vs realistic capacity.
+3. **Goal progress** — review week vs **monthly** priority stack (`weekly-dev-review` § Monthly planning context + incomplete CL/TG trees): what moved, what’s stuck, parked domains noted.
 
-**Table 2.1-E — Dev efforts health** *(reply with letter)*
+Then Aaron rates:
 
 | | Rating |
 |---|--------|
 | **A** | Healthy |
 | **B** | Unhealthy |
 
-→ Write `Work Health`, `Dev Week Rating`, `Dev Intentions Met`.
+→ Write `Work Health`, `Dev Week Rating`, `Dev Intentions Met`, and fold the summary into `Dev Review`.
 
-**Table 2.1-F — Monthly incomplete (select for This Week)**
+**Table 2.1-E — Adjustments** *(only if 2.1-D = Unhealthy)*
 
-Present from `weekly-dev-review` § Monthly incomplete — **Chrome Lot** and **Turbo Gear** only. Format:
+**Skip entirely when Healthy.** When Unhealthy: ask Aaron what adjustments he wants to commit to for the next period. **Agent does not recommend adjustments** — capture his words only.
 
-```
-**Chrome Lot**
-- **Parent** — Status
-  - Sub-item — Status
-**Turbo Gear**
-- ...
-```
+→ Write `Dev Adjustments` (Aaron’s commitments, or leave empty when Healthy).
 
-**Table 2.1-G — Selection** *(multi-select — reply with item letters, e.g. `A, C, F`)*
+**Planning next week — three turns (do not combine)**
 
-Letter each selectable row (parents and/or sub-items Aaron may pick). After selection:
+**Table 2.1-F — Carryover (last week leftovers)**
 
-1. Set `This Week = true` on selected Dev Project pages (approval).
-2. Set `This Week = false` on **all other open CL/TG** Dev Projects.
+Open items from the **2.1-C queue tree** still not Done. Same parent → sub-bullet format. One turn only.
+
+| | |
+|---|---|
+| **A** | Continue all on this week's plate |
+| **B** | Defer some — reply with item letters to **drop** from carryover |
+
+Deferred items: `This Week = false` at sync (approval). Carried items stay selected for sync.
+
+**Table 2.1-G — Add from roadmap?**
+
+| | |
+|---|---|
+| **A** | Yes — show current-quarter open items (**2.1-H**) |
+| **B** | No — carryover only |
+
+**Table 2.1-H — Roadmap adds** *(only if 2.1-G = Yes)*
+
+Source: `weekly-dev-review` § **Current quarter — open roadmap** (`🍁 Quarter` → `Current Quarter` rollup = Current; **not** a Month relation — Dev Projects has no month field). Skip **parked** domains. Exclude items already on carryover. Letter each row.
+
+**Empty Dev Project records** (no `Name` title): archive in Notion when detected — do not present.
+
+**Sync** *(after F + G/H confirmed — approval before Notion writes)*
+
+1. `This Week = true` on carryover + any roadmap picks.
+2. `This Week = false` on all other open CL/TG Dev Projects.
 3. Re-run `weekly-habit-summary.mjs` to verify slate.
 
 → Write `Dev Intentions` (1–3 bullets), `Dev Projects Intended` (snapshot), `Dev Priority Context`.
-
-**Enforcement:** Turbo Gear parked on Monthly Log → exclude TG unless Aaron overrides.
 
 ---
 
@@ -717,8 +733,9 @@ After selection:
 | Field | Step |
 |-------|------|
 | `Deep Work Minutes`, `Accomplishments`, counts | 2.1-C |
-| `Dev Review`, `Dev Adjustments`, `Dev Intentions`, `Dev Projects Intended` | 2.1 |
-| `Work Health`, `Dev Week Rating`, `Dev Intentions Met` | 2.1-E |
+| `Dev Review`, `Work Health`, `Dev Week Rating`, `Dev Intentions Met` | 2.1-D |
+| `Dev Adjustments` | 2.1-E *(Unhealthy only; Aaron-supplied)* |
+| `Dev Intentions`, `Dev Projects Intended` | 2.1 sync (after F/G/H) |
 | `Dev Priority Context` | 2.1-G |
 | Personal `This Week` + Todoist mirrors | 2.2-D |
 | Notion `This Week` view matches selections | verify before advance |
