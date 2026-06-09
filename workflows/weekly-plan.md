@@ -13,7 +13,6 @@ Load via the router. Read these before starting:
 - `context/systems/cadences.md` — cadence health check, Phase 0 schedule
 - `context/systems/capacity-rules.md` — limits, overcommitment triggers, intervention protocol
 - `context/systems/notion-databases.md` — every DB ID referenced below (Dev Projects, Weekly Meeting Log, source DBs, Values, Workouts, etc.)
-- `context/systems/pipedrive.md` — pipeline IDs, stages, user IDs, completion-time API quirks
 - `context/systems/knack-fields.md` — Customer + Photographer field references
 - `context/systems/hubstaff.md` — member IDs, weekly-report tool
 - `context/systems/health-data.md` — MCP architecture, expected fields
@@ -36,7 +35,7 @@ Load via the router. Read these before starting:
 4. **Phase banner** on every user-facing message: `**[Weekly Plan · Phase X.Y — title]**`
 5. **One sub-step per turn** — never bundle 1.2 + 1.3 + 1.4 + 1.5 + 1.6 + 1.7 (each life domain is a separate step)
 6. **Table contract is the spec** — each sub-step lists the **exact tables** to present (column headers fixed). Fill every cell from the named data source; use `—` when data is missing. Do not add metrics, sections, or discussion topics outside that step's tables.
-7. **One question per turn** — PHQ-2/GAD-2 items are separate turns
+7. **One question per turn** — Energy rating and Mind intentions are separate turns; PHQ-2/GAD-2 only when `Screening Escalation` is true (one item per turn)
 8. **Advance after complete:** `node scripts/workflow-progress.mjs advance --workflow weekly-plan --step <id>`
 9. **Phase gates:** `node scripts/workflow-progress.mjs gate --workflow weekly-plan --phase <1|2>` before Phase 2 (work) or Phase 4 (commit)
 10. **Tangents:** fix/interrupt, then resume ledger `current_step` — do not skip ahead
@@ -46,7 +45,7 @@ Load via the router. Read these before starting:
 - **One question at a time.** Never present a wall of choices. Walk through decisions sequentially.
 - **Confirm before executing.** Each phase presents proposed actions, gets approval, then executes before moving on.
 - **Exclude Shopping List** (Todoist project `6W36wRPXj8qC2RCc`) from all analysis.
-- **Data integrity:** All Knack/Pipedrive/Notion/Todoist write operations require explicit user approval before execution (Todoist case-by-case - never batch or assume).
+- **Data integrity:** All Knack/Notion/Todoist write operations require explicit user approval before execution (Todoist case-by-case - never batch or assume). Pipedrive writes → **Weekly Ops** only.
 
 ## Required Notion fields — index
 
@@ -87,6 +86,11 @@ Output: `output/weekly-wellness-trends-YYYY-MM-DD.md`. **Canonical source for 4-
 node "scripts/weekly-habit-summary.mjs"
 ```
 Output: `output/weekly-habits-YYYY-MM-DD.md`. Canonical last-week habit numbers + actionable Dev Projects slate. Do not re-query habit DBs ad-hoc.
+
+```
+node "scripts/weekly-journal-feelings.mjs"
+```
+Output: `output/weekly-journal-feelings-YYYY-MM-DD.md`. **Canonical source for Phase 1.2 mood tables** (valence, tag frequency, daily feelings, escalation, mind insights). Do not re-query Journal DB ad-hoc.
 
 ```
 node "scripts/daily-health-sections.mjs"
@@ -193,24 +197,31 @@ Create the **new week's** Weekly Meeting Log entry (Name = `Week of [next Monday
 | Admin | from Values DB | from Values DB | |
 | Parenting | from Values DB | from Values DB | |
 
-### 1.2 Mind — Review · Wellness · Rate · Intentions (~6 min)
+### 1.2 Mind — Review · Mood · Rate · Intentions (~6 min)
 
-**Data sources:** `weekly-habits-*.md`, `weekly-wellness-trends-*.md`, `node scripts/daily-health-sections.mjs` (MIND section), prior week's `Mind Intentions`.
+**Data sources (read in order, do not re-query):**
+1. `output/weekly-journal-feelings-YYYY-MM-DD.md` — **mood tables (canonical)**
+2. `output/weekly-habits-YYYY-MM-DD.md` — spirit/journal counts
+3. `output/weekly-wellness-trends-YYYY-MM-DD.md` — 4-wk mood trend context
+4. `node scripts/daily-health-sections.mjs` — MIND daily section (stdout)
+5. Prior week's `Mind Intentions` from wellness trends file
 
-**Present exactly these tables in order** (wellness rows one question per turn; health and intentions separate turns):
+**Sub-step order within 1.2:** `1.2-A` → `1.2-B` → `1.2-C` → `1.2-C-mood` → `1.2-D` → `1.2-E` → `1.2-E-b` → `1.2-F` → (optional `1.2-F-screen` if escalation) → `1.2-G` → `1.2-H`
+
+Copy tables **verbatim** from the feelings file and habit/health scripts — fill every cell; use `—` only when the source file shows `—`.
 
 **Table 1.2-A — Prior mind intention**
 
 | Last week's `Mind Intentions` | Evidence | Met? |
 |-----------------------------|----------|------|
-| | 1-line summary | ✓ / ~ / ✗ |
+| from wellness trends | 1-line summary | ✓ / ~ / ✗ |
 
 **Table 1.2-B — Mind aggregate**
 
 | Metric | Last Week | 4-wk trend | → Notion field |
 |--------|-----------|------------|----------------|
-| Spirit Minutes | | from wellness file | `Spirit Minutes` |
-| Journal Count | | from wellness file | `Journal Count` |
+| Spirit Minutes | from `weekly-habits-*.md` | from wellness file | `Spirit Minutes` |
+| Journal Count | from `weekly-habits-*.md` | from wellness file | `Journal Count` |
 
 **Table 1.2-C — Mind daily** *(from `daily-health-sections.mjs` MIND section)*
 
@@ -219,35 +230,68 @@ Create the **new week's** Weekly Meeting Log entry (Name = `Week of [next Monday
 | Spirit min | | | | | | | |
 | Journal | | | | | | | |
 
-**Table 1.2-D — Mind insights**
+**Table 1.2-C-mood — Feelings by day** *(copy from `weekly-journal-feelings-*.md` section `TABLE 1.2-C-mood`)*
 
-| Insight 1 | Insight 2 |
-|-----------|-----------|
-| | |
+| Day | Date | Entries | Dominant | Day valence | Tags |
+|-----|------|---------|----------|-------------|------|
+| | | | | | |
 
-**Table 1.2-E — Wellness screening** *(one row per turn)*
+**Table 1.2-D — Mind insights** *(copy mood row from `weekly-journal-feelings-*.md` section `TABLE 1.2-D`)*
+
+Present the table exactly as generated (2-column or flagged-entry table).
+
+**Table 1.2-E — Mood from journal** *(copy from `weekly-journal-feelings-*.md` section `TABLE 1.2-E`)*
+
+| Metric | Last Week | 4-wk trend | Prior wk | → Notion field |
+|--------|-----------|------------|----------|----------------|
+| Mood Valence | | | | `Mood Valence` |
+| Mood Negative % | | | | `Mood Negative %` |
+| Entries (total) | | | | `Journal Count` |
+| Entries tagged | | | | (in `Journal Feelings Summary`) |
+| Dominant tag | | | | (in summary) |
+| Tag volatility | | | | (in summary) |
+| Distress entries | | | | `Mood Distress Flag` |
+
+→ Write `Mood Valence`, `Mood Negative %`, `Journal Feelings Summary`, `Mood Distress Flag` from the feelings file **Notion write payload** section. **`Mood Negative %`:** Notion percent field — store as decimal (`0.45` = 45%).
+
+**Table 1.2-E-b — Tag frequency** *(copy from `weekly-journal-feelings-*.md` section `TABLE 1.2-E-b`)*
+
+| Tag | Count | Valence wt |
+|-----|-------|------------|
+| | | |
+
+**Table 1.2-F — Energy + escalation** *(copy from feelings file; Energy = one AskQuestion turn)*
+
+| Item | Source | → Notion field |
+|------|--------|----------------|
+| Energy | Ask Aaron 1–10 | `Energy Rating` |
+| PHQ-2 / GAD-2 | Only if `Screening Escalation` = true in feelings file | `PHQ-2 Score`, `GAD-2 Score`, severities |
+| Screening Escalation | from feelings file | `Screening Escalation` |
+
+**Table 1.2-F-screen — PHQ-2 / GAD-2** *(only when `Screening Escalation` = true; one row per turn)*
 
 | Item | Prompt | Score | → Notion field |
 |------|--------|-------|----------------|
 | PHQ-2 Q1 | Little interest or pleasure in doing things? | 0–3 | — |
 | PHQ-2 Q2 | Feeling down, depressed, or hopeless? | 0–3 | — |
 | PHQ-2 Total | Q1 + Q2 | 0–6 | `PHQ-2 Score` |
-| PHQ-2 Severity | None / Mild / Moderate / Moderately Severe / Severe | derived | `PHQ-2 Severity` |
+| PHQ-2 Severity | derived | | `PHQ-2 Severity` |
 | GAD-2 Q1 | Feeling nervous, anxious, or on edge? | 0–3 | — |
 | GAD-2 Q2 | Not being able to stop or control worrying? | 0–3 | — |
 | GAD-2 Total | Q1 + Q2 | 0–6 | `GAD-2 Score` |
-| GAD-2 Severity | None / Mild / Moderate / Moderately Severe / Severe | derived | `GAD-2 Severity` |
-| Energy | How is your energy and capacity this week? | 1–10 | `Energy Rating` |
+| GAD-2 Severity | derived | | `GAD-2 Severity` |
 
-**Capacity note** (if PHQ-2 ≥ 3 or GAD-2 ≥ 3 or Energy ≤ 4): state reduced work capacity — recorded in Phase 2.4 `Dev Capacity Note`.
+When escalation is **false**, leave PHQ-2/GAD-2 blank on the log (monthly plan calibrates screens).
 
-**Table 1.2-F — Mind health** *(Aaron confirms; write with approval)*
+**Capacity note** (if `Mood Valence` ≤ −0.3 OR `Mood Negative %` ≥ 60% OR `Energy` ≤ 4): state reduced work capacity — recorded in Phase 2.4 `Dev Capacity Note`.
 
-| Rating | → Notion field |
-|--------|----------------|
-| Healthy / Unhealthy | `Mind Health` |
+**Table 1.2-G — Mind health** *(Aaron confirms; write with approval)*
 
-**Table 1.2-G — Mind intentions (upcoming week)** *(Aaron approves before Notion write)*
+| Rating | Evidence (mood + spirit + journal) | → Notion field |
+|--------|-----------------------------------|----------------|
+| Healthy / Unhealthy | cite valence, negative %, spirit min | `Mind Health` |
+
+**Table 1.2-H — Mind intentions (upcoming week)** *(Aaron approves before Notion write)*
 
 | Intentions (1–3 bullets) | → Notion field |
 |--------------------------|----------------|
@@ -513,7 +557,7 @@ Append parenting row to `Intentions Review`.
 | Group | Required Notion fields |
 |-------|------------------------|
 | Last-week KPIs | `Strength Sessions`, `Cardio Sessions`, `Spirit Minutes`, `Journal Count`, `Weight Avg`, `Body Fat Avg`, `Lean Mass Avg`, `Sleep Avg`, `Sleep Nights Tracked`, `Wake Time Std Dev Min`, `Bedtime Std Dev Min`, `Sleep Schedule Rating`, `Steps Avg`, `Workout Active Minutes` |
-| 1.2 | `Intentions Review` (mind row), `Mind Health`, `Mind Intentions`, `PHQ-2 Score`, `GAD-2 Score`, `Energy Rating`, `PHQ-2 Severity`, `GAD-2 Severity` |
+| 1.2 | `Intentions Review` (mind row), `Mind Health`, `Mind Intentions`, `Mood Valence`, `Mood Negative %`, `Journal Feelings Summary`, `Mood Distress Flag`, `Energy Rating`, `Screening Escalation`; PHQ/GAD only if `Screening Escalation` = true |
 | 1.3–1.4 | `Fitness/Sleep Health`, `Fitness/Sleep Intentions`, `Strength Target`, `Cardio Target`, `Sleep Target Hours`, `Target Wake Time`, `Behavioral Adjustments` |
 | 1.5 | `Small Talk Count`, `Social Events Count`, `Social Review`, `Social Intentions Met`, `Social Health`, `Social Priority`, `Social Intentions` |
 | 1.6 | `Parenting Health`, `Parenting Intentions` |
@@ -629,7 +673,7 @@ Ask: "Any of these count as meaningful shipped slices?" → fold into `Accomplis
 | Input | Value |
 |-------|-------|
 | Hubstaff last week | __ h |
-| Wellness gate (PHQ/GAD/Energy) | reduced? yes / no |
+| Wellness gate (Mood valence / negative % / Energy) | reduced? yes / no |
 | Calendar load | __ h blocked |
 | Realistic dev hours | __ h (~25h baseline − trip/PTO/custody) |
 
@@ -679,7 +723,7 @@ Personal work does not run in the protected dev block. For each **Personal** sub
 8. **Record Starved Values:** Derive from weekly health ratings — set `Starved Values` multi_select to every **rated** category marked **Unhealthy** (Spirituality, Fitness, Work, Social, Parenting). Admin excluded from weekly rating.
 9. **Confirm accomplishment fields (REQUIRED):** Verify Phase 2.2 wrote `Logged/Unlogged/Total Accomplishments Count`, `Focused Output Hours Estimate`, and `Accomplishments`. Backfill from habit summary if missing.
 10. **Body comp already persisted.** Withings written in Phase 0 (`--days 28`). Don't re-run here.
-11. **Execute remaining:** Create any Todoist/Calendar/Pipedrive/Notion items not yet committed during earlier phases.
+11. **Execute remaining:** Create any Todoist/Calendar/Notion items not yet committed during earlier phases.
 12. **Log to Notion:** Finalize the Weekly Meeting Log entry (`322f40c2-487b-81bd`) with key decisions, action items, and plan summary.
 13. **Update context files** if anything changed.
 
@@ -697,7 +741,7 @@ Personal work does not run in the protected dev block. For each **Personal** sub
 ## Outputs
 
 - **Pre-Phase 0:** Monthly plan gate pass (or full monthly plan run + resume).
-- **Phase 0:** Wellness + social + work data pulls; trend files; 4-week log history.
+- **Phase 0:** Wellness + journal feelings + social + dev data pulls; trend files; 4-week log history.
 - **Phase 0b:** Data integrity table; remediation before Phase 1.
 - **Phase 1:** Life review (values, mind, fitness, sleep, social, parenting, personal enjoyment) + targets on Weekly Meeting Log.
 - **Phase 2:** Development review + next-week dev plan.
@@ -720,7 +764,6 @@ Personal work does not run in the protected dev block. For each **Personal** sub
 - `../../systems/cadences.md`
 - `../../systems/capacity-rules.md`
 - `../../systems/notion-databases.md`
-- `../../systems/pipedrive.md`
 - `../../systems/knack-fields.md`
 - `../../systems/hubstaff.md`
 - `../../systems/health-data.md`
