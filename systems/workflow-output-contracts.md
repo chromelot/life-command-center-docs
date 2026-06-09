@@ -27,7 +27,7 @@ Every user-facing sub-step should define:
 3. **Data source per cell** — script output path, MCP query, or Aaron input
 4. **Missing data** — literal `—` in the cell; optional footnote only if skill requires reason
 5. **Deliverable scope** — exactly which table(s) belong to this ledger step (see skill "Present only" map)
-6. **Questions** — at most one AskQuestion per turn, tied to a specific row/cell in the contract
+6. **Decisions** — at most one lettered option table per turn (never AskQuestion); Aaron replies with letter(s)
 
 ### Weekly plan reference
 
@@ -69,7 +69,7 @@ If FIELD CHECK fails: list failing rows, fix or get Aaron approval for N/A with 
 | Deliverable type | Per turn limit |
 |------------------|----------------|
 | Contract table (full) | 1 table, unless skill explicitly says "present tables X and Y together" |
-| AskQuestion | 1 question |
+| Lettered decision table | 1 table; Aaron replies `A` or `A, C` |
 | Ledger step | 1 step |
 | Silent data pull (Phase 0) | May batch pulls; no user questions |
 
@@ -94,7 +94,7 @@ Within a single ledger step that spans multiple tables (e.g. weekly plan `1.2` =
 | team-sync | `.cursor/rules/team-sync.mdc` | 1.1-A summary, 1.1-B drift list, 1.2 per-item decision |
 | pd-cleanup | `context/skills/pd-cleanup/SKILL.md` | 0-A counts, per-item review, 5.check commit |
 
-Monthly/quarterly: contracts live in each `SKILL.md` Part/Phase blocks — same rules apply.
+Monthly/quarterly: contracts in each `SKILL.md` **Present exactly** map + phase table blocks (`1.check` / `12.check` monthly; `A.check` / `E.4` quarterly).
 
 ## Adding contracts to a new workflow
 

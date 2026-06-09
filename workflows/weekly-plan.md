@@ -601,7 +601,21 @@ Write snapshot to Weekly Meeting Log `Dev Priority Context` (rich_text — copy 
 - If `Domains Parked` includes **Turbo Gear**, do not select TG Dev Projects in 2.4 unless Aaron explicitly overrides.
 - `Active CL Sprint` is consumed in **Weekly Ops** Phase 1 (CL currency check), not this workflow.
 
-Ask via AskQuestion (multi-select): "Anything from the priority context that must get a dev slice **this** week?" Options: one per `Priority Stack` line + one per distinct `Action Items` theme + "None — on track as written."
+**Table 2.1-B — Dev slice this week** *(multi-select — Aaron replies with letters, e.g. `A, C`)*
+
+| | Option |
+|---|--------|
+| **A** | Personal — Sleep schedule reset + fitness floor |
+| **B** | Chrome Lot — Department currency (1:1 tracker, LESA, ops cadence) |
+| **C** | Chrome Lot — AM delegation (Aaron <20 customers by 6/30) |
+| **D** | Personal — Custody process-server email |
+| **E** | Personal — Will 10-min witnessing |
+| **F** | Personal — Out of house by 8 AM (work days) |
+| **G** | Personal — Schedule Bus trip in June |
+| **H** | Personal — Block 2 PTO days in June |
+| **I** | None — on track as written |
+
+*Turbo Gear is parked — no TG Dev Projects in 2.4 unless Aaron overrides.*
 
 ### 2.2 Last Week — Development Scorecard (~7 min)
 

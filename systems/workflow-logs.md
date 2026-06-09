@@ -58,6 +58,39 @@ Provisioner: `node scripts/create-workflow-log-dbs.mjs`
 6. complete → Session Complete = Complete
 ```
 
+### Monthly plan — phase writes
+
+| Step | Notion fields |
+|------|---------------|
+| `1.0` | Create log (review month title, Session Complete = Incomplete) |
+| `1.1`–`1.4` | Incremental — life health selects as rated |
+| `11.2` | `Priority Stack`, `Domains Parked`, `Active CL Sprint` (session state → log at 12.0) |
+| `12.0` | Full Monthly Meeting Log rollup + Team Activity Details + Session Complete = Complete |
+
+### Quarterly plan — phase writes
+
+| Step | Notion fields |
+|------|---------------|
+| `A.0` | Create Quarterly Meeting Log shell |
+| `A.1`–`B.3` | Lessons / narrative fields incrementally |
+| `E.3` | `Priority Stack`, `Domains Parked` (session state) |
+| `E.4` | Full quarterly rollup + Team Activity Details + Session Complete = Complete |
+
+### Session workflows — phase writes
+
+| Workflow | Step | Action |
+|----------|------|--------|
+| person-checkin | `1.0` | Create 1:1 Prep Log |
+| person-checkin | `1.1a`–`1.1c` | Workload, talking points, delegation fields |
+| person-checkin | `2.0` | Session Complete = Complete |
+| team-sync | `1.0` | Create Team Sync Log |
+| team-sync | `1.1` | Drift summary counts |
+| team-sync | `1.2` | Per-drift resolution (one item/turn) |
+| team-sync | `2.0` | Session Complete = Complete |
+| pd-cleanup | `1.0` | Create PD Cleanup Log |
+| pd-cleanup | `1.1`–`4.1` | Approvals / executes logged incrementally |
+| pd-cleanup | `5.0` | Final counts + Session Complete = Complete |
+
 ## See also
 
 - `context/systems/workflow-compliance.md` — gap matrix

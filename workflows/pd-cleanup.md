@@ -6,6 +6,68 @@
 
 Activates on **pd cleanup**, **pipedrive cleanup**, **deal cleanup**, or **crm cleanup**. Target duration: ~30–45 min first run; faster on repeat when counts are low.
 
+## Execution Protocol (mandatory)
+
+Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts.md`, `context/systems/workflow-logs.md`.
+
+1. `node scripts/workflow-progress.mjs init --workflow pd-cleanup`
+2. Step `0` — `node scripts/pd-data-cleanup.mjs` (silent); present Table 0-A
+3. Step `1.0` — `node scripts/workflow-notion-log.mjs create --ledger <path>`
+4. Steps `1.1`–`4.1` — one approval per item per turn; sync after each `advance`
+5. Before `5.0`: `gate --phase 5`
+6. Step `5.0` — Table 5.check + `workflow-notion-log complete`
+
+### Ledger step order
+
+| Step | Skill phase |
+|------|-------------|
+| `0` | Phase 0 Analyze |
+| `1.0` | Create PD Cleanup Log |
+| `1.1` | Phase 1a Creates (photo CS + social) |
+| `1.2` | Phase 1b Adopt photo deals |
+| `1.3` | Phase 1c Delete ex-customer |
+| `2.1` | Phase 2a Missing org |
+| `2.2` | Phase 2b Missing POC |
+| `3.1` | Phase 3 Duplicates |
+| `4.1` | Phase 4 Wrong pipeline |
+| `5.0` | Phase 5 Commit summary |
+
+### Output contracts
+
+**Table 0-A — Baseline counts** *(step `0`)*
+
+| Category | Count | Source |
+|----------|-------|--------|
+| create_photo_cs | | `output/pd-cleanup-*.md` |
+| create_social | | |
+| adopt_photo | | |
+| delete_ex_customer | | |
+| missing_org | | |
+| missing_poc | | |
+| duplicates | | |
+| wrong_pipeline | | |
+| manual_review | | |
+
+**Table N-A — Item review** *(steps `1.1`–`4.1`, one item per turn)*
+
+| Field | Value |
+|-------|-------|
+| Category | |
+| Deal / customer | |
+| Proposed action | |
+| Fields touched | |
+| Recommendation | |
+| Decision | Approve / Skip / Stop phase |
+
+**Table 5.check — Commit** *(step `5.0`)*
+
+| Item | Pass |
+|------|------|
+| Final counts vs baseline in PD Cleanup Log | |
+| Remaining manual_review listed | |
+| Approvals / executes counts logged | |
+| Session Complete = Complete | |
+
 ## Inputs
 
 Read via router before starting:

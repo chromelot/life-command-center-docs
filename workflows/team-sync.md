@@ -70,7 +70,7 @@ For each Current employee in Airtable, compare against the editorial notes:
 
 Drift types from § Diff dimensions above.
 
-### Table 1.1-C — Item Decision (one row per turn until exhausted)
+### Table 1.2-A — Item Decision (step `1.2`, one row per turn until exhausted)
 
 | Field | Value |
 |-------|-------|

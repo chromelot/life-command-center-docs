@@ -56,7 +56,154 @@ Load via the router. Read these before starting:
 
 ## Execution Protocol (mandatory)
 
-Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts.md`, and `context/systems/workflow-logs.md`. Present exact phase tables from this skill — finish section before advancing. Init ledger at start; create Notion log at setup step; sync after every `advance`; one sub-step per turn.
+Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts.md`, and `context/systems/workflow-logs.md`.
+
+1. `node scripts/workflow-progress.mjs init --workflow monthly-plan`
+2. Step `0` — silent Phase 0 pulls
+3. Step `1.0` — `node scripts/workflow-notion-log.mjs create --ledger <path>` (Session Complete = Incomplete)
+4. Every turn: `workflow-progress.mjs status` → present only `current_step` tables → Aaron confirms → `advance` → `workflow-notion-log sync`
+5. Before step `2.1`: `gate --phase 2` (requires `1.check` pass)
+6. Before step `12.0`: `gate --phase 12`
+7. Step `12.0` — `workflow-notion-log complete`
+
+### Ledger step order (do not reorder)
+
+| Step | Skill phase | User-facing? |
+|------|-------------|--------------|
+| `0` | Phase 0 Data Pull | Silent |
+| `1.0` | Create Monthly Meeting Log entry shell | Yes |
+| `1.1` | Phase 1 Wellness Trends | Yes — Table 1.1-A, 1.1-B |
+| `1.2` | Phase 1b Identity Check | Yes — one category per turn |
+| `1.3` | Phase 1c Quarterly gate | Yes — Table 1.3-A |
+| `1.4` | Phase 1d Sustained unhealthy (conditional) | Yes or N/A |
+| `1.check` | Phase 1 FIELD CHECK | Yes — Table 1.check |
+| `2.1` | Phase 2 Fitness | Yes — Table 2.1-A |
+| `3.1` | Phase 3 Dev goals | Yes |
+| `3.2` | Phase 3b Idea scrub | Yes — one Type per turn |
+| `4.1`–`11.2` | Phases 4–11b | Yes — per Present map below |
+| `12.0` | Phase 12 Commit | Yes — Table 12.check + writes |
+
+### Present only (by step)
+
+| Step | Present exactly |
+|------|-----------------|
+| `1.1` | Table 1.1-A (wellness trajectory), then Table 1.1-B (life health trajectory) — one table per turn |
+| `1.2` | Table 1.2-A (one Values category per turn) |
+| `1.3` | Table 1.3-A (quarterly gate) |
+| `1.4` | Table 1.4-A (sustained unhealthy) or skip with N/A |
+| `1.check` | Table 1.check |
+| `2.1` | Table 2.1-A (body comp + watch MoM) |
+| `3.1` | Table 3.1-A (dev goals + quarterly progress) |
+| `3.2` | Table 3.2-A — one roadmap Type (TG → CL → Personal) per turn |
+| `4.1` | Table 4.1-A (activity scorecard), then Table 4.1-B (team efficiency) |
+| `5.1` | Table 5.1-A (personal project audit — one decision per turn) |
+| `6.1` | Table 6.1-A (personal finances), then Table 6.1-B (CL finances) |
+| `7.1` | Table 7.1-A (CS health monthly) |
+| `8.1` | Table 8.1-A (people & ops trends) |
+| `8.2` | AskQuestion Chrome Lot Healthy/Unhealthy, then Turbo Gear |
+| `9.1` | Table 9.1-A (KPI update — one Quarterly Outcome page per turn) |
+| `10.1` | Table 10.1-A (Bus trip — one option per turn until confirmed) |
+| `11.1` | Table 11.1-A (PTO blocks + coverage) |
+| `11.2` | Table 11.2-A (planning context) |
+| `12.0` | Table 12.check, then commit checklist |
+
+### Output contracts — Phases 3–11
+
+**Table 3.1-A — Dev goals** *(step `3.1`)*
+
+| Field | Review month | Planning month | Source |
+|-------|--------------|----------------|--------|
+| Projects Done / In Progress / Not Started | | | Dev Projects |
+| Shipped vs stalled | | | Dev Projects + Weekly Log |
+| Deep work trajectory | | | Weekly Meeting Log |
+| Quarterly on-track? | | | Quarterly Outcomes |
+| Planning month goals (2–3) | | | Session |
+
+**Table 3.2-A — Idea scrub** *(step `3.2`, one Type per turn)*
+
+| # | Idea | Created | Difficulty | Recommendation | Decision |
+|---|------|---------|------------|----------------|----------|
+
+**Table 4.1-A — Activity scorecard** *(step `4.1`)*
+
+| User | Wk 1 | Wk 2 | Wk 3 | Wk 4 | Total | Last Mo | Trend |
+|------|------|------|------|------|-------|---------|-------|
+
+**Table 4.1-B — Team efficiency** *(step `4.1`, second turn)*
+
+| User | Hubstaff hrs | Activities | Activities/hr | MoM trend | Flag |
+|------|--------------|------------|---------------|-----------|------|
+
+**Table 5.1-A — Personal project audit** *(step `5.1`)*
+
+| Project | Status | Days stalled | Recommendation | Decision |
+|---------|--------|--------------|----------------|----------|
+
+**Table 6.1-A — Personal finances** *(step `6.1`)*
+
+| Item | Status | Action |
+|------|--------|--------|
+
+**Table 6.1-B — CL finances** *(step `6.1`)*
+
+| Metric | Review month | Last month | Trend |
+|--------|--------------|------------|-------|
+
+**Table 7.1-A — CS health** *(step `7.1`)*
+
+| Metric | Value | MoM | Flag |
+|--------|-------|-----|------|
+
+**Table 8.1-A — People & ops** *(step `8.1`)*
+
+| Person | Hubstaff hrs | Trend | 1:1 overdue? | Action |
+|--------|--------------|-------|--------------|--------|
+
+**Table 9.1-A — KPI update** *(step `9.1`, one outcome page per turn)*
+
+| KPI | Target | Actual MTD | Pace | Action |
+|-----|--------|------------|------|--------|
+
+**Table 10.1-A — Bus trip** *(step `10.1`)*
+
+| Option | Dates | Destination | Weather fit | Decision |
+|--------|-------|-------------|-------------|----------|
+
+**Table 11.1-A — PTO** *(step `11.1`)*
+
+| Day off | Coverage | Handoff tasks | Calendar blocked? |
+|---------|----------|---------------|-------------------|
+
+**Table 11.2-A — Planning context** *(step `11.2`)*
+
+| Field | Value |
+|-------|-------|
+| Priority Stack (max 5) | |
+| Domains Parked | |
+| Active CL Sprint | |
+
+**FIELD CHECK — Phase 1** *(Table 1.check)*
+
+| Item | Pass / N/A |
+|------|------------|
+| Wellness trajectory presented | |
+| Life health trajectory presented | |
+| All 6 identity ratings captured (`monthly_life_health`) | |
+| Quarterly gate passed or escalated | |
+| Phase 1d resolved or N/A | |
+
+**Do not proceed to `2.1` until Table 1.check passes.** Run `gate --phase 2`.
+
+**FIELD CHECK — Commit** *(Table 12.check)*
+
+| Item | Pass |
+|------|------|
+| Monthly Meeting Log entry created (review month) | |
+| Planning context fields written (Priority Stack, Domains Parked, Active CL Sprint) | |
+| Life + work health selects populated | |
+| Team Activity Details appended | |
+| Planning month Months page log appended | |
+| Session Complete = Complete | |
 
 ## Interaction Style
 

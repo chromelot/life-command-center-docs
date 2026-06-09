@@ -30,7 +30,139 @@ This is the rarest recurring planning session, so it carries the most weight. Th
 
 ## Execution Protocol (mandatory)
 
-Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts.md`, and `context/systems/workflow-logs.md`. Present exact Part/Phase tables from this skill — finish section before advancing. Init ledger at start; create Notion log at setup step; sync after every `advance`; one Part (A–E) sub-block per turn.
+Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts.md`, and `context/systems/workflow-logs.md`.
+
+1. `node scripts/workflow-progress.mjs init --workflow quarterly-plan`
+2. Step `0` — silent Pre-Flight pulls
+3. Step `A.0` — `node scripts/workflow-notion-log.mjs create --ledger <path>`
+4. Every turn: `status` → one ledger step → `advance` → `workflow-notion-log sync`
+5. Run `gate --phase B|C|D|E` before crossing part boundaries
+6. Step `E.4` — `workflow-notion-log complete`
+
+### Ledger step order
+
+| Step | Skill section |
+|------|---------------|
+| `0` | Pre-Flight (silent) |
+| `A.0` | Create Quarterly Meeting Log shell |
+| `A.1` | Part A Phase 1 — Wide retrospective (Table A.1-A, one question per turn) |
+| `A.2` | Part A Phase 2 — Values (one value per turn) |
+| `A.3` | Part A Phase 3 — Numeric tables (Personal, CL, TG — one table per turn) |
+| `A.3b` | Part A Phase 3b — Work domain health trends |
+| `A.check` | Part A FIELD CHECK |
+| `B.1` | Phase 4 People & relationships — Table B.1-A |
+| `B.2` | Phase 5 External environment — Table B.2-A |
+| `B.3` | Phase 6 Capacity — Table B.3-A |
+| `C.1` | Phase 7 Personal (7A→7B→7C in-step, one sub-table per turn) |
+| `C.2` | Phase 8 Chrome Lot (8A→8B→8C) |
+| `C.3` | Phase 9 Turbo Gear (9A→9B→9C) |
+| `C.gate` | Sustained unhealthy domain gate (if triggered) |
+| `D.1` | Phase 10 Project commits — Table D.1-A |
+| `D.2` | Phase 11 KPI + instrumentation — Table D.2-A |
+| `D.check` | Part D FIELD CHECK |
+| `E.1` | Phase 12 Cadence calibration — Table E.1-A |
+| `E.2` | Phase 13 Calendar blocks — Table E.2-A |
+| `E.3` | Phase 13b Planning context — Table E.3-A |
+| `E.4` | Phase 14 Commit & log — Table E.check |
+
+### Present exactly — Part A
+
+| Step | Present exactly |
+|------|-----------------|
+| `A.1` | Table A.1-A — one retrospective question per turn |
+| `A.2` | Table A.2-A — one Values category per turn |
+| `A.3` | Table A.3-A Personal, then A.3-B CL, then A.3-C TG — one per turn |
+| `A.3b` | Table A.3b-A (work domain health streaks), Table A.3b-B (life unhealthy count) |
+| `A.check` | Table A.check |
+
+**Table A.1-A — Wide retrospective** *(step `A.1`)*
+
+| # | Question | Answer |
+|---|----------|--------|
+
+**Table A.2-A — Values** *(step `A.2`, one category per turn)*
+
+| Value | Health | Evidence | Picture still right? | Edits |
+|-------|--------|----------|---------------------|-------|
+
+**Table A.3-A / A.3-B / A.3-C** — Use Personal / CL / TG intra-quarter trajectory tables from Part A Phase 3 procedure.
+
+**Table A.3b-A — Work domain health streaks** *(step `A.3b`)*
+
+| Domain | Mo1 | Mo2 | Mo3 | Streak |
+|--------|-----|-----|-----|--------|
+
+### Present exactly — Parts C–E
+
+| Step | Present exactly |
+|------|-----------------|
+| `C.1` | Part C Phase 7 sub-tables (7A→7B→7C) — one per turn |
+| `C.2` | Part C Phase 8 sub-tables (8A→8B→8C) — one per turn |
+| `C.3` | Part C Phase 9 sub-tables (9A→9B→9C) — one per turn |
+| `C.gate` | Table C.gate (sustained unhealthy) or N/A |
+| `D.1` | Table D.1-A — one project commit per turn |
+| `D.2` | Table D.2-A (KPI targets + instrumentation gate) |
+| `D.check` | Table D.check |
+| `E.1` | Table E.1-A (cadence calibration) |
+| `E.2` | Table E.2-A (calendar blocks) |
+| `E.3` | Table E.3-A (planning context) |
+
+**Table D.1-A — Project commits** *(step `D.1`)*
+
+| Project | Quarter | Due Date | Capacity fit | Decision |
+|---------|---------|----------|--------------|----------|
+
+**Table D.2-A — KPI + instrumentation** *(step `D.2`)*
+
+| Outcome | KPI | Target | Instrumented? | Gap |
+|---------|-----|--------|---------------|-----|
+
+### Present exactly — Part B (narrative → tables)
+
+**Table B.1-A — People & relationships** *(step `B.1`)*
+
+| Area | Status | Action for Q[next] |
+|------|--------|-------------------|
+| Team — growing | | |
+| Team — blocked | | |
+| Personal relationships | | |
+| 1:1 cadence gaps | | |
+
+**Table B.2-A — External environment** *(step `B.2`)*
+
+| Factor | Change this quarter | Impact |
+|--------|---------------------|--------|
+| Market / competitors | | |
+| Knack / CL ops | | |
+| Family / legal / health | | |
+
+**Table B.3-A — Capacity reality** *(step `B.3`)*
+
+| Domain | Hubstaff hrs | Intended hrs | Gap |
+|--------|--------------|--------------|-----|
+| Chrome Lot | | | |
+| Turbo Gear | | | |
+| Personal | | | |
+
+**FIELD CHECK — Part A** *(step `A.check`)*
+
+| Item | Pass |
+|------|------|
+| Narrative retro captured | |
+| All 6 values reviewed | |
+| Numeric trajectory tables presented | |
+| Phase 3b domain health streaks computed | |
+
+**FIELD CHECK — Commit** *(step `E.4`)*
+
+| Item | Pass |
+|------|------|
+| Quarterly Meeting Log entry complete | |
+| Outcomes pages have themes + no-lists + KPIs | |
+| Priority Stack + Domains Parked from 13b | |
+| Team Activity Details appended | |
+| Context file updates (if any) done | |
+| Session Complete = Complete | |
 
 ## Procedure
 
@@ -355,7 +487,6 @@ For each of the three Quarterly Outcomes pages (Personal, CL, TG):
 
 Review the meta-system:
 - Are daily morning/evening reviews happening consistently?
-- Are micro-scrubs happening 3x/week?
 - Is the weekly meeting happening? (Count Weekly Meeting Log entries in the outgoing quarter vs. expected ~13)
 - Are monthly plans happening?
 - Are n8n workflows running reliably?

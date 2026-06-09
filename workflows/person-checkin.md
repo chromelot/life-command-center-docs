@@ -11,7 +11,7 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 1. `workflow-progress.mjs init --workflow person-checkin --person "<name>"`
 2. Step `0` — identify person + parallel data pull (silent)
 3. Step `1.0` — `workflow-notion-log.mjs create --person "<name>"`
-4. Steps `1.1a`–`1.1c` — Tables 1.1-A → 1.1-C (one table per turn)
+4. Step `1.1a` — Table 1.1-A (workload); `1.1b` — Table 1.1-B (talking points); `1.1c` — Table 1.1-C (delegation)
 5. Step `2.0` — Table 2.0 commit + `workflow-notion-log complete` (Session Complete = Complete)
 
 ## Pre-Flight (silent)
@@ -48,7 +48,7 @@ Based on the person's systems listed in the people directory:
 - Check for workflow runs assigned to them
 - Show: active workflows, completion rates
 
-## Output contracts (step `1.1` — one table per turn)
+## Output contracts (steps `1.1a`–`1.1c` — one table per turn)
 
 ### Table 1.1-A — Session Header + Workload
 
