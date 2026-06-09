@@ -52,7 +52,7 @@ Load via the router. Read these before starting:
 | 2 | `0` | Silent — ops data pull |
 | 3 | `0b` | Yes — RED FLAGS + planning context (no fixes) |
 | 4 | `1.1` | Yes — Phase 1-A activity scorecard |
-| 5 | `1.2` | Yes — Phase 1-B CL currency + retire-a-slice |
+| 5 | `1.2` | Yes — Phase 1-B CL currency + ops focus |
 | 6 | `2.1` | Yes — Phase 2-A CS check-in cadence |
 | 7 | `2.2` | Yes — Phase 2-B late invoices (one customer per turn) |
 | 8 | `3.1` | Yes — Phase 3-A Aaron sales (gaps → stale → plan week) |
@@ -93,7 +93,7 @@ Load via the router. Read these before starting:
 Commit writes target **Weekly Ops Meeting Log** (`379f40c2-487b-8130-916d-eba9ce85134c`).
 
 - **"Last Wk" activity totals** (Table 1-A) → prior entry from **Weekly Ops Log** via `weekly-ops-pull.mjs`; falls back to **Weekly Meeting Log** (`322f40c2-487b-81bd`) until Ops Log has history
-- **Active CL Sprint** → read from **Monthly Meeting Log** (`344f40c2-487b-806d-98b2-ef710856bd07`) latest entry (`Active CL Sprint` field)
+- **Monthly Meeting Log** (`344f40c2-487b-806d`) — `Priority Stack`, `Domains Parked` for context only (CL sprint retired)
 
 **Gate rules:**
 - Before **`commit`**: `check` FIELD CHECK must pass.
@@ -142,7 +142,7 @@ node scripts/weekly-ops-pull.mjs [--week-of YYYY-MM-DD]
 
 **Output:** `output/weekly-ops-briefing-YYYY-MM-DD.md` (session date, CT). **Read this file** before Phase 0b and throughout Phases 1–4 — do not re-query ad-hoc unless mid-session refresh is needed.
 
-The script wraps `weekly-data-pull.mjs` and prepends **planning context** (Monthly Log `Active CL Sprint`, prior Weekly Log activity KPIs for "Last Wk").
+The script wraps `weekly-data-pull.mjs` and prepends **planning context** (Monthly Log Priority Stack, prior Weekly Log activity KPIs for "Last Wk").
 
 ### Ops pulls included in briefing
 
@@ -181,8 +181,8 @@ Via `weekly-data-pull.mjs` (parallel MCP where applicable):
 
 | Source | Field | Value |
 |--------|-------|-------|
-| Monthly Meeting Log (latest) | Active CL Sprint | A–E or Maintenance |
 | Monthly Meeting Log (latest) | Priority Stack | truncated if long |
+| Monthly Meeting Log (latest) | Domains Parked | |
 | Prior Weekly Meeting Log | Aaron / Lexie / Tristen / Ran / Total Activities | for Table 1-A "Last Wk" |
 | Briefing | Todoist overdue count | excl Shopping List |
 | Briefing | Pipedrive overdue activities | count |
@@ -192,9 +192,9 @@ Via `weekly-data-pull.mjs` (parallel MCP where applicable):
 
 ## Phase 1: CL Operations Review (~8 min)
 
-**Purpose:** Pipedrive activity scorecard + CL operating currency. Drives retire-a-slice commitment for commit.
+**Purpose:** Pipedrive activity scorecard + CL operating currency. Name **ops focus** for the week from backlog signals.
 
-**Data source:** `output/weekly-ops-briefing-YYYY-MM-DD.md` + Phase 0 Pipedrive pulls. **Active CL Sprint** from Table 0b-B (Monthly Meeting Log).
+**Data source:** `output/weekly-ops-briefing-YYYY-MM-DD.md` + Phase 0 Pipedrive pulls.
 
 ### Part A — Pipedrive Activity Scorecard
 
@@ -234,9 +234,18 @@ CL CURRENCY CHECK
 | Photographers w/ missing grade  |             |                  |
 ```
 
-Then state the **active repair sprint** from `Active CL Sprint` (sequence: **A** Pipedrive+Todoist → **B** 1:1 cadence → **C** customer service → **D** photographer performance → **E** sales → **Maintenance**). Name the specific backlog slice this meeting will **retire** — feeds retire-a-slice rule at commit.
+From Table 1-B, identify the **highest-urgency backlog area** (overdue Todoist, stale 1:1s, CS staleness, photographer grades, etc.).
 
-Ask via AskQuestion (single-select): "Which retire-a-slice target for this week?" Options derived from currency table + Active CL Sprint letter.
+**Table 1.2-C — Ops focus this week** *(single-select — reply with letter)*
+
+| | Option |
+|---|--------|
+| **A** | (top signal from currency table — e.g. 1:1 cadence rebuild) |
+| **B** | (second signal) |
+| **C** | (third signal) |
+| **D** | Balanced pass — no single focus |
+
+→ Capture chosen focus in Weekly Ops Log `Key Decisions` at commit.
 
 **Advance:** `1`
 
@@ -460,7 +469,7 @@ Run: `node scripts/workflow-progress.mjs gate --workflow weekly-ops --phase chec
 ### Commit procedure
 
 1. **Create Weekly Ops Log entry:** Name = `Week of [planning Monday YYYY-MM-DD]`, Meeting Date = today (CT). Use `personal_notion_create_database_entry` on Weekly Ops Meeting Log DB.
-2. **Summary table:** Everything planned across Phases 1–4 (CS stops, sales stops, invoice escalations, photographer actions, 1:1s, retire-a-slice target)
+2. **Summary table:** Everything planned across Phases 1–4 (CS stops, sales stops, invoice escalations, photographer actions, 1:1s, ops focus)
 
 **Table commit-A — Ops summary**
 
@@ -477,7 +486,6 @@ Run: `node scripts/workflow-progress.mjs gate --workflow weekly-ops --phase chec
 3. **Final capacity check:** Total planned ops hours (stops, calls, reviews) vs. available ops capacity for the week. If total exceeds realistic ops hours minus buffer, something must move. This is non-negotiable.
 4. **Store activity KPIs on Weekly Ops Log:** Write `Aaron Activities`, `Lexie Activities`, `Tristen Activities`, `Ran Activities`, `Total Activities` (from Table 1-A).
 5. **Store context fields on Weekly Ops Log:**
-   - `Active CL Sprint` — snapshot from Monthly Log at session time
    - `Retire-a-Slice` — the named backlog slice from Phase 1.B
    - `Ops Summary` — rich_text narrative from Table commit-A
    - `Key Decisions` — deal deferrals, cold-pool moves, photographer outcomes
@@ -544,7 +552,7 @@ Run: `node scripts/workflow-progress.mjs gate --workflow weekly-ops --phase chec
 - **pre-0:** Planning week confirmed; optional Weekly Plan log gate result.
 - **Phase 0:** `output/weekly-ops-briefing-YYYY-MM-DD.md` generated.
 - **Phase 0b:** RED FLAGS + planning context presented; no fixes attempted.
-- **Phase 1:** Activity scorecard + CL currency + retire-a-slice target named.
+- **Phase 1:** Activity scorecard + CL currency + ops focus named.
 - **Phase 2:** CS check-in batch + invoice escalation decisions.
 - **Phase 3:** Deal gaps cleared + Aaron sales plan + team oversight actions.
 - **Phase 4:** Photographer reviews + 1:1 scheduling decisions.
@@ -555,7 +563,6 @@ Run: `node scripts/workflow-progress.mjs gate --workflow weekly-ops --phase chec
 
 - **Weekly Plan log missing for planning week:** Warn in pre-0; Aaron may proceed ops-only or pause for Weekly Plan.
 - **weekly-ops-pull / weekly-data-pull script failure:** Fall back to parallel MCP pulls per Phase 0 list; note missing sections in Table 0b-A.
-- **Monthly Meeting Log missing `Active CL Sprint`:** Use `Maintenance` default; flag for monthly plan backfill.
 - **Prior Weekly Meeting Log missing activity KPIs:** Render "Last Wk" column as `—`; note in 0b footer.
 - **Pipedrive MCP rate limits:** Present partial scorecard; retry per-user pulls; document gaps in `Key Decisions`.
 - **Knack unavailable:** Skip photographer flags; CS invoice fields from last briefing cache if present; otherwise defer Phase 2.B and 4.A with documented N/A.

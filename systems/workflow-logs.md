@@ -64,7 +64,7 @@ Provisioner: `node scripts/create-workflow-log-dbs.mjs`
 |------|---------------|
 | `1.0` | Create log (review month title, Session Complete = Incomplete) |
 | `1.1`–`1.4` | Incremental — life health selects as rated |
-| `11.2` | `Priority Stack`, `Domains Parked`, `Active CL Sprint` (session state → log at 12.0) |
+| `11.2` | `Priority Stack` (Dev Project–linked), `Domains Parked` (session state → log at 12.0) |
 | `12.0` | Full Monthly Meeting Log rollup + Team Activity Details + Session Complete = Complete |
 
 ### Quarterly plan — phase writes

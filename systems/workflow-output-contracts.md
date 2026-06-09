@@ -96,6 +96,8 @@ Within a single ledger step that spans multiple tables (e.g. weekly plan `1.2` =
 
 Monthly/quarterly: contracts in each `SKILL.md` **Present exactly** map + phase table blocks (`1.check` / `12.check` monthly; `A.check` / `E.4` quarterly).
 
+**Dev tracker rule (weekly plan Phase 2):** Present Dev Projects `This Week` first. Log `Priority Stack` lines grouped Complete / Incomplete with linked Dev Project records. Never plan dev slice from conversation without tracker alignment.
+
 ## Adding contracts to a new workflow
 
 1. Define ledger steps in `workflow-registry.mjs`

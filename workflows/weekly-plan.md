@@ -19,7 +19,7 @@ Load via the router. Read these before starting:
 - `context/self/values.md` — six categories and current Health statuses (Phase 1.1 context; per-domain ratings in Phase 1 + 2.2)
 - `context/self/eros.md` — primary fuel doctrine (Phase 1.5 fuel check)
 - `context/self/social.md` — sarges, Small Talk targets, isolation signals (Phase 1.5)
-- **Planning context (canonical):** Monthly + Quarterly Meeting Log fields — pulled in Phase 0; see Phase 2.1. `context/self/current-priorities.md` is fallback only.
+- **Dev state (canonical):** **Dev Projects** `This Week` checkbox (`341f40c2-487b-80ac`) — primary frame for Phase 2 dev-block planning. Monthly/Quarterly logs are **secondary context** (committed priorities cross-checked against tracker). `context/self/current-priorities.md` is fallback only.
 - `context/people/index.md` — delegation matrix, 1:1 tracking
 - `context/work/turbo-gear/overview.md` — TG strategic sequence (for Phase 2.4 project selection)
 
@@ -52,7 +52,13 @@ Load via the router. Read these before starting:
 
 ## Required Notion fields — index
 
-Each phase ends with an inline **FIELD CHECK** listing its required Weekly Meeting Log properties. Phase 4 (Commit) verifies all sections. Monthly planning context lives on **Monthly Meeting Log** (`Priority Stack`, `Domains Parked`, `Active CL Sprint`) — backfill in Phase 2.1 if missing.
+Each phase ends with an inline **FIELD CHECK** listing its required Weekly Meeting Log properties. Phase 4 (Commit) verifies all sections.
+
+**Dev tracker hygiene (every Phase 2 session):**
+1. **Tracker first** — forward planning starts from Dev Projects `This Week = true`, not log prose.
+2. **Log cross-check** — monthly/quarterly `Priority Stack` lines must map to **specific Dev Project records** (name + Notion URL). Group **Complete** vs **Incomplete**.
+3. **Alignment gate** — if Aaron's stated focus differs from `This Week`, stop and prompt Notion updates before advancing past 2.1.
+4. **Missing records** — work Aaron describes that is not in Dev Projects → create/link a record (with approval) before 2.4 commit.
 
 **Gate rules:**
 - Before **Phase 2 (Work)**: Phase 1 FIELD CHECK (`1.check`) must pass.
@@ -127,9 +133,9 @@ Output: stdout **Small Talk list, days since last entry, daily counts, calendar 
 
 Pull via MCP in parallel (ops pulls — Pipedrive/Knack CS/photographers — live in **Weekly Ops** `scripts/weekly-ops-pull.mjs`):
 1. **Todoist**: Overdue, this week, completion stats (exclude Shopping List)
-2. **Dev Projects DB** (`341f40c2-487b-80ac`): `This Week = true` carryover; current-quarter projects Status ≠ Done
-3b. **Monthly Meeting Log** (`344f40c2-487b-806d`): review month entry — `Priority Stack`, `Domains Parked`, `Active CL Sprint`, `Action Items`, `Key Wins`, `Key Misses`
-3c. **Quarterly Meeting Log** (`344f40c2-487b-80ed`): current quarter — `Priority Stack`, `Domains Parked`, `Next Quarter Focus`
+2. **Dev Projects DB** (`341f40c2-487b-80ac`) — **canonical dev state:** query all `This Week = true`; all current-quarter parents Status ≠ Done; map monthly/quarterly stack lines to page IDs
+3b. **Monthly Meeting Log** (`344f40c2-487b-806d`): `Priority Stack`, `Domains Parked`, `Action Items` — cross-check only (not primary planner)
+3c. **Quarterly Meeting Log** (`344f40c2-487b-80ed`): `Priority Stack`, `Domains Parked`, `Next Quarter Focus` — cross-check only
 4. **Habit source DBs** (past 7 days — habit summary script is canonical; MCP only if script missing):
    - Workouts (`127f40c2-487b-80ba`): query all, count by Type
    - Small Talk (`121f40c2-487b-802d`): query all, count entries
@@ -568,54 +574,70 @@ Append parenting row to `Intentions Review`.
 
 **Do not proceed to Phase 2 (Work) until Table 1.check passes.**
 
-## Phase 2: Development (~10 min)
+## Phase 2: Focused development (~12 min)
 
-**Purpose:** Development review and next-week dev planning — after Phase 1 life review is complete. CL operations run in **Weekly Ops** (separate session).
+**Purpose:** Review and plan Aaron's **morning dev block** (protected solo time for substantial planning/creative work that supports long-term goals). CL field operations run in **Weekly Ops** (separate session).
 
-Load (development steps): `weekly-wellness-trends-*.md`, `weekly-habits-*.md`, Phase 0 monthly/quarterly log pulls, prior week `Dev Intentions` + `Dev Projects Intended`.
+### What belongs in the dev block (non-negotiable)
 
-### 2.1 Current Development Priority (~4 min)
+| In dev block | Not in dev block |
+|--------------|------------------|
+| Substantial solo focus work from **Dev Projects** (Type Chrome Lot / Turbo Gear / Personal-admin) and **CL Internal Projects** | Habits (sleep, fitness, out-by-8 AM) — Phase 1 intentions + recurring Todoist |
+| Planning, design, creative, or deep build work that takes uninterrupted morning time | One-shot errands (Will witnessing, custody emails) — **step 2.5** → Todoist |
+| Retooling planning systems, architecture, process design | Ops execution (1:1s, CS stops, sales calls) — **Weekly Ops** |
 
-**Present exactly Table 2.1:**
+**Trackers to scan in 2.4:** Dev Projects (`341f40c2-487b-80ac`) filtered by Type; CL Internal Projects (`30df40c2`) for CL ops improvements. Exclude Personal projects that are errands or habit support.
 
-| Source | Field | Value | → Notion |
-|--------|-------|-------|----------|
-| Quarterly ([Q# YYYY]) | Priority Stack | numbered list | |
-| Quarterly | Domains Parked | multi-select | |
-| Monthly ([planning month]) | Priority Stack | numbered list — authoritative dev focus | |
-| Monthly | Domains Parked | multi-select — what's on pause | |
-| Monthly | Active CL Sprint | A–E or Maintenance | feeds Weekly Ops CL currency check |
-| Monthly | Action Items | planning-month commitments | |
+Load: `weekly-habits-*.md` (**This Week slate first**), `weekly-wellness-trends-*.md`, Phase 0 monthly/quarterly pulls, prior week `Dev Projects Intended` (what we committed — compare to tracker).
 
-→ Write `Dev Priority Context` (rich_text — copy table narrative).
+### 2.1 Dev frame — tracker first (~3 min)
 
-**Monthly log backfill gate:** If review-month Monthly Log is missing `Priority Stack`, `Domains Parked`, or `Active CL Sprint`:
-1. Pull from Quarterly Log → `context/self/current-priorities.md` as draft.
-2. Ask Aaron to confirm values (AskQuestion per field or one confirmation).
-3. Write to Monthly Meeting Log with approval (`personal_notion_update_page`).
-4. Flag: "Planning context was backfilled — rerun monthly Phase 11b properly next month."
+**Present exactly these tables in order:**
 
-Write snapshot to Weekly Meeting Log `Dev Priority Context` (rich_text — copy the table narrative).
+**Table 2.1-A — This Week (Dev Projects tracker)** *(primary frame for dev slice)*
 
-**Enforcement (read aloud):**
-- If `Domains Parked` includes **Turbo Gear**, do not select TG Dev Projects in 2.4 unless Aaron explicitly overrides.
-- `Active CL Sprint` is consumed in **Weekly Ops** Phase 1 (CL currency check), not this workflow.
+| Parent project | Sub-item | Type | Status | Completion | Notion |
+|----------------|----------|------|--------|------------|--------|
+| | | CL / TG / Personal | | % | page URL |
 
-**Table 2.1-B — Dev slice this week** *(multi-select — Aaron replies with letters, e.g. `A, C`)*
+Source: `weekly-habits-*.md` § "This Week — actionable slate" + live Notion query if stale. Only items with `This Week = true` and Status ≠ Done.
+
+**Table 2.1-B — Log commitments vs tracker** *(monthly + quarterly cross-check)*
+
+**Complete** *(Dev Project Status = Done or shipped this review week)*
+
+| Source | Line / theme | Dev Project | Status |
+|--------|--------------|-------------|--------|
+| Monthly / Quarterly | | linked record | Done |
+
+**Incomplete** *(committed but not Done — must appear in 2.1-A or get added)*
+
+| Source | Line / theme | Dev Project | Status | In This Week? |
+|--------|--------------|-------------|--------|---------------|
+| Monthly / Quarterly | | linked record or **MISSING** | | yes / no |
+
+Map each `Priority Stack` / `Action Items` line to a Dev Project by title. If no match → flag **MISSING** → create record in 2.1 gate before advancing.
+
+**Table 2.1-C — Domains parked**
+
+| Source | Parked |
+|--------|--------|
+| Monthly | |
+| Quarterly | |
+
+**Table 2.1-D — Tracker alignment** *(reply with one letter)*
 
 | | Option |
 |---|--------|
-| **A** | Personal — Sleep schedule reset + fitness floor |
-| **B** | Chrome Lot — Department currency (1:1 tracker, LESA, ops cadence) |
-| **C** | Chrome Lot — AM delegation (Aaron <20 customers by 6/30) |
-| **D** | Personal — Custody process-server email |
-| **E** | Personal — Will 10-min witnessing |
-| **F** | Personal — Out of house by 8 AM (work days) |
-| **G** | Personal — Schedule Bus trip in June |
-| **H** | Personal — Block 2 PTO days in June |
-| **I** | None — on track as written |
+| **A** | This Week tracker matches reality — proceed to 2.2 |
+| **B** | Update Notion — I'll list `This Week` toggles to change |
+| **C** | Create missing Dev Project(s) first — describe in chat |
 
-*Turbo Gear is parked — no TG Dev Projects in 2.4 unless Aaron overrides.*
+If Aaron's focus in chat **differs** from Table 2.1-A → require **B** or **C** before `advance`. Do not plan dev slice from conversation without tracker alignment.
+
+→ Write `Dev Priority Context` (rich_text — 2.1-A slate summary + incomplete log lines + parked domains).
+
+**Enforcement:** `Domains Parked` includes **Turbo Gear** → no TG dev-block work in 2.4 unless Aaron overrides.
 
 ### 2.2 Last Week — Development Scorecard (~7 min)
 
@@ -633,14 +655,15 @@ Write snapshot to Weekly Meeting Log `Dev Priority Context` (rich_text — copy 
 | Total accomplishments | | | `Total Accomplishments Count` |
 | Focused output hours est. | | | `Focused Output Hours Estimate` |
 
-**Table 2.2-B — Intended vs actual**
+**Table 2.2-B — Intended vs actual** *(tracker truth > log prose)*
 
 | Source | Content |
 |--------|---------|
-| Prior `Dev Intentions` | copy from prior log |
-| Prior `Dev Projects Intended` | copy from prior log |
-| Logged shipped | Dev Projects Done — grouped Personal / CL / TG from `weekly-habits-*.md` |
-| Unlogged sweep | from habit summary footer |
+| Prior `Dev Projects Intended` | snapshot from prior Weekly Log |
+| Tracker: completed | Dev Projects Status → Done (last 7d) — from `weekly-habits-*.md` |
+| Tracker: still open | Items from prior intended still `This Week` or In progress |
+| Prior `Dev Intentions` | log narrative (secondary) |
+| Unlogged sweep | habit summary footer |
 
 **Table 2.2-C — Unlogged accomplishments**
 
@@ -683,40 +706,73 @@ Ask: "Any of these count as meaningful shipped slices?" → fold into `Accomplis
 
 → Write `Dev Trend Notes`.
 
-### 2.4 Plan Next Week (~8 min)
+### 2.4 Plan focused dev block (~5 min)
 
-**Present exactly Table 2.4-A — Capacity**
+**Present exactly these tables in order:**
+
+**Table 2.4-A — Capacity**
 
 | Input | Value |
 |-------|-------|
 | Hubstaff last week | __ h |
 | Wellness gate (Mood valence / negative % / Energy) | reduced? yes / no |
 | Calendar load | __ h blocked |
-| Realistic dev hours | __ h (~25h baseline − trip/PTO/custody) |
+| Realistic dev-block hours | __ h (~15h morning baseline − trip/PTO/custody) |
 
 → Write `Dev Capacity Note`.
 
-**Table 2.4-B — Adjustments** *(if underperforming)*
+**Table 2.4-B — Dev slice this week** *(update from 2.1-A; dev-block items only)*
+
+| Parent | Sub-item | Type | Keep This Week? | Dev-block? |
+|--------|----------|------|-----------------|------------|
+| | | | yes / drop | yes / → 2.5 |
+
+Start from **Table 2.1-A** — do not invent new focus outside tracker without 2.1-D alignment. Toggle changes in Notion with approval; re-run `weekly-habit-summary.mjs` if needed.
+
+**Table 2.4-C — Confirmed This Week slate**
+
+| Parent | Sub-items | Type | Due Date |
+|--------|-----------|------|----------|
+| | | | |
+
+1. [Dev Projects](https://www.notion.so/341f40c2487b80acae1fd344d334096c) — confirm `This Week` matches 2.4-B.
+2. **Capacity sanity:** vs 2.4-A hours — recommend cuts if overcommitted.
+3. Any new work Aaron names → create Dev Project + set `This Week` before confirming.
+
+**Table 2.4-D — One Thing** *(single-select — reply with one letter)*
+
+| | Parent project |
+|---|----------------|
+| **A** | (first parent) |
+| **B** | (second parent) |
+| **…** | |
+
+→ Capture in `Key Decisions`.
+
+**Table 2.4-E — Adjustments** *(if underperforming last week)*
 
 | Move | Reason |
 |------|--------|
 | | |
 
-→ Write `Dev Adjustments`.
+→ Write `Dev Adjustments`, `Dev Intentions` (1–3 bullets — **dev-block focus only**), `Dev Projects Intended`.
 
-**Queue projects (Notion `This Week`):**
-1. Tell Aaron: "Open Dev Projects and toggle `This Week = true` on every project/sub-item you intend this week." [Dev Projects](https://www.notion.so/341f40c2487b80acae1fd344d334096c) — wait for confirmation.
-2. Read **"This Week — actionable slate"** from `weekly-habits-*.md`. Group by parent; show Type/Status/Completion/Due Date.
-3. **One Thing check** (AskQuestion, single-select parent): capture in `Key Decisions`.
-4. **Capacity sanity:** >12 sub-items or >available hours → recommend a cut before proceeding.
+### 2.5 Schedule supporting tasks (~3 min)
 
-Write `Dev Intentions` (1–3 bullets — the week's dev focus) + `Dev Projects Intended` (snapshot list of selected sub-items/parents).
+**Purpose:** After dev block is set, schedule **small errands and Todoist mirrors** that move projects forward but do not belong in morning focus time.
 
-**Personal projects → Todoist (required for Personal-type selections):**
-Personal work does not run in the protected dev block. For each **Personal** sub-item selected:
-1. Decide when in the week (day/slot) with Aaron.
-2. Propose Todoist mirror (due date, project) — **case-by-case approval before create**.
-3. Custody items: 1–2 concrete tasks in planned slot, not a floating worry.
+**Present exactly Table 2.5-A — Supporting schedule**
+
+| Item | Source | Kind | Proposed slot | Todoist project | Approved? |
+|------|--------|------|---------------|-----------------|-----------|
+| | Priority stack / monthly / parked project | errand / admin / habit-support / delegation-prep | day or window | | pending |
+
+**Kinds:**
+- **Errand** — one-shot (Will witnessing, custody email, calendar blocks)
+- **Habit-support** — recurring or scheduled nudges already in Phase 1
+- **Delegation-prep** — prep for Weekly Ops 1:1 scheduling (not the 1:1 itself)
+
+For each row Aaron approves (`A` = approve row 1, etc. or batch letters): propose Todoist create — **case-by-case approval before write**. Personal dev-block items already in 2.4 do **not** duplicate here.
 
 **FIELD CHECK — Development** *(Table 2.check)*
 
@@ -746,7 +802,7 @@ Personal work does not run in the protected dev block. For each **Personal** sub
 
 ## Cross-Cutting Rules
 
-- **Table contract per phase.** Phase 1 = Values → Mind → Fitness → Sleep → Social → Parenting → Personal enjoyment → `1.check`. Phase 2 = development (`2.1`–`2.4` + `2.check`) only. CL ops → **Weekly Ops** skill. Ledger `current_step` determines which tables are in scope.
+- **Table contract per phase.** Phase 1 = Values → Mind → Fitness → Sleep → Social → Parenting → Personal enjoyment → `1.check`. Phase 2 = focused dev (`2.1`–`2.5` + `2.check`) — dev block first, supporting Todoist second. CL ops → **Weekly Ops** skill.
 - **FIELD CHECK gates.** Run `1.check` before Phase 2 development; `2.check` after development; verify all in Phase 4 commit.
 - **Route every item into a bucket.** Each surfaced item is Automated (n8n), Delegated (team 1:1s), or a Scheduled slice (calendar + Todoist mirror).
 - **Capacity is non-negotiable.** If total planned work exceeds available hours minus 10-15% buffer, the system pushes back. Something must move.

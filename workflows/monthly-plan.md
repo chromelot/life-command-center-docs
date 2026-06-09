@@ -104,7 +104,7 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 | `9.1` | Table 9.1-A (KPI update — one Quarterly Outcome page per turn) |
 | `10.1` | Table 10.1-A (Bus trip — one option per turn until confirmed) |
 | `11.1` | Table 11.1-A (PTO blocks + coverage) |
-| `11.2` | Table 11.2-A (planning context) |
+| `11.2` | Table 11.2-A (domains parked) + Dev Project–linked priority stack |
 | `12.0` | Table 12.check, then commit checklist |
 
 ### Output contracts — Phases 3–11
@@ -180,7 +180,6 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 |-------|-------|
 | Priority Stack (max 5) | |
 | Domains Parked | |
-| Active CL Sprint | |
 
 **FIELD CHECK — Phase 1** *(Table 1.check)*
 
@@ -199,7 +198,7 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 | Item | Pass |
 |------|------|
 | Monthly Meeting Log entry created (review month) | |
-| Planning context fields written (Priority Stack, Domains Parked, Active CL Sprint) | |
+| Planning context fields written (Priority Stack, Domains Parked; each line links a Dev Project) | |
 | Life + work health selects populated | |
 | Team Activity Details appended | |
 | Planning month Months page log appended | |
@@ -693,16 +692,27 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
 
 ## Phase 11b: Planning Context Capture (~3 min)
 
-**Purpose:** Commit structured planning context so weekly plans can read priorities and pause status reliably — not from skill text or `current-priorities.md`.
+**Purpose:** Commit structured planning context linked to **Dev Projects** — weekly plan reads tracker first, logs second.
 
-**Required every monthly plan.** Store in session state (`monthly_priority_stack`, `monthly_domains_parked`, `monthly_active_cl_sprint`) for Phase 12.
+**Required every monthly plan.** Store in session state (`monthly_priority_stack`, `monthly_domains_parked`, `monthly_dev_project_links`) for Phase 12.
 
-1. **Draft Priority Stack** (max 5 numbered lines) from session outcomes + quarterly alignment. Format: `N. [Domain] — [one-line focus]`. Domains: Personal | Chrome Lot | Turbo Gear.
-2. **AskQuestion (multi-select):** "Which domains are **parked** for [planning month]?" Options: Turbo Gear | Chrome Lot New Business | External TG Demos | Personal Projects | Dating Outreach | Custody (hold) | Other | None — all domains active.
-3. **AskQuestion (single):** "Which CL repair sprint is active for [planning month]?" Options: A — Pipedrive+Todoist | B — 1:1 Cadence | C — Customer Service | D — Photographer Performance | E — Sales Management | Maintenance (departments at currency).
-4. Confirm stack + parked + sprint with Aaron before Phase 12.
+1. **Draft Priority Stack** (max 5 lines). Each line **must** reference a Dev Project record (title + Notion URL). Format: `N. [Domain] — [focus] → [Dev Project name]`. Create missing Dev Projects before committing.
+2. **Table 11.2-A — Domains parked** *(multi-select — reply with letters)*
 
-**Outputs:** `monthly_priority_stack`, `monthly_domains_parked`, `monthly_active_cl_sprint` ready for Monthly Meeting Log write.
+| | Option |
+|---|--------|
+| **A** | Turbo Gear |
+| **B** | Chrome Lot New Business |
+| **C** | External TG Demos |
+| **D** | Personal Projects |
+| **E** | Dating Outreach |
+| **F** | Custody (hold) |
+| **G** | Other |
+| **H** | None — all domains active |
+
+3. Confirm stack + parked with Aaron before Phase 12. **CL sprint format retired** — do not write `Active CL Sprint`.
+
+**Outputs:** `monthly_priority_stack`, `monthly_domains_parked`, `monthly_dev_project_links` ready for Monthly Meeting Log write.
 
 ## Phase 12: Commit (~3 min)
 
@@ -725,9 +735,8 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
    - **Work domain health** (from Phase 8b): `Chrome Lot Health`, `Turbo Gear Health`
    - **Health Intervention Notes** (from Phase 1d, if gate fired)
    - **Planning context (REQUIRED — weekly plan reads these):**
-     - `Priority Stack` (rich_text) — from Phase 11b (`monthly_priority_stack`)
+     - `Priority Stack` (rich_text) — from Phase 11b; each line includes Dev Project name/URL
      - `Domains Parked` (multi_select) — from Phase 11b (`monthly_domains_parked`)
-     - `Active CL Sprint` (select) — from Phase 11b (`monthly_active_cl_sprint`)
    - `Starved Values` — derived from life-health selects (categories rated Unhealthy)
    - Key Wins, Key Misses, Action Items (Action Items commit **planning month** priorities)
    Compare against last month's entry to show trend direction.
@@ -793,8 +802,8 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
    ## Domains parked
    (Same as `Domains Parked` multi-select — e.g., Turbo Gear)
 
-   ## Active CL sprint
-   (Same as `Active CL Sprint` select)
+   ## Dev project links
+   (Priority stack lines → Dev Project URLs from Phase 11b)
 
    ## Quarterly alignment
    (One line per domain tying planning month to current quarter theme)
@@ -836,7 +845,7 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
 - **Phase 8b:** `monthly_cl_health` and `monthly_tg_health` captured for Phase 12.
 - **Phase 9:** Manual KPI updates on Quarterly Outcomes; Todoist for empty targets; flags.
 - **Phase 10–11:** Calendar events; Todoist prep and handoff tasks; Teams optional.
-- **Phase 11b:** Priority Stack + Domains Parked + Active CL Sprint captured (session state).
+- **Phase 11b:** Priority Stack (Dev Project–linked) + Domains Parked captured (session state).
 - **Phase 12:** New Monthly Meeting Log entry (review month) with full KPI rollup + planning context fields + life/work health selects + Health Intervention Notes; Team Activity Details append; **planning month Months page plan log**; context file updates.
 
 ## Failure modes & graceful degradation

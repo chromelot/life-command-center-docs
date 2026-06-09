@@ -43,6 +43,8 @@ Example:
 
 **Reply with:** letter(s) only (e.g. `B` or `A, C`).
 
+**Dev planning:** Dev Projects `This Week` tracker is canonical state. Meeting logs are cross-check only. Work not in Dev Projects → create a record before committing the week.
+
 Full contract anatomy → `context/systems/workflow-output-contracts.md`.
 
 ## Mandatory behaviors (every workflow)
@@ -105,7 +107,7 @@ America/Chicago; do not trust stale ledger `week_of`.
 | 4 | `1.0` | Yes — create Notion log |
 | 5–11 | `1.1`–`1.7` | Life review — one domain per step, contract tables per skill |
 | 12 | `1.check` | FIELD CHECK — **gate before Phase 2** |
-| 13 | `2.1`–`2.4` | Development tables per step |
+| 13 | `2.1`–`2.5` | Focused dev block + supporting Todoist per step |
 | 14 | `2.check` | FIELD CHECK — **gate before commit** |
 | 15 | `4` | Commit checklist + all FIELD CHECKs |
 
