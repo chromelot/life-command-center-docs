@@ -210,7 +210,7 @@ Pull data in parallel:
 6. **TG Departments** (`341f40c2-487b-80c9`): Same -- health, priority, and full page content
 7. **Quarterly Meeting Log** (`344f40c2-487b-80ed`): Last 2 entries (outgoing quarter AND the one before it) for quarter-over-quarter trend comparison
 8. **Weekly Meeting Log** (`322f40c2-487b-81bd`): All entries from the outgoing quarter for habit KPI averages
-9. **Monthly Meeting Log** (`344f40c2-487b-806d`): All entries from the outgoing quarter (typically 3) for intra-quarter month-over-month trajectory analysis. Body-comp fields (Weight Avg / Body Fat Avg / Lean Mass Avg + Deltas) feed Phase 3's Personal Habits trajectory.
+9. **Monthly Plan Log** (`344f40c2-487b-806d`): All entries from the outgoing quarter (typically 3) for intra-quarter month-over-month trajectory analysis. Body-comp fields (Weight Avg / Body Fat Avg / Lean Mass Avg + Deltas) feed Phase 3's Personal Habits trajectory.
 10. **Hubstaff** (recent 90 days): Time-by-project and by-team-member for Phase 6 time-reality check
 11. **Health Data + Watch metrics**: Loaded via the `health-data` MCP `health_get_summary({ days: 200 })` call above. Used in Phase 3 for body-comp + recovery QoQ trend.
 
@@ -266,9 +266,9 @@ PERSONAL HABITS -- INTRA-QUARTER TRAJECTORY
 | Workout Active Min/wk |      |      |      |         |          |       |
 ```
 
-Body-comp Mo 1/2/3 cells come from each Monthly Meeting Log entry's Weight Avg / Body Fat Avg / Lean Mass Avg. Qtr Avg = mean across the three months (or recompute from the `health_get_summary({ days: 200 })` daily slice for the quarter if a monthly entry is missing the field). Last Qtr = previous Quarterly Meeting Log entry's Weight Avg / Body Fat Avg / Lean Mass Avg. Trend = QoQ delta with direction; for body comp, also annotate alignment with Aaron's stated cut/bulk/recomp intent for the outgoing quarter.
+Body-comp Mo 1/2/3 cells come from each Monthly Plan Log entry's Weight Avg / Body Fat Avg / Lean Mass Avg. Qtr Avg = mean across the three months (or recompute from the `health_get_summary({ days: 200 })` daily slice for the quarter if a monthly entry is missing the field). Last Qtr = previous Quarterly Meeting Log entry's Weight Avg / Body Fat Avg / Lean Mass Avg. Trend = QoQ delta with direction; for body comp, also annotate alignment with Aaron's stated cut/bulk/recomp intent for the outgoing quarter.
 
-Sleep / HR / RHR / HRV / Steps / Workout Active Min cells follow the same pattern: prefer each Monthly Meeting Log entry's `Sleep Avg` / `Heart Rate Avg` / `Resting HR Avg` / `HRV Avg` / `Steps Avg` / `Workout Active Minutes` for Mo 1/2/3 cells. Fall back to recomputing from `daily` slice for any month missing those fields. Qtr Avg = mean across the quarter's daily rows. Last Qtr = previous Quarterly Meeting Log entry's matching field, OR recompute from the prior-quarter daily slice. Trend = QoQ delta. Render `--` for any row whose underlying data is null (Resting HR + HRV in particular until those Health Sync folders are enabled). If the prior-quarter slice covers fewer than ~45 days, annotate "(partial archive: <N> days)" beside that row.
+Sleep / HR / RHR / HRV / Steps / Workout Active Min cells follow the same pattern: prefer each Monthly Plan Log entry's `Sleep Avg` / `Heart Rate Avg` / `Resting HR Avg` / `HRV Avg` / `Steps Avg` / `Workout Active Minutes` for Mo 1/2/3 cells. Fall back to recomputing from `daily` slice for any month missing those fields. Qtr Avg = mean across the quarter's daily rows. Last Qtr = previous Quarterly Meeting Log entry's matching field, OR recompute from the prior-quarter daily slice. Trend = QoQ delta. Render `--` for any row whose underlying data is null (Resting HR + HRV in particular until those Health Sync folders are enabled). If the prior-quarter slice covers fewer than ~45 days, annotate "(partial archive: <N> days)" beside that row.
 
 ```
 CHROME LOT -- INTRA-QUARTER TRAJECTORY
@@ -296,7 +296,7 @@ Pick the **2-3 metrics that matter most for Q[next]** and name them explicitly. 
 
 ### Phase 3b: Monthly Health Trend Review (~8 min)
 
-Pull the **3 Monthly Meeting Log entries** from the outgoing quarter (chronological). Build domain-health and life-context tables:
+Pull the **3 Monthly Plan Log entries** from the outgoing quarter (chronological). Build domain-health and life-context tables:
 
 ```
 WORK DOMAIN HEALTH -- INTRA-QUARTER
@@ -306,7 +306,7 @@ WORK DOMAIN HEALTH -- INTRA-QUARTER
 | Turbo Gear  | H/U |     |     |               |
 ```
 
-Data source: `Chrome Lot Health` and `Turbo Gear Health` select properties on each Monthly Meeting Log entry. For months before those properties existed, annotate `(no monthly snapshot)` and **do not false-trigger** the strategy gate.
+Data source: `Chrome Lot Health` and `Turbo Gear Health` select properties on each Monthly Plan Log entry. For months before those properties existed, annotate `(no monthly snapshot)` and **do not false-trigger** the strategy gate.
 
 Also show life-category context (not a separate gate — monthly Phase 1d handles life):
 
@@ -528,7 +528,7 @@ These are the dates that get eaten first when things get busy. Block them now so
    - Meeting Date, Quarter relation
    - Wellness averages (PHQ-2, GAD-2, Energy -- averaged from Weekly Meeting Log entries)
    - Habit KPI averages (Strength, Cardio, Small Talk, Spirit, Deep Work, Ops, Field Work, Journal)
-   - **Body composition** (from Phase 3): Weight Avg, Body Fat Avg, Lean Mass Avg (means across the outgoing quarter from Monthly Meeting Log entries or the `health_get_summary` daily slice) plus Weight Delta, Body Fat Delta, Lean Mass Delta (this-quarter avg minus last-quarter avg, signed). Omit any field where the underlying data is null.
+   - **Body composition** (from Phase 3): Weight Avg, Body Fat Avg, Lean Mass Avg (means across the outgoing quarter from Monthly Plan Log entries or the `health_get_summary` daily slice) plus Weight Delta, Body Fat Delta, Lean Mass Delta (this-quarter avg minus last-quarter avg, signed). Omit any field where the underlying data is null.
    - **Watch metrics** (from Phase 3): Sleep Avg, Heart Rate Avg, Resting HR Avg, HRV Avg, Steps Avg (quarter means) plus Sleep Delta, Heart Rate Delta, Resting HR Delta, HRV Delta, Steps Delta (this-quarter avg minus last-quarter avg, signed). Also Workout Active Minutes (quarter total in minutes). Omit any field where the underlying data is null. Resting HR + HRV will stay null until those Health Sync folders are enabled.
    - Project counts (Assigned, Completed, Carried Over, broken out by Personal/CL/TG)
    - Business metrics (CL Revenue, CL Customer Count, CL Churn, TG Demos Given, TG Features Shipped)

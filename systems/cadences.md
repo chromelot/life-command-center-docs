@@ -48,9 +48,9 @@ Daily morning/evening Cursor reviews were retired. The PD ↔ Todoist loop is re
 
 #### Weekly Plan — Pre-Phase 0 gate + 9-phase workflow
 
-**Pre-Phase 0 — Monthly plan gate:** Query Monthly Meeting Log for the **review month** (prior calendar month, same framing as monthly plan). If no entry exists, pause and run the full monthly plan (~83 min) before continuing. Hard prerequisite — no weekly-only bypass.
+**Pre-Phase 0 — Monthly plan gate:** Query Monthly Plan Log for `Monthly Plan for [Planning Month YYYY]` (current calendar month). If no entry exists, pause and run the full monthly plan (~83 min) before continuing. Hard prerequisite — no weekly-only bypass.
 
-0. Data Pull (silent — Todoist, Pipedrive, Calendar, Notion source DBs incl. Monthly Meeting Log, Knack, Hubstaff, health-data MCP)
+0. Data Pull (silent — Todoist, Pipedrive, Calendar, Notion source DBs incl. Monthly Plan Log, Knack, Hubstaff, health-data MCP)
 1. Center (wellness screening, values pulse, capacity adjustment)
 1a. Monthly Plan Review (align week with committed monthly Action Items + KPIs)
 2. Last Week Review (habit scorecard, project review)

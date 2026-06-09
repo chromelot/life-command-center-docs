@@ -14,7 +14,7 @@ This skill activates when Aaron says **"weekly ops"**, **"ops review"**, **"CL o
 
 Load via the router. Read these before starting:
 
-- `context/systems/notion-databases.md` — DB IDs (Weekly Ops Meeting Log `379f40c2-487b-8130`, Weekly Meeting Log, Monthly Meeting Log)
+- `context/systems/notion-databases.md` — DB IDs (Weekly Ops Meeting Log `379f40c2-487b-8130`, Weekly Meeting Log, Monthly Plan Log)
 - `context/systems/pipedrive.md` — pipeline IDs, stages, user IDs, completion-time API quirks
 - `context/systems/knack-fields.md` — Customer + Photographer field references
 - `context/systems/hubstaff.md` — member IDs, weekly-report tool
@@ -93,7 +93,7 @@ Load via the router. Read these before starting:
 Commit writes target **Weekly Ops Meeting Log** (`379f40c2-487b-8130-916d-eba9ce85134c`).
 
 - **"Last Wk" activity totals** (Table 1-A) → prior entry from **Weekly Ops Log** via `weekly-ops-pull.mjs`; falls back to **Weekly Meeting Log** (`322f40c2-487b-81bd`) until Ops Log has history
-- **Monthly Meeting Log** (`344f40c2-487b-806d`) — `Priority Stack`, `Domains Parked` for context only (CL sprint retired)
+- **Monthly Plan Log** (`344f40c2-487b-806d`) — `Priority Stack`, `Domains Parked` for context only (CL sprint retired)
 
 **Gate rules:**
 - Before **`commit`**: `check` FIELD CHECK must pass.
@@ -181,8 +181,8 @@ Via `weekly-data-pull.mjs` (parallel MCP where applicable):
 
 | Source | Field | Value |
 |--------|-------|-------|
-| Monthly Meeting Log (latest) | Priority Stack | truncated if long |
-| Monthly Meeting Log (latest) | Domains Parked | |
+| Monthly Plan Log (latest) | Priority Stack | truncated if long |
+| Monthly Plan Log (latest) | Domains Parked | |
 | Prior Weekly Meeting Log | Aaron / Lexie / Tristen / Ran / Total Activities | for Table 1-A "Last Wk" |
 | Briefing | Todoist overdue count | excl Shopping List |
 | Briefing | Pipedrive overdue activities | count |

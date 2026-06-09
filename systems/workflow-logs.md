@@ -27,7 +27,7 @@ Replaces legacy `Workflow Status` (In Progress / Complete / Paused). Paused sess
 |----------|--------------|-------------|
 | Weekly Plan | Weekly Meeting Log | `322f40c2-487b-81bd-8953-ffc40ac6432d` |
 | Weekly Ops | Weekly Ops Meeting Log | `379f40c2-487b-8130-916d-eba9ce85134c` |
-| Monthly Plan | Monthly Meeting Log | `344f40c2-487b-806d-98b2-ef710856bd07` |
+| Monthly Plan | Monthly Plan Log | `344f40c2-487b-806d-98b2-ef710856bd07` |
 | Quarterly Plan | Quarterly Meeting Log | `344f40c2-487b-80ed-b183-ebed46d80130` |
 | 1:1 Prep | 1:1 Prep Log | `config/workflow-logs.json` → `person_checkin_log_db_id` |
 | Team Sync | Team Sync Log | `config/workflow-logs.json` → `team_sync_log_db_id` |
@@ -65,7 +65,7 @@ Provisioner: `node scripts/create-workflow-log-dbs.mjs`
 | `1.0` | Create log (review month title, Session Complete = Incomplete) |
 | `1.1`–`1.4` | Incremental — life health selects as rated |
 | `11.2` | `Priority Stack` (Dev Project–linked), `Domains Parked` (session state → log at 12.0) |
-| `12.0` | Full Monthly Meeting Log rollup + Team Activity Details + Session Complete = Complete |
+| `12.0` | Full Monthly Plan Log rollup + Team Activity Details + Session Complete = Complete |
 
 ### Quarterly plan — phase writes
 

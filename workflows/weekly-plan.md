@@ -56,7 +56,7 @@ Each phase ends with an inline **FIELD CHECK** listing its required Weekly Meeti
 
 **Dev tracker hygiene (every Phase 2 session):**
 1. **Tracker first** — monthly incomplete lists come from Dev Projects (Notion), not log prose.
-2. **Selection sync** — after Aaron picks items, set `This Week = true` on selected rows only; **clear `This Week` on all other open items in that domain** so the Notion view matches the plan.
+2. **Selection sync** — after each Phase 2 sub-step (2.1 then 2.2), run `scripts/sync-dev-projects-this-week.mjs` with the cumulative selected page IDs: set `This Week = true` on selected only; **`This Week = false` on every other open Dev Project** (domain-scoped within that phase, then combined pass at 2.check). Present the finalized bulleted slate; it must match the Notion `This Week` filter exactly.
 3. **Missing records** — work Aaron describes that is not in Dev Projects → create a record (with approval) before toggling `This Week`.
 4. **Personal mirrors** — Phase 2.2 creates Todoist tasks for selected Personal items (case-by-case approval); verify last week's mirrors via Todoist MCP.
 
@@ -72,11 +72,11 @@ Each phase ends with an inline **FIELD CHECK** listing its required Weekly Meeti
 The weekly plan assumes a committed monthly frame. Do not start Phase 0 until this gate passes.
 
 1. Compute **review month** and **planning month** from today's date (America/Chicago) — same framing as `context/skills/monthly-plan/SKILL.md` (Month framing section). Example: session on 2026-06-05 → review month = May 2026, planning month = June 2026.
-2. Query **Monthly Meeting Log DB** (`344f40c2-487b-806d`) for an entry whose **Month** relation points to **review month** OR whose Name matches `Month of [Review Month YYYY]`.
+2. Query **Monthly Plan Log DB** (`344f40c2-487b-806d`) for an entry whose Name matches `Monthly Plan for [Planning Month YYYY]` OR whose **Month** relation points to **planning month**.
 3. **If no matching entry exists:**
-   - Tell Aaron: "No Monthly Meeting Log entry for [review month]. Monthly plan must run before weekly plan."
+   - Tell Aaron: "No Monthly Plan Log for [planning month]. Monthly plan must run before weekly plan."
    - **Pause** this workflow. Run `context/skills/monthly-plan/SKILL.md` end-to-end.
-   - After monthly plan Phase 12 commits the review-month entry, **resume** weekly plan from Phase 0 below.
+   - After monthly plan Phase 12 commits the planning-month entry, **resume** weekly plan from Phase 0 below.
    - Do **not** offer to skip or proceed weekly-only — monthly plan is a hard prerequisite.
 4. **If entry exists:** Hold for Phase 2.1. Continue to Phase 0.
 
@@ -684,13 +684,19 @@ Source: `weekly-dev-review` § **Planning month — {domain}** (`🌙 Month` →
 
 **Empty Dev Project records** (no `Name` title): archive in Notion when detected — do not present.
 
-**Sync** *(after F + G/H confirmed — approval before Notion writes)*
+**Sync** *(after F + G/H confirmed — **run immediately**, approval before Notion writes)*
 
-1. `This Week = true` on carryover + any roadmap picks.
-2. `This Week = false` on all other open CL/TG Dev Projects.
-3. Re-run `weekly-habit-summary.mjs` to verify slate.
+Execute `node scripts/sync-dev-projects-this-week.mjs --selected=<comma-separated page IDs>`:
+
+1. `This Week = true` on carryover + any roadmap picks only.
+2. `This Week = false` on **every other open** CL/TG Dev Project (not just unselected domain items — full open-database sweep for CL/TG types).
+3. Clear `This Week` on any **Done** records still checked (stale bulk-close artifacts).
 
 → Write `Dev Intentions` (1–3 bullets), `Dev Projects Intended` (snapshot), `Dev Priority Context`.
+
+**Present Table 2.1-S — CL/TG This Week slate** *(bulleted tree; must match Notion `This Week` filter exactly)*
+
+Output of sync script § Chrome Lot + Turbo Gear only. Aaron confirms before **2.2**.
 
 ---
 
@@ -704,11 +710,15 @@ Present `weekly-dev-review` § **Planning month — Personal** (`🌙 Month` →
 
 **Table 2.2-B — Last week personal plan**
 
-| Wanted to finish | Todoist mirror status | Actually done? |
-|------------------|----------------------|----------------|
-| | open / completed / none | ✓ / ✗ |
+**Bulleted tree only** — same nesting as **2.2-A** / **2.1-C**. Do **not** flatten to a table. One parent block per root; indent children. Append mirror + outcome on each line.
 
-Source: prior `Dev Projects Intended` (Personal only) + **Todoist MCP** (tasks due/completed last week in Personal projects). Confirm completions with Aaron.
+```
+**Personal**
+- **Parent** — Status · mirror: none / open / completed · done: ✓ / ✗
+  - **Child** — Status · mirror: … · done: …
+```
+
+Source: prior `Dev Projects Intended` (Personal only) + prior-week Personal `This Week` carryover + **Todoist MCP** (tasks due/completed last week). Confirm completions with Aaron.
 
 #### B — Plan for next week
 
@@ -716,17 +726,37 @@ Source: prior `Dev Projects Intended` (Personal only) + **Todoist MCP** (tasks d
 
 Same source as **2.2-A** — letter rows to add to `This Week` that aren’t already on the plate from **2.1-F** carryover (Personal domain).
 
-**Table 2.2-D — Selection** *(multi-select — reply with letters)*
+**Table 2.2-D — Selection** *(multi-select — reply with letters, or **A** = all / **B** = none)*
 
-After selection:
+Present as a **lettered bulleted tree** (same nesting as **2.2-A**). Letter each **root**; children inherit parent selection unless Aaron splits them explicitly.
 
-1. `This Week = true` on selected Personal Dev Projects (approval).
-2. `This Week = false` on all other open Personal Dev Projects.
-3. For each selected item: propose **Todoist mirror** (due date + project) — **case-by-case approval** before create.
+After selection — **run immediately** (approval before Notion writes):
+
+Execute `node scripts/sync-dev-projects-this-week.mjs --selected=<all CL/TG IDs from 2.1-S plus selected Personal IDs>`:
+
+1. `This Week = true` on selected Personal Dev Projects only.
+2. `This Week = false` on **every other open** Personal Dev Project.
+3. Re-run with **combined** CL/TG + Personal selected IDs so the full slate is authoritative (one sync pass).
+4. For each selected item: propose **Todoist mirror** (due date + project) — **case-by-case approval** before create.
 
 ---
 
-**FIELD CHECK — Phase 2** *(Table 2.check)*
+**Table 2.check — Final This Week slate** *(required before Phase 4)*
+
+Run `sync-dev-projects-this-week.mjs` output (or `weekly-habit-summary.mjs` § This Week) and present **one bulleted tree** covering all domains:
+
+```
+**Chrome Lot**
+- parent → children
+**Turbo Gear**
+- …
+**Personal**
+- …
+```
+
+This list must **exactly match** the Notion Dev Projects view filtered to `This Week = true` (open items). Aaron confirms **A** = matches / **B** = drift to fix.
+
+**FIELD CHECK — Phase 2** *(gate)*
 
 | Field | Step |
 |-------|------|
@@ -735,8 +765,9 @@ After selection:
 | `Dev Adjustments` | 2.1-E *(Unhealthy only; Aaron-supplied)* |
 | `Dev Intentions`, `Dev Projects Intended` | 2.1 sync (after F/G/H) |
 | `Dev Priority Context` | 2.1-G |
-| Personal `This Week` + Todoist mirrors | 2.2-D |
-| Notion `This Week` view matches selections | verify before advance |
+| CL/TG `This Week` sync | 2.1-S |
+| Personal `This Week` sync | 2.2-D |
+| **Final slate = Notion view** | **2.check** |
 
 **Do not proceed to Phase 4 until `2.check` passes.**
 
@@ -780,7 +811,7 @@ After selection:
 
 ## Failure modes & graceful degradation
 
-- **Monthly Meeting Log entry missing for review month:** Hard stop — run monthly plan first (Pre-Phase 0). Do not proceed weekly-only.
+- **Monthly Plan Log missing for planning month:** Hard stop — run monthly plan first (Pre-Phase 0). Do not proceed weekly-only.
 - **Weekly data pull script missing:** Rely on parallel MCP pulls per Phase 0 list.
 - **Withings sync / `sources.notion.error`:** Skip or note body-comp unavailable; use `--` for body-comp rows; note "Withings sync inactive" or "Withings sync needs attention" in scorecard/footer as specified in Phases 1–2.
 - **`sources.health_sync.ok = false`:** Drop Recovery + Activity lines in Values Pulse fitness callout (Phase 1); append diagnostic note; render watch metrics as `--` in habit scorecard with "Health Sync data missing" in footer; do not abort the workflow.

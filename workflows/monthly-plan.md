@@ -27,12 +27,12 @@ Phase 0 data pulls:
 - Weekly Meeting Log entries with Meeting Date in **review month**
 - Pipedrive/Knack/Hubstaff aggregates for **review month**
 - `health_get_summary` slices: **review month** avg vs month before review month (MoM baseline)
-- Monthly Meeting Log last entry = the month before **review month** (when reviewing May, baseline is April Monthly Log)
+- MoM baseline = prior **Monthly Plan Log** entry titled `Monthly Plan for [Review Month YYYY]` (when reviewing May and planning June, baseline is `Monthly Plan for May 2026`, which holds April retrospective KPIs)
 
 Phase 12 writes two Notion artifacts:
 
-1. **Monthly Meeting Log** (review month KPI rollup): Name = `Month of [Review Month YYYY]`, Month relation = **review month** Months record. Action Items field holds **planning month** forward commitments.
-2. **Months DB plan log** (planning month hub): Append formatted session summary to the **planning month** Months page (see Phase 12 step 6). Do not skip even when the Monthly Meeting Log entry already exists.
+1. **Monthly Plan Log** (one entry per session): Name = `Monthly Plan for [Planning Month YYYY]` — covers **review month** retrospective KPIs + **planning month** forward commitments in one record. `Month` relation = **planning month** Months record.
+2. **Months DB plan log** (planning month hub): Append formatted session summary to the **planning month** Months page (see Phase 12 step 6). Do not skip even when the Monthly Plan Log entry already exists.
 
 Months page title resolution (DB `121f40c2-487b-80f2`): prefer `[FullMonthName] [YYYY]` (e.g. `June 2026`); fall back to month name only (`May`, `June`) when automation used the short form.
 
@@ -42,7 +42,7 @@ Load via the router. Read these before starting:
 
 - `context/systems/cadences.md` — cadence health check
 - `context/systems/capacity-rules.md` — limits, overcommitment triggers
-- `context/systems/notion-databases.md` — Weekly Meeting Log, Monthly Meeting Log, Dev Projects, Quarterly Outcomes, Values, Workouts, Small Talk, Health Data DB schemas + IDs
+- `context/systems/notion-databases.md` — Weekly Meeting Log, Monthly Plan Log, Dev Projects, Quarterly Outcomes, Values, Workouts, Small Talk, Health Data DB schemas + IDs
 - `context/systems/pipedrive.md` — pipeline IDs, user IDs, completion-time API quirks
 - `context/systems/knack-fields.md` — Customer + Invoice field references for Phases 6, 7
 - `context/systems/hubstaff.md` — member IDs, project IDs (3563292, 3563452 for sales efficiency), monthly hours
@@ -71,7 +71,7 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 | Step | Skill phase | User-facing? |
 |------|-------------|--------------|
 | `0` | Phase 0 Data Pull | Silent |
-| `1.0` | Create Monthly Meeting Log entry shell | Yes |
+| `1.0` | Create Monthly Plan Log entry shell | Yes |
 | `1.1` | Phase 1 Wellness Trends | Yes — Table 1.1-A, 1.1-B |
 | `1.2` | Phase 1b Identity Check | Yes — one category per turn |
 | `1.3` | Phase 1c Quarterly gate | Yes — Table 1.3-A |
@@ -197,7 +197,7 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 
 | Item | Pass |
 |------|------|
-| Monthly Meeting Log entry created (review month) | |
+| Monthly Plan Log entry created (`Monthly Plan for [Planning Month YYYY]`) | |
 | Planning month Dev Projects linked (`🌙 Month` on each selected record) + Domains Parked on Monthly Log | |
 | Life + work health selects populated | |
 | Team Activity Details appended | |
@@ -258,13 +258,13 @@ Before other pulls, resolve both Months pages. Store `planning_month_page_id` an
    - `database_id`: `121f40c2-487b-80f2-8cbf-ca5d3d5c33c2`
    - `properties`: `{ "Month": { "title": [{ "text": { "content": "[FullMonthName] [YYYY]" } }] } }`
    - Set page icon 🗓️ via `personal_notion_update_page` after create.
-3. Resolve **review month** Months page the same way (needed for Monthly Meeting Log Month relation).
+3. Resolve **review month** Months page the same way (for retrospective context; Monthly Plan Log `Month` relation points to **planning month**).
 4. If planning month `Previous Month` is empty and review month page exists, set `Previous Month` relation on planning month → review month page.
 
 Then pull the rest of the data via MCP tools in parallel:
 
 1. **Weekly Meeting Log DB** (`322f40c2-487b-81bd`): (a) all entries from **review month** (PHQ-2, GAD-2, energy scores, structured KPI fields) for intra-month trajectory; (b) **last 6 entries by Meeting Date** (may span month boundaries) for life-health streak detection in Phase 1d.
-2. **Monthly Meeting Log DB** (`344f40c2-487b-806d`): last entry (month before review month) for **month-over-month comparison**. This is the baseline for every metric in every phase. Also check whether a review-month entry already exists (skip duplicate create in Phase 12 if present).
+2. **Monthly Plan Log DB** (`344f40c2-487b-806d`): prior entry titled `Monthly Plan for [Review Month YYYY]` for **month-over-month comparison** (when reviewing May, baseline is `Monthly Plan for May 2026`). Also check whether `Monthly Plan for [Planning Month YYYY]` already exists (skip duplicate create in Phase 12 if present).
 3. **Quarterly Meeting Log DB** (`344f40c2-487b-80ed`): entry linked to **current quarter** (Quarter Tracker `Current` = "Current") — completeness gate for Phase 1c
 4. **Notion Workouts DB** (`127f40c2-487b-80ba`): **review month** workout log
 5. **Dev Projects DB** (`341f40c2-487b-80ac`): all projects assigned to current quarter, full status sweep
@@ -300,7 +300,7 @@ WELLNESS -- INTRA-MONTH TRAJECTORY
 | Journal Count     |      |      |      |      |      |         |       |
 ```
 
-"Last Mo" column comes from the previous Monthly Meeting Log entry. "Trend" shows the % delta and direction.
+"Last Mo" column comes from the previous Monthly Plan Log entry. "Trend" shows the % delta and direction.
 
 **Flag any metric where:**
 - 3+ consecutive weeks of decline within the month
@@ -325,7 +325,7 @@ LIFE HEALTH -- WEEKLY TRAJECTORY (last N weeks)
 
 Then proceed with qualitative assessment:
 1. Values category check: pull Health statuses from Values DB (`342f40c2-487b-80c5`). Which of the 6 categories got attention and which got starved?
-2. Social connectedness trend: Small Talk count this month vs. last month from Monthly Meeting Log.
+2. Social connectedness trend: Small Talk count this month vs. last month from Monthly Plan Log.
 3. Dating health check (if active): net positive or net negative to energy and structure this month?
 4. If depression or anxiety trended upward (3+ weeks or month-over-month), flag for proactive intervention (therapy session, med review, workload reduction)
 
@@ -398,7 +398,7 @@ If no 3-week streaks: skip silently (~0 min).
 
 **Purpose:** Identify consistency and intensity trends, not just last week's performance.
 
-1. Total workout days in **review month** vs. target (16-20 days at 4-5/week). Compare against previous Monthly Meeting Log entry (Strength Sessions + Cardio Sessions) and flag if >20% change.
+1. Total workout days in **review month** vs. target (16-20 days at 4-5/week). Compare against previous Monthly Plan Log entry (Strength Sessions + Cardio Sessions) and flag if >20% change.
 2. Workout type distribution (Pull/Push/Legs/Cardio balance)
 3. Intensity trend: plot weekly Strength/Cardio Sessions from Weekly Meeting Log -- improving, declining, or flat week-over-week?
 4. Motorcycle rides in **review month** (check capacity-rules.md for last ride date)
@@ -435,7 +435,7 @@ If no 3-week streaks: skip silently (~0 min).
 6. Identify systemic barriers (if a particular day is always skipped, why?)
 7. Adjust targets for **planning month** if needed (e.g., drop to 3/week during high-travel periods)
 
-**Outputs:** Adjusted fitness targets for planning month. Todoist recurring task updates if schedule changes. Body-comp averages stored on the Monthly Meeting Log in Phase 12 (review month metrics).
+**Outputs:** Adjusted fitness targets for planning month. Todoist recurring task updates if schedule changes. Body-comp averages stored on the Monthly Plan Log in Phase 12 (review month metrics).
 
 ## Phase 3: Dev Work Review & Goals (~10 min)
 
@@ -446,7 +446,7 @@ If no 3-week streaks: skip silently (~0 min).
 3. Dev hours spent vs. budgeted (from capacity math, Business Development DB for deep work minutes). Plot weekly Deep Work Minutes from Weekly Meeting Log to show intra-month trajectory.
 4. **Quarterly progress check**: Are we on track to complete the quarter's assigned projects? If not, which ones are at risk and why?
 5. Non-TG dev: did personal and CL projects get attention, or consumed by ops?
-6. Compare Projects Completed, Projects In Progress against previous Monthly Meeting Log entry -- flag if >20% change in either direction.
+6. Compare Projects Completed, Projects In Progress against previous Monthly Plan Log entry -- flag if >20% change in either direction.
 7. Confirm **planning month** Dev Project candidates align with Phase 1c quarterly themes — final `🌙 Month` links happen in **Phase 11b** (not free-text goals).
 
 **Outputs:** Dev Projects status updates. Candidate list for Phase 11b month linking. Todoist tasks if needed.
@@ -498,7 +498,7 @@ If no 3-week streaks: skip silently (~0 min).
 **Purpose:** Pipeline health, team performance, and efficiency -- not individual deal triage.
 
 ### Pipeline Health
-1. Pipedrive sales pipeline velocity: new deals, won deals, lost deals, conversion rate. Compare against previous Monthly Meeting Log entry (CL Revenue, CL Customer Count, CL Churn) -- flag if >20% change.
+1. Pipedrive sales pipeline velocity: new deals, won deals, lost deals, conversion rate. Compare against previous Monthly Plan Log entry (CL Revenue, CL Customer Count, CL Churn) -- flag if >20% change.
 2. Revenue this month vs. last month (Pipedrive deal values)
 3. Stale deal audit: deals older than 60 days with no movement
 
@@ -517,7 +517,7 @@ COMPLETED ACTIVITIES -- INTRA-MONTH TRAJECTORY
 | Total   |      |      |      |      |       |         |       |
 ```
 
-"Last Mo" comes from the previous Monthly Meeting Log entry (Total Activities per user). Flag any user with declining week-over-week activity or >20% month-over-month change.
+"Last Mo" comes from the previous Monthly Plan Log entry (Total Activities per user). Flag any user with declining week-over-week activity or >20% month-over-month change.
 
 ### Team Efficiency Analysis
 Cross-reference Hubstaff time data with activity totals per team member (Aaron, Tristen, Lexie, Ran):
@@ -594,9 +594,9 @@ Data sources: Knack Invoices (`object_18`) for CL revenue/AR. QuickBooks for P&L
 - Active customers + health: Knack `object_2`, filter `field_464 = Yes`, read `field_1601` (Customer Health Status)
 - Invoice aging: Knack `object_18` (Invoices), aggregate by `field_132` (status) and date windows
 - Account manager workload: Pipedrive activity counts by `owner_id` from Phase 4 (not Knack)
-- Month-over-month comparison: previous Monthly Meeting Log entry
+- Month-over-month comparison: previous Monthly Plan Log entry
 
-1. Net customer change this month (new vs. churned). Compare CL Customer Count and CL Churn against previous Monthly Meeting Log entry -- flag if >20% change.
+1. Net customer change this month (new vs. churned). Compare CL Customer Count and CL Churn against previous Monthly Plan Log entry -- flag if >20% change.
 2. Invoice aging trend: are unpaid/overdue invoice counts getting better or worse vs. last month? (First run: skip -- no comparison available.)
 3. Customer health distribution shift: more Happy, fewer At Risk, or the reverse? Flag any customer with Unknown/missing health status -- create Todoist task to classify.
 4. Account manager workload balance: pull Pipedrive activity totals by owner from Phase 4 data. Is one person overloaded (>250 activities/month)?
@@ -616,7 +616,7 @@ Data sources: Knack Invoices (`object_18`) for CL revenue/AR. QuickBooks for P&L
 - New photographers hired: count completed runs of the Process Street "New Hire Onboarding" workflow (template ID `g7V9_B1K7z7rqgLS8Q1GEg`) within the month. Call `processstreet_list_workflow_runs` with `template_id=g7V9_B1K7z7rqgLS8Q1GEg` and `status=Completed`, then filter on `audit.createdDate`.
 
 1. Roster reconciliation: run `hubstaff_get_members` and compare against `context/people/index.md`. Update directory for any new hires or removed members before proceeding.
-2. Hubstaff hours per team member: consistent, declining, or erratic? Compare against previous Monthly Meeting Log entry -- flag if >20% change. (First run: skip comparison.)
+2. Hubstaff hours per team member: consistent, declining, or erratic? Compare against previous Monthly Plan Log entry -- flag if >20% change. (First run: skip comparison.)
 3. Photographer performance (if data available): month-over-month call-in rates, issue rates, time off trends.
 4. Any photographer/team member on a downward trajectory over 2+ months?
 5. 1:1 consistency: check `Last Meeting` in `context/people/index.md` for every active team member. Flag anyone >45 days past their check-in cadence. Create Todoist tasks for the overdue 1:1s.
@@ -626,7 +626,7 @@ Data sources: Knack Invoices (`object_18`) for CL revenue/AR. QuickBooks for P&L
 
 ## Phase 8b: Work Domain Health Rating (~5 min)
 
-**Purpose:** Rate Chrome Lot and Turbo Gear as Healthy or Unhealthy at the domain level. Results stored on Monthly Meeting Log in Phase 12.
+**Purpose:** Rate Chrome Lot and Turbo Gear as Healthy or Unhealthy at the domain level. Results stored on Monthly Plan Log in Phase 12.
 
 1. **Chrome Lot brief:** Summarize review-month signals from Phases 4 (sales), 6 (financial), and 7 (CS health) — revenue trend, churn, invoice aging, pipeline velocity.
 2. **Turbo Gear brief:** Summarize from Phases 3 and 5 — dev velocity, features shipped, demos, deep work minutes.
@@ -723,9 +723,9 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
 1. **Summary table:** All monthly goals and decisions across phases
 2. **Final review:** Anything unrealistic? Adjust before committing.
 3. **Execute remaining:** Create any Todoist/Calendar/Pipedrive/Notion items not yet committed during earlier phases.
-4. **Log to Monthly Meeting Log** (`344f40c2-487b-806d`): Create a new entry for **review month** with:
-   - Meeting Date = today (or session date), Month relation = review month
-   - Name = `Month of [Review Month YYYY]`
+4. **Log to Monthly Plan Log** (`344f40c2-487b-806d`): Create (or update) entry for this session with:
+   - Meeting Date = today (or session date), Month relation = **planning month**
+   - Name = `Monthly Plan for [Planning Month YYYY]`
    - Wellness scores (PHQ-2, GAD-2, Energy -- from **review month** Weekly Meeting Log averages)
    - Habit KPIs for **review month** (Strength/Cardio Sessions, Small Talk Count, Spirit/Deep Work/Ops/Field Work Minutes, Journal Count -- summed from Weekly Meeting Log entries in review month)
    - Activity KPIs (Aaron Activities, Lexie Activities, Tristen Activities, Ran Activities, Total Activities -- summed from **review month** Weekly Meeting Log entries)
@@ -743,7 +743,7 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
    - `Starved Values` — derived from life-health selects (categories rated Unhealthy)
    - Key Wins, Key Misses, Action Items (Action Items commit **planning month** priorities)
    Compare against last month's entry to show trend direction.
-5. **Append per-user Pipedrive detail sections** to the Monthly Meeting Log page using `personal_notion_append_blocks`. Pull completed activities from **review month** (use `pipedrive_get_activities` with `done: "1"` and filter by `marked_as_done_time` within review month bounds). Also pull all open activities per user. Append the following structure:
+5. **Append per-user Pipedrive detail sections** to the Monthly Plan Log page using `personal_notion_append_blocks`. Pull completed activities from **review month** (use `pipedrive_get_activities` with `done: "1"` and filter by `marked_as_done_time` within review month bounds). Also pull all open activities per user. Append the following structure:
 
    ```
    ---
@@ -794,10 +794,10 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
    (2–4 sentences: wellness/focus headline, one win, one miss)
 
    ## [Review Month] KPI rollup
-   Link to Monthly Meeting Log entry: [Month of Review Month YYYY](notion URL from step 4)
+   Link to Monthly Plan Log entry: [Monthly Plan for Planning Month YYYY](notion URL from step 4)
 
    ## Planning commitments
-   (Numbered list — same items as Action Items on the Monthly Meeting Log)
+   (Numbered list — same items as Action Items on the Monthly Plan Log)
 
    ## Planning month Dev Projects
    (Linked via `🌙 Month` — list titles + Notion URLs from Phase 11b)
@@ -846,7 +846,7 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
 - **Phase 9:** Manual KPI updates on Quarterly Outcomes; Todoist for empty targets; flags.
 - **Phase 10–11:** Calendar events; Todoist prep and handoff tasks; Teams optional.
 - **Phase 11b:** `🌙 Month` links on selected Dev Projects + Domains Parked captured (session state).
-- **Phase 12:** New Monthly Meeting Log entry (review month) with full KPI rollup + planning context fields + life/work health selects + Health Intervention Notes; Team Activity Details append; **planning month Months page plan log**; context file updates.
+- **Phase 12:** New Monthly Plan Log entry (review month) with full KPI rollup + planning context fields + life/work health selects + Health Intervention Notes; Team Activity Details append; **planning month Months page plan log**; context file updates.
 
 ## Failure modes & graceful degradation
 

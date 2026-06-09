@@ -103,6 +103,8 @@ Monthly/quarterly: contracts in each `SKILL.md` **Present exactly** map + phase 
 - **2.1-D (dev health):** Agent summarizes output, time, and month-goal progress; Aaron rates Healthy/Unhealthy. No agent recommendations.
 - **2.1-E (adjustments):** **Only if Unhealthy.** Aaron states commitments; agent captures verbatim — never proposes adjustments.
 - **2.1-F/G/H (plan):** F = carryover; G = add from planning month?; H = `🌙 Month` linked CL/TG (`weekly-dev-review`). Personal → 2.2 via same month relation.
+- **2.1-S / 2.2-D sync:** After each selection, run `scripts/sync-dev-projects-this-week.mjs --selected=<IDs>` — selected `This Week = true`; **all other open** records `This Week = false`; clear stale Done checks. Cumulative IDs through 2.2.
+- **2.check:** One bulleted tree (CL/TG + Personal) must **exactly match** Notion `This Week` filtered view before Phase 4.
 - **2.2-A/C:** Planning month Personal Dev Projects (`🌙 Month`) — no free-text monthly priorities.
 - **Monthly plan 11b:** Link up to 5 root Dev Projects + open sub-items to planning month (`scripts/sync-dev-projects-month.mjs --include-descendants`). Priority Stack text deprecated.
 
