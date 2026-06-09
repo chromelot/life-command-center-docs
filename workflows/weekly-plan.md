@@ -641,7 +641,7 @@ Agent presents a short narrative — **no recommendations, no task list** (selec
 
 1. **Output** — accomplishments vs queued dev work (2.1-C counts + queue tree).
 2. **Time** — dev minutes logged (2.1-B) vs realistic capacity.
-3. **Goal progress** — review week vs **monthly** priority stack (`weekly-dev-review` § Monthly planning context + incomplete CL/TG trees): what moved, what’s stuck, parked domains noted.
+3. **Goal progress** — review week vs **planning month** Dev Projects (`weekly-dev-review` § Planning month — CL/TG/Personal trees via `🌙 Month`): what moved, what’s stuck, parked domains noted.
 
 Then Aaron rates:
 
@@ -680,7 +680,7 @@ Deferred items: `This Week = false` at sync (approval). Carried items stay selec
 
 **Table 2.1-H — Roadmap adds** *(only if 2.1-G = Yes)*
 
-Source: `weekly-dev-review` § **Current quarter — open roadmap** (`🍁 Quarter` → `Current Quarter` rollup = Current; **not** a Month relation — Dev Projects has no month field). Skip **parked** domains. Exclude items already on carryover. Letter each row.
+Source: `weekly-dev-review` § **Planning month — {domain}** (`🌙 Month` → planning month). Skip **parked** domains. Exclude items already on carryover. Letter each row.
 
 **Empty Dev Project records** (no `Name` title): archive in Notion when detected — do not present.
 
@@ -698,11 +698,9 @@ Source: `weekly-dev-review` § **Current quarter — open roadmap** (`🍁 Quart
 
 #### A — Context + last week
 
-**Table 2.2-A — Monthly personal priorities**
+**Table 2.2-A — Planning month Personal Dev Projects**
 
-| Theme | Dev Project(s) |
-|-------|----------------|
-| | from Monthly Log + `weekly-dev-review` Personal tree |
+Present `weekly-dev-review` § **Planning month — Personal** (`🌙 Month` → planning month). Full parent → sub-bullet tree. **No free-text priority themes** — monthly plan links records in Phase 11b / Phase 5.
 
 **Table 2.2-B — Last week personal plan**
 
@@ -714,9 +712,9 @@ Source: prior `Dev Projects Intended` (Personal only) + **Todoist MCP** (tasks d
 
 #### B — Plan for next week
 
-**Table 2.2-C — Monthly incomplete Personal** *(full tree, bulleted)*
+**Table 2.2-C — Planning month adds** *(only if 2.2-B needs items not on carryover)*
 
-Present entire Personal incomplete list from `weekly-dev-review` with sub-bullets under parents.
+Same source as **2.2-A** — letter rows to add to `This Week` that aren’t already on the plate from **2.1-F** carryover (Personal domain).
 
 **Table 2.2-D — Selection** *(multi-select — reply with letters)*
 

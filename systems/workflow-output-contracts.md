@@ -102,7 +102,9 @@ Monthly/quarterly: contracts in each `SKILL.md` **Present exactly** map + phase 
 - **2.1-C (accomplished):** Re-present the **same tree as 2.1-A** with ~~strikethrough~~ on Done items — no flat shipped table. Logged completions = Done + `This Week` + `last_edited` in review window (`weekly-habits`); do not cite Done pages without `This Week`.
 - **2.1-D (dev health):** Agent summarizes output, time, and month-goal progress; Aaron rates Healthy/Unhealthy. No agent recommendations.
 - **2.1-E (adjustments):** **Only if Unhealthy.** Aaron states commitments; agent captures verbatim — never proposes adjustments.
-- **2.1-F/G/H (plan):** F = carryover (`This Week` + open, full ancestor tree); G = add roadmap?; H = current-quarter open (`Current Quarter` rollup). Done parent with open children ≠ auto-stale. Parked domains skipped. Empty titles archived. Personal → 2.2.
+- **2.1-F/G/H (plan):** F = carryover; G = add from planning month?; H = `🌙 Month` linked CL/TG (`weekly-dev-review`). Personal → 2.2 via same month relation.
+- **2.2-A/C:** Planning month Personal Dev Projects (`🌙 Month`) — no free-text monthly priorities.
+- **Monthly plan 11b:** Link up to 5 root Dev Projects + open sub-items to planning month (`scripts/sync-dev-projects-month.mjs --include-descendants`). Priority Stack text deprecated.
 
 ## Adding contracts to a new workflow
 

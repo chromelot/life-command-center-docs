@@ -117,7 +117,7 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 | Shipped vs stalled | | | Dev Projects + Weekly Log |
 | Deep work trajectory | | | Weekly Meeting Log |
 | Quarterly on-track? | | | Quarterly Outcomes |
-| Planning month goals (2–3) | | | Session |
+| Planning month Dev Projects (`🌙 Month`) | | | Phase 11b selection |
 
 **Table 3.2-A — Idea scrub** *(step `3.2`, one Type per turn)*
 
@@ -178,7 +178,7 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 
 | Field | Value |
 |-------|-------|
-| Priority Stack (max 5) | |
+| Dev Projects linked to planning month (`🌙 Month`, max 5 total) | |
 | Domains Parked | |
 
 **FIELD CHECK — Phase 1** *(Table 1.check)*
@@ -198,7 +198,7 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 | Item | Pass |
 |------|------|
 | Monthly Meeting Log entry created (review month) | |
-| Planning context fields written (Priority Stack, Domains Parked; each line links a Dev Project) | |
+| Planning month Dev Projects linked (`🌙 Month` on each selected record) + Domains Parked on Monthly Log | |
 | Life + work health selects populated | |
 | Team Activity Details appended | |
 | Planning month Months page log appended | |
@@ -447,9 +447,9 @@ If no 3-week streaks: skip silently (~0 min).
 4. **Quarterly progress check**: Are we on track to complete the quarter's assigned projects? If not, which ones are at risk and why?
 5. Non-TG dev: did personal and CL projects get attention, or consumed by ops?
 6. Compare Projects Completed, Projects In Progress against previous Monthly Meeting Log entry -- flag if >20% change in either direction.
-7. Set 2-3 specific dev goals for **planning month** (e.g., "complete project X", "unblock project Y"). Cross-check against Phase 1c quarterly themes before committing.
+7. Confirm **planning month** Dev Project candidates align with Phase 1c quarterly themes — final `🌙 Month` links happen in **Phase 11b** (not free-text goals).
 
-**Outputs:** Dev Projects status updates. Adjusted **planning month** goals noted. Todoist tasks if needed.
+**Outputs:** Dev Projects status updates. Candidate list for Phase 11b month linking. Todoist tasks if needed.
 
 ## Phase 3b: Idea Roadmap Scrub (~8 min)
 
@@ -553,7 +553,7 @@ Cross-reference Hubstaff time data with activity totals per team member (Aaron, 
 
 ## Phase 5: Personal Project Tracker Audit (~10 min)
 
-**Purpose:** Deep cleanup that weekly micro-scrubs can't do. Scoped to personal projects only -- TG and CL projects are covered in Phase 3 and the weekly plan.
+**Purpose:** Deep cleanup that weekly micro-scrubs can't do. Scoped to personal projects only — TG and CL projects are covered in Phase 3 and the weekly plan. Projects **kept active** for planning month should receive `🌙 Month` in Phase 11b (or here if already certain).
 
 1. Pull Dev Projects with Type=Personal (`341f40c2-487b-80ac`, filter Type=Personal)
 2. Flag stalled projects: "In progress" for 30+ days with no sub-step completion
@@ -690,14 +690,16 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
 
 **Outputs:** Calendar blocks. Todoist handoff tasks. Teams notification if needed.
 
-## Phase 11b: Planning Context Capture (~3 min)
+## Phase 11b: Planning Month Dev Projects (~5 min)
 
-**Purpose:** Commit structured planning context linked to **Dev Projects** — weekly plan reads tracker first, logs second.
+**Purpose:** Link **specific Dev Projects** to the **planning month** via `🌙 Month` (mirrors quarterly `🍁 Quarter`). Weekly plan reads these relations — not Priority Stack text.
 
-**Required every monthly plan.** Store in session state (`monthly_priority_stack`, `monthly_domains_parked`, `monthly_dev_project_links`) for Phase 12.
+**Required every monthly plan.** Store in session state (`monthly_dev_project_ids`, `monthly_domains_parked`) for Phase 12.
 
-1. **Draft Priority Stack** (max 5 lines). Each line **must** reference a Dev Project record (title + Notion URL). Format: `N. [Domain] — [focus] → [Dev Project name]`. Create missing Dev Projects before committing.
-2. **Table 11.2-A — Domains parked** *(multi-select — reply with letters)*
+1. Pull open Dev Projects (current quarter, Status ≠ Done/Idea) grouped by Type. Present lettered multi-select — **max 5 total** across all domains (Personal + CL + TG combined).
+2. On confirm (Notion approval): set `🌙 Month` → **planning month** on each selected project **and all open sub-items** under it (`scripts/sync-dev-projects-month.mjs --include-descendants`). Clear `🌙 Month` from projects removed from this month's plate (do not clear `🍁 Quarter`). Quarter-only work stays quarter-linked, not month-linked.
+3. Create missing Dev Project records before linking.
+4. **Table 11.2-B — Domains parked** *(multi-select — reply with letters)*
 
 | | Option |
 |---|--------|
@@ -710,9 +712,9 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
 | **G** | Other |
 | **H** | None — all domains active |
 
-3. Confirm stack + parked with Aaron before Phase 12. **CL sprint format retired** — do not write `Active CL Sprint`.
+5. Confirm selections + parked with Aaron before Phase 12. **CL sprint format retired** — do not write `Active CL Sprint`. **Do not** write free-text Priority Stack as source of truth.
 
-**Outputs:** `monthly_priority_stack`, `monthly_domains_parked`, `monthly_dev_project_links` ready for Monthly Meeting Log write.
+**Outputs:** `monthly_dev_project_ids`, `monthly_domains_parked` ready for Phase 12.
 
 ## Phase 12: Commit (~3 min)
 
@@ -734,9 +736,10 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
    - **Life health** (from Phase 1b): all 6 select properties (`Spirituality Health` … `Parenting Health`)
    - **Work domain health** (from Phase 8b): `Chrome Lot Health`, `Turbo Gear Health`
    - **Health Intervention Notes** (from Phase 1d, if gate fired)
-   - **Planning context (REQUIRED — weekly plan reads these):**
-     - `Priority Stack` (rich_text) — from Phase 11b; each line includes Dev Project name/URL
+   - **Planning context (REQUIRED):**
      - `Domains Parked` (multi_select) — from Phase 11b (`monthly_domains_parked`)
+     - `Priority Stack` (rich_text) — **optional snapshot** auto-generated from linked Dev Project titles (not authoritative)
+     - **`🌙 Month` on Dev Projects** — authoritative; written in Phase 11b via Notion API
    - `Starved Values` — derived from life-health selects (categories rated Unhealthy)
    - Key Wins, Key Misses, Action Items (Action Items commit **planning month** priorities)
    Compare against last month's entry to show trend direction.
@@ -796,14 +799,11 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
    ## Planning commitments
    (Numbered list — same items as Action Items on the Monthly Meeting Log)
 
-   ## Priority stack
-   (Same numbered list as `Priority Stack` property on Monthly Meeting Log)
+   ## Planning month Dev Projects
+   (Linked via `🌙 Month` — list titles + Notion URLs from Phase 11b)
 
    ## Domains parked
    (Same as `Domains Parked` multi-select — e.g., Turbo Gear)
-
-   ## Dev project links
-   (Priority stack lines → Dev Project URLs from Phase 11b)
 
    ## Quarterly alignment
    (One line per domain tying planning month to current quarter theme)
@@ -845,7 +845,7 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
 - **Phase 8b:** `monthly_cl_health` and `monthly_tg_health` captured for Phase 12.
 - **Phase 9:** Manual KPI updates on Quarterly Outcomes; Todoist for empty targets; flags.
 - **Phase 10–11:** Calendar events; Todoist prep and handoff tasks; Teams optional.
-- **Phase 11b:** Priority Stack (Dev Project–linked) + Domains Parked captured (session state).
+- **Phase 11b:** `🌙 Month` links on selected Dev Projects + Domains Parked captured (session state).
 - **Phase 12:** New Monthly Meeting Log entry (review month) with full KPI rollup + planning context fields + life/work health selects + Health Intervention Notes; Team Activity Details append; **planning month Months page plan log**; context file updates.
 
 ## Failure modes & graceful degradation
