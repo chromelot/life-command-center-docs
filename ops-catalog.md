@@ -104,7 +104,7 @@ Full phase-by-phase procedures live in Notion **sub-pages** (sidebar under this 
 <!-- AUTO:WORKFLOW_GUIDES -->
 | Workflow | Summary | Duration | Triggers | Session log | Workspace source |
 |---|---|---|---|---|---|
-| Weekly Plan | Personal life review and dev project planning for the upcoming week. Commits life-health, intentions, and dev focus to the Weekly Meeting Log. | ~40 min (life + dev) | "weekly plan", "weekly meeting", "Monday review", "sprint planning" | Weekly Meeting Log | `context/skills/weekly-planning/SKILL.md` |
+| Weekly Plan | Personal life review, then Dev Review (CL/TG) and Personal Project Review — selects This Week from monthly Dev Projects tracker and syncs Notion. | ~40 min (life + dev) | "weekly plan", "weekly meeting", "Monday review", "sprint planning" | Weekly Meeting Log | `context/skills/weekly-planning/SKILL.md` |
 | Weekly Ops | Chrome Lot operations session — Pipedrive activity, CS, sales, photographers, and team oversight. Separate from weekly plan; writes to Weekly Ops Meeting Log. | ~40 min | "weekly ops", "ops review", "CL ops meeting", "operations meeting" | Weekly Ops Meeting Log | `context/skills/weekly-ops/SKILL.md` |
 | Monthly Plan | Forward-looking planning for the current calendar month backed by a structured review of the prior month across life, business, and people domains. | 83 min | "monthly plan", "monthly review", "plan this month" | Monthly Meeting Log | `context/skills/monthly-plan/SKILL.md` |
 | Quarterly Plan | Quarterly strategy review — retrospective, environment scan, per-domain themes and no-lists, tactical quarter commits, and Quarterly Meeting Log. | 90–120 min | "quarterly plan", "strategy review", "quarterly review", "big picture" | Quarterly Meeting Log | `context/skills/quarterly-plan/SKILL.md` |
@@ -163,10 +163,7 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 ## Health / staleness
 
 <!-- AUTO:HEALTH_REPORT -->
-⚠ **4 issue(s)** across 75 context files.
-
-### broken-see-also (1)
-- `context/systems/audiobook-pipeline.md` — ../../output/audiobook-handoff-2026-05-05.md
+⚠ **3 issue(s)** across 75 context files.
 
 ### missing-frontmatter (3)
 - `context/systems/notion-guides/cl-bot.md` — no-frontmatter
@@ -181,7 +178,7 @@ Full audit: `node scripts/audit-context.mjs`
 ## Last generated
 
 <!-- AUTO:LAST_GENERATED -->
-**2026-06-09 11:54:38** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
+**2026-06-09 14:37:14** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
 <!-- /AUTO:LAST_GENERATED -->
 
 ## See also

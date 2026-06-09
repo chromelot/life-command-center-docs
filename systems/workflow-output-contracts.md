@@ -96,7 +96,7 @@ Within a single ledger step that spans multiple tables (e.g. weekly plan `1.2` =
 
 Monthly/quarterly: contracts in each `SKILL.md` **Present exactly** map + phase table blocks (`1.check` / `12.check` monthly; `A.check` / `E.4` quarterly).
 
-**Dev tracker rule (weekly plan Phase 2):** Present Dev Projects `This Week` first. Log `Priority Stack` lines grouped Complete / Incomplete with linked Dev Project records. Never plan dev slice from conversation without tracker alignment.
+**Dev tracker rule (weekly plan Phase 2):** `weekly-dev-review.mjs` → monthly incomplete trees by domain. Aaron selects → sync `This Week` in Notion (selected on, others off per domain). Personal selections get Todoist mirrors in 2.2.
 
 ## Adding contracts to a new workflow
 

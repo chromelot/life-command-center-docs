@@ -2,7 +2,7 @@
 
 Human-readable docs mirrored from the private workspace. **Edit in GitHub:** [`life-command-center`](https://github.com/chromelot/life-command-center) — this site rebuilds on push.
 
-Last built: 2026-06-09T16:54:38.211Z
+Last built: 2026-06-09T19:37:15.047Z
 
 ## Start here
 
@@ -11,7 +11,7 @@ Last built: 2026-06-09T16:54:38.211Z
 
 ## Tier 2 — Cursor workflows
 
-- [Weekly Plan](https://chromelot.github.io/life-command-center-docs/workflows/weekly-plan) — Personal life review and dev project planning for the upcoming week. Commits life-health, intentions, and dev focus to the Weekly Meeting Log.
+- [Weekly Plan](https://chromelot.github.io/life-command-center-docs/workflows/weekly-plan) — Personal life review, then Dev Review (CL/TG) and Personal Project Review — selects This Week from monthly Dev Projects tracker and syncs Notion.
 - [Weekly Ops](https://chromelot.github.io/life-command-center-docs/workflows/weekly-ops) — Chrome Lot operations session — Pipedrive activity, CS, sales, photographers, and team oversight. Separate from weekly plan; writes to Weekly Ops Meeting Log.
 - [Monthly Plan](https://chromelot.github.io/life-command-center-docs/workflows/monthly-plan) — Forward-looking planning for the current calendar month backed by a structured review of the prior month across life, business, and people domains.
 - [Quarterly Plan](https://chromelot.github.io/life-command-center-docs/workflows/quarterly-plan) — Quarterly strategy review — retrospective, environment scan, per-domain themes and no-lists, tactical quarter commits, and Quarterly Meeting Log.

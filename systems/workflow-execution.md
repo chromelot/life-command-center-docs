@@ -107,9 +107,10 @@ America/Chicago; do not trust stale ledger `week_of`.
 | 4 | `1.0` | Yes — create Notion log |
 | 5–11 | `1.1`–`1.7` | Life review — one domain per step, contract tables per skill |
 | 12 | `1.check` | FIELD CHECK — **gate before Phase 2** |
-| 13 | `2.1`–`2.5` | Focused dev block + supporting Todoist per step |
-| 14 | `2.check` | FIELD CHECK — **gate before commit** |
-| 15 | `4` | Commit checklist + all FIELD CHECKs |
+| 13 | `2.1` | Dev Review — CL/TG last week + monthly selection |
+| 14 | `2.2` | Personal Project Review + Todoist mirrors |
+| 15 | `2.check` | FIELD CHECK — **gate before commit** |
+| 16 | `4` | Commit checklist + all FIELD CHECKs |
 
 Ops → **Weekly Ops** workflow.
 
