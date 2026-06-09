@@ -102,7 +102,7 @@ Monthly/quarterly: contracts in each `SKILL.md` **Present exactly** map + phase 
 - **2.1-C (accomplished):** Re-present the **same tree as 2.1-A** with ~~strikethrough~~ on Done items — no flat shipped table. Logged completions = Done + `This Week` + `last_edited` in review window (`weekly-habits`); do not cite Done pages without `This Week`.
 - **2.1-D (dev health):** Agent summarizes output, time, and month-goal progress; Aaron rates Healthy/Unhealthy. No agent recommendations.
 - **2.1-E (adjustments):** **Only if Unhealthy.** Aaron states commitments; agent captures verbatim — never proposes adjustments.
-- **2.1-F/G/H (plan):** F = carryover from open review-week queue; G = add roadmap?; H = current-quarter open items (`Current Quarter` rollup — no Month relation on Dev Projects). Parked domains skipped. Empty titles archived. Sync `This Week` after confirm. Personal → 2.2.
+- **2.1-F/G/H (plan):** F = carryover (`This Week` + open, full ancestor tree); G = add roadmap?; H = current-quarter open (`Current Quarter` rollup). Done parent with open children ≠ auto-stale. Parked domains skipped. Empty titles archived. Personal → 2.2.
 
 ## Adding contracts to a new workflow
 

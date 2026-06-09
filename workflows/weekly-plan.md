@@ -662,7 +662,7 @@ Then Aaron rates:
 
 **Table 2.1-F — Carryover (last week leftovers)**
 
-Open items from the **2.1-C queue tree** still not Done. Same parent → sub-bullet format. One turn only.
+Open items from the **2.1-C queue tree** still not Done, with **full parent → sub-bullet nesting** (fetch entire ancestor chain; never flatten). **Done parent + open child is not stale** — often a bulk-close artifact (e.g. Operational Reset); Aaron defers explicitly. Empty-titled records: archive, don't present. One turn only.
 
 | | |
 |---|---|
