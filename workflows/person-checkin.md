@@ -4,6 +4,16 @@
 
 This rule activates when Aaron says "prep for [name]", "1:1 prep", "meeting with [name]", or "check in with [name]". Target duration: 5 minutes prep.
 
+## Execution + logging (mandatory)
+
+Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts.md`, and `context/systems/workflow-logs.md`.
+
+1. `workflow-progress.mjs init --workflow person-checkin --person "<name>"`
+2. Step `0` — identify person + parallel data pull (silent)
+3. Step `1.0` — `workflow-notion-log.mjs create --person "<name>"`
+4. Steps `1.1a`–`1.1c` — Tables 1.1-A → 1.1-C (one table per turn)
+5. Step `2.0` — Table 2.0 commit + `workflow-notion-log complete` (Session Complete = Complete)
+
 ## Pre-Flight (silent)
 
 Load via the router:
@@ -38,31 +48,46 @@ Based on the person's systems listed in the people directory:
 - Check for workflow runs assigned to them
 - Show: active workflows, completion rates
 
-## Generate Talking Points
+## Output contracts (step `1.1` — one table per turn)
 
-Based on the data pulled:
+### Table 1.1-A — Session Header + Workload
 
-```
-1:1 PREP: [Name] -- [Date]
-Last check-in: [date from people directory]
+| Field | Value | Source |
+|-------|-------|--------|
+| Person | | User message / people index |
+| Session date | | CT today |
+| Last check-in | | `people/index.md` |
+| Open tasks | | Todoist / CL Tasks pull |
+| Overdue | | Pull |
+| Completed recently | | Pull |
+| Highest priority | | Pull or `—` |
+| Blocked on | | Pull or `—` |
 
-THEIR CURRENT WORKLOAD:
-- [X] open tasks, [Y] overdue, [Z] completed recently
-- Highest priority: [task name]
-- Blocked on: [task name, if any]
+### Table 1.1-B — Talking Points
 
-SUGGESTED TALKING POINTS:
-1. [Based on overdue items: "The [task] is X days overdue -- what's blocking it?"]
-2. [Based on workload: "You have X items assigned. How's the load feeling?"]
-3. [Based on standing topics from people directory]
-4. [Based on recent completions: "Nice work on [task]. How did that go?"]
+| # | Topic | Prompt |
+|---|-------|--------|
+| 1 | Overdue | |
+| 2 | Workload | |
+| 3 | Standing topic | people index |
+| 4 | Recent win | |
 
-DELEGATION OPPORTUNITIES:
-- [Tasks from Aaron's plate that match this person's skills]
+Minimum 3 rows; derive from pull data. No generic filler.
 
-ACTION ITEMS TO DISCUSS:
-- [Items from last meeting notes, if available]
-```
+### Table 1.1-C — Delegation + Follow-ups
+
+| Type | Item | Notes |
+|------|------|-------|
+| Delegation opportunity | | |
+| Action from last 1:1 | | or `—` |
+
+### Table 2.0 — Commit (FIELD CHECK)
+
+| Item | Pass |
+|------|------|
+| Summary in Workflow Session Log | |
+| Person field set | |
+| Key talking points captured | |
 
 ## During the Meeting
 

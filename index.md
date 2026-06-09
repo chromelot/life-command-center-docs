@@ -2,7 +2,7 @@
 
 Human-readable docs mirrored from the private workspace. **Edit in GitHub:** [`life-command-center`](https://github.com/chromelot/life-command-center) — this site rebuilds on push.
 
-Last built: 2026-06-08T13:13:26.681Z
+Last built: 2026-06-09T16:54:38.211Z
 
 ## Start here
 
@@ -11,15 +11,13 @@ Last built: 2026-06-08T13:13:26.681Z
 
 ## Tier 2 — Cursor workflows
 
-- [Weekly Plan](https://chromelot.github.io/life-command-center-docs/workflows/weekly-plan) — "weekly plan", "weekly meeting", "Monday review", "sprint planning"
-- [Weekly Ops](https://chromelot.github.io/life-command-center-docs/workflows/weekly-ops) — "weekly ops", "ops review", "CL ops meeting", "operations meeting"
-- [Monthly Plan](https://chromelot.github.io/life-command-center-docs/workflows/monthly-plan) — "monthly plan", "monthly review", "plan this month"
-- [Quarterly Plan](https://chromelot.github.io/life-command-center-docs/workflows/quarterly-plan) — "quarterly plan", "strategy review", "quarterly review", "mid-quarter check"
-- [Micro-Scrub](https://chromelot.github.io/life-command-center-docs/workflows/micro-scrub) — "scrub", "micro-scrub", "review projects", "scrub roadmap"
-- [Inbox Triage](https://chromelot.github.io/life-command-center-docs/workflows/inbox-triage) — "triage inbox", "inbox triage", "process ideas", "clear inbox"
-- [1:1 Prep](https://chromelot.github.io/life-command-center-docs/workflows/person-checkin) — "1:1 prep", "prep for [name]", "meeting with [name]", "check in with [name]"
-- [Team Sync](https://chromelot.github.io/life-command-center-docs/workflows/team-sync) — "team sync", "roster diff", "people sync", "audit roster"
-- [Pipedrive Cleanup](https://chromelot.github.io/life-command-center-docs/workflows/pd-cleanup) — "pd cleanup", "pipedrive cleanup", "deal cleanup", "crm cleanup"
+- [Weekly Plan](https://chromelot.github.io/life-command-center-docs/workflows/weekly-plan) — Personal life review and dev project planning for the upcoming week. Commits life-health, intentions, and dev focus to the Weekly Meeting Log.
+- [Weekly Ops](https://chromelot.github.io/life-command-center-docs/workflows/weekly-ops) — Chrome Lot operations session — Pipedrive activity, CS, sales, photographers, and team oversight. Separate from weekly plan; writes to Weekly Ops Meeting Log.
+- [Monthly Plan](https://chromelot.github.io/life-command-center-docs/workflows/monthly-plan) — Forward-looking planning for the current calendar month backed by a structured review of the prior month across life, business, and people domains.
+- [Quarterly Plan](https://chromelot.github.io/life-command-center-docs/workflows/quarterly-plan) — Quarterly strategy review — retrospective, environment scan, per-domain themes and no-lists, tactical quarter commits, and Quarterly Meeting Log.
+- [1:1 Prep](https://chromelot.github.io/life-command-center-docs/workflows/person-checkin) — Five-minute pre-meeting pull of a team member's workload from Todoist, Notion, and Pipedrive plus structured talking points for the check-in.
+- [Team Sync](https://chromelot.github.io/life-command-center-docs/workflows/team-sync) — Diff Airtable Admin/Payable Employees against people/index.md to catch roster, role, and platform-ID drift before it breaks bot permissions or 1:1 prep.
+- [Pipedrive Cleanup](https://chromelot.github.io/life-command-center-docs/workflows/pd-cleanup) — Knack↔Pipedrive deal hygiene audit with per-item Aaron approval only — creates, adopts, deletes, org/POC fixes, duplicates, and wrong-pipeline moves.
 
 ## Tier 1 — Automations
 

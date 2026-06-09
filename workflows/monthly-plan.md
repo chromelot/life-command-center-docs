@@ -56,7 +56,7 @@ Load via the router. Read these before starting:
 
 ## Execution Protocol (mandatory)
 
-Read `context/workflow-execution.md`. Init `node scripts/workflow-progress.mjs init --workflow monthly-plan` at start; one sub-step per turn; advance ledger before proceeding.
+Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts.md`, and `context/systems/workflow-logs.md`. Present exact phase tables from this skill — finish section before advancing. Init ledger at start; create Notion log at setup step; sync after every `advance`; one sub-step per turn.
 
 ## Interaction Style
 

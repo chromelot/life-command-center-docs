@@ -65,32 +65,6 @@ Daily morning/evening Cursor reviews were retired. The PD ↔ Todoist loop is re
 
 ---
 
-## Micro-scrub rotation (3x/week, 10 min each)
-
-Tier 2 (Cursor). Trigger: "scrub", "micro-scrub", "review projects".
-
-| Day | Database | DB ID |
-|---|---|---|
-| Monday | Dev Projects (Turbo Gear) | `341f40c2-487b-80ac` (filter Type=Turbo Gear) |
-| Wednesday | Chrome Lot Internal Projects | `30df40c2-487b-8058-ac06-c9bc527d1150` |
-| Friday | Dev Projects (Personal) | `341f40c2-487b-80ac` (filter Type=Personal) |
-
-Rule auto-detects database based on day of week. Missed days roll forward.
-
----
-
-## Biweekly
-
-### Tier 2 (Cursor)
-
-| Frequency | Workflow | Duration | Trigger |
-|---|---|---|---|
-| Every 2 weeks | Inbox Triage | 10 min | "triage inbox" |
-
-Rotation: Week A processes App Idea Inbox (`30cf40c2-487b-808e`), Week B processes AI Implementation Ideas (`30af40c2-487b-803a`).
-
----
-
 ## Monthly
 
 ### Tier 2 (Cursor)
@@ -157,8 +131,6 @@ Lightweight "are we on track with the three domain themes?" review. Pulls curren
 
 The weekly meeting rule automatically checks:
 - Whether the monthly plan has been committed (Pre-Phase 0 gate — escalates to full monthly plan if review-month Monthly Log entry is missing)
-- Which micro-scrubs were completed this week
-- Whether inbox triage happened this period
 - How long since last strategy review
 - Which 1:1 meetings are overdue
 

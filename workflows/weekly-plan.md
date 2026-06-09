@@ -23,7 +23,9 @@ Load via the router. Read these before starting:
 - `context/people/index.md` — delegation matrix, 1:1 tracking
 - `context/work/turbo-gear/overview.md` — TG strategic sequence (for Phase 2.4 project selection)
 
-## Execution Protocol (mandatory — read `context/workflow-execution.md`)
+## Execution Protocol (mandatory — read `context/workflow-execution.md` + `context/systems/workflow-output-contracts.md`)
+
+> **This skill's tables are the spec.** Fixed headers, named sources, one table per turn where noted. Weekly plan is the reference implementation for all workflows.
 
 1. **Date context (every turn, before any weekday or "this week" language):**
    ```
@@ -31,14 +33,15 @@ Load via the router. Read these before starting:
    ```
    Aaron may run weekly plan on **any day** — never assume session day = Monday. Use script output for review week, planning week, and weekday→ISO mapping. `Today's date` from `user_info` must match `--today` (CT).
 2. **Init ledger** at session start: `node scripts/workflow-progress.mjs init --workflow weekly-plan` — omit `--week-of` to auto-set canonical planning Monday from today; if set manually, must be a Monday and should match `planning-dates.mjs`. Weekly log title = `Week of <planning Monday>`.
-3. **Every turn:** `node scripts/workflow-progress.mjs status --workflow weekly-plan` — present only `current_step` (status includes date warnings if ledger `week_of` is wrong)
-4. **Phase banner** on every user-facing message: `**[Weekly Plan · Phase X.Y — title]**`
-5. **One sub-step per turn** — never bundle 1.2 + 1.3 + 1.4 + 1.5 + 1.6 + 1.7 (each life domain is a separate step)
-6. **Table contract is the spec** — each sub-step lists the **exact tables** to present (column headers fixed). Fill every cell from the named data source; use `—` when data is missing. Do not add metrics, sections, or discussion topics outside that step's tables.
-7. **One question per turn** — Energy rating and Mind intentions are separate turns; PHQ-2/GAD-2 only when `Screening Escalation` is true (one item per turn)
-8. **Advance after complete:** `node scripts/workflow-progress.mjs advance --workflow weekly-plan --step <id>`
-9. **Phase gates:** `node scripts/workflow-progress.mjs gate --workflow weekly-plan --phase <1|2>` before Phase 2 (work) or Phase 4 (commit)
-10. **Tangents:** fix/interrupt, then resume ledger `current_step` — do not skip ahead
+3. **Notion log** — at step `1.0`: `node scripts/workflow-notion-log.mjs create --ledger <path>`. After every `advance`: `workflow-notion-log sync`. Write phase fields per `context/systems/workflow-logs.md`. On commit: `workflow-notion-log complete`.
+4. **Every turn:** `node scripts/workflow-progress.mjs status --workflow weekly-plan` — present only `current_step` (status includes date warnings if ledger `week_of` is wrong)
+5. **Phase banner** on every user-facing message: `**[Weekly Plan · Phase X.Y — title]**`
+6. **One sub-step per turn** — never bundle 1.2 + 1.3 + 1.4 + 1.5 + 1.6 + 1.7 (each life domain is a separate step)
+7. **Table contract is the spec** — each sub-step lists the **exact tables** to present (column headers fixed). Fill every cell from the named data source; use `—` when data is missing. Do not add metrics, sections, or discussion topics outside that step's tables. **Do not `advance` until every in-scope table for the step is presented and any required Aaron input is collected.**
+8. **One question per turn** — Energy rating and Mind intentions are separate turns; PHQ-2/GAD-2 only when `Screening Escalation` is true (one item per turn)
+9. **Advance after complete:** `node scripts/workflow-progress.mjs advance --workflow weekly-plan --step <id>`
+10. **Phase gates:** `node scripts/workflow-progress.mjs gate --workflow weekly-plan --phase <1|2>` before Phase 2 (work) or Phase 4 (commit)
+11. **Tangents:** fix/interrupt, then resume ledger `current_step` — do not skip ahead
 
 ## Interaction Style
 

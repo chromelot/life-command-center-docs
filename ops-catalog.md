@@ -47,8 +47,6 @@ Full schedule and tier ownership: [`cadences.md`](cadences.md). Agent intent rou
 | weekly ops | Tier 2 (Cursor) | Weekly (separate session) | ~40 min | ops + CS + sales + people + commit | Same planning week as weekly plan | "weekly ops", "ops review", "CL ops meeting", "operations meeting" |
 | monthly plan | Tier 2 (Cursor) | Monthly (first week) | 83 min | 14 | Quarterly plan must be committed | "monthly plan", "monthly review" |
 | quarterly plan | Tier 2 (Cursor) | Quarterly (week 1) + mid-quarter week 6 | 90–120 min / 15 min checkpoint | 5-part, 14 phases | None (top-level strategic gate) | "quarterly plan", "strategy review" |
-| scrub | Tier 2 (Cursor) | 3×/week (Mon/Wed/Fri rotation) | 10 min | inline in rule | None | "scrub", "micro-scrub", "review projects" |
-| triage inbox | Tier 2 (Cursor) | Biweekly (alternating inboxes) | 10 min | inline in rule | None | "triage inbox", "inbox triage" |
 | 1:1 prep | Tier 2 (Cursor) | On demand (before check-ins) | ~5 min | inline in rule | None | "1:1 prep", "person check-in", "<name> check-in" |
 | team sync | Tier 2 (Cursor) | On demand | ~10 min | inline in rule | None | "team sync", "roster diff", "people sync", "audit roster" |
 | pd cleanup | Tier 2 (Cursor) | On demand | 30–45 min | 6 | Explicit approval per batch | "pd cleanup", "pipedrive cleanup", "deal cleanup", "crm cleanup" |
@@ -91,8 +89,6 @@ Spec files: `n8n/conventions.md`, `n8n/bots/cl-bot/teams-bot.md`, `n8n/sync/pd-t
 | "weekly ops", "ops review", "CL ops meeting", "operations meeting" | `.cursor/rules/weekly-ops.mdc` | `context/skills/weekly-ops/SKILL.md` | systems/cadences.md, systems/pipedrive.md, systems/knack-fields.md, work/chrome-lot/, people/index.md |
 | "monthly plan", "monthly review" | `.cursor/rules/monthly-plan.mdc` | `context/skills/monthly-plan/SKILL.md` | systems/cadences.md, systems/notion-databases.md, self/values.md, people/index.md, work/chrome-lot/, work/turbo-gear/ |
 | "quarterly plan", "strategy review" | `.cursor/rules/strategy-review.mdc` | `context/skills/quarterly-plan/SKILL.md` | self/values.md, work/chrome-lot/, work/turbo-gear/, self/, people/index.md |
-| "scrub", "micro-scrub", "review projects" | `.cursor/rules/micro-scrub.mdc` | `(inline in rule)` | systems/cadences.md, systems/capacity-rules.md, self/values.md |
-| "triage inbox", "inbox triage" | `.cursor/rules/inbox-triage.mdc` | `(inline in rule)` | systems/routing-rules.md |
 | "1:1 prep", "person check-in", "<name> check-in" | `.cursor/rules/person-checkin.mdc` | `(inline in rule)` | people/index.md, [domain folder for that person] |
 | "team sync", "roster diff", "people sync", "audit roster" | `.cursor/rules/team-sync.mdc` | `(inline in rule)` | systems/airtable-roster.md, people/index.md, cast.md |
 | "pd cleanup", "pipedrive cleanup", "deal cleanup", "crm cleanup" | `.cursor/rules/pd-cleanup.mdc` | `context/skills/pd-cleanup/SKILL.md` | systems/pipedrive.md, systems/knack-fields.md, work/chrome-lot/customer-service.md |
@@ -106,17 +102,15 @@ Spec files: `n8n/conventions.md`, `n8n/bots/cl-bot/teams-bot.md`, `n8n/sync/pd-t
 Full phase-by-phase procedures live in Notion **sub-pages** (sidebar under this hub). Canonical source: `context/skills/*/SKILL.md` and `.cursor/rules/*.mdc`.
 
 <!-- AUTO:WORKFLOW_GUIDES -->
-| Workflow | Duration | Triggers | Workspace source |
-|---|---|---|---|
-| Weekly Plan | ~40 min (life + dev) | "weekly plan", "weekly meeting", "Monday review", "sprint planning" | `context/skills/weekly-planning/SKILL.md` |
-| Weekly Ops | ~40 min | "weekly ops", "ops review", "CL ops meeting", "operations meeting" | `context/skills/weekly-ops/SKILL.md` |
-| Monthly Plan | 83 min | "monthly plan", "monthly review", "plan this month" | `context/skills/monthly-plan/SKILL.md` |
-| Quarterly Plan | 90–120 min (+ 15 min mid-quarter checkpoint) | "quarterly plan", "strategy review", "quarterly review", "mid-quarter check" | `context/skills/quarterly-plan/SKILL.md` |
-| Micro-Scrub | 10 min | "scrub", "micro-scrub", "review projects", "scrub roadmap" | `.cursor/rules/micro-scrub.mdc` |
-| Inbox Triage | 10 min | "triage inbox", "inbox triage", "process ideas", "clear inbox" | `.cursor/rules/inbox-triage.mdc` |
-| 1:1 Prep | ~5 min | "1:1 prep", "prep for [name]", "meeting with [name]", "check in with [name]" | `.cursor/rules/person-checkin.mdc` |
-| Team Sync | ~10 min | "team sync", "roster diff", "people sync", "audit roster" | `.cursor/rules/team-sync.mdc` |
-| Pipedrive Cleanup | 30–45 min | "pd cleanup", "pipedrive cleanup", "deal cleanup", "crm cleanup" | `context/skills/pd-cleanup/SKILL.md` |
+| Workflow | Summary | Duration | Triggers | Session log | Workspace source |
+|---|---|---|---|---|---|
+| Weekly Plan | Personal life review and dev project planning for the upcoming week. Commits life-health, intentions, and dev focus to the Weekly Meeting Log. | ~40 min (life + dev) | "weekly plan", "weekly meeting", "Monday review", "sprint planning" | Weekly Meeting Log | `context/skills/weekly-planning/SKILL.md` |
+| Weekly Ops | Chrome Lot operations session — Pipedrive activity, CS, sales, photographers, and team oversight. Separate from weekly plan; writes to Weekly Ops Meeting Log. | ~40 min | "weekly ops", "ops review", "CL ops meeting", "operations meeting" | Weekly Ops Meeting Log | `context/skills/weekly-ops/SKILL.md` |
+| Monthly Plan | Forward-looking planning for the current calendar month backed by a structured review of the prior month across life, business, and people domains. | 83 min | "monthly plan", "monthly review", "plan this month" | Monthly Meeting Log | `context/skills/monthly-plan/SKILL.md` |
+| Quarterly Plan | Quarterly strategy review — retrospective, environment scan, per-domain themes and no-lists, tactical quarter commits, and Quarterly Meeting Log. | 90–120 min | "quarterly plan", "strategy review", "quarterly review", "big picture" | Quarterly Meeting Log | `context/skills/quarterly-plan/SKILL.md` |
+| 1:1 Prep | Five-minute pre-meeting pull of a team member's workload from Todoist, Notion, and Pipedrive plus structured talking points for the check-in. | ~5 min | "1:1 prep", "prep for [name]", "meeting with [name]", "check in with [name]" | 1:1 Prep Log | `.cursor/rules/person-checkin.mdc` |
+| Team Sync | Diff Airtable Admin/Payable Employees against people/index.md to catch roster, role, and platform-ID drift before it breaks bot permissions or 1:1 prep. | ~10 min | "team sync", "roster diff", "people sync", "audit roster" | Team Sync Log | `.cursor/rules/team-sync.mdc` |
+| Pipedrive Cleanup | Knack↔Pipedrive deal hygiene audit with per-item Aaron approval only — creates, adopts, deletes, org/POC fixes, duplicates, and wrong-pipeline moves. | 30–45 min | "pd cleanup", "pipedrive cleanup", "deal cleanup", "crm cleanup" | PD Cleanup Log | `context/skills/pd-cleanup/SKILL.md` |
 
 _Notion sub-page links are added when you run `publish-ops-catalog-to-notion.mjs`._
 <!-- /AUTO:WORKFLOW_GUIDES -->
@@ -169,7 +163,7 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 ## Health / staleness
 
 <!-- AUTO:HEALTH_REPORT -->
-⚠ **4 issue(s)** across 72 context files.
+⚠ **4 issue(s)** across 75 context files.
 
 ### broken-see-also (1)
 - `context/systems/audiobook-pipeline.md` — ../../output/audiobook-handoff-2026-05-05.md
@@ -187,7 +181,7 @@ Full audit: `node scripts/audit-context.mjs`
 ## Last generated
 
 <!-- AUTO:LAST_GENERATED -->
-**2026-06-08 08:13:26** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
+**2026-06-09 11:54:38** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
 <!-- /AUTO:LAST_GENERATED -->
 
 ## See also

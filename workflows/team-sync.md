@@ -4,6 +4,19 @@
 
 This rule activates when Aaron says "team sync", "roster diff", "people sync", or "audit roster". Target duration: 5 minutes.
 
+## Execution + logging (mandatory)
+
+Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts.md`, and `context/systems/workflow-logs.md`.
+
+1. `workflow-progress.mjs init --workflow team-sync`
+2. Step `0` — diff pull (silent)
+3. Step `1.0` — `workflow-notion-log.mjs create`
+4. Step `1.1` — Tables 1.1-A, 1.1-B (one table per turn)
+5. Step `1.2` — Table 1.2 per drift item (one decision per turn)
+6. Step `2.0` — Table 2.0 commit + `workflow-notion-log complete`
+
+**One drift item decision per turn. Do not batch.**
+
 ## Philosophy
 
 Two stores hold roster information today:
@@ -38,28 +51,43 @@ For each Current employee in Airtable, compare against the editorial notes:
 | Inactive in editorial but `Current=1` in Airtable? | Propose flipping `Current` off + moving editorial note to Inactive section |
 | Inactive in Airtable but still in `people/index.md` Active section? | Propose moving editorial note to Inactive section |
 
-## Present to Aaron
+## Output contracts
 
-```
-TEAM SYNC -- [Date]
-[X Airtable Current employees, Y people/index.md Active entries]
+### Table 1.1-A — Roster Summary (step `1.1`, first turn)
 
-NEW IN AIRTABLE (not in people/index.md):
-- [Name] <email> -- Position: [position] -- Categories: [Owner/Sales & CS Manager/...]
-  Suggested editorial entry: [draft block]
+| Field | Value | Source |
+|-------|-------|--------|
+| Session date | | CT today |
+| Airtable Current count | | Airtable pull |
+| people/index.md Active count | | Markdown count |
+| Drift items total | | Diff |
 
-ROLE/CATEGORY DRIFT:
-- [Name]: Airtable says [position + categories], people/index.md says [role description]
-  Recommendation: update [which file]
+### Table 1.1-B — Drift Flags (step `1.1`, second turn — list only)
 
-INACTIVE DRIFT:
-- [Name]: marked Current in Airtable but listed in people/index.md Inactive (or vice versa)
-  Recommendation: flip [which file]
+| Name | Drift type | Airtable | Editorial | Recommendation |
+|------|------------|----------|-----------|----------------|
+| | New / Role / Inactive / Missing ID | | | |
 
-MISSING PLATFORM IDs (Airtable):
-- [Name]: missing [AAD ID / Pipedrive ID / Hubstaff ID / Todoist ID]
-  Where to find: [Knack roster / PD users / HS member list / Todoist sync]
-```
+Drift types from § Diff dimensions above.
+
+### Table 1.1-C — Item Decision (one row per turn until exhausted)
+
+| Field | Value |
+|-------|-------|
+| Name | |
+| Drift type | |
+| Action | Update Airtable / Update editorial / Both / Skip |
+| Approved? | pending |
+
+One AskQuestion per row. After all rows decided → `advance` to `2.0`.
+
+### Table 2.0 — Commit Checklist (FIELD CHECK)
+
+| Item | Pass |
+|------|------|
+| Approved Airtable writes executed | |
+| Approved markdown edits done | |
+| Summary in Workflow Session Log | |
 
 ## Walk through decisions
 

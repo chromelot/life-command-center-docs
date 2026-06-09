@@ -30,7 +30,7 @@ This is the rarest recurring planning session, so it carries the most weight. Th
 
 ## Execution Protocol (mandatory)
 
-Read `context/workflow-execution.md`. Init `node scripts/workflow-progress.mjs init --workflow quarterly-plan` at start; one Part (A–E) sub-block per turn; advance ledger before proceeding.
+Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts.md`, and `context/systems/workflow-logs.md`. Present exact Part/Phase tables from this skill — finish section before advancing. Init ledger at start; create Notion log at setup step; sync after every `advance`; one Part (A–E) sub-block per turn.
 
 ## Procedure
 

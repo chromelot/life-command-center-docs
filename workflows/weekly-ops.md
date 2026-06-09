@@ -24,7 +24,9 @@ Load via the router. Read these before starting:
 - `context/work/chrome-lot/operations.md` — Phase 4 photographer review logic
 - `context/people/index.md` — delegation matrix, 1:1 tracking
 
-## Execution Protocol (mandatory — read `context/workflow-execution.md`)
+## Execution Protocol (mandatory — read `context/workflow-execution.md` + `context/systems/workflow-output-contracts.md`)
+
+> **This skill's tables are the spec.** Same determinism standard as weekly plan — fixed headers, named sources, finish section before advancing.
 
 1. **Date context (every turn, before any weekday or "this week" language):**
    ```
@@ -32,14 +34,15 @@ Load via the router. Read these before starting:
    ```
    Aaron may run weekly ops on **any day** — never assume session day = Monday. Use script output for review week, planning week, and weekday→ISO mapping. `Today's date` from `user_info` must match `--today` (CT). Planning week Monday must match the same week as Weekly Plan when both run in the same cycle.
 2. **Init ledger** at session start: `node scripts/workflow-progress.mjs init --workflow weekly-ops` — omit `--week-of` to auto-set canonical planning Monday from today; if set manually, must be a Monday and should match `planning-dates.mjs`. Ops log title = `Week of <planning Monday>`.
-3. **Every turn:** `node scripts/workflow-progress.mjs status --workflow weekly-ops` — present only `current_step` (status includes date warnings if ledger `week_of` is wrong)
-4. **Phase banner** on every user-facing message: `**[Weekly Ops · Phase X — title]**` (use `X.A` / `X.B` for sub-steps within a phase)
-5. **One sub-step per turn** — never bundle Phase 2.A + 2.B, or multiple flagged customers/invoices/deals in one turn when the skill says one-by-one
-6. **Table contract is the spec** — each sub-step lists the **exact tables** to present (column headers fixed). Fill every cell from the named data source; use `—` when data is missing. Do not add metrics, sections, or discussion topics outside that step's tables.
-7. **One question per turn** — stale deals, invoice reviews, photographer actions, and delegation picks are separate turns
-8. **Advance after complete:** `node scripts/workflow-progress.mjs advance --workflow weekly-ops --step <id>`
-9. **Phase gate:** `node scripts/workflow-progress.mjs gate --workflow weekly-ops --phase check` before `commit` — `check` FIELD CHECK must pass
-10. **Tangents:** fix/interrupt, then resume ledger `current_step` — do not skip ahead
+3. **Notion log** — at `1.1`: `node scripts/workflow-notion-log.mjs create --ledger <path>`. After every `advance`: `workflow-notion-log sync`. Write phase fields per `context/systems/workflow-logs.md`. On `commit`: `workflow-notion-log complete`.
+4. **Every turn:** `node scripts/workflow-progress.mjs status --workflow weekly-ops` — present only `current_step` (status includes date warnings if ledger `week_of` is wrong)
+5. **Phase banner** on every user-facing message: `**[Weekly Ops · Phase X.Y — title]**` (ledger uses `X.1` / `X.2` for sub-steps)
+6. **One sub-step per turn** — never bundle Phase 2.A + 2.B, or multiple flagged customers/invoices/deals in one turn when the skill says one-by-one
+7. **Table contract is the spec** — each sub-step lists the **exact tables** to present (column headers fixed). Fill every cell from the named data source; use `—` when data is missing. Do not add metrics, sections, or discussion topics outside that step's tables. **Do not `advance` until the step's contract is complete** (e.g. all scorecard rows filled in `1.1`; every flagged invoice reviewed in `2.2`).
+8. **One question per turn** — stale deals, invoice reviews, photographer actions, and delegation picks are separate turns
+9. **Advance after complete:** `node scripts/workflow-progress.mjs advance --workflow weekly-ops --step <id>`
+10. **Phase gate:** `node scripts/workflow-progress.mjs gate --workflow weekly-ops --phase check` before `commit` — `check` FIELD CHECK must pass
+11. **Tangents:** fix/interrupt, then resume ledger `current_step` — do not skip ahead
 
 ### Ledger step order (do not reorder)
 
@@ -48,12 +51,18 @@ Load via the router. Read these before starting:
 | 1 | `pre-0` | Yes — confirm planning week + optional Weekly Plan gate |
 | 2 | `0` | Silent — ops data pull |
 | 3 | `0b` | Yes — RED FLAGS + planning context (no fixes) |
-| 4 | `1` | Yes — CL Operations (scorecard + currency) |
-| 5 | `2` | Yes — CS Management |
-| 6 | `3` | Yes — Sales Management |
-| 7 | `4` | Yes — People Management |
-| 8 | `check` | Yes — ops FIELD CHECK |
-| 9 | `commit` | Yes — log entry + Team Activity Details + approved writes |
+| 4 | `1.1` | Yes — Phase 1-A activity scorecard |
+| 5 | `1.2` | Yes — Phase 1-B CL currency + retire-a-slice |
+| 6 | `2.1` | Yes — Phase 2-A CS check-in cadence |
+| 7 | `2.2` | Yes — Phase 2-B late invoices (one customer per turn) |
+| 8 | `3.1` | Yes — Phase 3-A Aaron sales (gaps → stale → plan week) |
+| 9 | `3.2` | Yes — Phase 3-B team sales oversight |
+| 10 | `4.1` | Yes — Phase 4-A flagged photographers (one per turn) |
+| 11 | `4.2` | Yes — Phase 4-B staff / 1:1 / Hubstaff |
+| 12 | `check` | Yes — ops FIELD CHECK |
+| 13 | `commit` | Yes — log rollup + Team Activity Details + approved writes |
+
+**Notion log:** Create at start of `1.1` if not already created (`workflow-notion-log create`). Sync after every `advance`. Write phase fields per `context/systems/workflow-logs.md`.
 
 ### Table scope by step
 
@@ -61,13 +70,14 @@ Load via the router. Read these before starting:
 |------|----------------|
 | `pre-0` | Planning week confirmation table |
 | `0b` | RED FLAGS summary + planning context table |
-| `1` | Table 1-A (activity scorecard), then Table 1-B (CL currency) — separate turns |
-| `2.A` | CS check-in cadence tables |
-| `2.B` | Late invoice review — one customer per turn |
-| `3.A` | Aaron sales (gaps → stale → plan week) — one deal per turn for stale review |
-| `3.B` | Team sales oversight table |
-| `4.A` | Flagged photographers — one per turn |
-| `4.B` | Staff / 1:1 / Hubstaff table |
+| `1.1` | Table 1-A (activity scorecard) |
+| `1.2` | Table 1-B (CL currency) |
+| `2.1` | CS check-in cadence tables |
+| `2.2` | Late invoice review — one customer per turn |
+| `3.1` | Aaron sales (gaps → stale → plan week) — one deal per turn for stale review |
+| `3.2` | Team sales oversight table |
+| `4.1` | Flagged photographers — one per turn |
+| `4.2` | Staff / 1:1 / Hubstaff table |
 | `check` | Table check (FIELD CHECK) |
 | `commit` | Commit checklist + summary table |
 
