@@ -610,13 +610,13 @@ Source: `weekly-habits-*.md` § "This Week — actionable slate" + live Notion q
 |--------|--------------|-------------|--------|
 | Monthly / Quarterly | | linked record | Done |
 
-**Incomplete** *(committed but not Done — must appear in 2.1-A or get added)*
+**Incomplete** *(dev-relevant commitments not Done — must appear in 2.1-A or get added)*
 
 | Source | Line / theme | Dev Project | Status | In This Week? |
 |--------|--------------|-------------|--------|---------------|
 | Monthly / Quarterly | | linked record or **MISSING** | | yes / no |
 
-Map each `Priority Stack` / `Action Items` line to a Dev Project by title. If no match → flag **MISSING** → create record in 2.1 gate before advancing.
+Map each `Priority Stack` / `Action Items` line to a Dev Project by title. **Exclude from this table:** habits (sleep, fitness, out-by-8 AM), one-shot errands (Will witnessing, calendar blocks) — those live in Phase 1 or step 2.5, not dev cross-check. If no Dev Project match for a dev-relevant line → flag **MISSING** → create record in 2.1 gate before advancing.
 
 **Table 2.1-C — Domains parked**
 
