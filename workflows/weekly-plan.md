@@ -599,7 +599,6 @@ Append parenting row to `Intentions Review`.
 |-------|-------|--------|
 | Work health (dev efforts) | | Prior Weekly Log `Work Health` |
 | Adjustments trying | | Prior `Dev Adjustments` |
-| Dev intentions | | Prior `Dev Intentions` |
 | **Queued dev work** | Parents + sub-items, grouped by domain (CL, then TG) | **Primary:** `weekly-dev-review` § Review week — queued CL/TG dev work, or `weekly-habits` § This Week (CL/TG only). **Cross-check:** prior log `Dev Projects Intended` when populated |
 
 **Table 2.1-B — Dev time logged**
@@ -692,7 +691,7 @@ Execute `node scripts/sync-dev-projects-this-week.mjs --selected=<comma-separate
 2. `This Week = false` on **every other open** CL/TG Dev Project (not just unselected domain items — full open-database sweep for CL/TG types).
 3. Clear `This Week` on any **Done** records still checked (stale bulk-close artifacts).
 
-→ Write `Dev Intentions` (1–3 bullets), `Dev Projects Intended` (snapshot), `Dev Priority Context`.
+→ Write `Dev Projects Intended` (snapshot), `Dev Priority Context`.
 
 **Present Table 2.1-S — CL/TG This Week slate** *(bulleted tree; must match Notion `This Week` filter exactly)*
 
@@ -763,7 +762,7 @@ This list must **exactly match** the Notion Dev Projects view filtered to `This 
 | `Deep Work Minutes`, `Accomplishments`, counts | 2.1-C |
 | `Dev Review`, `Work Health`, `Dev Week Rating`, `Dev Intentions Met` | 2.1-D |
 | `Dev Adjustments` | 2.1-E *(Unhealthy only; Aaron-supplied)* |
-| `Dev Intentions`, `Dev Projects Intended` | 2.1 sync (after F/G/H) |
+| `Dev Projects Intended` | 2.1 sync (after F/G/H) |
 | `Dev Priority Context` | 2.1-G |
 | CL/TG `This Week` sync | 2.1-S |
 | Personal `This Week` sync | 2.2-D |
@@ -787,7 +786,9 @@ This list must **exactly match** the Notion Dev Projects view filtered to `This 
 10. **Body comp already persisted.** Withings written in Phase 0 (`--days 28`). Don't re-run here.
 11. **Execute remaining:** Create any Todoist/Calendar/Notion items not yet committed during earlier phases.
 12. **Log to Notion:** Finalize the Weekly Meeting Log entry (`322f40c2-487b-81bd`) with key decisions, action items, and plan summary. Set `Status = Done`, `Session Complete = Complete`.
-13. **Week Tracker summary (4b — REQUIRED):** After log commit, run `node scripts/weekly-plan-week-summary.mjs --ledger <path>`. This appends a human-readable **Weekly Plan** section to the automation-created **Week Tracker** page for the week being planned. Title format: `Week Starting M/D` where the date is the **Sunday** before ledger `week_of` (Mon 2026-06-08 → `Week Starting 6/7`). Re-runs replace the prior `Weekly Plan` section. Aaron approves Notion write.
+13. **Week Tracker summary (4b — REQUIRED, two sub-steps):**
+    - **4b.1 Confirm week record:** Run `node scripts/weekly-plan-week-summary.mjs --ledger <path> --list-candidates`. Present the candidate table to Aaron via **AskQuestion** (one question). Plans finish on different weekdays — Aaron picks which **Week Tracker** page to write to (letter A–E). Do **not** write until confirmed.
+    - **4b.2 Write plan:** After Aaron confirms, run `node scripts/weekly-plan-week-summary.mjs --ledger <path> --week-page-id <id>`. This (1) creates a **Google Doc** in `Plan Records/weekly/` (`scripts/provision-plan-records-drive.mjs` once), (2) sets **`Plan Doc URL`** on the confirmed week record, (3) appends/replaces the **Weekly Plan** section on that Notion page. Suggested title: `Week Starting M/D` = Sunday before ledger `week_of` (Mon 2026-06-08 → `Week Starting 6/7`). Aaron approves production writes.
 14. **Update context files** if anything changed.
 
 ## Cross-Cutting Rules
@@ -809,7 +810,7 @@ This list must **exactly match** the Notion Dev Projects view filtered to `This 
 - **Phase 1:** Life review (values, mind, fitness, sleep, social, parenting, personal enjoyment) + targets on Weekly Meeting Log.
 - **Phase 2:** Development review + next-week dev plan.
 - **Phase 4:** Full Weekly Meeting Log finalized + all FIELD CHECKs; Values DB sync (with approval).
-- **Phase 4b:** Week Tracker page (`121f40c2-487b-80a9-b5b9-c1b282d331a0`) gets domain-by-domain plan summary (intentions, adjustments, getting done).
+- **Phase 4b:** Confirmed Week Tracker page gets domain-by-domain plan summary + linked Google Doc in `Plan Records/weekly/`.
 
 ## Failure modes & graceful degradation
 
