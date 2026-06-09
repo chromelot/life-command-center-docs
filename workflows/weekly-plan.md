@@ -786,8 +786,9 @@ This list must **exactly match** the Notion Dev Projects view filtered to `This 
 9. **Confirm accomplishment fields (REQUIRED):** Verify Phase 2.2 wrote `Logged/Unlogged/Total Accomplishments Count`, `Focused Output Hours Estimate`, and `Accomplishments`. Backfill from habit summary if missing.
 10. **Body comp already persisted.** Withings written in Phase 0 (`--days 28`). Don't re-run here.
 11. **Execute remaining:** Create any Todoist/Calendar/Notion items not yet committed during earlier phases.
-12. **Log to Notion:** Finalize the Weekly Meeting Log entry (`322f40c2-487b-81bd`) with key decisions, action items, and plan summary.
-13. **Update context files** if anything changed.
+12. **Log to Notion:** Finalize the Weekly Meeting Log entry (`322f40c2-487b-81bd`) with key decisions, action items, and plan summary. Set `Status = Done`, `Session Complete = Complete`.
+13. **Week Tracker summary (4b — REQUIRED):** After log commit, run `node scripts/weekly-plan-week-summary.mjs --ledger <path>`. This appends a human-readable **Weekly Plan** section to the automation-created **Week Tracker** page for the week being planned. Title format: `Week Starting M/D` where the date is the **Sunday** before ledger `week_of` (Mon 2026-06-08 → `Week Starting 6/7`). Re-runs replace the prior `Weekly Plan` section. Aaron approves Notion write.
+14. **Update context files** if anything changed.
 
 ## Cross-Cutting Rules
 
@@ -808,6 +809,7 @@ This list must **exactly match** the Notion Dev Projects view filtered to `This 
 - **Phase 1:** Life review (values, mind, fitness, sleep, social, parenting, personal enjoyment) + targets on Weekly Meeting Log.
 - **Phase 2:** Development review + next-week dev plan.
 - **Phase 4:** Full Weekly Meeting Log finalized + all FIELD CHECKs; Values DB sync (with approval).
+- **Phase 4b:** Week Tracker page (`121f40c2-487b-80a9-b5b9-c1b282d331a0`) gets domain-by-domain plan summary (intentions, adjustments, getting done).
 
 ## Failure modes & graceful degradation
 
