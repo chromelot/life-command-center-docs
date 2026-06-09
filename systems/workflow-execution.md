@@ -43,7 +43,7 @@ Example:
 
 **Reply with:** letter(s) only (e.g. `B` or `A, C`).
 
-**Dev planning:** Dev Projects `This Week` tracker is canonical state. Meeting logs are cross-check only. Work not in Dev Projects → create a record before committing the week.
+**Dev planning:** Dev Projects `This Week` tracker is canonical state. Meeting logs are cross-check only. **Phase 2.1-A** presents that queue for the **week under review** (CL/TG `This Week` at review time); **2.1-G** writes the **upcoming** week’s queue. Work not in Dev Projects → create a record before committing the week.
 
 Full contract anatomy → `context/systems/workflow-output-contracts.md`.
 

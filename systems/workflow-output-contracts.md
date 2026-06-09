@@ -96,7 +96,11 @@ Within a single ledger step that spans multiple tables (e.g. weekly plan `1.2` =
 
 Monthly/quarterly: contracts in each `SKILL.md` **Present exactly** map + phase table blocks (`1.check` / `12.check` monthly; `A.check` / `E.4` quarterly).
 
-**Dev tracker rule (weekly plan Phase 2):** `weekly-dev-review.mjs` → monthly incomplete trees by domain. Aaron selects → sync `This Week` in Notion (selected on, others off per domain). Personal selections get Todoist mirrors in 2.2.
+**Dev tracker rule (weekly plan Phase 2):**
+
+- **2.1-A (review):** Queued CL/TG dev work = Dev Projects `This Week` during the week under review — not a reconstructed guess from log text. Log `Dev Projects Intended` is cross-check only.
+- **2.1-C (accomplished):** Re-present the **same tree as 2.1-A** with ~~strikethrough~~ on Done items — no flat shipped table. Logged completions = Done + `This Week` + `last_edited` in review window (`weekly-habits`); do not cite Done pages without `This Week`.
+- **2.1-F/G (plan):** `weekly-dev-review.mjs` → monthly incomplete trees by domain. Aaron selects → sync `This Week` in Notion (selected on, others off per CL/TG). Personal selections get Todoist mirrors in 2.2.
 
 ## Adding contracts to a new workflow
 

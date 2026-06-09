@@ -591,14 +591,16 @@ Append parenting row to `Intentions Review`.
 
 #### A — Last week review (one table group per turn)
 
-**Table 2.1-A — What was the plan**
+**Table 2.1-A — Queued dev work (week under review)**
+
+*The queue row is the main payload — CL/TG Dev Projects with `This Week` checked during the week being reviewed (Mon–Sun before this session). That tracker is canonical; the log snapshot is a cross-check only.*
 
 | Field | Value | Source |
 |-------|-------|--------|
 | Work health (dev efforts) | | Prior Weekly Log `Work Health` |
 | Adjustments trying | | Prior `Dev Adjustments` |
 | Dev intentions | | Prior `Dev Intentions` |
-| Queued (`Dev Projects Intended`) | | Prior log — list parents + sub-items |
+| **Queued dev work** | Parents + sub-items, grouped by domain (CL, then TG) | **Primary:** `weekly-dev-review` § Review week — queued CL/TG dev work, or `weekly-habits` § This Week (CL/TG only). **Cross-check:** prior log `Dev Projects Intended` when populated |
 
 **Table 2.1-B — Dev time logged**
 
@@ -611,11 +613,17 @@ Append parenting row to `Intentions Review`.
 
 **Table 2.1-C — What was accomplished**
 
-**From plan (logged)**
+**From plan** — *same tree as **2.1-A** (domain → parent → sub-bullets). Do **not** flatten to a table. Mark finished items with ~~strikethrough~~ (Status = Done). Open items stay plain.*
 
-| Item | Shipped? |
-|------|----------|
-| (each item from 2.1-A queue) | ✓ / ~ / ✗ |
+```
+**Chrome Lot**
+- **Parent** — Status
+  - Sub-item — Status
+**Turbo Gear**
+- ...
+```
+
+**Off-queue logged** *(optional — only if `weekly-habits` § Dev Projects completed shows real wins with `This Week` checked; never infer from `last_edited` alone)*
 
 **Detected unlogged** *(from `weekly-habits` sweep)*
 
