@@ -21,6 +21,7 @@ Inventory of every MCP server configured in this workspace, plus how to choose b
 | Pull body comp + watch metrics in one call | `health-data` |
 | List Make scenarios / pull blueprints for n8n migration | `make` |
 | Read exported Zapier JSON for n8n migration | `zapier-export` |
+| List/read Paperform forms, submissions, products, webhooks, Papersign | `paperform` |
 | Read / write Turbo Gear MongoDB | `mongodb` |
 | Look up GitHub PRs / commits | `github` |
 | Pull Airtable data | `airtable` |
@@ -186,6 +187,18 @@ Process Street's remote MCP (~105 tools, workflow authoring) requires **OAuth lo
 - **Tools**: `zapier_export_status`, `zapier_list_zaps`, `zapier_get_zap`, `zapier_summarize_zap`, `zapier_search_zaps`
 - **Setup docs**: `mcp/zapier/README.md` — copy `mcp/zapier/zapier.env.example` → `secrets/zapier.env`
 - **Smoke test**: `cd mcp/zapier && node test-zapier.mjs`
+
+### paperform — forms, submissions, e-sign (Paperform + Papersign API)
+
+- **Location**: `mcp/paperform/` in workspace (local Node MCP, live Paperform API)
+- **Registered as**: `paperform` in `.cursor/mcp.json`
+- **Auth**: `secrets/paperform.env` via `PAPERFORM_ENV_FILE` — API key from Paperform account settings
+- **Tools**: 58 total — forms, fields, submissions, partial submissions, products, coupons, webhooks, spaces, translations, Papersign documents/folders/webhooks, plus `paperform_raw_request` escape hatch
+- **Plan tiers**: Standard (read + coupons + field updates), Business (form/webhook/space/translation/product writes), Papersign (e-sign endpoints). **403 = plan doesn't include endpoint.**
+- **Cursor cap**: ~40 tools may load; high-value reads registered first; use `paperform_raw_request` for anything missing
+- **Setup docs**: `mcp/paperform/README.md` — copy `mcp/paperform/paperform.env.example` → `secrets/paperform.env`
+- **Smoke test**: `cd mcp/paperform && node test-paperform.mjs`
+- **Production writes** (delete submission, update form, webhooks, etc.): require explicit Aaron approval in Cursor sessions
 
 ### mongodb — Turbo Gear primary database
 
