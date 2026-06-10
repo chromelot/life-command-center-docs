@@ -19,6 +19,8 @@ Inventory of every MCP server configured in this workspace, plus how to choose b
 | Send a Teams message via the CL Bot, look up convIds | `teams` |
 | Read Hubstaff hours / activity | `hubstaff` |
 | Pull body comp + watch metrics in one call | `health-data` |
+| List Make scenarios / pull blueprints for n8n migration | `make` |
+| Read exported Zapier JSON for n8n migration | `zapier-export` |
 | Read / write Turbo Gear MongoDB | `mongodb` |
 | Look up GitHub PRs / commits | `github` |
 | Pull Airtable data | `airtable` |
@@ -164,6 +166,26 @@ Process Street's remote MCP (~105 tools, workflow authoring) requires **OAuth lo
 - **Architecture**: → [health-data.md](health-data.md)
 - **Setup docs**: `mcp/health-data/README.md`
 - **Smoke test**: `cd mcp/health-data && node test-drive.mjs`
+
+### make — Make.com scenario introspection (n8n migration)
+
+- **Location**: `mcp/make/` in workspace (local Node MCP, live Make API)
+- **Registered as**: `make` in `.cursor/mcp.json`
+- **Auth**: `secrets/make.env` via `MAKE_ENV_FILE` — token from Make Profile → API
+- **Tools**: `make_status`, `make_list_organizations`, `make_list_scenarios`, `make_get_scenario`, `make_get_blueprint`, `make_summarize_scenario`, `make_list_scenario_logs`
+- **Setup docs**: `mcp/make/README.md` — copy `mcp/make/make.env.example` → `secrets/make.env`
+- **Smoke test**: `cd mcp/make && node test-make.mjs`
+- **Read-only** — no create/run/delete in v1
+
+### zapier-export — Zapier export file parser (n8n migration)
+
+- **Location**: `mcp/zapier/` in workspace (file-based, no live Zapier API)
+- **Registered as**: `zapier-export` in `.cursor/mcp.json`
+- **Auth**: none — reads JSON from disk via `ZAPIER_EXPORT_PATH` in `secrets/zapier.env`
+- **Export source**: Zapier Settings → Security and data → Download my Zap workflows (unzip if ZIP)
+- **Tools**: `zapier_export_status`, `zapier_list_zaps`, `zapier_get_zap`, `zapier_summarize_zap`, `zapier_search_zaps`
+- **Setup docs**: `mcp/zapier/README.md` — copy `mcp/zapier/zapier.env.example` → `secrets/zapier.env`
+- **Smoke test**: `cd mcp/zapier && node test-zapier.mjs`
 
 ### mongodb — Turbo Gear primary database
 
