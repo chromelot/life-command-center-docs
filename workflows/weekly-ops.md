@@ -354,7 +354,7 @@ COMPLETED ACTIVITIES — WEEK-OVER-WEEK
 
 **Purpose:** Examine **each business day** in the review week at the business level — throughput, coverage stress, and which **backup** photographers were required — then set org **ops priority** (sales vs hiring vs service delivery) for the planning week.
 
-**Data source:** Briefing **DAILY OPERATIONS RECORDS**, **BACKUPS REQUIRED**, **CL DEPARTMENTS** (ops priority signals). See [`work-management.md`](../../work/chrome-lot/work-management.md).
+**Data source:** Briefing **DAILY OPERATIONS RECORDS**, **BACKUPS REQUIRED**, **CL DEPARTMENTS**, **HIRING — KNACK HIRING APP** (ops priority signals). See [`work-management.md`](../../work/chrome-lot/work-management.md).
 
 1. Present **Table 1.3-A — Daily operations records** — one row per day in the review week (from briefing; do not skip days with zero jobs if they were business days):
 
@@ -363,16 +363,18 @@ COMPLETED ACTIVITIES — WEEK-OVER-WEEK
 
 2. Summarize **backups required** for the week — which day(s), which backup-tier photographers (`field_1209` contains Backup), and whether coverage was adequate.
 
-3. From briefing **CL DEPARTMENTS** + Phases 3/7 context, recommend an **ops priority** for the planning week.
+3. From briefing **CL DEPARTMENTS** + **HIRING ACTIVE** (Knack hiring app) + Phases 3/7 context, recommend an **ops priority** for the planning week.
 
 **Table 1.3-B — Ops priority this week** *(single-select — reply with letter)*
 
 | | Option |
 |---|--------|
 | **A** | **Sales** — AM / pipeline / new business is the binding constraint |
-| **B** | **Hiring** — roster / personnel / delegation is the binding constraint |
+| **B** | **Hiring** — roster / personnel / delegation is the binding constraint *(only if briefing **HIRING ACTIVE: yes**)* |
 | **C** | **Service delivery** — field coverage / backups / call-ins dominate |
 | **D** | **Balanced** — no single domain owns the week |
+
+If **HIRING ACTIVE: no**, do not offer **B** — choose A, C, or D only.
 
 → Hold for commit: Weekly Ops Log **`Ops Priority`** + narrative in **`Ops Summary`**.
 
@@ -652,7 +654,19 @@ Review flagged rows **one signal at a time** if any require action. Create Todoi
 
 **Purpose:** Team capacity and hiring pipeline — covers **Workload & Hiring** Dev Project sub-item.
 
-**Data source:** Briefing Hubstaff section + Process Street **Daily Hiring Follow Up** standing workflow status (if in flags) + Todoist hiring tasks.
+**Data source:** Briefing **HIRING — KNACK HIRING APP** (open positions, job ad health, applications by week) + Hubstaff section + Process Street **Daily Hiring Follow Up** standing workflow status (if in flags) + Todoist hiring tasks.
+
+**If HIRING ACTIVE: no** — present Table 7-A only; note hiring pipeline N/A and advance.
+
+**If HIRING ACTIVE: yes** — present **Table 7-B — Open positions & ad health** from briefing:
+
+| Position | Status | Ad health (field_453) | Review-wk apps |
+|----------|--------|----------------------|----------------|
+
+Then **Table 7-C — Applications by week** (from briefing; flag weeks with zero imports):
+
+| Week of (Mon) | Apps imported | Healthy? |
+|---------------|---------------|----------|
 
 **Present exactly Table 7-A:**
 
@@ -741,7 +755,7 @@ If **zero** overdue 1:1s: single row `No late 1:1 flags` and advance.
 | Phase 4 | Invoice escalations decided | |
 | Phase 5 | Flagged photographers reviewed | |
 | Phase 6 | Post production signals reviewed | |
-| Phase 7 | Workload / hiring actions named | |
+| Phase 7 | Workload / hiring actions named (or N/A if not hiring) | |
 | Phase 8 | All late 1:1s reviewed (or none flagged) | |
 | Phase 8 | 1:1s picked for scheduling | |
 | Phase 9 | CL department health confirmed or updated | |
