@@ -35,7 +35,7 @@
 - [Phase 4: Finance & Admin (~8 min)](#phase-4-finance-and-admin-8-min)
   - [Part A — Late Invoice Review (`4.1`)](#part-a-late-invoice-review-41)
 - [Phase 6: Post Production (~5 min)](#phase-6-post-production-5-min)
-- [Phase 6-B: Social Media (~8 min)](#phase-6-b-social-media-8-min)
+- [Phase 6-B: Social Media (~10 min)](#phase-6-b-social-media-10-min)
 - [Phase 7: 1:1 Meetings (~5 min)](#phase-7-11-meetings-5-min)
 - [Check: Ops FIELD CHECK (`check`)](#check-ops-field-check-check)
 - [Commit (~5 min)](#commit-5-min)
@@ -160,7 +160,7 @@ Load via the router. Read these before starting:
 | `3.2` | Team sales oversight table (stale + overdue PD per member) |
 | `4.1` | Late invoice review — one customer per turn |
 | `6.1` | Post production currency table |
-| `6.2` | Social Media pipeline + posting — one stale/gap account per turn when flagged |
+| `6.2` | Social Media — P&L + per-account posting + pipeline gaps — one flagged account per turn |
 | `7.1` | Late 1:1 visits table — one person per turn when overdue |
 | `check` | Table check (FIELD CHECK) |
 | `commit` | Commit checklist + summary table |
@@ -702,36 +702,62 @@ Review flagged rows **one signal at a time** if any require action. Create Todoi
 
 **Advance:** `6`
 
-<a id="phase-6-b-social-media-8-min"></a>
-## Phase 6-B: Social Media (~8 min)
+<a id="phase-6-b-social-media-10-min"></a>
+## Phase 6-B: Social Media (~10 min)
 
-**Purpose:** Social product customer currency and posting throughput — covers **Social Media** Dev Project sub-item. **Behind tracking:** active Social Media pipeline deals with **no next activity** or **60+ days stale** are reviewed here — one account per turn.
+**Purpose:** Social product **P&L** (billing vs expenses), **per-account posting coverage**, and pipeline currency — covers **Social Media** Dev Project sub-item. **Behind tracking:** active accounts with **zero posts in review week**, plus deal gaps / stale PD activity — one flagged account per turn.
 
-**Data source:** Briefing **SOCIAL MEDIA — PIPELINE & POSTING** (Pipedrive pipeline 13 + Knack `object_65` posts by week). See [`social-media.md`](../../work/chrome-lot/social-media.md).
+**Data source:** Briefing **SOCIAL MEDIA — PIPELINE & POSTING** (P&L, active account posting table, Pipedrive pipeline 13 + Knack `object_65` / `object_21` / `object_25`). See [`social-media.md`](../../work/chrome-lot/social-media.md).
 
-1. Present **Table 6-B0 — Social pipeline summary** from briefing:
+1. Present **Table 6-B0 — Social P&L** from briefing **SOCIAL P&L** section:
+
+| Metric | Review week | Monthly run-rate |
+|--------|-------------|------------------|
+| Active accounts | | |
+| Billing | line items (`object_21` field_266) | Knack product price × active (`object_25` field_281) |
+| Expenses | line items (field_501 / field_262) | unit cost × active (field_501 template) |
+| Margin | | |
+
+Note when review-week line items are $0 — run-rate row is the operating picture.
+
+2. Present **Table 6-B1 — Active account posting** (all active PD accounts — one row each):
+
+| Customer | Stage | Owner | Posts (review wk) | Status |
+|----------|-------|-------|-------------------|--------|
+
+**Status:** `OK` if ≥1 post dated in review week (`field_975`); `MISSING` if zero. Review **one MISSING account per turn**:
+
+**Table 6-B2 — Missing posts** *(one row per turn)*
+
+| Customer | Stage | Owner | Action proposed |
+|----------|-------|-------|-----------------|
+
+Lettered options: **A** Schedule/clear backlog this week · **B** Customer paused — move PD stage / note · **C** Data gap — posts exist off-system · **D** Defer — log reason
+
+If **zero** MISSING rows: single row `All active accounts posted in review week` and continue.
+
+3. Present **Table 6-B3 — Pipeline summary** (deal currency):
 
 | Signal | Count | Notes |
 |--------|-------|-------|
-| Active social customers (PD stages Advanced / Active Sales / Basic) | | |
 | Inactive Sales | | |
-| Mis-staged deals (wrong pipeline stage) | | flag if high |
+| Mis-staged deals | | |
 | Deal gaps (active, no next activity) | | |
 | Stale 60+ days (active) | | |
 
-2. Present **Table 6-B1 — Posts by week** (field_975):
+4. Present **Table 6-B4 — Posts by week** (aggregate throughput):
 
 | Week of (Mon) | Posts | Review week? |
 |---------------|-------|--------------|
 
-3. When **deal gaps** or **stale active** count > 0 — review **one account per turn**:
+5. When **deal gaps** or **stale active** count > 0 — review **one account per turn** (after missing-post clears):
 
-**Table 6-B2 — Behind social account** *(one row per turn)*
+**Table 6-B5 — Behind social account** *(one row per turn)*
 
 | Customer | Stage | Days stale / gap | Owner | Action proposed |
 |----------|-------|------------------|-------|-----------------|
 
-If **zero** gap and stale flags on active stages: single row `No behind Social Media flags` and continue.
+If **zero** gap, stale, and missing-post flags: note pipeline confirmed and continue to dept health.
 
 **Department health — Social Media:** Present **Table 6.2-H** (same contract as Table 2.3-H). Confirm or update on CL Departments with approval.
 
@@ -795,8 +821,9 @@ If **zero** overdue 1:1s: single row `No late 1:1 flags` and advance.
 | Phase 4 | Invoice escalations decided | |
 | Phase 4 | Admin dept health confirmed or updated | |
 | Phase 6 | Post production signals reviewed | |
-| Phase 6 | Social Media pipeline + posting reviewed (or N/A + reason) | |
-| Phase 6 | All behind social accounts reviewed (or none flagged) | |
+| Phase 6 | Social P&L reviewed (billing vs expenses) | |
+| Phase 6 | All active accounts posting reviewed — MISSING accounts actioned or N/A | |
+| Phase 6 | Social Media pipeline + deal gaps/stale reviewed (or N/A + reason) | |
 | Phase 6 | Social Media dept health confirmed or updated | |
 | Phase 7 | All late 1:1s reviewed (or none flagged) | |
 | Phase 7 | 1:1s picked for scheduling | |
@@ -836,7 +863,7 @@ Run: `node scripts/workflow-progress.mjs gate --workflow weekly-ops --phase chec
 | Team sales nudges | | |
 | Photographer actions | from Phase 2.4 | |
 | Post production / QA | actions from 6.1 | |
-| Social Media | gap/stale clears + posting notes from 6.2 | |
+| Social Media | P&L + posting + gap/stale actions from 6.2 | |
 | Late 1:1s scheduled | | |
 | Department health | all in-phase confirms/updates done | |
 
@@ -893,7 +920,7 @@ Run: `node scripts/workflow-progress.mjs gate --workflow weekly-ops --phase chec
 ## Cross-Cutting Rules
 
 - **Table contract per phase.** Ledger `current_step` determines which tables are in scope. Phase 1 = work summary (1.1) → scorecard (1.2) → work management (1.3). Phase 2 = Hiring (2.1) → CS (2.2) → HJD + CS dept health (2.3) → photographer mgmt + dept health (2.4). Phase 3 = sales (3.1–3.2) + Account Management health. Phases 4–7 per domain with in-phase dept health where mapped. Phase 6 = post production (6.1) → social media (6.2).
-- **Behind tracking in domain sections.** Unhealthy hiring pipeline → Phase 2.1. Stale CS visits → Phase 2.2. HJD → Phase 2.3. Photographer monitoring + perf behind → Phase 2.4. Stale sales + overdue Pipedrive → Phase 3.1–3.2. Social Media gaps/stale → Phase 6.2. Late 1:1 visits → Phase 7.1.
+- **Behind tracking in domain sections.** Unhealthy hiring pipeline → Phase 2.1. Stale CS visits → Phase 2.2. HJD → Phase 2.3. Photographer monitoring + perf behind → Phase 2.4. Stale sales + overdue Pipedrive → Phase 3.1–3.2. Social Media missing posts + gaps/stale → Phase 6.2. Late 1:1 visits → Phase 7.1.
 - **FIELD CHECK gate.** `check` must pass before `commit`.
 - **Route every item into a bucket.** Each surfaced item is Automated (n8n), Delegated (team 1:1s), or a Scheduled slice (calendar + Todoist mirror).
 - **Capacity is non-negotiable.** If total planned ops work exceeds available ops hours minus 10–15% buffer, the system pushes back. Something must move.

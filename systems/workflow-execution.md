@@ -129,7 +129,7 @@ Ops → **Weekly Ops** workflow.
 | `3.1`, `3.2` | Aaron sales (stale deals, overdue PD), team oversight + Account Management dept health |
 | `4.1` | Finance & Admin — invoices + Admin dept health (one customer/turn) |
 | `6.1` | Post Production — QA / delivery backlog |
-| `6.2` | Social Media — pipeline + posting currency + Social Media dept health |
+| `6.2` | Social Media — P&L, per-account posting, pipeline gaps/stale + dept health |
 | `7.1` | 1:1 meetings — late 1:1 visits |
 | `check` | FIELD CHECK — **gate before commit** |
 | `commit` | Commit checklist |
