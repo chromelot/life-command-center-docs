@@ -71,6 +71,7 @@ Full schedule and tier ownership: [`cadences.md`](cadences.md). Agent intent rou
 | `sync/pd-todoist/deploy-pd-todoist-schedules.mjs` → **Team Evening Defer / Reconciler** | Cron + manual webhooks | 5pm defer (silent), 4am reconciler. |
 | `sync/pd-todoist/deploy-pd-deal-delegate-label.mjs` → **PD Deal Delegate Label** | Webhook `pd-deal-event` | Sub AM Delegated label sync. |
 | `sync/am-setup/deploy-am-setup-verifier.mjs` → **AM Setup Verifier** | Webhook | PS AM setup ↔ Airtable verification. |
+| `inbox-guardian/deploy-inbox-guardian.mjs` → **Inbox Guardian** | Gmail trigger 1min + cron 4pm CT | LLM cold-pitch filter for aaron@chromelot.com (whitelist + OpenAI; spam/archive). See `inbox-guardian/inbox-guardian.md`. |
 | `specs/weekly-metrics.md` | Cron Sun 8pm ET | Weekly metrics to Google Sheets. |
 | `specs/one-on-one-reminders.md` | Cron 8am ET daily | Overdue 1:1 reminders. |
 | `specs/health-data-sync.md` | Webhook | Health data → Notion. |
@@ -181,7 +182,7 @@ Full audit: `node scripts/audit-context.mjs`
 ## Last generated
 
 <!-- AUTO:LAST_GENERATED -->
-**2026-06-17 10:54:52** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
+**2026-06-17 10:57:20** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
 <!-- /AUTO:LAST_GENERATED -->
 
 ## See also
