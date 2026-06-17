@@ -121,15 +121,14 @@ Ops → **Weekly Ops** workflow.
 | `pre-0`, `0`, `0b` | Gate + pull + RED FLAGS table |
 | `1.1` | Work volume + busier + slower customer tables |
 | `1.2` | PD activity scorecard |
-| `1.3` | CL currency + ops focus |
-| `2.1` | CS check-in cadence |
+| `2.1` | CS check-in cadence + behind CS visits |
 | `2.2` | HJD review — one customer per turn when flagged |
-| `3.1`, `3.2` | Aaron sales, team oversight |
+| `3.1`, `3.2` | Aaron sales (stale deals, overdue PD), team oversight |
 | `4.1` | Finance & Admin — invoices (one customer/turn) |
 | `5.1` | Service Delivery — photographers (one/turn) |
 | `6.1` | Post Production — QA / delivery backlog |
 | `7.1` | Workload & Hiring |
-| `8.1` | 1:1 meetings |
+| `8.1` | 1:1 meetings — late 1:1 visits |
 | `check` | FIELD CHECK — **gate before commit** |
 | `commit` | Commit checklist |
 

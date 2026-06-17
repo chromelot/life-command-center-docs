@@ -35,7 +35,7 @@ Every user-facing sub-step should define:
 
 ### Weekly ops reference
 
-`context/skills/weekly-ops/SKILL.md` — same pattern; ledger steps `1.1`–`1.3`, `2.1`–`2.2`, `3.1`–`8.1` map to named tables (aligned to Dev Projects sub-items under **Create, and Audit Weekly Ops Plan**).
+`context/skills/weekly-ops/SKILL.md` — same pattern; ledger steps `1.1`–`1.2`, `2.1`–`2.2`, `3.1`–`8.1` map to named tables (aligned to Dev Projects sub-items under **Create, and Audit Weekly Ops Plan**). Backlog signals (stale CS, stale sales, overdue Pipedrive, late 1:1s) are tracked in their domain phases — no central currency step.
 
 ## Section completion checklist (before every `advance`)
 
