@@ -419,13 +419,13 @@ Append fitness row to `Intentions Review`.
 |--------------------------|------------------|------------------|-------------------|
 | | | | `Sleep Intentions`, `Sleep Target Hours`, `Target Wake Time` |
 
-**Table 1.4-G — Behavioral adjustments** *(required when Sleep Health = Unhealthy — concrete commitments, not calendar-only)*
+**Table 1.4-G — Behavioral adjustments** *(required when **this step's** domain = Unhealthy — concrete commitments; **skip table** (write "—") when Healthy)*
 
 | Adjustment | Reason |
 |------------|--------|
 | | |
 
-→ Write `Behavioral Adjustments`. Append sleep row to `Intentions Review`.
+→ Write `Behavioral Adjustments` (append domain-labeled bullets; cumulative across Unhealthy domains this session). **Healthy domains: no adjustments needed.**
 
 ### 1.5 Social — Review · Rate · Intentions (~5 min)
 
@@ -468,11 +468,27 @@ Append fitness row to `Intentions Review`.
 |-----------|-----------|
 | | |
 
-**Table 1.5-E — Fuel check** *(per [eros.md](../../self/eros.md) — **mandatory Aaron input before `advance` from 1.5**)*
+**Table 1.5-E — Fuel check (two-stage)** *(per [eros.md](../../self/eros.md) — **mandatory before `advance` from 1.5**)*
 
-| Signal | This week | Two weeks running? | → Action |
-|--------|-----------|-------------------|----------|
-| Fuel clean / contaminated / divided | Aaron rates | yes / no | Route to [eros.md](../../self/eros.md) daily container if contaminated or divided two weeks running |
+**Stage 1 — Access**
+
+| Question | Aaron answer | → Log |
+|----------|--------------|-------|
+| Is the fire accessible? | **Not accessible** / Limited / Accessible | `Social Review` (fuel section) |
+
+**Stage 2 — Use** *(N/A when Not accessible)*
+
+| Question | Aaron answer | → Log |
+|----------|--------------|-------|
+| If accessible: clean or contaminated? | Healthy / Contaminated / Divided / **N/A** | `Social Review` (fuel section) |
+
+**Table 1.5-E-b — Fuel recovery intentions** *(required when Access = Not accessible or Limited, OR Use = Contaminated or Divided)*
+
+| Recovery intentions (1–3 bullets) | → Log |
+|-----------------------------------|-------|
+| | `Social Review` + `Behavioral Adjustments` if fuel-led |
+
+Two weeks running **Contaminated/Divided** (when accessible) → flag in `Social Review`; route to [eros.md](../../self/eros.md) daily container.
 
 **Table 1.5-F — Social health**
 
@@ -572,7 +588,8 @@ Append parenting row to `Intentions Review`.
 | 1.2 | `Intentions Review` (mind row), `Mind Health`, `Mind Intentions`, `Mood Valence`, `Mood Negative %`, `Journal Feelings Summary`, `Mood Distress Flag`, `Energy Rating`, `Screening Escalation`; PHQ/GAD only if `Screening Escalation` = true |
 | 1.3–1.4 | `Fitness/Sleep Health`, `Fitness/Sleep Intentions`, `Strength Target`, `Cardio Target`, `Sleep Target Hours`, `Target Wake Time`, `Behavioral Adjustments` |
 | 1.5 | `Small Talk Count`, `Social Events Count`, `Social Review` (incl. **fuel rating**), `Social Intentions Met`, `Social Health`, `Social Priority`, `Social Intentions` |
-| 1.4 (Unhealthy) | `Behavioral Adjustments` — **required**, not optional |
+| `1.4` (Unhealthy) | `Behavioral Adjustments` — **required for that domain**; skip when Healthy |
+| `1.5` | Fuel **Stage 1 + 2** + **recovery intentions** (1.5-E-b when triggered) in `Social Review` |
 | 1.6 | `Parenting Health`, `Parenting Intentions` |
 | 1.7 | `Personal Enjoyment` |
 
@@ -627,7 +644,7 @@ Append parenting row to `Intentions Review`.
 
 **Off-queue logged** *(optional — only if `weekly-habits` § Dev Projects completed shows real wins with `This Week` checked; never infer from `last_edited` alone)*
 
-**Detected unlogged** *(from `weekly-habits` sweep)*
+**Detected unlogged** *(from `weekly-habits` sweep — includes **Media stack / Audiobookshelf cluster** for ABS/NAS/Plex incident work often shipped via Cursor without a Dev Project; Aaron flags count + hours)*
 
 | Highlight | Count as shipped? |
 |-----------|-------------------|

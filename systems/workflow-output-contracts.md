@@ -86,17 +86,17 @@ Within a single ledger step that spans multiple tables (e.g. weekly plan `1.2` =
 - Skipping `gate` because "we're close enough"
 - Using prior-week memory instead of named pull output files
 - **`Workout Active Minutes` = N/A** when Workouts DB has review-week entries — use `daily-health-sections.mjs` aggregate (`Workout logged min`)
-- **`Behavioral Adjustments` blank** when `Sleep Health` = Unhealthy — Table 1.4-G is required with concrete commitments
-- **Advancing step `1.5` without Aaron fuel rating** (Table 1.5-E) — write rating to `Social Review`; no skip
+- **`Behavioral Adjustments` blank** when a domain rated **Unhealthy** in that step — Table 1.4-G (and equivalents) required **only for Unhealthy domains**; Healthy = no adjustments
+- **Advancing step `1.5` without fuel Stage 1 (+ Stage 2 when applicable) and recovery intentions when triggered**
 
 ### Weekly plan — Phase 1 hard stops (before `1.check`)
 
 | Step | Rule |
 |------|------|
 | `1.3-B` | `Workout Active Minutes` = Workouts DB `Minutes` sum (script aggregate). Fail FIELD CHECK if sessions exist and field blank. |
-| `1.4` | If `Sleep Health` = Unhealthy → Table **1.4-G** required; write `Behavioral Adjustments` before `advance`. |
-| `1.5` | Table **1.5-E** fuel rating required from Aaron before `advance`; include in `Social Review`. |
-| `1.check` | `Fuel check`, `Behavioral Adjustments`, `Workout Active Minutes` are **Pass or Fail** — not N/A when data/obligations exist. |
+| `1.4` | If `Sleep Health` = Unhealthy → Table **1.4-G** required; if Healthy → skip (no adjustments) |
+| `1.5` | Fuel **Stage 1 + 2** + **1.5-E-b recovery intentions** when triggered; all in `Social Review` |
+| `1.check` | `Workout Active Minutes` Fail if Workouts exist and blank; `Behavioral Adjustments` only Fail for **Unhealthy** domains that contributed none |
 
 ## Session workflows — contract index
 
