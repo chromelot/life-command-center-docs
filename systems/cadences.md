@@ -44,7 +44,7 @@ Daily morning/evening Cursor reviews were retired. The PD ↔ Todoist loop is re
 | Workflow | Duration | Trigger |
 |---|---|---|
 | Weekly Plan | ~40 min | "weekly plan", "weekly meeting", "Monday review", "sprint planning" |
-| Weekly Ops | ~40 min | "weekly ops", "ops review", "CL ops meeting", "operations meeting" |
+| Weekly Ops | ~50 min | "weekly ops", "ops review", "CL ops meeting", "operations meeting" |
 
 #### Weekly Plan — Pre-Phase 0 gate + 9-phase workflow
 

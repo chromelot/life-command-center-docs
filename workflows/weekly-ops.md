@@ -18,11 +18,15 @@
 - [Phase 0: Data Pull (silent, before conversation)](#phase-0-data-pull-silent-before-conversation)
   - [Ops pulls included in briefing](#ops-pulls-included-in-briefing)
 - [Phase 0b: Ops Briefing Gate (~3 min)](#phase-0b-ops-briefing-gate-3-min)
-- [Phase 1: CL Operations Review (~8 min)](#phase-1-cl-operations-review-8-min)
-  - [Part A — Pipedrive Activity Scorecard](#part-a-pipedrive-activity-scorecard)
-  - [Part B — Chrome Lot Currency Check (catch-up forcing)](#part-b-chrome-lot-currency-check-catch-up-forcing)
-- [Phase 2: CS Management (~10 min)](#phase-2-cs-management-10-min)
-  - [Part A — Check-in Cadence (`2.A`)](#part-a-check-in-cadence-2a)
+- [Phase 1: Work Summary (~10 min)](#phase-1-work-summary-10-min)
+  - [Part A — Work volume (`1.1`, table 1-A first)](#part-a-work-volume-11-table-1-a-first)
+  - [Part B — Busier customers (`1.1`, table 1-B second)](#part-b-busier-customers-11-table-1-b-second)
+  - [Part C — Slower customers (`1.1`, table 1-C third)](#part-c-slower-customers-11-table-1-c-third)
+  - [Part D — Pipedrive Activity Scorecard (`1.2`)](#part-d-pipedrive-activity-scorecard-12)
+  - [Part E — Chrome Lot Currency Check (`1.3`)](#part-e-chrome-lot-currency-check-13)
+- [Phase 2: CS Management (~12 min)](#phase-2-cs-management-12-min)
+  - [Part A — Check-in Cadence (`2.1`)](#part-a-check-in-cadence-21)
+  - [Part B — High Job Days Review (`2.2`)](#part-b-high-job-days-review-22)
 - [Phase 3: Sales Management (~12 min)](#phase-3-sales-management-12-min)
   - [Part A — Aaron's Sales Activity (`3.A`)](#part-a-aarons-sales-activity-3a)
   - [Part B — Team Sales Oversight (`3.B`)](#part-b-team-sales-oversight-3b)
@@ -49,7 +53,7 @@
 
 This skill activates when Aaron says **"weekly ops"**, **"ops review"**, **"CL ops meeting"**, or **"operations meeting"**.
 
-**Target duration:** ~45 min.
+**Target duration:** ~50 min.
 
 **Separate session** from Weekly Plan — typically a different day the same planning week. Weekly Plan covers life review + development planning; Weekly Ops covers CL operating execution (Pipedrive accountability, CS, sales, people).
 
@@ -59,7 +63,7 @@ This session audits **`Create, and Audit Weekly Ops Plan`** and its sub-items in
 
 | Dev Projects sub-item | Workflow phase | Ledger step(s) |
 |---|---|---|
-| *(cross-cutting)* Ops foundation | Phase 1 — CL Operations Review | `1.1`, `1.2` |
+| *(cross-cutting)* Work summary + ops foundation | Phase 1 — Work Summary | `1.1`, `1.2`, `1.3` |
 | Customer Service | Phase 2 — CS Management | `2.1` |
 | Sales Management | Phase 3 — Sales Management | `3.1`, `3.2` |
 | Finance & Admin | Phase 4 — Finance & Admin | `4.1` |
@@ -98,7 +102,7 @@ Load via the router. Read these before starting:
 4. **Every turn:** `node scripts/workflow-progress.mjs status --workflow weekly-ops` — present only `current_step` (status includes date warnings if ledger `week_of` is wrong)
 5. **Phase banner** on every user-facing message: `**[Weekly Ops · Phase X.Y — title]**` (ledger uses `X.1` / `X.2` for sub-steps)
 6. **One sub-step per turn** — never bundle Phase 2.A + 2.B, or multiple flagged customers/invoices/deals in one turn when the skill says one-by-one
-7. **Table contract is the spec** — each sub-step lists the **exact tables** to present (column headers fixed). Fill every cell from the named data source; use `—` when data is missing. Do not add metrics, sections, or discussion topics outside that step's tables. **Do not `advance` until the step's contract is complete** (e.g. all scorecard rows filled in `1.1`; every flagged invoice reviewed in `4.1`).
+7. **Table contract is the spec** — each sub-step lists the **exact tables** to present (column headers fixed). Fill every cell from the named data source; use `—` when data is missing. Do not add metrics, sections, or discussion topics outside that step's tables. **Do not `advance` until the step's contract is complete** (e.g. all work summary tables in `1.1`; scorecard in `1.2`; every HJD > 10 customer in `2.2`).
 8. **One question per turn** — stale deals, invoice reviews, photographer actions, and delegation picks are separate turns
 9. **Advance after complete:** `node scripts/workflow-progress.mjs advance --workflow weekly-ops --step <id>`
 10. **Phase gate:** `node scripts/workflow-progress.mjs gate --workflow weekly-ops --phase check` before `commit` — `check` FIELD CHECK must pass
@@ -111,18 +115,20 @@ Load via the router. Read these before starting:
 | 1 | `pre-0` | Yes — confirm planning week + optional Weekly Plan gate |
 | 2 | `0` | Silent — ops data pull |
 | 3 | `0b` | Yes — RED FLAGS + planning context (no fixes) |
-| 4 | `1.1` | Yes — Phase 1-A activity scorecard |
-| 5 | `1.2` | Yes — Phase 1-B CL currency + ops focus |
-| 6 | `2.1` | Yes — Phase 2 — CS check-in cadence |
-| 7 | `3.1` | Yes — Phase 3-A Aaron sales (gaps → stale → plan week) |
-| 8 | `3.2` | Yes — Phase 3-B team sales oversight |
-| 9 | `4.1` | Yes — Phase 4 — Finance & Admin (late invoices, one customer per turn) |
-| 10 | `5.1` | Yes — Phase 5 — Service Delivery (flagged photographers, one per turn) |
-| 11 | `6.1` | Yes — Phase 6 — Post Production (QA / delivery backlog) |
-| 12 | `7.1` | Yes — Phase 7 — Workload & Hiring (Hubstaff + hiring pipeline) |
-| 13 | `8.1` | Yes — Phase 8 — 1:1 meetings |
-| 14 | `check` | Yes — ops FIELD CHECK |
-| 15 | `commit` | Yes — log rollup + Team Activity Details + approved writes |
+| 4 | `1.1` | Yes — Phase 1-A work summary (volume + busier/slower customers) |
+| 5 | `1.2` | Yes — Phase 1-B Pipedrive activity scorecard |
+| 6 | `1.3` | Yes — Phase 1-C CL currency + ops focus |
+| 7 | `2.1` | Yes — Phase 2-A CS check-in cadence |
+| 8 | `2.2` | Yes — Phase 2-B High Job Days review |
+| 9 | `3.1` | Yes — Phase 3-A Aaron sales (gaps → stale → plan week) |
+| 10 | `3.2` | Yes — Phase 3-B team sales oversight |
+| 11 | `4.1` | Yes — Phase 4 — Finance & Admin (late invoices, one customer per turn) |
+| 12 | `5.1` | Yes — Phase 5 — Service Delivery (flagged photographers, one per turn) |
+| 13 | `6.1` | Yes — Phase 6 — Post Production (QA / delivery backlog) |
+| 14 | `7.1` | Yes — Phase 7 — Workload & Hiring (Hubstaff + hiring pipeline) |
+| 15 | `8.1` | Yes — Phase 8 — 1:1 meetings |
+| 16 | `check` | Yes — ops FIELD CHECK |
+| 17 | `commit` | Yes — log rollup + Team Activity Details + approved writes |
 
 **Notion log:** Create at start of `1.1` if not already created (`workflow-notion-log create`). Sync after every `advance`. Write phase fields per `context/systems/workflow-logs.md`.
 
@@ -132,9 +138,11 @@ Load via the router. Read these before starting:
 |------|----------------|
 | `pre-0` | Planning week confirmation table |
 | `0b` | RED FLAGS summary + planning context table |
-| `1.1` | Table 1-A (activity scorecard) |
-| `1.2` | Table 1-B (CL currency) |
-| `2.1` | CS check-in cadence tables |
+| `1.1` | Tables 1-A (work volume), 1-B (busier customers), 1-C (slower customers) — one table per turn |
+| `1.2` | Table 1-D (activity scorecard) |
+| `1.3` | Table 1-E (CL currency) + Table 1.3-F (ops focus) |
+| `2.1` | CS check-in cadence table |
+| `2.2` | HJD review — one customer per turn when flagged |
 | `3.1` | Aaron sales (gaps → stale → plan week) — one deal per turn for stale review |
 | `3.2` | Team sales oversight table |
 | `4.1` | Late invoice review — one customer per turn |
@@ -254,17 +262,51 @@ Via `weekly-data-pull.mjs` (parallel MCP where applicable):
 4. State aloud: "Ops briefing only — no remediation this step. Flags carry into Phases 1–4."
 5. **Advance:** `0b`
 
-## Phase 1: CL Operations Review (~8 min)
+## Phase 1: Work Summary (~10 min)
 
-**Purpose:** Pipedrive activity scorecard + CL operating currency. Name **ops focus** for the week from backlog signals.
+**Purpose:** Open with **operational throughput** — how much work CL processed last week, which customers ramped up or slowed down, then team activity accountability and backlog currency.
 
-**Data source:** `output/weekly-ops-briefing-YYYY-MM-DD.md` + Phase 0 Pipedrive pulls.
+**Data source:** `output/weekly-ops-briefing-YYYY-MM-DD.md` → **KNACK — OPERATIONAL METRICS** (`WORK SUMMARY`, `BUSIER CUSTOMERS`, `SLOWER CUSTOMERS` sections) + Pipedrive pulls for scorecard.
 
-### Part A — Pipedrive Activity Scorecard
+### Part A — Work volume (`1.1`, table 1-A first)
+
+**Present exactly Table 1-A — Work volume (review week):**
+
+| Metric | Review wk | Prior wk | Δ |
+|--------|-----------|----------|---|
+| Jobs / cars processed | from briefing | from briefing | |
+| Avg jobs / day | | | |
+| High-volume days (8+ jobs) | list dates or `none` | — | |
+
+### Part B — Busier customers (`1.1`, table 1-B second)
+
+Customers with the largest **week-over-week increase** in job count (briefing **BUSIER CUSTOMERS**). Include top 5–8 rows; pad with `—` if fewer.
+
+**Present exactly Table 1-B:**
+
+| Customer | Jobs (review wk) | Jobs (prior wk) | Δ | Notes |
+|----------|------------------|-----------------|----|-------|
+| | | | | |
+
+### Part C — Slower customers (`1.1`, table 1-C third)
+
+Customers whose volume **dropped materially** (briefing **SLOWER CUSTOMERS** — prior wk ≥ 3 jobs and Δ ≤ −3 or ≥30% decline). Include top 5–8 rows.
+
+**Present exactly Table 1-C:**
+
+| Customer | Jobs (review wk) | Jobs (prior wk) | Δ | Notes |
+|----------|------------------|-----------------|----|-------|
+| | | | | |
+
+Flag any busier/slower customer also appearing in CS RED FLAGS (HJD, health, invoices) for Phase 2.
+
+**Advance `1.1` after all three tables.**
+
+### Part D — Pipedrive Activity Scorecard (`1.2`)
 
 Pull completed activities for the **review week** using `pipedrive_get_activities` with `done: "1"` and `updated_since` set to the Monday of the review week. Filter results client-side to activities where `marked_as_done_time` falls within the 7-day window.
 
-**Present exactly Table 1-A:**
+**Present exactly Table 1-D:**
 
 ```
 COMPLETED ACTIVITIES — WEEK-OVER-WEEK
@@ -281,11 +323,13 @@ COMPLETED ACTIVITIES — WEEK-OVER-WEEK
 
 **Hold for commit (Weekly Ops Log `379f40c2-487b-8130`):** Aaron Activities, Lexie Activities, Tristen Activities, Ran Activities, Total Activities.
 
-### Part B — Chrome Lot Currency Check (catch-up forcing)
+**Advance:** `1.2`
 
-**Purpose:** Surface, in one glance, how far behind the operating business is, so the meeting orients around *retiring* backlog rather than just re-planning.
+### Part E — Chrome Lot Currency Check (`1.3`)
 
-**Present exactly Table 1-B:**
+**Purpose:** Surface backlog signals so the meeting orients around *retiring* debt, not just re-planning.
+
+**Present exactly Table 1-E:**
 
 ```
 CL CURRENCY CHECK
@@ -296,39 +340,40 @@ CL CURRENCY CHECK
 | Oldest open 1:1 (days)          |             |                  |
 | CS deals 60+ days stale         |             |                  |
 | Photographers w/ missing grade  |             |                  |
+| Customers HJD > 10              | from briefing |                |
 ```
 
-From Table 1-B, identify the **highest-urgency backlog area** (overdue Todoist, stale 1:1s, CS staleness, photographer grades, etc.).
+From Table 1-E, identify the **highest-urgency backlog area**.
 
-**Table 1.2-C — Ops focus this week** *(single-select — reply with letter)*
+**Table 1.3-F — Ops focus this week** *(single-select — reply with letter)*
 
 | | Option |
 |---|--------|
-| **A** | (top signal from currency table — e.g. 1:1 cadence rebuild) |
+| **A** | (top signal from currency table — e.g. HJD / CS cadence rebuild) |
 | **B** | (second signal) |
 | **C** | (third signal) |
 | **D** | Balanced pass — no single focus |
 
 → Capture chosen focus in Weekly Ops Log `Key Decisions` at commit.
 
-**Advance:** `1`
+**Advance:** `1.3`
 
-## Phase 2: CS Management (~10 min)
+## Phase 2: CS Management (~12 min)
 
-**Purpose:** Keep customer relationships healthy with structured 60-day check-in cadence and invoice accountability.
+**Purpose:** Keep customer relationships healthy — check-in cadence plus dedicated **High Job Days (HJD)** review.
 
-### Part A — Check-in Cadence (`2.A`)
+### Part A — Check-in Cadence (`2.1`)
 
 1. **Cross-reference Knack & Pipedrive:** Current customers in Knack (field_464=Yes) vs. open CS deals in Pipedrive (pipeline 6). Flag mismatches.
 2. **Staleness check:** Calculate days since last activity per CS deal. Flag any 60+ days overdue.
-3. **HJD flag:** Any customer with field_1035 > 10 gets flagged.
-4. **Health status review:** Check field_1601 for "Needs Attention" or "At Risk" accounts.
-5. **Propose weekly check-in batch:** ~6–9 stops, prioritized by:
+3. **Health status review:** Check field_1601 for "Needs Attention" or "At Risk" accounts.
+4. **Propose weekly check-in batch:** ~6–9 stops, prioritized by:
    - AT RISK / Needs Attention stage first
    - Days overdue (most stale first)
+   - HJD > 10 (from Phase 2-B list)
    - Account value
    - Grouped by geography where possible
-6. **Delegation:** Assign stops to Tristen, Lexie, Ran, or Aaron based on deal ownership. Spread across the week.
+5. **Delegation:** Assign stops to Tristen, Lexie, Ran, or Aaron based on deal ownership. Spread across the week.
 
 **Present exactly Table 2-A — CS check-in batch:**
 
@@ -338,7 +383,33 @@ From Table 1-B, identify the **highest-urgency backlog area** (overdue Todoist, 
 
 Propose Pipedrive stop activities — **case-by-case approval** before create. Cap: **max 3 Pipedrive activities per day** across all phases.
 
-**Advance:** `2`
+**Advance:** `2.1`
+
+### Part B — High Job Days Review (`2.2`)
+
+**Purpose:** Dedicated HJD pass — customers going too long without photos (`field_1035` **display value in days**; flag **> 10**, watch **8–10**).
+
+**Data source:** Briefing **CS HEALTH** → `HIGH JOB DAYS (>10)` and `HJD WATCH (8–10 days)` sections.
+
+1. List all current customers with **HJD > 10** (sorted highest first).
+2. Optionally note **HJD 8–10** watch list — no action required unless Aaron wants proactive outreach.
+3. Review **one customer per turn** when HJD > 10: root cause (slow week vs. churn risk), tie to Table 1-B/1-C volume if relevant, propose CS stop or AM call.
+
+**HJD rules:**
+- Read **`field_1035` display** (days). Do **not** compare `field_1035_raw` (seconds).
+- **> 10** → must review in this phase
+- **8–10** → watch list only unless also AT RISK / Needs Attention
+
+**Present one customer per turn — Table 2-B:**
+
+| Customer | HJD (days) | AM | Volume Δ (Phase 1) | Health | Action proposed |
+|----------|------------|-----|-------------------|--------|-----------------|
+
+If **zero** customers HJD > 10: single row `No HJD flags` and advance.
+
+**Knack reference:** `field_1035` High Job Days — see [`knack-fields.md`](../../systems/knack-fields.md).
+
+**Advance:** `2.2`
 
 ## Phase 3: Sales Management (~12 min)
 
@@ -541,9 +612,11 @@ Review flagged rows **one signal at a time** if any require action. Create Todoi
 
 | Group | Required fields / artifacts | Status |
 |-------|----------------------------|--------|
+| Phase 1 | Work volume + busier/slower customers (Tables 1-A–C) | |
 | Phase 1 | Aaron/Lexie/Tristen/Ran/Total Activities computed | |
 | Phase 1 | Retire-a-slice target named | |
 | Phase 2 | CS check-in batch proposed (or N/A + reason) | |
+| Phase 2 | All HJD > 10 customers reviewed (or none flagged) | |
 | Phase 4 | Invoice escalations decided | |
 | Phase 3 | Deal gaps = 0 (or deferrals logged) | |
 | Phase 3 | Aaron sales week plan | |
@@ -635,7 +708,7 @@ Run: `node scripts/workflow-progress.mjs gate --workflow weekly-ops --phase chec
 
 ## Cross-Cutting Rules
 
-- **Table contract per phase.** Ledger `current_step` determines which tables are in scope. Phase 1 = scorecard then currency. Phase 2 = CS cadence. Phase 3 = gaps then stale one-by-one then team table. Phase 4 = invoices one-by-one. Phase 5 = photographers one-by-one. Phase 6 = post production currency. Phase 7 = workload/hiring. Phase 8 = 1:1 table.
+- **Table contract per phase.** Ledger `current_step` determines which tables are in scope. Phase 1 = work summary (1.1) → scorecard (1.2) → currency (1.3). Phase 2 = CS cadence (2.1) → HJD one-by-one (2.2). Phase 3 = gaps then stale one-by-one then team table. Phase 4 = invoices one-by-one. Phase 5 = photographers one-by-one. Phase 6 = post production currency. Phase 7 = workload/hiring. Phase 8 = 1:1 table.
 - **FIELD CHECK gate.** `check` must pass before `commit`.
 - **Retire-a-slice (catch-up forcing).** Name the slice in Phase 1.B CL Currency Check; confirm at commit it was archived / scheduled / assigned an owner.
 - **Route every item into a bucket.** Each surfaced item is Automated (n8n), Delegated (team 1:1s), or a Scheduled slice (calendar + Todoist mirror).
@@ -653,8 +726,8 @@ Run: `node scripts/workflow-progress.mjs gate --workflow weekly-ops --phase chec
 - **pre-0:** Planning week confirmed; optional Weekly Plan log gate result.
 - **Phase 0:** `output/weekly-ops-briefing-YYYY-MM-DD.md` generated.
 - **Phase 0b:** RED FLAGS + planning context presented; no fixes attempted.
-- **Phase 1:** Activity scorecard + CL currency + ops focus named.
-- **Phase 2:** CS check-in batch decisions.
+- **Phase 1:** Work summary (volume, busier/slower customers) + activity scorecard + ops focus named.
+- **Phase 2:** CS check-in batch + HJD review decisions.
 - **Phase 4:** Invoice escalation decisions.
 - **Phase 3:** Deal gaps cleared + Aaron sales plan + team oversight actions.
 - **Phase 5:** Photographer reviews.

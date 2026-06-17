@@ -119,8 +119,11 @@ Ops → **Weekly Ops** workflow.
 | Step | Contract |
 |------|----------|
 | `pre-0`, `0`, `0b` | Gate + pull + RED FLAGS table |
-| `1.1`, `1.2` | Tables 1-A, 1-B (ops foundation) |
+| `1.1` | Work volume + busier + slower customer tables |
+| `1.2` | PD activity scorecard |
+| `1.3` | CL currency + ops focus |
 | `2.1` | CS check-in cadence |
+| `2.2` | HJD review — one customer per turn when flagged |
 | `3.1`, `3.2` | Aaron sales, team oversight |
 | `4.1` | Finance & Admin — invoices (one customer/turn) |
 | `5.1` | Service Delivery — photographers (one/turn) |
