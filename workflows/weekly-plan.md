@@ -37,11 +37,13 @@
 ---
 
 
-## Trigger {#trigger}
+<a id="trigger"></a>
+## Trigger
 
 This skill activates when Aaron says "weekly plan", "weekly meeting", "plan this week", "sprint planning", or "Monday review". Target duration: ~45 minutes (Phase 1 life ~28 min · Phase 2.1 Dev Review ~8 min · Phase 2.2 Personal Projects ~7 min · Phase 4 commit ~5 min). **CL operations** run in **Weekly Ops** — `context/skills/weekly-ops/SKILL.md`.
 
-## Inputs {#inputs}
+<a id="inputs"></a>
+## Inputs
 
 Load via the router. Read these before starting:
 
@@ -58,7 +60,8 @@ Load via the router. Read these before starting:
 - `context/people/index.md` — delegation matrix, 1:1 tracking
 - `context/work/turbo-gear/overview.md` — TG strategic sequence (for Phase 2.4 project selection)
 
-## Execution Protocol (mandatory — read `context/workflow-execution.md` + `context/systems/workflow-output-contracts.md`) {#execution-protocol-mandatory-read-contextworkflow-executionmd-contextsystemsworkflow-output-contractsmd}
+<a id="execution-protocol-mandatory-read-contextworkflow-executionmd-contextsystemsworkflow-output-contractsmd"></a>
+## Execution Protocol (mandatory — read `context/workflow-execution.md` + `context/systems/workflow-output-contracts.md`)
 
 > **This skill's tables are the spec.** Fixed headers, named sources, one table per turn where noted. Weekly plan is the reference implementation for all workflows.
 
@@ -78,14 +81,16 @@ Load via the router. Read these before starting:
 10. **Phase gates:** `node scripts/workflow-progress.mjs gate --workflow weekly-plan --phase <1|2>` before Phase 2 (work) or Phase 4 (commit)
 11. **Tangents:** fix/interrupt, then resume ledger `current_step` — do not skip ahead
 
-## Interaction Style {#interaction-style}
+<a id="interaction-style"></a>
+## Interaction Style
 
 - **One question at a time.** Never present a wall of choices. Walk through decisions sequentially.
 - **Confirm before executing.** Each phase presents proposed actions, gets approval, then executes before moving on.
 - **Exclude Shopping List** (Todoist project `6W36wRPXj8qC2RCc`) from all analysis.
 - **Data integrity:** All Knack/Notion/Todoist write operations require explicit user approval before execution (Todoist case-by-case - never batch or assume). Pipedrive writes → **Weekly Ops** only.
 
-## Required Notion fields — index {#required-notion-fields-index}
+<a id="required-notion-fields-index"></a>
+## Required Notion fields — index
 
 Each phase ends with an inline **FIELD CHECK** listing its required Weekly Meeting Log properties. Phase 4 (Commit) verifies all sections.
 
@@ -100,9 +105,11 @@ Each phase ends with an inline **FIELD CHECK** listing its required Weekly Meeti
 - Before **Phase 4 (Commit)**: Phase 2 development block complete (through `2.check`).
 - Each phase delivers **only** its table contract (see per-phase **Present** blocks below).
 
-## Procedure {#procedure}
+<a id="procedure"></a>
+## Procedure
 
-## Pre-Phase 0: Monthly Plan Gate (mandatory — runs before everything else) {#pre-phase-0-monthly-plan-gate-mandatory-runs-before-everything-else}
+<a id="pre-phase-0-monthly-plan-gate-mandatory-runs-before-everything-else"></a>
+## Pre-Phase 0: Monthly Plan Gate (mandatory — runs before everything else)
 
 The weekly plan assumes a committed monthly frame. Do not start Phase 0 until this gate passes.
 
@@ -115,11 +122,13 @@ The weekly plan assumes a committed monthly frame. Do not start Phase 0 until th
    - Do **not** offer to skip or proceed weekly-only — monthly plan is a hard prerequisite.
 4. **If entry exists:** Hold for Phase 2.1. Continue to Phase 0.
 
-## Phase 0: Data Pull (silent, before conversation) {#phase-0-data-pull-silent-before-conversation}
+<a id="phase-0-data-pull-silent-before-conversation"></a>
+## Phase 0: Data Pull (silent, before conversation)
 
 **Order:** wellness + log trends first, then work pulls. Mind/body phases run before any work discussion.
 
-### Wellness pulls (run first) {#wellness-pulls-run-first}
+<a id="wellness-pulls-run-first"></a>
+### Wellness pulls (run first)
 
 ```
 node "scripts/weekly-wellness-trends.mjs"
@@ -154,7 +163,8 @@ Use `days: 28` for 4-week trend context. Returns `stats`, `trend` (last-7 vs pri
 
 Also query **Weekly Meeting Log** (`322f40c2-487b-81bd`) — last **4 entries** sorted by Meeting Date descending (script above summarizes; keep raw entries for Phase 1).
 
-### Social pulls (with wellness; used in Phase 1.5) {#social-pulls-with-wellness-used-in-phase-15}
+<a id="social-pulls-with-wellness-used-in-phase-15"></a>
+### Social pulls (with wellness; used in Phase 1.5)
 
 ```
 node "scripts/social-phase-pull.mjs"
@@ -164,7 +174,8 @@ Output: stdout **Small Talk list, days since last entry, daily counts, calendar 
 - **Small Talk DB** (`121f40c2-487b-802d`): script queries all entries; uses `Created Date` when set.
 - **Google Calendar (last 7 days):** script pulls **Personal calendar only** (`hoegenauera@gmail.com` — actual booked events). **Exclude** Personal Time Blocks (`10283d615…@group.calendar.google.com`) — those are time-spending goals, not real events. Flags social-looking events (hangouts, Meetup, dates, fitness classes, etc.). Count → `Social Events Count`.
 
-### Development pulls (after wellness/social; silent until Phase 2+) {#development-pulls-after-wellnesssocial-silent-until-phase-2}
+<a id="development-pulls-after-wellnesssocial-silent-until-phase-2"></a>
+### Development pulls (after wellness/social; silent until Phase 2+)
 
 ```
 node scripts/weekly-dev-review.mjs
@@ -187,7 +198,8 @@ Also run `weekly-habit-summary.mjs` (logged/unlogged accomplishments). Todoist M
 
 **Reconcile completions first** — before Phase 2, check what's already been done since last plan and mark complete.
 
-## Phase 0b: Data Integrity Gate (~3 min) {#phase-0b-data-integrity-gate-3-min}
+<a id="phase-0b-data-integrity-gate-3-min"></a>
+## Phase 0b: Data Integrity Gate (~3 min)
 
 **Purpose:** Surface missing/stale data and fix upstream systems before mind/body review. **Do not skip to Phase 1 with silent gaps.**
 
@@ -213,19 +225,22 @@ DATA INTEGRITY CHECK
 
 **Outputs:** Integrity table presented; remediation attempted; known gaps flagged for Phase 1 footers.
 
-## Phase 1: Life Review (~28 min) {#phase-1-life-review-28-min}
+<a id="phase-1-life-review-28-min"></a>
+## Phase 1: Life Review (~28 min)
 
 **Purpose:** Values context first, then mind → fitness → sleep → social → parenting → personal enjoyment — one domain at a time (review → rate health where applicable → set intentions). Mind includes wellness screening. Work health rates in Phase 2.2.
 
 **Phase 1 order:** `1.0` → `1.1` Values → `1.2` Mind (incl. wellness) → `1.3` Fitness → `1.4` Sleep → `1.5` Social → `1.6` Parenting → `1.7` Personal enjoyment → `1.check`
 
-### 1.0 Create Weekly Log Entry {#10-create-weekly-log-entry}
+<a id="10-create-weekly-log-entry"></a>
+### 1.0 Create Weekly Log Entry
 
 Create the **new week's** Weekly Meeting Log entry (Name = `Week of [next Monday YYYY-MM-DD]`, Meeting Date = today). All Phase 1 fields write to this entry.
 
 **Advance ledger:** `1.0` → then present `1.1` only.
 
-### 1.1 Values Context (~1 min) — **first table to Aaron** {#11-values-context-1-min-first-table-to-aaron}
+<a id="11-values-context-1-min-first-table-to-aaron"></a>
+### 1.1 Values Context (~1 min) — **first table to Aaron**
 
 **Purpose:** Orient to the six Values categories before domain deep-dives. Health ratings and intentions are set per-domain in later steps — this step is context only.
 
@@ -242,7 +257,8 @@ Create the **new week's** Weekly Meeting Log entry (Name = `Week of [next Monday
 | Admin | from Values DB | from Values DB | |
 | Parenting | from Values DB | from Values DB | |
 
-### 1.2 Mind — Review · Mood · Rate · Intentions (~6 min) {#12-mind-review-mood-rate-intentions-6-min}
+<a id="12-mind-review-mood-rate-intentions-6-min"></a>
+### 1.2 Mind — Review · Mood · Rate · Intentions (~6 min)
 
 **Data sources (read in order, do not re-query):**
 1. `output/weekly-journal-feelings-YYYY-MM-DD.md` — **mood tables (canonical)**
@@ -344,7 +360,8 @@ When escalation is **false**, leave PHQ-2/GAD-2 blank on the log (monthly plan c
 
 Append mind row to `Intentions Review` on the Weekly Meeting Log.
 
-### 1.3 Fitness — Review · Rate · Intentions (~5 min) {#13-fitness-review-rate-intentions-5-min}
+<a id="13-fitness-review-rate-intentions-5-min"></a>
+### 1.3 Fitness — Review · Rate · Intentions (~5 min)
 
 **Data sources:** `weekly-habits-*.md`, `weekly-wellness-trends-*.md`, `health_get_summary({ days: 28 })`, `daily-health-sections.mjs` (FITNESS section), prior week's `Fitness Intentions`.
 
@@ -402,7 +419,8 @@ Append mind row to `Intentions Review` on the Weekly Meeting Log.
 
 Append fitness row to `Intentions Review`.
 
-### 1.4 Sleep — Review · Rate · Intentions (~5 min) {#14-sleep-review-rate-intentions-5-min}
+<a id="14-sleep-review-rate-intentions-5-min"></a>
+### 1.4 Sleep — Review · Rate · Intentions (~5 min)
 
 **Data sources:** `health_get_summary({ days: 28 })`, `daily-health-sections.mjs` (SLEEP section), prior week's `Sleep Intentions`.
 
@@ -462,7 +480,8 @@ Append fitness row to `Intentions Review`.
 
 → Write `Behavioral Adjustments` (append domain-labeled bullets; cumulative across Unhealthy domains this session). **Healthy domains: no adjustments needed.**
 
-### 1.5 Social — Review · Rate · Intentions (~5 min) {#15-social-review-rate-intentions-5-min}
+<a id="15-social-review-rate-intentions-5-min"></a>
+### 1.5 Social — Review · Rate · Intentions (~5 min)
 
 **Purpose:** Same domain pattern as mind/fitness/sleep. Per [social.md](../../self/social.md) — target 3–5 Small Talk entries/week; isolation signal is days since last entry.
 
@@ -556,7 +575,8 @@ node scripts/lib/ct-weekday.mjs --today <YYYY-MM-DD> --weekday Wednesday
 ```
 Uses canonical planning Monday for `--today`. Confirm stdout shows correct ISO + weekday before `calendar_create_event`. **Never** map weekday → date by mental math or `week_of + N`.
 
-### 1.6 Parenting — Review · Rate · Intentions (~4 min) {#16-parenting-review-rate-intentions-4-min}
+<a id="16-parenting-review-rate-intentions-4-min"></a>
+### 1.6 Parenting — Review · Rate · Intentions (~4 min)
 
 **Data sources:** Prior week's `Parenting Intentions`, prior Weekly Meeting Log parenting notes. **Do not** report legal custody schedule (2-2-5-5 is case context only — see `context/family/custody/`, not weekly planning). **Matthew days** for the upcoming week: read **Personal Time Blocks** calendar (`10283d615…@group.calendar.google.com`) — look for `Bus` / `Parent Time` blocks (stable week-to-week; exceptions like camp are Aaron's narrative).
 
@@ -596,7 +616,8 @@ Uses canonical planning Monday for `--today`. Confirm stdout shows correct ISO +
 
 Append parenting row to `Intentions Review`.
 
-### 1.7 Personal Enjoyment (~2 min) {#17-personal-enjoyment-2-min}
+<a id="17-personal-enjoyment-2-min"></a>
+### 1.7 Personal Enjoyment (~2 min)
 
 **Present exactly these tables:**
 
@@ -630,7 +651,8 @@ Append parenting row to `Intentions Review`.
 
 **Do not proceed to Phase 2 (Work) until Table 1.check passes.**
 
-## Phase 2: Development (~15 min) {#phase-2-development-15-min}
+<a id="phase-2-development-15-min"></a>
+## Phase 2: Development (~15 min)
 
 **Purpose:** Review last week's dev work (CL + Turbo Gear) and personal projects separately; plan next week from the **monthly Dev Projects tracker**.
 
@@ -642,7 +664,8 @@ Append parenting row to `Intentions Review`.
 
 ---
 
-### 2.1 Dev Review (~8 min) {#21-dev-review-8-min}
+<a id="21-dev-review-8-min"></a>
+### 2.1 Dev Review (~8 min)
 
 #### A — Last week review (one table group per turn)
 
@@ -754,7 +777,8 @@ Output of sync script § Chrome Lot + Turbo Gear only. Aaron confirms before **2
 
 ---
 
-### 2.2 Personal Project Review (~7 min) {#22-personal-project-review-7-min}
+<a id="22-personal-project-review-7-min"></a>
+### 2.2 Personal Project Review (~7 min)
 
 #### A — Context + last week
 
@@ -825,7 +849,8 @@ This list must **exactly match** the Notion Dev Projects view filtered to `This 
 
 **Do not proceed to Phase 4 until `2.check` passes.**
 
-## Phase 4: Commit (~5 min) {#phase-4-commit-5-min}
+<a id="phase-4-commit-5-min"></a>
+## Phase 4: Commit (~5 min)
 
 **Purpose:** Final review, capacity check, execute remaining actions, log everything.
 
@@ -846,7 +871,8 @@ This list must **exactly match** the Notion Dev Projects view filtered to `This 
     - **4b.2 Write plan:** After Aaron confirms, run `node scripts/weekly-plan-week-summary.mjs --ledger <path> --week-page-id <id>`. This (1) creates a **Google Doc** in `Plan Records/weekly/` (`scripts/provision-plan-records-drive.mjs` once), (2) sets **`Plan Doc URL`** on the confirmed week record, (3) appends/replaces the **Weekly Plan** section on that Notion page. Suggested title: `Week Starting M/D` = Sunday before ledger `week_of` (Mon 2026-06-08 → `Week Starting 6/7`). Aaron approves production writes.
 14. **Update context files** if anything changed.
 
-## Cross-Cutting Rules {#cross-cutting-rules}
+<a id="cross-cutting-rules"></a>
+## Cross-Cutting Rules
 
 - **Table contract per phase.** Phase 1 = life domains → `1.check`. Phase 2 = `2.1` Dev Review (CL/TG) → `2.2` Personal Projects → `2.check`. CL ops → **Weekly Ops** skill.
 - **FIELD CHECK gates.** Run `1.check` before Phase 2 development; `2.check` after development; verify all in Phase 4 commit.
@@ -857,7 +883,8 @@ This list must **exactly match** the Notion Dev Projects view filtered to `This 
 - **All data pulls happen in Phase 0 silently.** ~40 minutes is for discussion and decisions.
 - **Quarterly docket is the source.** Weekly project selection pulls only from the current quarter's assigned projects. Don't ad-hoc backlog items.
 
-## Outputs {#outputs}
+<a id="outputs"></a>
+## Outputs
 
 - **Pre-Phase 0:** Monthly plan gate pass (or full monthly plan run + resume).
 - **Phase 0:** Wellness + journal feelings + social + dev data pulls; trend files; 4-week log history.
@@ -867,7 +894,8 @@ This list must **exactly match** the Notion Dev Projects view filtered to `This 
 - **Phase 4:** Full Weekly Meeting Log finalized + all FIELD CHECKs; Values DB sync (with approval).
 - **Phase 4b:** Confirmed Week Tracker page gets domain-by-domain plan summary + linked Google Doc in `Plan Records/weekly/`.
 
-## Failure modes & graceful degradation {#failure-modes-and-graceful-degradation}
+<a id="failure-modes-and-graceful-degradation"></a>
+## Failure modes & graceful degradation
 
 - **Monthly Plan Log missing for planning month:** Hard stop — run monthly plan first (Pre-Phase 0). Do not proceed weekly-only.
 - **Weekly data pull script missing:** Rely on parallel MCP pulls per Phase 0 list.
@@ -876,7 +904,8 @@ This list must **exactly match** the Notion Dev Projects view filtered to `This 
 - **`health_persist_recent` / Health Sync issues:** Note in footer; continue with MCP + archived Notion data where available.
 - **Partial or null watch fields (RHR, HRV):** Render as `--` until Health Sync folders are enabled.
 
-## See also {#see-also}
+<a id="see-also"></a>
+## See also
 
 - `../../router.md`
 - `../monthly-plan/SKILL.md` — monthly review cadence
