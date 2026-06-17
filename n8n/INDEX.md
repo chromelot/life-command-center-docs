@@ -11,6 +11,7 @@
 | Any bot / Teams / deploy work | [`conventions.md`](conventions.md) |
 | CL Bot skills, debug, extend | [`bots/cl-bot/teams-bot.md`](bots/cl-bot/teams-bot.md) |
 | PD ↔ Todoist sync | [`sync/pd-todoist/pd-todoist-sync.md`](sync/pd-todoist/pd-todoist-sync.md) |
+| Inbox Guardian (email filter) | [`inbox-guardian/inbox-guardian.md`](inbox-guardian/inbox-guardian.md) |
 | AM strategy / roadmap | [`account-management/roadmap.md`](account-management/roadmap.md) |
 | AM Process Street setup | [`sync/am-setup/ps-am-setup-verification.md`](sync/am-setup/ps-am-setup-verification.md) |
 | Roster / permissions | [`shared/airtable-roster.mjs`](shared/airtable-roster.mjs) + `context/systems/airtable-roster.md` |
@@ -44,6 +45,10 @@ n8n/
 │   ├── deploy-am-setup-verifier.mjs
 │   └── ...
 │
+├── inbox-guardian/         ← LLM email filter for aaron@chromelot.com
+│   ├── inbox-guardian.md
+│   └── deploy-inbox-guardian.mjs
+│
 ├── shared/                 ← modules imported by deploy scripts
 │   ├── airtable-roster.mjs
 │   ├── pd-delegate-resolution.mjs
@@ -73,6 +78,11 @@ node n8n/sync/pd-todoist/deploy-pd-activity-mirror.mjs
 node n8n/sync/pd-todoist/deploy-todoist-events.mjs
 node n8n/sync/pd-todoist/deploy-pd-todoist-schedules.mjs
 node n8n/sync/pd-todoist/deploy-pd-deal-delegate-label.mjs
+
+# Inbox Guardian (email filter) — see inbox-guardian.md for one-time Gmail OAuth
+node n8n/inbox-guardian/deploy-inbox-guardian.mjs --dry-run   # validate
+node n8n/inbox-guardian/deploy-inbox-guardian.mjs             # shadow (default)
+node n8n/inbox-guardian/deploy-inbox-guardian.mjs --enforce   # armed
 ```
 
 ## Deprecated stub paths (still work)
@@ -99,3 +109,4 @@ Muscle-memory aliases at `n8n/` root forward to canonical locations:
 | **PD↔Todoist** | `sync/pd-todoist/` |
 | **AM Setup** | `sync/am-setup/` |
 | **AM Strategy** | `account-management/` |
+| **Inbox Guardian** | `inbox-guardian/` |

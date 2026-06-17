@@ -333,10 +333,12 @@ Append mind row to `Intentions Review` on the Weekly Meeting Log.
 | Steps Avg | | | `Steps Avg` |
 | Workout Active Min | | | `Workout Active Minutes` |
 | Heart Rate Avg (bpm) | | | `Heart Rate Avg` |
-| Resting HR Avg (bpm) | | | `Resting HR Avg` |
-| HRV Avg (ms) | | | `HRV Avg` |
+| Resting HR Avg (bpm) | | | `Resting HR Avg` *(not tracked — omit from integrity checks)* |
+| HRV Avg (ms) | | | `HRV Avg` *(not tracked — omit from integrity checks)* |
 
-**Table 1.3-C — Fitness daily** *(from `daily-health-sections.mjs` FITNESS section)*
+**Table 1.3-C — Fitness daily** *(from `daily-health-sections.mjs` FITNESS section — **Workouts DB** `127f40c2-487b-80ba`)*
+
+**Strength** and **Cardio** rows show **activity labels**, not counts: strength = `Type` (Pull / Push / Legs / …); cardio = `Name` when set (e.g. Yoga, Vest Walk) else `Type`. Multiple same-day entries comma-separated. `—` when none logged.
 
 | Metric | Mon M/D | Tue M/D | Wed M/D | Thu M/D | Fri M/D | Sat M/D | Sun M/D |
 |--------|---------|---------|---------|---------|---------|---------|---------|
