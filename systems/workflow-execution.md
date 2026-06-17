@@ -124,9 +124,9 @@ Ops → **Weekly Ops** workflow.
 | `1.3` | Work Management — daily records, backups, ops priority |
 | `2.1` | CS check-in cadence + behind CS visits |
 | `2.2` | HJD review — one customer per turn when flagged |
+| `2.3` | Photographer Management — roster, perf behind, monitoring (one/turn when flagged) |
 | `3.1`, `3.2` | Aaron sales (stale deals, overdue PD), team oversight |
 | `4.1` | Finance & Admin — invoices (one customer/turn) |
-| `5.1` | Service Delivery — photographers (one/turn) |
 | `6.1` | Post Production — QA / delivery backlog |
 | `6.2` | Social Media — pipeline + posting currency |
 | `7.1` | Workload & Hiring |

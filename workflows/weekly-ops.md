@@ -24,17 +24,15 @@
   - [Part C — Slower customers (`1.1`, table 1-C third)](#part-c-slower-customers-11-table-1-c-third)
   - [Part D — Pipedrive Activity Scorecard (`1.2`)](#part-d-pipedrive-activity-scorecard-12)
   - [Part C — Work Management (`1.3`)](#part-c-work-management-13)
-- [Phase 2: CS Management (~12 min)](#phase-2-cs-management-12-min)
+- [Phase 2: CS & Photographer Management (~20 min)](#phase-2-cs-and-photographer-management-20-min)
   - [Part A — Check-in Cadence (`2.1`)](#part-a-check-in-cadence-21)
   - [Part B — High Job Days Review (`2.2`)](#part-b-high-job-days-review-22)
+  - [Part C — Photographer Management (`2.3`)](#part-c-photographer-management-23)
 - [Phase 3: Sales Management (~12 min)](#phase-3-sales-management-12-min)
   - [Part A — Aaron's Sales Activity (`3.1`)](#part-a-aarons-sales-activity-31)
   - [Part B — Team Sales Oversight (`3.2`)](#part-b-team-sales-oversight-32)
 - [Phase 4: Finance & Admin (~8 min)](#phase-4-finance-and-admin-8-min)
   - [Part A — Late Invoice Review (`4.1`)](#part-a-late-invoice-review-41)
-- [Phase 5: Service Delivery (~8 min)](#phase-5-service-delivery-8-min)
-  - [Knack Photographer Field Reference (object_7)](#knack-photographer-field-reference-object_7)
-  - [Knack Comments Reference (object_57)](#knack-comments-reference-object_57)
 - [Phase 6: Post Production (~5 min)](#phase-6-post-production-5-min)
 - [Phase 6-B: Social Media (~8 min)](#phase-6-b-social-media-8-min)
 - [Phase 7: Workload & Hiring (~5 min)](#phase-7-workload-and-hiring-5-min)
@@ -68,10 +66,10 @@ This session audits **`Create, and Audit Weekly Ops Plan`** and its sub-items in
 | Dev Projects sub-item | Workflow phase | Ledger step(s) |
 |---|---|---|
 | *(cross-cutting)* Work summary + ops foundation | Phase 1 — Work Summary | `1.1`, `1.2`, `1.3` |
-| Customer Service | Phase 2 — CS Management | `2.1` |
+| Customer Service | Phase 2 — CS Management | `2.1`, `2.2` |
+| Photographer Management | Phase 2 — Photographer Management | `2.3` |
 | Sales Management | Phase 3 — Sales Management | `3.1`, `3.2` |
 | Finance & Admin | Phase 4 — Finance & Admin | `4.1` |
-| Service Delivery | Phase 5 — Service Delivery | `5.1` |
 | Post Production | Phase 6 — Post Production | `6.1` |
 | Social Media | Phase 6 — Social Media | `6.2` |
 | Workload & Hiring | Phase 7 — Workload & Hiring | `7.1` |
@@ -92,7 +90,7 @@ Load via the router. Read these before starting:
 - `context/systems/capacity-rules.md` — limits, overcommitment triggers, max PD activities/day
 - `context/work/chrome-lot/customer-service.md` — Phase 2 CS logic
 - `context/work/chrome-lot/sales.md` — Phase 3 sales logic
-- `context/work/chrome-lot/operations.md` — Phase 5 photographer review logic
+- `context/work/chrome-lot/operations.md` — Phase 2.3 photographer management logic
 - `context/work/chrome-lot/social-media.md` — Phase 6.2 social pipeline + posting
 - `context/work/chrome-lot/work-management.md` — Phase 1.3 daily records, backups, ops priority; Phase 9.1 department health
 - `context/people/index.md` — delegation matrix, 1:1 tracking
@@ -131,10 +129,10 @@ Load via the router. Read these before starting:
 | 6 | `1.3` | Yes — Phase 1-C Work Management (daily records + ops priority) |
 | 7 | `2.1` | Yes — Phase 2-A CS check-in cadence + behind CS visits |
 | 8 | `2.2` | Yes — Phase 2-B High Job Days review |
-| 9 | `3.1` | Yes — Phase 3-A Aaron sales (gaps → stale → overdue PD → plan week) |
-| 10 | `3.2` | Yes — Phase 3-B team sales oversight + behind Pipedrive |
-| 11 | `4.1` | Yes — Phase 4 — Finance & Admin (late invoices, one customer per turn) |
-| 12 | `5.1` | Yes — Phase 5 — Service Delivery (flagged photographers, one per turn) |
+| 9 | `2.3` | Yes — Phase 2-C Photographer Management (roster + perf behind + monitoring) |
+| 10 | `3.1` | Yes — Phase 3-A Aaron sales (gaps → stale → overdue PD → plan week) |
+| 11 | `3.2` | Yes — Phase 3-B team sales oversight + behind Pipedrive |
+| 12 | `4.1` | Yes — Phase 4 — Finance & Admin (late invoices, one customer per turn) |
 | 13 | `6.1` | Yes — Phase 6 — Post Production (QA / delivery backlog) |
 | 14 | `6.2` | Yes — Phase 6 — Social Media (pipeline + posting currency) |
 | 15 | `7.1` | Yes — Phase 7 — Workload & Hiring (Hubstaff + hiring pipeline) |
@@ -157,10 +155,10 @@ Load via the router. Read these before starting:
 | `1.3` | Table 1.3-A (daily ops records) + Table 1.3-B (ops priority letter) |
 | `2.1` | CS behind-summary + check-in cadence table — one behind customer per turn when flagged |
 | `2.2` | HJD review — one customer per turn when flagged |
+| `2.3` | Photographer roster + perf behind + monitoring — one monitored photographer per turn |
 | `3.1` | Aaron sales (gaps → stale deals one-by-one → overdue PD → plan week) |
 | `3.2` | Team sales oversight table (stale + overdue PD per member) |
 | `4.1` | Late invoice review — one customer per turn |
-| `5.1` | Flagged photographers — one per turn |
 | `6.1` | Post production currency table |
 | `6.2` | Social Media pipeline + posting — one stale/gap account per turn when flagged |
 | `7.1` | Workload & hiring table |
@@ -376,7 +374,7 @@ COMPLETED ACTIVITIES — WEEK-OVER-WEEK
 |---|--------|
 | **A** | **Sales** — AM / pipeline / new business is the binding constraint |
 | **B** | **Hiring** — roster / personnel / delegation is the binding constraint *(only if briefing **HIRING ACTIVE: yes**)* |
-| **C** | **Service delivery** — field coverage / backups / call-ins dominate |
+| **C** | **Service delivery** — field coverage / backups / call-ins dominate *(ops priority label unchanged)* |
 | **D** | **Balanced** — no single domain owns the week |
 
 If **HIRING ACTIVE: no**, do not offer **B** — choose A, C, or D only.
@@ -385,8 +383,8 @@ If **HIRING ACTIVE: no**, do not offer **B** — choose A, C, or D only.
 
 **Advance:** `1.3`
 
-<a id="phase-2-cs-management-12-min"></a>
-## Phase 2: CS Management (~12 min)
+<a id="phase-2-cs-and-photographer-management-20-min"></a>
+## Phase 2: CS & Photographer Management (~20 min)
 
 **Purpose:** Keep customer relationships healthy — check-in cadence plus dedicated **High Job Days (HJD)** review. **Behind tracking:** CS deals with no visit in **60+ days** and **overdue CS Pipedrive activities** are reviewed here — not in a central currency pass.
 
@@ -462,6 +460,42 @@ If **zero** customers HJD > 10: single row `No HJD flags` and advance.
 **Knack reference:** `field_1035` High Job Days — see [`knack-fields.md`](../../systems/knack-fields.md).
 
 **Advance:** `2.2`
+
+<a id="part-c-photographer-management-23"></a>
+### Part C — Photographer Management (`2.3`)
+
+**Purpose:** Field photographer roster, perf-meeting cadence, and active monitoring — covers **Photographer Management** Dev Project sub-item (formerly Service Delivery).
+
+**Data source:** Briefing **PHOTOGRAPHER MANAGEMENT** (Knack `object_7` roster, `field_985` since 1:1, monitoring flags). See [`operations.md`](../../work/chrome-lot/operations.md).
+
+1. Present **Table 2-C0 — Photographer summary** from briefing:
+
+| Signal | Count |
+|--------|-------|
+| Active photographers (roster) | |
+| Perf meetings behind (≥30 days since 1:1) | |
+| Under active monitoring | |
+
+2. Present **Table 2-C1 — Roster summary** (all active photographers from briefing):
+
+| Name | Rank | Grade | Jobs (review wk) | Call-ins | Issues/car | Since 1:1 (days) | Monitoring |
+|------|------|-------|------------------|----------|------------|------------------|------------|
+
+3. Present **Table 2-C2 — Perf meetings behind** when count > 0:
+
+| Photographer | Days since 1:1 | AM | Action proposed |
+|--------------|----------------|-----|-----------------|
+
+4. Review **one monitored photographer per turn** when active monitoring count > 0 — pull latest `object_57` comment (`field_1006` = Photographer) if action needed:
+
+**Table 2-C3 — Monitored photographer** *(one row per turn)*
+
+| Name | Flags | Grade | Latest comment | Action |
+|------|-------|-------|----------------|--------|
+
+If **zero** perf-behind and **zero** monitoring: note "Photographer roster confirmed — no flags" and advance.
+
+**Advance:** `2.3`
 
 <a id="phase-3-sales-management-12-min"></a>
 ## Phase 3: Sales Management (~12 min)
@@ -586,53 +620,6 @@ If **zero** overdue: single row `No overdue PD flags` and continue.
 **Outputs:** Pipedrive escalation activities for invoice issues. Todoist admin follow-ups if needed (case-by-case approval).
 
 **Advance:** `4`
-
-<a id="phase-5-service-delivery-8-min"></a>
-## Phase 5: Service Delivery (~8 min)
-
-**Purpose:** Field photographer performance — covers **Service Delivery** Dev Project sub-item.
-
-1. Pull all active photographers from Knack (`object_7`, field_33 = "active")
-2. Flag any photographer meeting one or more criteria:
-   - field_1267 (Call-ins Last Month) > 3
-   - field_1362 (Average Issues Per Car) > 0.5
-   - field_1446 (Time Off Requests Last Month) > 3
-   - field_1338 (Performance Grade) contains "Below Expectations"
-   - field_1338 (Performance Grade) is blank/missing
-3. For each flagged photographer, pull the most recent comment from `object_57` where field_1006 = "Photographer" (matched via photographer connection)
-4. Present each flagged photographer **one by one** with: name, flag reasons, metrics, and most recent photographer comment
-5. Decide action: coaching conversation, written warning, schedule meeting, no action, etc.
-6. If Performance Grade is missing, set it during the session via `knack_update_record` (with approval)
-7. Create Todoist tasks for any decided actions (case-by-case approval)
-
-**Present one photographer per turn — Table 5-A:**
-
-| Name | Flags | Call-ins | Issues/car | Time off | Grade | Latest comment | Action |
-|------|-------|----------|------------|----------|-------|----------------|--------|
-
-<a id="knack-photographer-field-reference-object_7"></a>
-### Knack Photographer Field Reference (object_7)
-
-| Field | Name | Trigger |
-|-------|------|---------|
-| field_30 | Name | Identity |
-| field_33 | Status | Filter active |
-| field_1267 | Call-ins Last Month | Flag if > 3 |
-| field_1362 | Average Issues Per Car | Flag if > 0.5 |
-| field_1446 | Time Off Requests Last Month | Flag if > 3 |
-| field_1338 | Performance Grade | Flag if "Below Expectations" or missing |
-
-<a id="knack-comments-reference-object_57"></a>
-### Knack Comments Reference (object_57)
-
-| Field | Name |
-|-------|------|
-| field_857 | Comment text |
-| field_858 | User who wrote it |
-| field_860 | Date |
-| field_1006 | Comment type (filter: "Photographer") |
-
-**Advance:** `5`
 
 <a id="phase-6-post-production-5-min"></a>
 ## Phase 6: Post Production (~5 min)
@@ -786,12 +773,13 @@ If **zero** overdue 1:1s: single row `No late 1:1 flags` and advance.
 | Phase 2 | All behind CS visits reviewed (or none flagged) | |
 | Phase 2 | CS check-in batch proposed (or N/A + reason) | |
 | Phase 2 | All HJD > 10 customers reviewed (or none flagged) | |
+| Phase 2 | Photographer roster + perf behind reviewed | |
+| Phase 2 | All monitored photographers reviewed (or none flagged) | |
 | Phase 3 | Deal gaps = 0 (or deferrals logged) | |
 | Phase 3 | Aaron overdue PD + stale deals reviewed | |
 | Phase 3 | Aaron sales week plan | |
 | Phase 3 | Team behind Pipedrive reviewed | |
 | Phase 4 | Invoice escalations decided | |
-| Phase 5 | Flagged photographers reviewed | |
 | Phase 6 | Post production signals reviewed | |
 | Phase 6 | Social Media pipeline + posting reviewed (or N/A + reason) | |
 | Phase 6 | All behind social accounts reviewed (or none flagged) | |
@@ -833,7 +821,7 @@ Run: `node scripts/workflow-progress.mjs gate --workflow weekly-ops --phase chec
 | Aaron sales stops | count | |
 | Behind PD (Aaron) | overdue + stale resolved | |
 | Team sales nudges | | |
-| Photographer actions | | |
+| Photographer actions | from Phase 2.3 | |
 | Post production / QA | actions from 6.1 | |
 | Social Media | gap/stale clears + posting notes from 6.2 | |
 | Workload / hiring | | |
@@ -893,7 +881,7 @@ Run: `node scripts/workflow-progress.mjs gate --workflow weekly-ops --phase chec
 ## Cross-Cutting Rules
 
 - **Table contract per phase.** Ledger `current_step` determines which tables are in scope. Phase 1 = work summary (1.1) → scorecard (1.2) → work management (1.3). Phase 2 = behind CS (2.1) → HJD (2.2). Phase 3 = gaps → overdue PD → stale → plan (3.1) → team PD (3.2). Phases 4–8 per domain. Phase 6 = post production (6.1) → social media (6.2). Phase 9 = department health (9.1).
-- **Behind tracking in domain sections.** No central Chrome Lot currency check. Stale CS visits → Phase 2.1. Stale sales + overdue Pipedrive → Phase 3.1–3.2. Social Media gaps/stale → Phase 6.2. Late 1:1 visits → Phase 8.1. Each behind item gets reviewed or explicitly deferred with reason in `Key Decisions`.
+- **Behind tracking in domain sections.** Stale CS visits → Phase 2.1. HJD → Phase 2.2. Photographer monitoring + perf behind → Phase 2.3. Stale sales + overdue Pipedrive → Phase 3.1–3.2. Social Media gaps/stale → Phase 6.2. Late 1:1 visits → Phase 8.1.
 - **FIELD CHECK gate.** `check` must pass before `commit`.
 - **Route every item into a bucket.** Each surfaced item is Automated (n8n), Delegated (team 1:1s), or a Scheduled slice (calendar + Todoist mirror).
 - **Capacity is non-negotiable.** If total planned ops work exceeds available ops hours minus 10–15% buffer, the system pushes back. Something must move.
@@ -912,10 +900,9 @@ Run: `node scripts/workflow-progress.mjs gate --workflow weekly-ops --phase chec
 - **Phase 0:** `output/weekly-ops-briefing-YYYY-MM-DD.md` generated.
 - **Phase 0b:** RED FLAGS + planning context presented; no fixes attempted.
 - **Phase 1:** Work summary + activity scorecard + daily ops records + ops priority.
-- **Phase 2:** Behind CS visits cleared + CS check-in batch + HJD review decisions.
+- **Phase 2:** Behind CS + HJD + photographer management decisions.
 - **Phase 3:** Deal gaps cleared + overdue PD + stale deals + Aaron sales plan + team behind PD actions.
 - **Phase 4:** Invoice escalation decisions.
-- **Phase 5:** Photographer reviews.
 - **Phase 6:** Post production / QA actions + Social Media pipeline/posting review.
 - **Phase 7:** Workload and hiring actions.
 - **Phase 8:** Late 1:1 review + scheduling decisions.
@@ -930,7 +917,7 @@ Run: `node scripts/workflow-progress.mjs gate --workflow weekly-ops --phase chec
 - **weekly-ops-pull / weekly-data-pull script failure:** Fall back to parallel MCP pulls per Phase 0 list; note missing sections in Table 0b-A.
 - **Prior Weekly Meeting Log missing activity KPIs:** Render "Last Wk" column as `—`; note in 0b footer.
 - **Pipedrive MCP rate limits:** Present partial scorecard; retry per-user pulls; document gaps in `Key Decisions`.
-- **Knack unavailable:** Skip photographer flags (Phase 5); CS invoice fields from last briefing cache if present; otherwise defer Phase 4 with documented N/A. Post production (Phase 6) may defer if QA pull missing.
+- **Knack unavailable:** Skip photographer section (Phase 2.3); CS invoice fields from last briefing cache if present; otherwise defer Phase 4 with documented N/A. Post production (Phase 6) may defer if QA pull missing.
 
 <a id="see-also"></a>
 ## See also
