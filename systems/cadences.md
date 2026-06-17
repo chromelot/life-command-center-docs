@@ -44,7 +44,7 @@ Daily morning/evening Cursor reviews were retired. The PD ↔ Todoist loop is re
 | Workflow | Duration | Trigger |
 |---|---|---|
 | Weekly Plan | ~40 min | "weekly plan", "weekly meeting", "Monday review", "sprint planning" |
-| Weekly Ops | ~50 min | "weekly ops", "ops review", "CL ops meeting", "operations meeting" |
+| Weekly Ops | ~45 min | "weekly ops", "ops review", "CL ops meeting", "operations meeting" |
 
 #### Weekly Plan — Pre-Phase 0 gate + 9-phase workflow
 
@@ -61,7 +61,7 @@ Daily morning/evening Cursor reviews were retired. The PD ↔ Todoist loop is re
 7. Personal Life & Social (Bus, social, dating, compulsion scan)
 8. Commit (summary, capacity check, execute, log to Weekly Meeting Log)
 
-> **Actual cadence (2026-06-02):** Aaron runs weekly ops consistently, usually **Fridays** (sometimes later), not Monday. Backlog is tracked **in domain sections** during Weekly Ops (behind CS in Phase 2, stale sales + overdue Pipedrive in Phase 3, late 1:1s in Phase 8) — not via a central currency check.
+> **Actual cadence + catch-up retune (2026-06-02):** Aaron runs this consistently, usually **Fridays** (sometimes later), not Monday. The gap is that it re-plans but doesn't *clear* the Chrome Lot backlog. Retune: add a standing **currency check** (Pipedrive overdue count, oldest 1:1, stale CS) and a hard rule that each meeting must **retire a defined slice** of backlog, not just reschedule it — calibrated to the capacity caps.
 
 ---
 
