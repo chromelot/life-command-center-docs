@@ -35,7 +35,7 @@ Every user-facing sub-step should define:
 
 ### Weekly ops reference
 
-`context/skills/weekly-ops/SKILL.md` — same pattern; ledger steps `1.1`–`1.3`, `2.1`–`2.4`, `3.1`–`3.2`, `4.1`–`4.2`, `6.1`–`7.1`, `6.2` map to named tables (aligned to Dev Projects sub-items under **Create, and Audit Weekly Ops Plan**). Phase 1.3 = daily ops records + ops priority; Phase 2.1 = Hiring; Phase 4.2 = QuickBooks admin placeholder; Phase 6.2 = Social Media; department Health/Priority confirmed in each domain phase (no separate health phase).
+`context/skills/weekly-ops/SKILL.md` — same pattern; ledger steps `1.1`–`1.3`, then `2.1`, `2.4`, `6.2`, `7.1`, `2.2`–`2.3`, `4.1`–`4.2`, `3.1`–`3.2`, `6.1` map to named tables (aligned to Dev Projects sub-items under **Create, and Audit Weekly Ops Plan**). Phase 1.3 = daily ops records + ops priority; Phase 2 = Hiring; Phase 3 = Photographer Management; Phase 4 = Social Media; Phase 5 = 1:1; Phase 6 = CS; Phase 7 = Finance (4.2 = QuickBooks placeholder); Phase 8 = Sales; Phase 9 = Post Production; department Health/Priority confirmed in each domain phase (no separate health phase).
 
 ## Section completion checklist (before every `advance`)
 
