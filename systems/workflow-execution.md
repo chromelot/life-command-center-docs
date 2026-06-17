@@ -123,15 +123,14 @@ Ops → **Weekly Ops** workflow.
 | `1.2` | PD activity scorecard |
 | `1.3` | Work Management — daily records, backups, ops priority |
 | `2.1` | CS check-in cadence + behind CS visits |
-| `2.2` | HJD review — one customer per turn when flagged |
-| `2.3` | Photographer Management — roster, perf behind, monitoring (one/turn when flagged) |
-| `3.1`, `3.2` | Aaron sales (stale deals, overdue PD), team oversight |
-| `4.1` | Finance & Admin — invoices (one customer/turn) |
+| `2.2` | HJD review + Customer Service dept health (one customer/turn when flagged) |
+| `2.3` | Photographer Management — roster, perf behind, monitoring + dept health |
+| `3.1`, `3.2` | Aaron sales (stale deals, overdue PD), team oversight + Account Management dept health |
+| `4.1` | Finance & Admin — invoices + Admin dept health (one customer/turn) |
 | `6.1` | Post Production — QA / delivery backlog |
-| `6.2` | Social Media — pipeline + posting currency |
-| `7.1` | Workload & Hiring |
+| `6.2` | Social Media — pipeline + posting currency + Social Media dept health |
+| `7.1` | Workload & Hiring + Delegation & Hiring / Personnel Management dept health |
 | `8.1` | 1:1 meetings — late 1:1 visits |
-| `9.1` | CL department health — confirm or update + log snapshot |
 | `check` | FIELD CHECK — **gate before commit** |
 | `commit` | Commit checklist |
 
