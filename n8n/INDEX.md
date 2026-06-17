@@ -12,6 +12,7 @@
 | CL Bot skills, debug, extend | [`bots/cl-bot/teams-bot.md`](bots/cl-bot/teams-bot.md) |
 | PD ↔ Todoist sync | [`sync/pd-todoist/pd-todoist-sync.md`](sync/pd-todoist/pd-todoist-sync.md) |
 | Inbox Guardian (email filter) | [`inbox-guardian/inbox-guardian.md`](inbox-guardian/inbox-guardian.md) |
+| Toggl → Notion time sync | [`sync/toggl-notion/toggl-notion-sync.md`](sync/toggl-notion/toggl-notion-sync.md) |
 | AM strategy / roadmap | [`account-management/roadmap.md`](account-management/roadmap.md) |
 | AM Process Street setup | [`sync/am-setup/ps-am-setup-verification.md`](sync/am-setup/ps-am-setup-verification.md) |
 | Roster / permissions | [`shared/airtable-roster.mjs`](shared/airtable-roster.mjs) + `context/systems/airtable-roster.md` |
@@ -49,6 +50,12 @@ n8n/
 │   ├── inbox-guardian.md
 │   └── deploy-inbox-guardian.mjs
 │
+├── sync/toggl-notion/      ← Toggl time punches → Notion (tag-routed)
+│   ├── toggl-notion-sync.md
+│   ├── deploy-toggl-notion-sync.mjs
+│   ├── register-toggl-webhook.mjs
+│   └── toggl-notion-code.mjs
+│
 ├── shared/                 ← modules imported by deploy scripts
 │   ├── airtable-roster.mjs
 │   ├── pd-delegate-resolution.mjs
@@ -83,6 +90,11 @@ node n8n/sync/pd-todoist/deploy-pd-deal-delegate-label.mjs
 node n8n/inbox-guardian/deploy-inbox-guardian.mjs --dry-run   # validate
 node n8n/inbox-guardian/deploy-inbox-guardian.mjs             # shadow (default)
 node n8n/inbox-guardian/deploy-inbox-guardian.mjs --enforce   # armed
+
+# Toggl → Notion (tag-based time sync) — see sync/toggl-notion/toggl-notion-sync.md
+node n8n/sync/toggl-notion/deploy-toggl-notion-sync.mjs --dry-run
+node n8n/sync/toggl-notion/deploy-toggl-notion-sync.mjs
+node n8n/sync/toggl-notion/register-toggl-webhook.mjs
 ```
 
 ## Deprecated stub paths (still work)
@@ -110,3 +122,4 @@ Muscle-memory aliases at `n8n/` root forward to canonical locations:
 | **AM Setup** | `sync/am-setup/` |
 | **AM Strategy** | `account-management/` |
 | **Inbox Guardian** | `inbox-guardian/` |
+| **Toggl→Notion** | `sync/toggl-notion/` |
