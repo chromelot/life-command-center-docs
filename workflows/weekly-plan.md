@@ -331,7 +331,7 @@ Append mind row to `Intentions Review` on the Weekly Meeting Log.
 | Body Fat Avg (%) | | | `Body Fat Avg` |
 | Lean Mass Avg (lbs) | | | `Lean Mass Avg` |
 | Steps Avg | | | `Steps Avg` |
-| Workout Active Min | | | `Workout Active Minutes` |
+| Workout Active Min | | | `Workout Active Minutes` *(Workouts DB `Minutes` sum, review week — from `daily-health-sections.mjs` aggregate)* |
 | Heart Rate Avg (bpm) | | | `Heart Rate Avg` |
 | Resting HR Avg (bpm) | | | `Resting HR Avg` *(not tracked — omit from integrity checks)* |
 | HRV Avg (ms) | | | `HRV Avg` *(not tracked — omit from integrity checks)* |
@@ -419,7 +419,7 @@ Append fitness row to `Intentions Review`.
 |--------------------------|------------------|------------------|-------------------|
 | | | | `Sleep Intentions`, `Sleep Target Hours`, `Target Wake Time` |
 
-**Table 1.4-G — Behavioral adjustments** *(if any calendar moves)*
+**Table 1.4-G — Behavioral adjustments** *(required when Sleep Health = Unhealthy — concrete commitments, not calendar-only)*
 
 | Adjustment | Reason |
 |------------|--------|
@@ -468,7 +468,7 @@ Append fitness row to `Intentions Review`.
 |-----------|-----------|
 | | |
 
-**Table 1.5-E — Fuel check** *(per [eros.md](../../self/eros.md))*
+**Table 1.5-E — Fuel check** *(per [eros.md](../../self/eros.md) — **mandatory Aaron input before `advance` from 1.5**)*
 
 | Signal | This week | Two weeks running? | → Action |
 |--------|-----------|-------------------|----------|
@@ -571,7 +571,8 @@ Append parenting row to `Intentions Review`.
 | Last-week KPIs | `Strength Sessions`, `Cardio Sessions`, `Spirit Minutes`, `Journal Count`, `Weight Avg`, `Body Fat Avg`, `Lean Mass Avg`, `Sleep Avg`, `Sleep Nights Tracked`, `Wake Time Std Dev Min`, `Bedtime Std Dev Min`, `Sleep Schedule Rating`, `Steps Avg`, `Workout Active Minutes` |
 | 1.2 | `Intentions Review` (mind row), `Mind Health`, `Mind Intentions`, `Mood Valence`, `Mood Negative %`, `Journal Feelings Summary`, `Mood Distress Flag`, `Energy Rating`, `Screening Escalation`; PHQ/GAD only if `Screening Escalation` = true |
 | 1.3–1.4 | `Fitness/Sleep Health`, `Fitness/Sleep Intentions`, `Strength Target`, `Cardio Target`, `Sleep Target Hours`, `Target Wake Time`, `Behavioral Adjustments` |
-| 1.5 | `Small Talk Count`, `Social Events Count`, `Social Review`, `Social Intentions Met`, `Social Health`, `Social Priority`, `Social Intentions` |
+| 1.5 | `Small Talk Count`, `Social Events Count`, `Social Review` (incl. **fuel rating**), `Social Intentions Met`, `Social Health`, `Social Priority`, `Social Intentions` |
+| 1.4 (Unhealthy) | `Behavioral Adjustments` — **required**, not optional |
 | 1.6 | `Parenting Health`, `Parenting Intentions` |
 | 1.7 | `Personal Enjoyment` |
 

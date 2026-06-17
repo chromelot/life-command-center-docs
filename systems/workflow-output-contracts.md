@@ -85,6 +85,18 @@ Within a single ledger step that spans multiple tables (e.g. weekly plan `1.2` =
 - Advancing after Aaron answered a tangent but not the step's required question
 - Skipping `gate` because "we're close enough"
 - Using prior-week memory instead of named pull output files
+- **`Workout Active Minutes` = N/A** when Workouts DB has review-week entries — use `daily-health-sections.mjs` aggregate (`Workout logged min`)
+- **`Behavioral Adjustments` blank** when `Sleep Health` = Unhealthy — Table 1.4-G is required with concrete commitments
+- **Advancing step `1.5` without Aaron fuel rating** (Table 1.5-E) — write rating to `Social Review`; no skip
+
+### Weekly plan — Phase 1 hard stops (before `1.check`)
+
+| Step | Rule |
+|------|------|
+| `1.3-B` | `Workout Active Minutes` = Workouts DB `Minutes` sum (script aggregate). Fail FIELD CHECK if sessions exist and field blank. |
+| `1.4` | If `Sleep Health` = Unhealthy → Table **1.4-G** required; write `Behavioral Adjustments` before `advance`. |
+| `1.5` | Table **1.5-E** fuel rating required from Aaron before `advance`; include in `Social Review`. |
+| `1.check` | `Fuel check`, `Behavioral Adjustments`, `Workout Active Minutes` are **Pass or Fail** — not N/A when data/obligations exist. |
 
 ## Session workflows — contract index
 
