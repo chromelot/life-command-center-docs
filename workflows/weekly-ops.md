@@ -24,10 +24,11 @@
   - [Part C — Slower customers (`1.1`, table 1-C third)](#part-c-slower-customers-11-table-1-c-third)
   - [Part D — Pipedrive Activity Scorecard (`1.2`)](#part-d-pipedrive-activity-scorecard-12)
   - [Part C — Work Management (`1.3`)](#part-c-work-management-13)
-- [Phase 2: CS & Photographer Management (~20 min)](#phase-2-cs-and-photographer-management-20-min)
-  - [Part A — Check-in Cadence (`2.1`)](#part-a-check-in-cadence-21)
-  - [Part B — High Job Days Review (`2.2`)](#part-b-high-job-days-review-22)
-  - [Part C — Photographer Management (`2.3`)](#part-c-photographer-management-23)
+- [Phase 2: Hiring, CS & Photographer Management (~25 min)](#phase-2-hiring-cs-and-photographer-management-25-min)
+  - [Part A — Hiring (`2.1`)](#part-a-hiring-21)
+  - [Part B — Check-in Cadence (`2.2`)](#part-b-check-in-cadence-22)
+  - [Part C — High Job Days Review (`2.3`)](#part-c-high-job-days-review-23)
+  - [Part D — Photographer Management (`2.4`)](#part-d-photographer-management-24)
 - [Phase 3: Sales Management (~12 min)](#phase-3-sales-management-12-min)
   - [Part A — Aaron's Sales Activity (`3.1`)](#part-a-aarons-sales-activity-31)
   - [Part B — Team Sales Oversight (`3.2`)](#part-b-team-sales-oversight-32)
@@ -35,8 +36,7 @@
   - [Part A — Late Invoice Review (`4.1`)](#part-a-late-invoice-review-41)
 - [Phase 6: Post Production (~5 min)](#phase-6-post-production-5-min)
 - [Phase 6-B: Social Media (~8 min)](#phase-6-b-social-media-8-min)
-- [Phase 7: Workload & Hiring (~5 min)](#phase-7-workload-and-hiring-5-min)
-- [Phase 8: 1:1 Meetings (~5 min)](#phase-8-11-meetings-5-min)
+- [Phase 7: 1:1 Meetings (~5 min)](#phase-7-11-meetings-5-min)
 - [Check: Ops FIELD CHECK (`check`)](#check-ops-field-check-check)
 - [Commit (~5 min)](#commit-5-min)
   - [Commit procedure](#commit-procedure)
@@ -65,18 +65,18 @@ This session audits **`Create, and Audit Weekly Ops Plan`** and its sub-items in
 | Dev Projects sub-item | Workflow phase | Ledger step(s) |
 |---|---|---|
 | *(cross-cutting)* Work summary + ops foundation | Phase 1 — Work Summary | `1.1`, `1.2`, `1.3` |
-| Customer Service | Phase 2 — CS Management | `2.1`, `2.2` |
-| Photographer Management | Phase 2 — Photographer Management | `2.3` |
+| Hiring | Phase 2 — Hiring | `2.1` |
+| Customer Service | Phase 2 — CS Management | `2.2`, `2.3` |
+| Photographer Management | Phase 2 — Photographer Management | `2.4` |
 | Sales Management | Phase 3 — Sales Management | `3.1`, `3.2` |
 | Finance & Admin | Phase 4 — Finance & Admin | `4.1` |
 | Post Production | Phase 6 — Post Production | `6.1` |
 | Social Media | Phase 6 — Social Media | `6.2` |
-| Workload & Hiring | Phase 7 — Workload & Hiring | `7.1` |
-| 1:1 meetings | Phase 8 — 1:1 Meetings | `8.1` |
+| 1:1 meetings | Phase 7 — 1:1 Meetings | `7.1` |
 
 Department **Health** / **Priority** is confirmed or updated **in the phase for that department** — not a separate cross-cutting phase. See [`work-management.md`](../../work/chrome-lot/work-management.md) department→phase map.
 
-Sub-items under **1:1 meetings** (e.g. remote transitions) are handled in Phase 8. **LESA Reshoot fixes** and other root-level Dev Projects are out of scope for this workflow unless surfaced in RED FLAGS.
+Sub-items under **1:1 meetings** (e.g. remote transitions) are handled in Phase 7. **LESA Reshoot fixes** and other root-level Dev Projects are out of scope for this workflow unless surfaced in RED FLAGS. Dev Projects sub-item may still read **Workload & Hiring** — workflow phase title is **Hiring**.
 
 <a id="inputs"></a>
 ## Inputs
@@ -110,7 +110,7 @@ Load via the router. Read these before starting:
 4. **Every turn:** `node scripts/workflow-progress.mjs status --workflow weekly-ops` — present only `current_step` (status includes date warnings if ledger `week_of` is wrong)
 5. **Phase banner** on every user-facing message: `**[Weekly Ops · Phase X.Y — title]**` (ledger uses `X.1` / `X.2` for sub-steps)
 6. **One sub-step per turn** — never bundle Phase 2.A + 2.B, or multiple flagged customers/invoices/deals in one turn when the skill says one-by-one
-7. **Table contract is the spec** — each sub-step lists the **exact tables** to present (column headers fixed). Fill every cell from the named data source; use `—` when data is missing. Do not add metrics, sections, or discussion topics outside that step's tables. **Do not `advance` until the step's contract is complete** (e.g. all work summary tables in `1.1`; scorecard in `1.2`; every HJD > 10 customer in `2.2`; every behind CS visit in `2.1`; every stale deal in `3.1`).
+7. **Table contract is the spec** — each sub-step lists the **exact tables** to present (column headers fixed). Fill every cell from the named data source; use `—` when data is missing. Do not add metrics, sections, or discussion topics outside that step's tables. **Do not `advance` until the step's contract is complete** (e.g. all work summary tables in `1.1`; scorecard in `1.2`; every hiring pipeline issue in `2.1`; every HJD > 10 customer in `2.3`; every behind CS visit in `2.2`; every stale deal in `3.1`).
 8. **One question per turn** — stale deals, invoice reviews, photographer actions, and delegation picks are separate turns
 9. **Advance after complete:** `node scripts/workflow-progress.mjs advance --workflow weekly-ops --step <id>`
 10. **Phase gate:** `node scripts/workflow-progress.mjs gate --workflow weekly-ops --phase check` before `commit` — `check` FIELD CHECK must pass
@@ -127,16 +127,16 @@ Load via the router. Read these before starting:
 | 4 | `1.1` | Yes — Phase 1-A work summary (volume + busier/slower customers) |
 | 5 | `1.2` | Yes — Phase 1-B Pipedrive activity scorecard |
 | 6 | `1.3` | Yes — Phase 1-C Work Management (daily records + ops priority) |
-| 7 | `2.1` | Yes — Phase 2-A CS check-in cadence + behind CS visits |
-| 8 | `2.2` | Yes — Phase 2-B High Job Days review |
-| 9 | `2.3` | Yes — Phase 2-C Photographer Management (roster + perf behind + monitoring) |
-| 10 | `3.1` | Yes — Phase 3-A Aaron sales (gaps → stale → overdue PD → plan week) |
-| 11 | `3.2` | Yes — Phase 3-B team sales oversight + behind Pipedrive |
-| 12 | `4.1` | Yes — Phase 4 — Finance & Admin (late invoices, one customer per turn) |
-| 13 | `6.1` | Yes — Phase 6 — Post Production (QA / delivery backlog) |
-| 14 | `6.2` | Yes — Phase 6 — Social Media (pipeline + posting currency) |
-| 15 | `7.1` | Yes — Phase 7 — Workload & Hiring (Hubstaff + hiring pipeline) |
-| 16 | `8.1` | Yes — Phase 8 — 1:1 meetings + late 1:1 visits |
+| 7 | `2.1` | Yes — Phase 2-A Hiring (job posts, ad health, pipeline actions) |
+| 8 | `2.2` | Yes — Phase 2-B CS check-in cadence + behind CS visits |
+| 9 | `2.3` | Yes — Phase 2-C High Job Days review + CS dept health |
+| 10 | `2.4` | Yes — Phase 2-D Photographer Management (roster + perf behind + monitoring) |
+| 11 | `3.1` | Yes — Phase 3-A Aaron sales (gaps → stale → overdue PD → plan week) |
+| 12 | `3.2` | Yes — Phase 3-B team sales oversight + behind Pipedrive |
+| 13 | `4.1` | Yes — Phase 4 — Finance & Admin (late invoices, one customer per turn) |
+| 14 | `6.1` | Yes — Phase 6 — Post Production (QA / delivery backlog) |
+| 15 | `6.2` | Yes — Phase 6 — Social Media (pipeline + posting currency) |
+| 16 | `7.1` | Yes — Phase 7 — 1:1 meetings + late 1:1 visits |
 | 17 | `check` | Yes — ops FIELD CHECK |
 | 18 | `commit` | Yes — log rollup + Team Activity Details + approved writes |
 
@@ -152,16 +152,16 @@ Load via the router. Read these before starting:
 | `1.1` | Tables 1-A (work volume), 1-B (busier customers), 1-C (slower customers) — one table per turn |
 | `1.2` | Table 1-D (activity scorecard) |
 | `1.3` | Table 1.3-A (daily ops records) + Table 1.3-B (ops priority letter) |
-| `2.1` | CS behind-summary + check-in cadence table — one behind customer per turn when flagged |
-| `2.2` | HJD review — one customer per turn when flagged |
-| `2.3` | Photographer roster + perf behind + monitoring — one monitored photographer per turn |
+| `2.1` | Hiring — job posts & ad health + applications by week — one pipeline issue per turn when flagged |
+| `2.2` | CS behind-summary + check-in cadence table — one behind customer per turn when flagged |
+| `2.3` | HJD review + CS dept health — one customer per turn when flagged |
+| `2.4` | Photographer roster + perf behind + monitoring — one monitored photographer per turn |
 | `3.1` | Aaron sales (gaps → stale deals one-by-one → overdue PD → plan week) |
 | `3.2` | Team sales oversight table (stale + overdue PD per member) |
 | `4.1` | Late invoice review — one customer per turn |
 | `6.1` | Post production currency table |
 | `6.2` | Social Media pipeline + posting — one stale/gap account per turn when flagged |
-| `7.1` | Workload & hiring table |
-| `8.1` | Late 1:1 visits table — one person per turn when overdue |
+| `7.1` | Late 1:1 visits table — one person per turn when overdue |
 | `check` | Table check (FIELD CHECK) |
 | `commit` | Commit checklist + summary table |
 
@@ -364,7 +364,7 @@ COMPLETED ACTIVITIES — WEEK-OVER-WEEK
 
 2. Summarize **backups required** for the week — which day(s), which backup-tier photographers (`field_1209` contains Backup), and whether coverage was adequate.
 
-3. From briefing **CL DEPARTMENTS** + **HIRING ACTIVE** (Knack hiring app) + Phases 3/7 context, recommend an **ops priority** for the planning week.
+3. From briefing **CL DEPARTMENTS** + **HIRING ACTIVE** (Knack hiring app) + Phase 2.1 / Phase 3 context, recommend an **ops priority** for the planning week.
 
 **Table 1.3-B — Ops priority this week** *(single-select — reply with letter)*
 
@@ -381,13 +381,63 @@ If **HIRING ACTIVE: no**, do not offer **B** — choose A, C, or D only.
 
 **Advance:** `1.3`
 
-<a id="phase-2-cs-and-photographer-management-20-min"></a>
-## Phase 2: CS & Photographer Management (~20 min)
+<a id="phase-2-hiring-cs-and-photographer-management-25-min"></a>
+## Phase 2: Hiring, CS & Photographer Management (~25 min)
 
-**Purpose:** Keep customer relationships healthy — check-in cadence plus dedicated **High Job Days (HJD)** review. **Behind tracking:** CS deals with no visit in **60+ days** and **overdue CS Pipedrive activities** are reviewed here — not in a central currency pass.
+**Purpose:** Open ops with **hiring pipeline health** when active — then customer relationships (check-in cadence, HJD) and field photographer management.
 
-<a id="part-a-check-in-cadence-21"></a>
-### Part A — Check-in Cadence (`2.1`)
+<a id="part-a-hiring-21"></a>
+### Part A — Hiring (`2.1`)
+
+**Purpose:** Review **active job posts**, the **health of each ad**, and application import cadence — decide actions to keep the pipeline healthy (repost jobs, step in on applicant review, or redelegate review). Covers **Hiring** Dev Project sub-item (may still be named Workload & Hiring in Notion).
+
+**Data source:** Briefing **HIRING — KNACK HIRING APP** (open positions `object_2`, job ads `object_23` field_453, applications `object_4` field_113). See [`work-management.md`](../../work/chrome-lot/work-management.md).
+
+1. Present **Table 2.1-A — Hiring status:**
+
+| HIRING ACTIVE | Open positions | Review-wk apps | Pipeline flags (briefing) |
+|---------------|----------------|----------------|---------------------------|
+
+2. **If HIRING ACTIVE: no** — note "Hiring N/A — no open positions"; skip Tables 2.1-B–D; still confirm **Table 2.1-H** dept health if Aaron wants baseline confirm; **advance `2.1`**.
+
+3. **If HIRING ACTIVE: yes** — present **Table 2.1-B — Active job posts & ad health** (one row per job ad linked to an open position):
+
+| Position | Ad health (field_453) | Review-wk apps (position) | Healthy? |
+|----------|----------------------|---------------------------|----------|
+
+Flag: **Unhealthy** or blank ad health; open position with **no linked job ad** (briefing RED FLAG).
+
+4. Present **Table 2.1-C — Applications by week** (field_113 import date):
+
+| Week of (Mon) | Apps imported | Healthy? |
+|---------------|---------------|----------|
+
+Healthy = regular imports while hiring (`≥3`/wk good; `0` while active = unhealthy).
+
+5. Review **one pipeline issue per turn** when any of: unhealthy/blank ad, missing ad on open req, zero-import week while hiring active, review week zero apps:
+
+**Table 2.1-D — Hiring action** *(one row per turn)*
+
+| Issue | Position / week | Evidence | Action proposed |
+|-------|-----------------|----------|-----------------|
+
+Lettered options per turn: **A** Repost / refresh job ad · **B** Step in — Aaron reviews applicants this week · **C** Redelegate applicant review (name owner + handoff) · **D** Monitor — no action · **E** Defer — log reason in `Key Decisions`
+
+If **zero** pipeline issues: single row `Hiring pipeline healthy — no actions` and continue.
+
+6. **Department health — Delegation & Hiring + Personnel Management:** Present **Table 2.1-H** — one row per department:
+
+| Department | Health | Priority | Change? | Reason |
+|------------|--------|----------|---------|--------|
+
+Confirm or update each on CL Departments with approval (one department per turn when changing).
+
+**Outputs:** Todoist tasks for repost/review handoffs; Process Street **Daily Hiring Follow Up** nudge if standing workflow stale (case-by-case approval).
+
+**Advance:** `2.1`
+
+<a id="part-b-check-in-cadence-22"></a>
+### Part B — Check-in Cadence (`2.2`)
 
 **Behind CS visits (mandatory):**
 
@@ -417,7 +467,7 @@ If **zero** behind CS signals: single row `No behind CS flags` and continue to b
    - Behind customers from Table 2-A1 not yet resolved
    - AT RISK / Needs Attention stage first
    - Days overdue (most stale first)
-   - HJD > 10 (from Phase 2-B list)
+   - HJD > 10 (from Phase 2.3 list)
    - Account value
    - Grouped by geography where possible
 4. **Delegation:** Assign stops to Tristen, Lexie, Ran, or Aaron based on deal ownership. Spread across the week.
@@ -430,10 +480,10 @@ If **zero** behind CS signals: single row `No behind CS flags` and continue to b
 
 Propose Pipedrive stop activities — **case-by-case approval** before create. Cap: **max 3 Pipedrive activities per day** across all phases.
 
-**Advance:** `2.1`
+**Advance:** `2.2`
 
-<a id="part-b-high-job-days-review-22"></a>
-### Part B — High Job Days Review (`2.2`)
+<a id="part-c-high-job-days-review-23"></a>
+### Part C — High Job Days Review (`2.3`)
 
 **Purpose:** Dedicated HJD pass — customers going too long without photos (`field_1035` **display value in days**; flag **> 10**, watch **8–10**).
 
@@ -448,7 +498,7 @@ Propose Pipedrive stop activities — **case-by-case approval** before create. C
 - **> 10** → must review in this phase
 - **8–10** → watch list only unless also AT RISK / Needs Attention
 
-**Present one customer per turn — Table 2-B:**
+**Present one customer per turn — Table 2.3-B:**
 
 | Customer | HJD (days) | AM | Volume Δ (Phase 1) | Health | Action proposed |
 |----------|------------|-----|-------------------|--------|-----------------|
@@ -457,23 +507,23 @@ If **zero** customers HJD > 10: single row `No HJD flags` and continue.
 
 **Knack reference:** `field_1035` High Job Days — see [`knack-fields.md`](../../systems/knack-fields.md).
 
-**Department health — Customer Service:** From briefing **CL DEPARTMENTS**. Compare to Phase 2 evidence. Present **Table 2-H**:
+**Department health — Customer Service:** From briefing **CL DEPARTMENTS**. Compare to Phase 2 evidence. Present **Table 2.3-H**:
 
 | Health | Priority | Change? | Reason |
 |--------|----------|---------|--------|
 
 If **Health** or **Priority** changes: lettered confirm → **`personal_notion_update_page`** on CL Departments (`341f40c2-487b-80cc-976e-c0e86b79e3fa`) with approval. If unchanged: confirm and advance.
 
-**Advance:** `2.2`
+**Advance:** `2.3`
 
-<a id="part-c-photographer-management-23"></a>
-### Part C — Photographer Management (`2.3`)
+<a id="part-d-photographer-management-24"></a>
+### Part D — Photographer Management (`2.4`)
 
 **Purpose:** Field photographer roster, perf-meeting cadence, and active monitoring — covers **Photographer Management** Dev Project sub-item (formerly Service Delivery).
 
 **Data source:** Briefing **PHOTOGRAPHER MANAGEMENT** (Knack `object_7` roster, `field_985` since 1:1, monitoring flags). See [`operations.md`](../../work/chrome-lot/operations.md).
 
-1. Present **Table 2-C0 — Photographer summary** from briefing:
+1. Present **Table 2.4-C0 — Photographer summary** from briefing:
 
 | Signal | Count |
 |--------|-------|
@@ -481,28 +531,28 @@ If **Health** or **Priority** changes: lettered confirm → **`personal_notion_u
 | Perf meetings behind (≥30 days since 1:1) | |
 | Under active monitoring | |
 
-2. Present **Table 2-C1 — Roster summary** (all active photographers from briefing):
+2. Present **Table 2.4-C1 — Roster summary** (all active photographers from briefing):
 
 | Name | Rank | Grade | Jobs (review wk) | Call-ins | Issues/car | Since 1:1 (days) | Monitoring |
 |------|------|-------|------------------|----------|------------|------------------|------------|
 
-3. Present **Table 2-C2 — Perf meetings behind** when count > 0:
+3. Present **Table 2.4-C2 — Perf meetings behind** when count > 0:
 
 | Photographer | Days since 1:1 | AM | Action proposed |
 |--------------|----------------|-----|-----------------|
 
 4. Review **one monitored photographer per turn** when active monitoring count > 0 — pull latest `object_57` comment (`field_1006` = Photographer) if action needed:
 
-**Table 2-C3 — Monitored photographer** *(one row per turn)*
+**Table 2.4-C3 — Monitored photographer** *(one row per turn)*
 
 | Name | Flags | Grade | Latest comment | Action |
 |------|-------|-------|----------------|--------|
 
 If **zero** perf-behind and **zero** monitoring: note "Photographer roster confirmed — no flags" and continue.
 
-**Department health — Photographer Management:** Present **Table 2.3-H** (same contract as Table 2-H). Confirm or update on CL Departments with approval.
+**Department health — Photographer Management:** Present **Table 2.4-H** (same contract as Table 2.3-H). Confirm or update on CL Departments with approval.
 
-**Advance:** `2.3`
+**Advance:** `2.4`
 
 <a id="phase-3-sales-management-12-min"></a>
 ## Phase 3: Sales Management (~12 min)
@@ -586,7 +636,7 @@ If **zero** overdue: single row `No overdue PD flags` and continue.
 
 **Outputs:** Pipedrive activities for Aaron's sales stops. Pipedrive activities or nudges for team sales. Todoist tasks for follow-ups (case-by-case approval).
 
-**Department health — Account Management:** Present **Table 3-H** (same contract as Table 2-H). Confirm or update on CL Departments with approval.
+**Department health — Account Management:** Present **Table 3-H** (same contract as Table 2.3-H). Confirm or update on CL Departments with approval.
 
 **Advance:** `3.2`
 
@@ -628,7 +678,7 @@ If **zero** overdue: single row `No overdue PD flags` and continue.
 
 **Outputs:** Pipedrive escalation activities for invoice issues. Todoist admin follow-ups if needed (case-by-case approval).
 
-**Department health — Admin:** Present **Table 4-H** (same contract as Table 2-H). Confirm or update on CL Departments with approval.
+**Department health — Admin:** Present **Table 4-H** (same contract as Table 2.3-H). Confirm or update on CL Departments with approval.
 
 **Advance:** `4.1`
 
@@ -683,56 +733,19 @@ Review flagged rows **one signal at a time** if any require action. Create Todoi
 
 If **zero** gap and stale flags on active stages: single row `No behind Social Media flags` and continue.
 
-**Department health — Social Media:** Present **Table 6.2-H** (same contract as Table 2-H). Confirm or update on CL Departments with approval.
+**Department health — Social Media:** Present **Table 6.2-H** (same contract as Table 2.3-H). Confirm or update on CL Departments with approval.
 
 **Advance:** `6.2`
 
-<a id="phase-7-workload-and-hiring-5-min"></a>
-## Phase 7: Workload & Hiring (~5 min)
-
-**Purpose:** Team capacity and hiring pipeline — covers **Workload & Hiring** Dev Project sub-item.
-
-**Data source:** Briefing **HIRING — KNACK HIRING APP** (open positions, job ad health, applications by week) + Hubstaff section + Process Street **Daily Hiring Follow Up** standing workflow status (if in flags) + Todoist hiring tasks.
-
-**If HIRING ACTIVE: no** — present Table 7-A only; note hiring pipeline N/A and advance.
-
-**If HIRING ACTIVE: yes** — present **Table 7-B — Open positions & ad health** from briefing:
-
-| Position | Status | Ad health (field_453) | Review-wk apps |
-|----------|--------|----------------------|----------------|
-
-Then **Table 7-C — Applications by week** (from briefing; flag weeks with zero imports):
-
-| Week of (Mon) | Apps imported | Healthy? |
-|---------------|---------------|----------|
-
-**Present exactly Table 7-A:**
-
-| Signal | Detail | Flags | Action this week |
-|--------|--------|-------|------------------|
-| Hubstaff under-hours | member + hrs | | |
-| Low activity % | member + % | | |
-| Open hiring reqs / follow-ups | from briefing or Todoist | | |
-| Call-ins this week | from briefing | | |
-
-**Department health — Delegation & Hiring + Personnel Management:** Present **Table 7-H** — one row per department:
-
-| Department | Health | Priority | Change? | Reason |
-|------------|--------|----------|---------|--------|
-
-Confirm or update each on CL Departments with approval (one department per turn when changing).
-
-**Advance:** `7.1`
-
-<a id="phase-8-11-meetings-5-min"></a>
-## Phase 8: 1:1 Meetings (~5 min)
+<a id="phase-7-11-meetings-5-min"></a>
+## Phase 7: 1:1 Meetings (~5 min)
 
 **Purpose:** Relationship cadence and scheduled check-ins — covers **1:1 meetings** Dev Project sub-item (including sub-tasks like remote transitions). **Behind tracking:** overdue 1:1 visits live here — not in a central currency pass.
 
 **Data source:** `context/people/index.md` (1:1 cadence + last-meeting dates) + briefing RED FLAGS if present + Dev Projects sub-items under **1:1 meetings** with `This Week` checked.
 
 1. Pull everyone **overdue for a 1:1** per people directory cadence (days since last 1:1 vs. target interval).
-2. Present **Table 8-A0 — Late 1:1 summary:**
+2. Present **Table 7-A0 — Late 1:1 summary:**
 
 | Person | Days overdue | Last 1:1 | Target cadence | Dev Project sub-item? |
 |--------|--------------|----------|----------------|----------------------|
@@ -742,7 +755,7 @@ Confirm or update each on CL Departments with approval (one department per turn 
 5. Pick top 1–2 overdue 1:1s (and any required transition meetings) to schedule this week
 6. Any delegation decisions from earlier phases that need to be communicated in 1:1s
 
-**Present one person per turn when overdue — Table 8-A1:**
+**Present one person per turn when overdue — Table 7-A1:**
 
 | Person / topic | Days overdue | Action this week |
 |----------------|--------------|------------------|
@@ -751,7 +764,7 @@ If **zero** overdue 1:1s: single row `No late 1:1 flags` and advance.
 
 **Outputs:** Calendar events for 1:1 meetings. Teams messages if needed.
 
-**Advance:** `8.1`
+**Advance:** `7.1`
 
 <a id="check-ops-field-check-check"></a>
 ## Check: Ops FIELD CHECK (`check`)
@@ -765,6 +778,8 @@ If **zero** overdue 1:1s: single row `No late 1:1 flags` and advance.
 | Phase 1 | Work volume + busier/slower customers (Tables 1-A–C) | |
 | Phase 1 | Aaron/Lexie/Tristen/Ran/Total Activities computed | |
 | Phase 1 | Daily ops records reviewed + Ops Priority chosen | |
+| Phase 2 | Hiring job posts reviewed + pipeline actions (or N/A if not hiring) | |
+| Phase 2 | Delegation & Hiring + Personnel Management dept health confirmed or updated | |
 | Phase 2 | All behind CS visits reviewed (or none flagged) | |
 | Phase 2 | CS check-in batch proposed (or N/A + reason) | |
 | Phase 2 | All HJD > 10 customers reviewed (or none flagged) | |
@@ -783,10 +798,8 @@ If **zero** overdue 1:1s: single row `No late 1:1 flags` and advance.
 | Phase 6 | Social Media pipeline + posting reviewed (or N/A + reason) | |
 | Phase 6 | All behind social accounts reviewed (or none flagged) | |
 | Phase 6 | Social Media dept health confirmed or updated | |
-| Phase 7 | Workload / hiring actions named (or N/A if not hiring) | |
-| Phase 7 | Delegation & Hiring + Personnel Management dept health confirmed or updated | |
-| Phase 8 | All late 1:1s reviewed (or none flagged) | |
-| Phase 8 | 1:1s picked for scheduling | |
+| Phase 7 | All late 1:1s reviewed (or none flagged) | |
+| Phase 7 | 1:1s picked for scheduling | |
 | Pending writes | Pipedrive / Knack / Todoist / Calendar / Notion list | |
 
 **Do not proceed to `commit` until Table check passes** (or Aaron approves documented N/A per row).
@@ -806,7 +819,7 @@ Run: `node scripts/workflow-progress.mjs gate --workflow weekly-ops --phase chec
 ### Commit procedure
 
 1. **Create Weekly Ops Log entry:** Name = `Week of [planning Monday YYYY-MM-DD]`, Meeting Date = today (CT). Use `personal_notion_create_database_entry` on Weekly Ops Meeting Log DB.
-2. **Summary table:** Everything planned across Phases 1–8 (CS stops, behind items cleared, sales stops, invoice escalations, photographer actions, 1:1s)
+2. **Summary table:** Everything planned across Phases 1–7 (hiring actions, CS stops, behind items cleared, sales stops, invoice escalations, photographer actions, 1:1s)
 
 **Table commit-A — Ops summary**
 
@@ -814,16 +827,16 @@ Run: `node scripts/workflow-progress.mjs gate --workflow weekly-ops --phase chec
 |------|------------------------|-------|
 | Ops priority | from Phase 1.3 | Aaron |
 | Backups / coverage | days + actions from 1.3 | |
+| Hiring | job posts / review handoffs from 2.1 | |
 | CS check-ins | count + assignees | |
 | Behind CS cleared | count resolved / deferred | |
 | Invoice escalations | count | |
 | Aaron sales stops | count | |
 | Behind PD (Aaron) | overdue + stale resolved | |
 | Team sales nudges | | |
-| Photographer actions | from Phase 2.3 | |
+| Photographer actions | from Phase 2.4 | |
 | Post production / QA | actions from 6.1 | |
 | Social Media | gap/stale clears + posting notes from 6.2 | |
-| Workload / hiring | | |
 | Late 1:1s scheduled | | |
 | Department health | all in-phase confirms/updates done | |
 
@@ -871,7 +884,7 @@ Run: `node scripts/workflow-progress.mjs gate --workflow weekly-ops --phase chec
 
    Each activity line: `[type] subject -- deal name -- date`. For completed activities, show `marked_as_done_time` date. For open activities, show `due_date`. Prefix overdue open activities with `[OVERDUE]`. If a user has 0 activities in a section, show "None" instead of an empty list. Use `---` dividers between users.
 
-7. **Execute remaining:** Create any Todoist/Calendar/Pipedrive/Knack items not yet committed during Phases 1–8 (each with prior approval).
+7. **Execute remaining:** Create any Todoist/Calendar/Pipedrive/Knack items not yet committed during Phases 1–7 (each with prior approval).
 8. **Verify FIELD CHECK** — re-run Table check; confirm nothing is blank without N/A + reason.
 
 **Advance:** `commit` — workflow complete.
@@ -879,8 +892,8 @@ Run: `node scripts/workflow-progress.mjs gate --workflow weekly-ops --phase chec
 <a id="cross-cutting-rules"></a>
 ## Cross-Cutting Rules
 
-- **Table contract per phase.** Ledger `current_step` determines which tables are in scope. Phase 1 = work summary (1.1) → scorecard (1.2) → work management (1.3). Phase 2 = CS (2.1) → HJD + CS dept health (2.2) → photographer mgmt + dept health (2.3). Phase 3 = sales (3.1–3.2) + Account Management health. Phases 4–8 per domain with in-phase dept health where mapped. Phase 6 = post production (6.1) → social media (6.2).
-- **Behind tracking in domain sections.** Stale CS visits → Phase 2.1. HJD → Phase 2.2. Photographer monitoring + perf behind → Phase 2.3. Stale sales + overdue Pipedrive → Phase 3.1–3.2. Social Media gaps/stale → Phase 6.2. Late 1:1 visits → Phase 8.1.
+- **Table contract per phase.** Ledger `current_step` determines which tables are in scope. Phase 1 = work summary (1.1) → scorecard (1.2) → work management (1.3). Phase 2 = Hiring (2.1) → CS (2.2) → HJD + CS dept health (2.3) → photographer mgmt + dept health (2.4). Phase 3 = sales (3.1–3.2) + Account Management health. Phases 4–7 per domain with in-phase dept health where mapped. Phase 6 = post production (6.1) → social media (6.2).
+- **Behind tracking in domain sections.** Unhealthy hiring pipeline → Phase 2.1. Stale CS visits → Phase 2.2. HJD → Phase 2.3. Photographer monitoring + perf behind → Phase 2.4. Stale sales + overdue Pipedrive → Phase 3.1–3.2. Social Media gaps/stale → Phase 6.2. Late 1:1 visits → Phase 7.1.
 - **FIELD CHECK gate.** `check` must pass before `commit`.
 - **Route every item into a bucket.** Each surfaced item is Automated (n8n), Delegated (team 1:1s), or a Scheduled slice (calendar + Todoist mirror).
 - **Capacity is non-negotiable.** If total planned ops work exceeds available ops hours minus 10–15% buffer, the system pushes back. Something must move.
@@ -899,12 +912,11 @@ Run: `node scripts/workflow-progress.mjs gate --workflow weekly-ops --phase chec
 - **Phase 0:** `output/weekly-ops-briefing-YYYY-MM-DD.md` generated.
 - **Phase 0b:** RED FLAGS + planning context presented; no fixes attempted.
 - **Phase 1:** Work summary + activity scorecard + daily ops records + ops priority.
-- **Phase 2:** Behind CS + HJD + photographer management decisions.
+- **Phase 2:** Hiring pipeline actions + behind CS + HJD + photographer management decisions.
 - **Phase 3:** Deal gaps cleared + overdue PD + stale deals + Aaron sales plan + team behind PD actions.
 - **Phase 4:** Invoice escalation decisions.
 - **Phase 6:** Post production / QA actions + Social Media pipeline/posting review.
-- **Phase 7:** Workload and hiring actions.
-- **Phase 8:** Late 1:1 review + scheduling decisions.
+- **Phase 7:** Late 1:1 review + scheduling decisions.
 - **check:** Ops FIELD CHECK pass.
 - **commit:** Weekly Ops Log entry + Team Activity Details + approved external writes.
 
@@ -915,7 +927,7 @@ Run: `node scripts/workflow-progress.mjs gate --workflow weekly-ops --phase chec
 - **weekly-ops-pull / weekly-data-pull script failure:** Fall back to parallel MCP pulls per Phase 0 list; note missing sections in Table 0b-A.
 - **Prior Weekly Meeting Log missing activity KPIs:** Render "Last Wk" column as `—`; note in 0b footer.
 - **Pipedrive MCP rate limits:** Present partial scorecard; retry per-user pulls; document gaps in `Key Decisions`.
-- **Knack unavailable:** Skip photographer section (Phase 2.3); CS invoice fields from last briefing cache if present; otherwise defer Phase 4 with documented N/A. Post production (Phase 6) may defer if QA pull missing.
+- **Knack unavailable:** Skip photographer section (Phase 2.4); CS invoice fields from last briefing cache if present; otherwise defer Phase 4 with documented N/A. Post production (Phase 6) may defer if QA pull missing.
 
 <a id="see-also"></a>
 ## See also
