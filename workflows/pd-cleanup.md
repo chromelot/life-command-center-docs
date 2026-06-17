@@ -28,11 +28,11 @@
 ---
 
 
-## Trigger
+## Trigger {#trigger}
 
 Activates on **pd cleanup**, **pipedrive cleanup**, **deal cleanup**, or **crm cleanup**. Target duration: ~30–45 min first run; faster on repeat when counts are low.
 
-## Execution Protocol (mandatory)
+## Execution Protocol (mandatory) {#execution-protocol-mandatory}
 
 Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts.md`, `context/systems/workflow-logs.md`.
 
@@ -43,7 +43,7 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 5. Before `5.0`: `gate --phase 5`
 6. Step `5.0` — Table 5.check + `workflow-notion-log complete`
 
-### Ledger step order
+### Ledger step order {#ledger-step-order}
 
 | Step | Skill phase |
 |------|-------------|
@@ -58,7 +58,7 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 | `4.1` | Phase 4 Wrong pipeline |
 | `5.0` | Phase 5 Commit summary |
 
-### Output contracts
+### Output contracts {#output-contracts}
 
 **Table 0-A — Baseline counts** *(step `0`)*
 
@@ -94,7 +94,7 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 | Approvals / executes counts logged | |
 | Session Complete = Complete | |
 
-## Inputs
+## Inputs {#inputs}
 
 Read via router before starting:
 
@@ -102,7 +102,7 @@ Read via router before starting:
 - `context/systems/knack-fields.md` — `field_464` (current customer), `field_1591` (photo CS deal link), `field_396` (social product), `field_1438` (AM)
 - `context/work/chrome-lot/customer-service.md` — ownership, naming conventions
 
-## Interaction style
+## Interaction style {#interaction-style}
 
 - **AI decides, Aaron approves — one write at a time.** For every proposed mutation, state "I recommend X because Y" and use AskQuestion on **that item only**: **Approve** / **Skip** / **Stop phase**.
 - **Never batch-approve.** Do not ask "approve all 48 deletes?" Do not run `--execute --batch deletes`. Aaron must see and approve each write individually.
@@ -110,7 +110,7 @@ Read via router before starting:
 - **Do not use Pipedrive MCP for cleanup writes** during this workflow — script + approved manifest only (audit trail in `output/pd-cleanup-execute-log.json`).
 - **Re-analyze after each execute call** to confirm fixes and refresh counts.
 
-## Approved manifest (required for any write)
+## Approved manifest (required for any write) {#approved-manifest-required-for-any-write}
 
 Path: `output/pd-cleanup-approved.json` — JSON array, one object per approved item.
 
@@ -144,7 +144,7 @@ The script **refuses `--execute` without `--approved`**. It will not run an enti
 
 After a successful run: trim executed entries from the manifest (or reset to `[]`), re-analyze, continue.
 
-## Phase 0: Analyze (silent)
+## Phase 0: Analyze (silent) {#phase-0-analyze-silent}
 
 Run on lcc-hub:
 
@@ -158,11 +158,11 @@ Initialize `output/pd-cleanup-approved.json` as `[]` if missing.
 
 Open with summary counts. Group work by phase below — but **approval stays per item within each phase**.
 
-## Phase 1: Deal completeness
+## Phase 1: Deal completeness {#phase-1-deal-completeness}
 
 Order: **creates → adopts → deletes** (deletes last — most destructive).
 
-### Per-item loop (all of Phase 1)
+### Per-item loop (all of Phase 1) {#per-item-loop-all-of-phase-1}
 
 For each candidate item in the current sub-step:
 
@@ -180,44 +180,44 @@ node scripts/pd-data-cleanup.mjs --execute --approved output/pd-cleanup-approved
 
 Then clear executed entries and re-run Phase 0 analyze.
 
-### 1a — Create photo CS + social
+### 1a — Create photo CS + social {#1a-create-photo-cs-social}
 
 Categories: `1_create_photo_cs`, `2_create_social`. Photo creates also write Knack `field_1591`.
 
-### 1b — Adopt unclaimed photo deals
+### 1b — Adopt unclaimed photo deals {#1b-adopt-unclaimed-photo-deals}
 
 Category: `3_adopt_photo`. Show score and stale `field_1591` replacement if applicable.
 
-### 1c — Delete ex-customer open deals
+### 1c — Delete ex-customer open deals {#1c-delete-ex-customer-open-deals}
 
 Category: `4_delete_ex_customer`. **Warn:** sets `status=deleted`. One AskQuestion per `deal_id`.
 
-## Phase 2: Missing orgs + POCs
+## Phase 2: Missing orgs + POCs {#phase-2-missing-orgs-pocs}
 
-### 2a — Missing org (`5_missing_org`)
+### 2a — Missing org (`5_missing_org`) {#2a-missing-org-5_missing_org}
 
 Show deal, proposed org link or create. One approval per `deal_id`.
 
-### 2b — Missing POC (`6_missing_poc`)
+### 2b — Missing POC (`6_missing_poc`) {#2b-missing-poc-6_missing_poc}
 
 Only propose execute when `proposed_person_id` is set (single org contact). Ambiguous → `manual_review`, no append.
 
-## Phase 3: Duplicates
+## Phase 3: Duplicates {#phase-3-duplicates}
 
 Category: `7_duplicates`. One approval per **merge pair** (`keeper_deal_id` + `merge_deal_id`). Confirm keeper when unclear.
 
-## Phase 4: Wrong pipeline
+## Phase 4: Wrong pipeline {#phase-4-wrong-pipeline}
 
 Category: `8_wrong_pipeline`. One approval per `deal_id`. Sales-style deals in CS pipeline stay in `manual_review` — no execute.
 
-## Phase 5: Commit summary
+## Phase 5: Commit summary {#phase-5-commit-summary}
 
 1. Present final summary counts vs Phase 0 baseline.
 2. List remaining `manual_review` items.
 3. Pipedrive notes: **per-note approval** before any `add_note` MCP call.
 4. Point to `output/pd-cleanup-execute-log.json` for audit trail.
 
-## Out of scope (v1)
+## Out of scope (v1) {#out-of-scope-v1}
 
 - Batch approve or execute without `--approved` manifest
 - Auto-merge without keeper confirmation

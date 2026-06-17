@@ -21,9 +21,9 @@
   - [Phase 3: Numeric Retrospective (~5 min)](#phase-3-numeric-retrospective-5-min)
   - [Phase 3b: Monthly Health Trend Review (~8 min)](#phase-3b-monthly-health-trend-review-8-min)
 - [Part B -- Look Around (Environment scan) -- ~15 min](#part-b-look-around-environment-scan-15-min)
-  - [Phase 4: People & Relationships (~7 min)](#phase-4-people-relationships-7-min)
+  - [Phase 4: People & Relationships (~7 min)](#phase-4-people-and-relationships-7-min)
   - [Phase 5: External Environment (~5 min)](#phase-5-external-environment-5-min)
-  - [Phase 6: Capacity & Time Reality (~3 min)](#phase-6-capacity-time-reality-3-min)
+  - [Phase 6: Capacity & Time Reality (~3 min)](#phase-6-capacity-and-time-reality-3-min)
 - [Part C -- Look Forward Strategically (per domain) -- ~35 min](#part-c-look-forward-strategically-per-domain-35-min)
   - [Sustained Unhealthy Domain Gate (conditional, before domain blocks)](#sustained-unhealthy-domain-gate-conditional-before-domain-blocks)
   - [Phase 7: Personal Strategic Forward-Look (~10 min)](#phase-7-personal-strategic-forward-look-10-min)
@@ -32,26 +32,26 @@
 - [Part D -- Plan the Quarter Tactically -- ~15 min](#part-d-plan-the-quarter-tactically-15-min)
   - [Phase 10: Commit Projects to This Quarter (~10 min)](#phase-10-commit-projects-to-this-quarter-10-min)
   - [Phase 11: Per-Domain KPI Targets + Instrumentation Gate (~5 min)](#phase-11-per-domain-kpi-targets-instrumentation-gate-5-min)
-- [Part E -- System & Commit -- ~15 min](#part-e-system-commit-15-min)
-  - [Phase 12: System & Cadence Calibration (~5 min)](#phase-12-system-cadence-calibration-5-min)
+- [Part E -- System & Commit -- ~15 min](#part-e-system-and-commit-15-min)
+  - [Phase 12: System & Cadence Calibration (~5 min)](#phase-12-system-and-cadence-calibration-5-min)
   - [Phase 13: Calendar Stake-in-the-Ground (~5 min)](#phase-13-calendar-stake-in-the-ground-5-min)
   - [Phase 13b: Planning Context Capture (~3 min)](#phase-13b-planning-context-capture-3-min)
-  - [Phase 14: Commit & Log (~5 min)](#phase-14-commit-log-5-min)
+  - [Phase 14: Commit & Log (~5 min)](#phase-14-commit-and-log-5-min)
 - [Key Rules](#key-rules)
 - [Outputs](#outputs)
-- [Failure modes & graceful degradation](#failure-modes-graceful-degradation)
+- [Failure modes & graceful degradation](#failure-modes-and-graceful-degradation)
 - [See also](#see-also)
 
 ---
 
 
-## Trigger
+## Trigger {#trigger}
 
 This skill activates when Aaron says "quarterly plan", "strategy review", "quarterly review", or "big picture". **Target duration: 90-120 minutes.** Run in the first week of each quarter or when a major life/business shift occurs.
 
 A lightweight **mid-quarter checkpoint** (~15 min, week 6) on "mid-quarter check" is a separate follow-up workflow (not covered by this SKILL).
 
-## Inputs
+## Inputs {#inputs}
 
 Load via the router:
 
@@ -67,11 +67,11 @@ Load via the router:
 - `context/work/turbo-gear/overview.md` + `architecture.md` + `contractors.md` — TG strategic block
 - `context/family/custody/index.md` — Part B people & relationships
 
-## Session framing
+## Session framing {#session-framing}
 
 This is the rarest recurring planning session, so it carries the most weight. The goal is not to tactically pick projects and set KPIs — that's mostly the output. The goal is to produce strategic clarity: what matters, what's changed, what we're building toward over the next 2-3 quarters, and what we're deliberately saying no to.
 
-## Execution Protocol (mandatory)
+## Execution Protocol (mandatory) {#execution-protocol-mandatory}
 
 Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts.md`, and `context/systems/workflow-logs.md`.
 
@@ -82,7 +82,7 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 5. Run `gate --phase B|C|D|E` before crossing part boundaries
 6. Step `E.4` — `workflow-notion-log complete`
 
-### Ledger step order
+### Ledger step order {#ledger-step-order}
 
 | Step | Skill section |
 |------|---------------|
@@ -108,7 +108,7 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 | `E.3` | Phase 13b Planning context — Table E.3-A |
 | `E.4` | Phase 14 Commit & log — Table E.check |
 
-### Present exactly — Part A
+### Present exactly — Part A {#present-exactly-part-a}
 
 | Step | Present exactly |
 |------|-----------------|
@@ -135,7 +135,7 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 | Domain | Mo1 | Mo2 | Mo3 | Streak |
 |--------|-----|-----|-----|--------|
 
-### Present exactly — Parts C–E
+### Present exactly — Parts C–E {#present-exactly-parts-ce}
 
 | Step | Present exactly |
 |------|-----------------|
@@ -160,7 +160,7 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 | Outcome | KPI | Target | Instrumented? | Gap |
 |---------|-----|--------|---------------|-----|
 
-### Present exactly — Part B (narrative → tables)
+### Present exactly — Part B (narrative → tables) {#present-exactly-part-b-narrative-tables}
 
 **Table B.1-A — People & relationships** *(step `B.1`)*
 
@@ -207,9 +207,9 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 | Context file updates (if any) done | |
 | Session Complete = Complete | |
 
-## Procedure
+## Procedure {#procedure}
 
-## Project Assessment Rules (apply everywhere in this workflow)
+## Project Assessment Rules (apply everywhere in this workflow) {#project-assessment-rules-apply-everywhere-in-this-workflow}
 
 When reviewing or planning projects in any phase:
 
@@ -218,7 +218,7 @@ When reviewing or planning projects in any phase:
 3. **Ask before guessing scope.** If a project's size, effort, or dependencies aren't clear from the Dev Projects data, ask Aaron before deciding whether to keep, drop, or add it. Offer AskQuestion with specific scope options.
 4. **Set a Due Date on every project assigned to the current quarter.** The Dev Projects DB has a `Due Date` date property. In Phase 10, walk through each assigned project and either set the date or mark Off Track if the date can't be committed. Projects tagged to future quarters don't need a due date yet.
 
-## Pre-Flight (silent)
+## Pre-Flight (silent) {#pre-flight-silent}
 
 Refresh Withings body-comp into Notion for the quarter:
 
@@ -261,9 +261,9 @@ Orient: "We're closing Q[X] and planning Q[Y]. This session runs in five parts -
 
 ---
 
-## Part A -- Look Back (Retrospective) -- ~25 min
+## Part A -- Look Back (Retrospective) -- ~25 min {#part-a-look-back-retrospective-25-min}
 
-### Phase 1: Wide Retrospective (narrative, ~10 min)
+### Phase 1: Wide Retrospective (narrative, ~10 min) {#phase-1-wide-retrospective-narrative-10-min}
 
 Before touching numbers, ask via AskQuestion (one at a time or batched):
 
@@ -275,7 +275,7 @@ Before touching numbers, ask via AskQuestion (one at a time or batched):
 
 These lessons get captured in the Quarterly Meeting Log `Lessons Learned` field at the end. Surface them before the data biases the reflection.
 
-### Phase 2: Values Re-examination (~10 min)
+### Phase 2: Values Re-examination (~10 min) {#phase-2-values-re-examination-10-min}
 
 Not a yes/no "have your values shifted?" check. For each of the 6 values in the Values DB:
 
@@ -286,7 +286,7 @@ Not a yes/no "have your values shifted?" check. For each of the 6 values in the 
 
 End of Phase 2, ask: **"Which value is most at risk in Q[next]? Which is strongest and can support the others?"** Capture the answer -- it informs Part C.
 
-### Phase 3: Numeric Retrospective (~5 min)
+### Phase 3: Numeric Retrospective (~5 min) {#phase-3-numeric-retrospective-5-min}
 
 Run the dual-level trend tables, compressed. Display one table per domain:
 
@@ -337,7 +337,7 @@ TURBO GEAR -- INTRA-QUARTER TRAJECTORY
 
 Pick the **2-3 metrics that matter most for Q[next]** and name them explicitly. Everything else is noise this round.
 
-### Phase 3b: Monthly Health Trend Review (~8 min)
+### Phase 3b: Monthly Health Trend Review (~8 min) {#phase-3b-monthly-health-trend-review-8-min}
 
 Pull the **3 Monthly Plan Log entries** from the outgoing quarter (chronological). Build domain-health and life-context tables:
 
@@ -366,9 +366,9 @@ LIFE HEALTH -- UNHEALTHY COUNT PER MONTH
 
 ---
 
-## Part B -- Look Around (Environment scan) -- ~15 min
+## Part B -- Look Around (Environment scan) -- ~15 min {#part-b-look-around-environment-scan-15-min}
 
-### Phase 4: People & Relationships (~7 min)
+### Phase 4: People & Relationships (~7 min) {#phase-4-people-and-relationships-7-min}
 
 Pull `context/people/index.md` and any overdue 1:1s from the Weekly Meeting Log entries.
 
@@ -378,7 +378,7 @@ Pull `context/people/index.md` and any overdue 1:1s from the Weekly Meeting Log 
 
 Name 1-2 specific relationship actions that have to happen in Q[next].
 
-### Phase 5: External Environment (~5 min)
+### Phase 5: External Environment (~5 min) {#phase-5-external-environment-5-min}
 
 What changed that affects the plan?
 
@@ -391,7 +391,7 @@ What changed that affects the plan?
 
 Capture as a one-paragraph narrative in the Quarterly Meeting Log entry at Phase 14.
 
-### Phase 6: Capacity & Time Reality (~3 min)
+### Phase 6: Capacity & Time Reality (~3 min) {#phase-6-capacity-and-time-reality-3-min}
 
 Pull last quarter's Hubstaff totals and calendar analysis. Present:
 
@@ -405,11 +405,11 @@ This surfaces the "I wanted Q[X] to be about TG but 60% of my hours went to CL f
 
 ---
 
-## Part C -- Look Forward Strategically (per domain) -- ~35 min
+## Part C -- Look Forward Strategically (per domain) -- ~35 min {#part-c-look-forward-strategically-per-domain-35-min}
 
 **Pre-step (shared, ~2 min):** ensure Quarter Tracker (`121f40c2-487b-802e`) has records for Q[next+1], Q[next+2], Q[next+3]. Create any that are missing via `personal_notion_create_database_entry` so future-quarter project assignments in 7C/8C/9C have somewhere to land.
 
-### Sustained Unhealthy Domain Gate (conditional, before domain blocks)
+### Sustained Unhealthy Domain Gate (conditional, before domain blocks) {#sustained-unhealthy-domain-gate-conditional-before-domain-blocks}
 
 **Triggers when Chrome Lot or Turbo Gear was Unhealthy for all 3 months of the outgoing quarter** (from Phase 3b streak table).
 
@@ -425,7 +425,7 @@ If no 3-month unhealthy streaks: proceed directly to domain blocks.
 
 Each domain block follows the same shape: context recap → name a theme → walk the roadmap → name the no-list.
 
-### Phase 7: Personal Strategic Forward-Look (~10 min)
+### Phase 7: Personal Strategic Forward-Look (~10 min) {#phase-7-personal-strategic-forward-look-10-min}
 
 **7A: Values recap (2 min).** Reference Phase 2. State which value is most at risk in Q[next] and which is strongest. Orient the Personal domain around these.
 
@@ -447,7 +447,7 @@ Use the Project Assessment Rules at the top of this file. Every live project end
 
 **Personal No-List:** name 2-3 Personal things deliberately not happening this year. Examples: "Not starting any new hobby projects until custody is resolved." "Not doing any home renovations in 2026." These get written as a "Deliberate No-List" section on the Personal Quarterly Outcomes page in Phase 11.
 
-### Phase 8: Chrome Lot Strategic Forward-Look (~12 min)
+### Phase 8: Chrome Lot Strategic Forward-Look (~12 min) {#phase-8-chrome-lot-strategic-forward-look-12-min}
 
 **8A: CL Department Deep Read (4 min).** Pull CL Departments (`341f40c2-487b-80cc`) and display each department's full Picture of Success page content. For each:
 
@@ -468,7 +468,7 @@ Written as a callout at the top of the CL Quarterly Outcomes page in Phase 11.
 
 **CL No-List:** name 2-3 CL things deliberately not happening this year. Examples: "No new service line expansion this year." "Not hiring another senior until the ones we have are back on track." Written on the CL Quarterly Outcomes page in Phase 11.
 
-### Phase 9: Turbo Gear Strategic Forward-Look (~12 min)
+### Phase 9: Turbo Gear Strategic Forward-Look (~12 min) {#phase-9-turbo-gear-strategic-forward-look-12-min}
 
 **9A: TG Department Deep Read (4 min).** Pull TG Departments (`341f40c2-487b-80c9`). Same as 8A -- display Pictures of Success, diagnose Health and Priority, edit if reality has moved.
 
@@ -492,9 +492,9 @@ Written as a callout at the top of the TG Quarterly Outcomes page in Phase 11.
 
 ---
 
-## Part D -- Plan the Quarter Tactically -- ~15 min
+## Part D -- Plan the Quarter Tactically -- ~15 min {#part-d-plan-the-quarter-tactically-15-min}
 
-### Phase 10: Commit Projects to This Quarter (~10 min)
+### Phase 10: Commit Projects to This Quarter (~10 min) {#phase-10-commit-projects-to-this-quarter-10-min}
 
 Candidates are the projects Phases 7C/8C/9C tagged to Q[next]. For each:
 
@@ -505,7 +505,7 @@ Candidates are the projects Phases 7C/8C/9C tagged to Q[next]. For each:
 - Set `Due Date` on every selected project via `personal_notion_update_page`.
 - Carry-overs from the outgoing quarter that didn't complete: honest call -- keep, rescope, or drop. If kept without a clear due date, mark Off Track.
 
-### Phase 11: Per-Domain KPI Targets + Instrumentation Gate (~5 min)
+### Phase 11: Per-Domain KPI Targets + Instrumentation Gate (~5 min) {#phase-11-per-domain-kpi-targets-instrumentation-gate-5-min}
 
 For each of the three Quarterly Outcomes pages (Personal, CL, TG):
 
@@ -524,9 +524,9 @@ For each of the three Quarterly Outcomes pages (Personal, CL, TG):
 
 ---
 
-## Part E -- System & Commit -- ~15 min
+## Part E -- System & Commit -- ~15 min {#part-e-system-and-commit-15-min}
 
-### Phase 12: System & Cadence Calibration (~5 min)
+### Phase 12: System & Cadence Calibration (~5 min) {#phase-12-system-and-cadence-calibration-5-min}
 
 Review the meta-system:
 - Are daily morning/evening reviews happening consistently?
@@ -543,7 +543,7 @@ Adjust system parameters if needed (capacity limits, cadence frequencies, rotati
 
 **Operations catalog refresh:** run `node scripts/generate-ops-catalog.mjs` then `node scripts/publish-ops-catalog-to-notion.mjs`. Review the **Health / staleness** section in Notion ([Systems Hub](https://app.notion.com/p/Life-Command-Center-Systems-Hub-377f40c2487b8142b5fdfd6707572d29)) or `output/ops-catalog.md` — flag any stale context files or broken cross-references for update in Phase 14.
 
-### Phase 13: Calendar Stake-in-the-Ground (~5 min)
+### Phase 13: Calendar Stake-in-the-Ground (~5 min) {#phase-13-calendar-stake-in-the-ground-5-min}
 
 Block in Google Calendar (Aaron's calendar) for the full quarter:
 
@@ -554,7 +554,7 @@ Block in Google Calendar (Aaron's calendar) for the full quarter:
 
 These are the dates that get eaten first when things get busy. Block them now so they have to be explicitly moved.
 
-### Phase 13b: Planning Context Capture (~3 min)
+### Phase 13b: Planning Context Capture (~3 min) {#phase-13b-planning-context-capture-3-min}
 
 **Purpose:** Commit quarter-level priority stack and parked domains so monthly + weekly plans inherit reliable context.
 
@@ -564,7 +564,7 @@ These are the dates that get eaten first when things get busy. Block them now so
 2. **AskQuestion (multi-select):** "Which domains are **parked** for Q[next]?" Options: Turbo Gear | Chrome Lot New Business | External TG Demos | Personal Projects | Dating Outreach | Custody (hold) | Other | None — all domains active. Derive from no-lists and explicit pause decisions in Part C.
 3. Confirm with Aaron before Phase 14.
 
-### Phase 14: Commit & Log (~5 min)
+### Phase 14: Commit & Log (~5 min) {#phase-14-commit-and-log-5-min}
 
 1. Verify: all project assignments saved (quarter relations set), Due Dates on current-quarter projects, KPI targets on all three Outcomes pages, themes as callouts at top, no-lists as sections, department health statuses current, future Quarter Tracker records exist. **Also verify** Phase 13b planning context captured.
 2. **Log to Quarterly Meeting Log** (`344f40c2-487b-80ed`) via `personal_notion_create_database_entry`. New entry linked to the outgoing quarter with:
@@ -626,7 +626,7 @@ These are the dates that get eaten first when things get busy. Block them now so
 
 ---
 
-## Key Rules
+## Key Rules {#key-rules}
 
 - This is the ONLY workflow where quarterly project assignments happen. Don't assign projects to quarters in daily or weekly reviews.
 - This is the ONLY workflow that updates Values Pictures of Success and Department Pictures of Success. Monthly and weekly workflows can note drift but don't edit the pictures themselves.
@@ -639,7 +639,7 @@ These are the dates that get eaten first when things get busy. Block them now so
 - Carry-over projects from the previous quarter need honest assessment: keep, rescope, or drop. Default to drop if you can't name why it survived the quarter it was supposed to happen in.
 - If the session is running short (e.g., 30 min at Part C start), don't compress Part C -- compress Part B. Parts A and C are the strategic core; everything else supports them.
 
-## Outputs
+## Outputs {#outputs}
 
 - **Pre-Flight:** Withings refreshed; watch data persisted where possible; MCP `health_get_summary({ days: 200 })`; parallel data pulls oriented to Q transition.
 - **Part A Phase 1–3:** Narrative Lessons Learned captured for Phase 14; Picture of Success updates applied in Notion; numeric retrospective tables; 2–3 named priority metrics for Q[next].
@@ -649,7 +649,7 @@ These are the dates that get eaten first when things get busy. Block them now so
 - **Part E Phase 13b:** Priority Stack + Domains Parked captured (session state).
 - **Part E Phase 12–14:** Calendar infrastructure for quarter/cadences; Quarterly Meeting Log entry with full rollup + planning context fields + Team Activity Details; context updates (`values.md`, `current-priorities.md`, `capacity-rules.md`, `people/index.md`).
 
-## Failure modes & graceful degradation
+## Failure modes & graceful degradation {#failure-modes-and-graceful-degradation}
 
 - **Withings / `health_get_summary` errors:** Skip silently for Withings preload; QoQ Phase 3 may require monthly log fallbacks only.
 - **`sources.health_sync.ok` false:** Recent days may be slightly stale; older quarter flows from Notion; annotate archive partiality `(partial archive: <N> days)` where applicable (Pre-Flight and Phase 3).
@@ -657,7 +657,7 @@ These are the dates that get eaten first when things get busy. Block them now so
 - **Instrumentation gate:** KPIs without measurable sources drop or spawn instrumenting projects — no phantom targets (Phase 11).
 - **Time pressure:** If short on time mid-session, defer Part B detail before shortening Part A or Part C (`Key Rules`).
 
-## See also
+## See also {#see-also}
 
 - `../../router.md`
 - `../weekly-planning/SKILL.md`

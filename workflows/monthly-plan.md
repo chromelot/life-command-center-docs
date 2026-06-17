@@ -20,12 +20,12 @@
   - [Quarterly plan completeness gate](#quarterly-plan-completeness-gate)
   - [Quarterly progress review (run only when gate passes)](#quarterly-progress-review-run-only-when-gate-passes)
 - [Phase 1d: Sustained Unhealthy Gate (~10 min, conditional)](#phase-1d-sustained-unhealthy-gate-10-min-conditional)
-- [Phase 2: Fitness Review & Reprioritization (~5 min)](#phase-2-fitness-review-reprioritization-5-min)
-- [Phase 3: Dev Work Review & Goals (~10 min)](#phase-3-dev-work-review-goals-10-min)
+- [Phase 2: Fitness Review & Reprioritization (~5 min)](#phase-2-fitness-review-and-reprioritization-5-min)
+- [Phase 3: Dev Work Review & Goals (~10 min)](#phase-3-dev-work-review-and-goals-10-min)
 - [Phase 3b: Idea Roadmap Scrub (~8 min)](#phase-3b-idea-roadmap-scrub-8-min)
   - [Procedure (run once per Type, in this order: TG → CL → Personal)](#procedure-run-once-per-type-in-this-order-tg-cl-personal)
   - [Sanity guardrails](#sanity-guardrails)
-- [Phase 4: Sales Progress & Goals (~10 min)](#phase-4-sales-progress-goals-10-min)
+- [Phase 4: Sales Progress & Goals (~10 min)](#phase-4-sales-progress-and-goals-10-min)
   - [Pipeline Health](#pipeline-health)
   - [Activity Scorecard](#activity-scorecard)
   - [Team Efficiency Analysis](#team-efficiency-analysis)
@@ -37,7 +37,7 @@
   - [Personal Finances](#personal-finances)
   - [Chrome Lot Business Finances](#chrome-lot-business-finances)
 - [Phase 7: CS Health Monthly Review (~5 min)](#phase-7-cs-health-monthly-review-5-min)
-- [Phase 8: People & Operations Trends (~5 min)](#phase-8-people-operations-trends-5-min)
+- [Phase 8: People & Operations Trends (~5 min)](#phase-8-people-and-operations-trends-5-min)
 - [Phase 8b: Work Domain Health Rating (~5 min)](#phase-8b-work-domain-health-rating-5-min)
 - [Phase 9: Quarterly KPI Update (~5 min)](#phase-9-quarterly-kpi-update-5-min)
 - [Phase 10: Trip Planning with Bus (~5 min)](#phase-10-trip-planning-with-bus-5-min)
@@ -46,17 +46,17 @@
 - [Phase 12: Commit (~3 min)](#phase-12-commit-3-min)
 - [Cross-Cutting Rules](#cross-cutting-rules)
 - [Outputs](#outputs)
-- [Failure modes & graceful degradation](#failure-modes-graceful-degradation)
+- [Failure modes & graceful degradation](#failure-modes-and-graceful-degradation)
 - [See also](#see-also)
 
 ---
 
 
-## Trigger
+## Trigger {#trigger}
 
 This skill activates when Aaron says "monthly plan", "monthly review", or "plan this month". Target duration: ~83 minutes.
 
-## Month framing (non-negotiable)
+## Month framing (non-negotiable) {#month-framing-non-negotiable}
 
 The monthly plan is **forward-looking**. Aaron **plans the current calendar month** while **reviewing the prior calendar month**.
 
@@ -86,7 +86,7 @@ Phase 12 writes two Notion artifacts:
 
 Months page title resolution (DB `121f40c2-487b-80f2`): prefer `[FullMonthName] [YYYY]` (e.g. `June 2026`); fall back to month name only (`May`, `June`) when automation used the short form.
 
-## Inputs
+## Inputs {#inputs}
 
 Load via the router. Read these before starting:
 
@@ -104,7 +104,7 @@ Load via the router. Read these before starting:
 - `context/work/turbo-gear/overview.md` — Phase 3 dev work review
 - `context/skills/quarterly-plan/SKILL.md` — Phase 1c quarterly gate + escalation path
 
-## Execution Protocol (mandatory)
+## Execution Protocol (mandatory) {#execution-protocol-mandatory}
 
 Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts.md`, and `context/systems/workflow-logs.md`.
 
@@ -116,7 +116,7 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 6. Before step `12.0`: `gate --phase 12`
 7. Step `12.0` — `workflow-notion-log complete`
 
-### Ledger step order (do not reorder)
+### Ledger step order (do not reorder) {#ledger-step-order-do-not-reorder}
 
 | Step | Skill phase | User-facing? |
 |------|-------------|--------------|
@@ -133,7 +133,7 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 | `4.1`–`11.2` | Phases 4–11b | Yes — per Present map below |
 | `12.0` | Phase 12 Commit | Yes — Table 12.check + writes |
 
-### Present only (by step)
+### Present only (by step) {#present-only-by-step}
 
 | Step | Present exactly |
 |------|-----------------|
@@ -157,7 +157,7 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 | `11.2` | Table 11.2-A (domains parked) + Dev Project–linked priority stack |
 | `12.0` | Table 12.check, then commit checklist |
 
-### Output contracts — Phases 3–11
+### Output contracts — Phases 3–11 {#output-contracts-phases-311}
 
 **Table 3.1-A — Dev goals** *(step `3.1`)*
 
@@ -254,7 +254,7 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 | Planning month Months page log appended | |
 | Session Complete = Complete | |
 
-## Interaction Style
+## Interaction Style {#interaction-style}
 
 - **One question at a time.** Never present a wall of choices. Walk through decisions sequentially.
 - **Confirm before executing.** Each phase presents proposed actions, gets approval, then executes before moving on.
@@ -262,9 +262,9 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 - **Data integrity:** All Knack/Pipedrive write operations require explicit user approval before execution.
 - **Monthly lens:** Forward-looking planning for the current month, backed by a structured review of the prior month. Not individual task triage — the weekly plan handles that.
 
-## Procedure
+## Procedure {#procedure}
 
-## Phase 0: Data Pull (silent, before conversation)
+## Phase 0: Data Pull (silent, before conversation) {#phase-0-data-pull-silent-before-conversation}
 
 Compute **review month** and **planning month** from today's date (see Month framing above).
 
@@ -328,7 +328,7 @@ Then pull the rest of the data via MCP tools in parallel:
 13. **Small Talk DB** (`121f40c2-487b-802d`): all entries from **review month** (social interaction frequency)
 14. **Health Data + Watch metrics**: Loaded via the `health_get_summary({ days: 60 })` call above. Use throughout Phase 1 (recovery/wellness) and Phase 2 (body-comp + sleep + RHR + HRV trends).
 
-## Phase 1: Wellness Trends (~3 min)
+## Phase 1: Wellness Trends (~3 min) {#phase-1-wellness-trends-3-min}
 
 **Purpose:** Spot intra-month trajectories and month-over-month drift in mental health and energy.
 
@@ -381,7 +381,7 @@ Then proceed with qualitative assessment:
 
 **Outputs:** Observation notes. Task creation only if intervention needed.
 
-## Phase 1b: Identity Check (~5 min)
+## Phase 1b: Identity Check (~5 min) {#phase-1b-identity-check-5-min}
 
 **Purpose:** Am I living in alignment with my values, or just checking boxes?
 
@@ -402,13 +402,13 @@ Store ratings in session state (`monthly_life_health`) for Phase 12 commit.
 
 **Outputs:** `monthly_life_health` map captured. Surface flagged areas in relevant later phases.
 
-## Phase 1c: Quarterly Plan Checkpoint (~5 min)
+## Phase 1c: Quarterly Plan Checkpoint (~5 min) {#phase-1c-quarterly-plan-checkpoint-5-min}
 
 **Purpose:** Confirm the current quarter has a committed strategic frame before setting **planning month** goals. Monthly goals must ladder up to quarterly themes — not float independently.
 
 **Data sources:** Quarterly Meeting Log (`344f40c2-487b-80ed`), Quarter Tracker (`121f40c2-487b-802e`), Quarterly Outcomes pages (`341f40c2-487b-80c2`), Dev Projects with 🍁 Quarter = current quarter.
 
-### Quarterly plan completeness gate
+### Quarterly plan completeness gate {#quarterly-plan-completeness-gate}
 
 1. Identify **current quarter** from Quarter Tracker (`Current` select = "Current").
 2. Query Quarterly Meeting Log for an entry whose Quarter relation = current quarter.
@@ -419,7 +419,7 @@ Store ratings in session state (`monthly_life_health`) for Phase 12 commit.
    - Activate `context/skills/quarterly-plan/SKILL.md` end-to-end. Resume the monthly plan only after Phase 14 of the quarterly session completes (Quarterly Meeting Log entry exists for the current quarter).
 5. **Exception (Aaron override only):** If Aaron explicitly says "proceed without quarterly plan," log the gap in Key Misses and cap planning-month commitments to maintenance (no new strategic goals). Default is **stop**.
 
-### Quarterly progress review (run only when gate passes)
+### Quarterly progress review (run only when gate passes) {#quarterly-progress-review-run-only-when-gate-passes}
 
 Whether or not the full quarterly session happened, review what's committed **only after the gate passes**:
 
@@ -430,7 +430,7 @@ Whether or not the full quarterly session happened, review what's committed **on
 
 **Outputs:** Quarterly alignment notes carried into Phases 3–4 and Phase 9. If gate failed, monthly plan **stops here** — no Phase 1d or Phase 2+. Escalation to full quarterly plan is mandatory unless Aaron explicitly overrides.
 
-## Phase 1d: Sustained Unhealthy Gate (~10 min, conditional)
+## Phase 1d: Sustained Unhealthy Gate (~10 min, conditional) {#phase-1d-sustained-unhealthy-gate-10-min-conditional}
 
 **Triggers when any life category has been Unhealthy for 3+ consecutive weeks** (from Phase 1 life-health trajectory, including weeks spanning month boundaries).
 
@@ -444,7 +444,7 @@ When triggered:
 
 If no 3-week streaks: skip silently (~0 min).
 
-## Phase 2: Fitness Review & Reprioritization (~5 min)
+## Phase 2: Fitness Review & Reprioritization (~5 min) {#phase-2-fitness-review-and-reprioritization-5-min}
 
 **Purpose:** Identify consistency and intensity trends, not just last week's performance.
 
@@ -487,7 +487,7 @@ If no 3-week streaks: skip silently (~0 min).
 
 **Outputs:** Adjusted fitness targets for planning month. Todoist recurring task updates if schedule changes. Body-comp averages stored on the Monthly Plan Log in Phase 12 (review month metrics).
 
-## Phase 3: Dev Work Review & Goals (~10 min)
+## Phase 3: Dev Work Review & Goals (~10 min) {#phase-3-dev-work-review-and-goals-10-min}
 
 **Purpose:** Project completion progress against quarterly targets, not individual task triage.
 
@@ -501,13 +501,13 @@ If no 3-week streaks: skip silently (~0 min).
 
 **Outputs:** Dev Projects status updates. Candidate list for Phase 11b month linking. Todoist tasks if needed.
 
-## Phase 3b: Idea Roadmap Scrub (~8 min)
+## Phase 3b: Idea Roadmap Scrub (~8 min) {#phase-3b-idea-roadmap-scrub-8-min}
 
 **Purpose:** Sweep the upstream **Status = Idea** backlog for each roadmap (Turbo Gear, Chrome Lot, Personal). Promote ideas worth queuing, archive stale ones, hold the rest. Prevents the Idea status from becoming a graveyard and feeds the next quarterly plan with a curated candidate list.
 
 **Data source:** Dev Projects DB (`341f40c2-487b-80ac`). For each Type in turn — Turbo Gear, Chrome Lot, Personal — query with `Status = Idea`, sort by created time ascending (oldest first).
 
-### Procedure (run once per Type, in this order: TG → CL → Personal)
+### Procedure (run once per Type, in this order: TG → CL → Personal) {#procedure-run-once-per-type-in-this-order-tg-cl-personal}
 
 1. Query Dev Projects with `Type = <current>` AND `Status = Idea`. Pull the title, created time, Due Date, 🧭 Value relation, and any sub-item count.
 2. **AI pre-assessment** for each idea (silent — present results in step 3):
@@ -535,7 +535,7 @@ If no 3-week streaks: skip silently (~0 min).
    - Promote at most **3 ideas to Not started**. If more look promising, defer to next month or surface them in the next quarterly plan.
    - No cap on archives — clearing dead ideas is encouraged.
 
-### Sanity guardrails
+### Sanity guardrails {#sanity-guardrails}
 
 - If a Type has **>15 Idea-status entries**, flag it as inbox bloat and recommend a deeper triage outside the monthly cadence.
 - If the same idea has been **Held for 3+ consecutive monthly scrubs**, force a Promote-or-Archive decision this round (no more holds).
@@ -543,16 +543,16 @@ If no 3-week streaks: skip silently (~0 min).
 
 **Outputs:** Status updates in Dev Projects (Idea → Not started / Done). Delegated tasks in target systems. Notes on held ideas (with hold count) for next-month review and for the quarterly plan candidate pool.
 
-## Phase 4: Sales Progress & Goals (~10 min)
+## Phase 4: Sales Progress & Goals (~10 min) {#phase-4-sales-progress-and-goals-10-min}
 
 **Purpose:** Pipeline health, team performance, and efficiency -- not individual deal triage.
 
-### Pipeline Health
+### Pipeline Health {#pipeline-health}
 1. Pipedrive sales pipeline velocity: new deals, won deals, lost deals, conversion rate. Compare against previous Monthly Plan Log entry (CL Revenue, CL Customer Count, CL Churn) -- flag if >20% change.
 2. Revenue this month vs. last month (Pipedrive deal values)
 3. Stale deal audit: deals older than 60 days with no movement
 
-### Activity Scorecard
+### Activity Scorecard {#activity-scorecard}
 
 Aggregate the per-user activity totals from the ~4 Weekly Meeting Log entries this month. Present as:
 
@@ -569,7 +569,7 @@ COMPLETED ACTIVITIES -- INTRA-MONTH TRAJECTORY
 
 "Last Mo" comes from the previous Monthly Plan Log entry (Total Activities per user). Flag any user with declining week-over-week activity or >20% month-over-month change.
 
-### Team Efficiency Analysis
+### Team Efficiency Analysis {#team-efficiency-analysis}
 Cross-reference Hubstaff time data with activity totals per team member (Aaron, Tristen, Lexie, Ran):
 - **Time invested**: Hubstaff hours on "In Person Sales & Customer Service" (project 3563292) + "Sales Related Office & Admin" (3563452) for the month
 - **Results produced**: Pipedrive activities completed (from activity scorecard above), deals progressed/won, new deals created
@@ -577,14 +577,14 @@ Cross-reference Hubstaff time data with activity totals per team member (Aaron, 
 - Flag imbalances: someone spending lots of hours with few completed activities, or vice versa
 - Compare month-over-month to spot improving or declining trends
 
-### Goal Setting
+### Goal Setting {#goal-setting}
 - Who hit their activity targets in **review month**? Who fell short?
 - Set **planning month** targets per person: sales stops, new deal targets, activity minimums
 - Adjust territory or deal assignments if efficiency data warrants it
 
 **Outputs:** Monthly sales goals per team member. Pipedrive pipeline cleanup (archive dead deals with approval). Todoist tasks for target tracking. Delegation/territory adjustments if needed.
 
-### Pipedrive Reference
+### Pipedrive Reference {#pipedrive-reference}
 
 | ID | Meaning |
 |----|---------|
@@ -594,14 +594,14 @@ Cross-reference Hubstaff time data with activity totals per team member (Aaron, 
 | User 22704318 | Lexie |
 | User 19274648 | Ran |
 
-### Hubstaff Project Reference
+### Hubstaff Project Reference {#hubstaff-project-reference}
 
 | Project ID | Name |
 |------------|------|
 | 3563292 | In Person Sales & Customer Service |
 | 3563452 | Sales Related Office & Admin |
 
-## Phase 5: Personal Project Tracker Audit (~10 min)
+## Phase 5: Personal Project Tracker Audit (~10 min) {#phase-5-personal-project-tracker-audit-10-min}
 
 **Purpose:** Deep cleanup that weekly micro-scrubs can't do. Scoped to personal projects only — TG and CL projects are covered in Phase 3 and the weekly plan. Projects **kept active** for planning month should receive `🌙 Month` in Phase 11b (or here if already certain).
 
@@ -615,19 +615,19 @@ Cross-reference Hubstaff time data with activity totals per team member (Aaron, 
 
 **Outputs:** Dev Projects status updates (archive, activate, reprioritize). Todoist tasks for newly activated work.
 
-## Phase 6: Financial Review (~10 min)
+## Phase 6: Financial Review (~10 min) {#phase-6-financial-review-10-min}
 
 **Purpose:** Monthly-only phase covering both personal finances and Chrome Lot business financials.
 
 Data sources: Knack Invoices (`object_18`) for CL revenue/AR. QuickBooks for P&L and expenses (when MCP is configured -- see `guidelines/monthly-plan.md` for setup options). Until QuickBooks MCP is live, use manual input for P&L data.
 
-### Personal Finances
+### Personal Finances {#personal-finances}
 1. Budget check: are you spending within targets? Any categories out of control?
 2. Savings goal tracking: on pace for the month/quarter/year?
 3. Big purchase planning: house timeline update, any upcoming large expenses?
 4. Action items: adjust budget, move money, schedule financial tasks
 
-### Chrome Lot Business Finances
+### Chrome Lot Business Finances {#chrome-lot-business-finances}
 1. Revenue this month vs. last month (Knack invoices -- field_191 amount, field_131 date)
 2. Accounts receivable health: total outstanding balance, aging distribution
 3. Collections progress: compare against last month's late invoice count (field_1428, field_1491)
@@ -636,7 +636,7 @@ Data sources: Knack Invoices (`object_18`) for CL revenue/AR. QuickBooks for P&L
 
 **Outputs:** Todoist tasks for financial actions. Budget/savings adjustments noted. Observation notes on CL profitability trend.
 
-## Phase 7: CS Health Monthly Review (~5 min)
+## Phase 7: CS Health Monthly Review (~5 min) {#phase-7-cs-health-monthly-review-5-min}
 
 **Purpose:** Churn trends, invoice aging direction, and account manager workload balance.
 
@@ -654,7 +654,7 @@ Data sources: Knack Invoices (`object_18`) for CL revenue/AR. QuickBooks for P&L
 
 **Outputs:** Observation notes. Adjust delegation assignments if workload is unbalanced. Todoist tasks for data hygiene (unclassified customers).
 
-## Phase 8: People & Operations Trends (~5 min)
+## Phase 8: People & Operations Trends (~5 min) {#phase-8-people-and-operations-trends-5-min}
 
 **Purpose:** Monthly trends in team performance, not individual weekly flags.
 
@@ -674,7 +674,7 @@ Data sources: Knack Invoices (`object_18`) for CL revenue/AR. QuickBooks for P&L
 
 **Outputs:** Todoist tasks for 1:1s and performance conversations. Hiring decisions noted. Updated `context/people/index.md` for any roster changes.
 
-## Phase 8b: Work Domain Health Rating (~5 min)
+## Phase 8b: Work Domain Health Rating (~5 min) {#phase-8b-work-domain-health-rating-5-min}
 
 **Purpose:** Rate Chrome Lot and Turbo Gear as Healthy or Unhealthy at the domain level. Results stored on Monthly Plan Log in Phase 12.
 
@@ -688,7 +688,7 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
 
 **Outputs:** Domain health ratings captured for Phase 12.
 
-## Phase 9: Quarterly KPI Update (~5 min)
+## Phase 9: Quarterly KPI Update (~5 min) {#phase-9-quarterly-kpi-update-5-min}
 
 **Purpose:** Monthly touchpoint for quarterly tracking. Update KPI actuals on each Quarterly Outcomes page.
 
@@ -715,7 +715,7 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
 
 **Outputs:** Updated KPI actuals on Quarterly Outcomes pages (manual Notion edits). Todoist tasks for setting missing targets. Flagged areas for intervention.
 
-## Phase 10: Trip Planning with Bus (~5 min)
+## Phase 10: Trip Planning with Bus (~5 min) {#phase-10-trip-planning-with-bus-5-min}
 
 **Purpose:** Ensure at least one quality outing with Matthew in **planning month**.
 
@@ -728,7 +728,7 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
 
 **Outputs:** Calendar events for trip. Todoist prep tasks.
 
-## Phase 11: Personal Time Off (~3 min)
+## Phase 11: Personal Time Off (~3 min) {#phase-11-personal-time-off-3-min}
 
 **Purpose:** Protect Aaron's recovery time — 2 days off in **planning month** minimum.
 
@@ -740,7 +740,7 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
 
 **Outputs:** Calendar blocks. Todoist handoff tasks. Teams notification if needed.
 
-## Phase 11b: Planning Month Dev Projects (~5 min)
+## Phase 11b: Planning Month Dev Projects (~5 min) {#phase-11b-planning-month-dev-projects-5-min}
 
 **Purpose:** Link **specific Dev Projects** to the **planning month** via `🌙 Month` (mirrors quarterly `🍁 Quarter`). Weekly plan reads these relations — not Priority Stack text.
 
@@ -766,7 +766,7 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
 
 **Outputs:** `monthly_dev_project_ids`, `monthly_domains_parked` ready for Phase 12.
 
-## Phase 12: Commit (~3 min)
+## Phase 12: Commit (~3 min) {#phase-12-commit-3-min}
 
 **Purpose:** Final review, execute remaining actions, log everything.
 
@@ -866,7 +866,7 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
 
 7. **Update context files** if anything changed (capacity rules, people directory, dev goals, etc.)
 
-## Cross-Cutting Rules
+## Cross-Cutting Rules {#cross-cutting-rules}
 
 - **Forward-looking monthly plan.** Plan the current month; review the prior month. Never treat the session as "last month's plan" unless today is still in that month and the prior month's log wasn't written.
 - **Quarterly plan gate (hard stop).** Phase 1c must confirm a Quarterly Meeting Log entry for the current quarter and committed themes on all three Quarterly Outcomes pages. If not, **stop** and run `context/skills/quarterly-plan/SKILL.md` first. Resume monthly plan only after quarterly Phase 14 completes.
@@ -877,7 +877,7 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
 - **Exclude Shopping List** from all Todoist analysis.
 - **Capacity enforcement.** If monthly goals imply an unsustainable weekly load, flag and adjust before committing.
 
-## Outputs
+## Outputs {#outputs}
 
 - **Phase 0:** Silent data refresh (Withings, persister, health MCP) and parallel MCP/database pulls.
 - **Phase 1:** Wellness + life-health trajectory tables; observation notes; intervention tasks only if needed.
@@ -898,7 +898,7 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
 - **Phase 11b:** `🌙 Month` links on selected Dev Projects + Domains Parked captured (session state).
 - **Phase 12:** New Monthly Plan Log entry (review month) with full KPI rollup + planning context fields + life/work health selects + Health Intervention Notes; Team Activity Details append; **planning month Months page plan log**; context file updates.
 
-## Failure modes & graceful degradation
+## Failure modes & graceful degradation {#failure-modes-and-graceful-degradation}
 
 - **Withings sync errors:** Skip silently; Phase 0 notes; use prior Notion rows; Phase 2 table uses `--` where null.
 - **`sources.health_sync.ok` false:** Note "Health Sync sync inactive (using archived watch data)" in Phase 2 footer; continue with archived Notion watch data.
@@ -907,7 +907,7 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
 - **QuickBooks / TG MRR / photographer automation:** Fall back to manual input or skip per Phase 6, Phase 9, Phase 8 notes.
 - **KPI table empty in Notion:** Empty-table escape hatch — Todoist task, skip actuals for that page.
 
-## See also
+## See also {#see-also}
 
 - `../../router.md`
 - `../weekly-planning/SKILL.md`
