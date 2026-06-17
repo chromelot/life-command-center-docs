@@ -714,13 +714,20 @@ Review flagged rows **one signal at a time** if any require action. Create Todoi
 | Metric | Review week | Monthly run-rate |
 |--------|-------------|------------------|
 | Active accounts | | |
-| Billing | line items (`object_21` field_266) | Knack product price × active (`object_25` field_281) |
+| Billing | line items (`object_21` field_266) | confirmed monthly per active account (override → field_281 → field_459) |
 | Labor (Han / Kadyn / Naids) | Hubstaff hours × Airtable Hourly Rate | review-week labor × 52/12 |
 | Buffer subscription | monthly ÷ 52/12 | `SOCIAL_BUFFER_MONTHLY_USD` secret |
 | Total expenses | labor + Buffer | labor est + Buffer |
 | Margin | billing − expenses | billing − expenses |
 
 Note when review-week **billing** line items are $0 — use monthly billing run-rate. Expenses always use **labor + Buffer** (not Knack unit cost).
+
+1b. Present **Table 6-B0b — Billing by account** from briefing **SOCIAL BILLING BY ACCOUNT** (current month):
+
+| PD account | Knack match | Monthly | Wk … (Mon-start) | MTD actual | Source |
+|------------|-------------|---------|------------------|------------|--------|
+
+Flag accounts with **Monthly = $0** or MTD actual far below expected weekly cadence.
 
 2. Present **Table 6-B1 — Active account posting** (all active PD accounts — one row each):
 
