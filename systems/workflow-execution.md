@@ -128,6 +128,7 @@ Ops → **Weekly Ops** workflow.
 | `4.1` | Finance & Admin — invoices (one customer/turn) |
 | `5.1` | Service Delivery — photographers (one/turn) |
 | `6.1` | Post Production — QA / delivery backlog |
+| `6.2` | Social Media — pipeline + posting currency |
 | `7.1` | Workload & Hiring |
 | `8.1` | 1:1 meetings — late 1:1 visits |
 | `9.1` | CL department health — confirm or update + log snapshot |

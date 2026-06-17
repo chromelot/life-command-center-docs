@@ -36,6 +36,7 @@
   - [Knack Photographer Field Reference (object_7)](#knack-photographer-field-reference-object_7)
   - [Knack Comments Reference (object_57)](#knack-comments-reference-object_57)
 - [Phase 6: Post Production (~5 min)](#phase-6-post-production-5-min)
+- [Phase 6-B: Social Media (~8 min)](#phase-6-b-social-media-8-min)
 - [Phase 7: Workload & Hiring (~5 min)](#phase-7-workload-and-hiring-5-min)
 - [Phase 8: 1:1 Meetings (~5 min)](#phase-8-11-meetings-5-min)
 - [Phase 9: CL Department Health (~8 min)](#phase-9-cl-department-health-8-min)
@@ -72,6 +73,7 @@ This session audits **`Create, and Audit Weekly Ops Plan`** and its sub-items in
 | Finance & Admin | Phase 4 — Finance & Admin | `4.1` |
 | Service Delivery | Phase 5 — Service Delivery | `5.1` |
 | Post Production | Phase 6 — Post Production | `6.1` |
+| Social Media | Phase 6 — Social Media | `6.2` |
 | Workload & Hiring | Phase 7 — Workload & Hiring | `7.1` |
 | 1:1 meetings | Phase 8 — 1:1 Meetings | `8.1` |
 | *(cross-cutting)* Department health | Phase 9 — CL Department Health | `9.1` |
@@ -91,6 +93,7 @@ Load via the router. Read these before starting:
 - `context/work/chrome-lot/customer-service.md` — Phase 2 CS logic
 - `context/work/chrome-lot/sales.md` — Phase 3 sales logic
 - `context/work/chrome-lot/operations.md` — Phase 5 photographer review logic
+- `context/work/chrome-lot/social-media.md` — Phase 6.2 social pipeline + posting
 - `context/work/chrome-lot/work-management.md` — Phase 1.3 daily records, backups, ops priority; Phase 9.1 department health
 - `context/people/index.md` — delegation matrix, 1:1 tracking
 
@@ -133,11 +136,12 @@ Load via the router. Read these before starting:
 | 11 | `4.1` | Yes — Phase 4 — Finance & Admin (late invoices, one customer per turn) |
 | 12 | `5.1` | Yes — Phase 5 — Service Delivery (flagged photographers, one per turn) |
 | 13 | `6.1` | Yes — Phase 6 — Post Production (QA / delivery backlog) |
-| 14 | `7.1` | Yes — Phase 7 — Workload & Hiring (Hubstaff + hiring pipeline) |
-| 15 | `8.1` | Yes — Phase 8 — 1:1 meetings + late 1:1 visits |
-| 16 | `9.1` | Yes — Phase 9 — CL department health ratings |
-| 17 | `check` | Yes — ops FIELD CHECK |
-| 18 | `commit` | Yes — log rollup + Team Activity Details + approved writes |
+| 14 | `6.2` | Yes — Phase 6 — Social Media (pipeline + posting currency) |
+| 15 | `7.1` | Yes — Phase 7 — Workload & Hiring (Hubstaff + hiring pipeline) |
+| 16 | `8.1` | Yes — Phase 8 — 1:1 meetings + late 1:1 visits |
+| 17 | `9.1` | Yes — Phase 9 — CL department health ratings |
+| 18 | `check` | Yes — ops FIELD CHECK |
+| 19 | `commit` | Yes — log rollup + Team Activity Details + approved writes |
 
 **Notion log:** Create at start of `1.1` if not already created (`workflow-notion-log create`). Sync after every `advance`. Write phase fields per `context/systems/workflow-logs.md`.
 
@@ -158,6 +162,7 @@ Load via the router. Read these before starting:
 | `4.1` | Late invoice review — one customer per turn |
 | `5.1` | Flagged photographers — one per turn |
 | `6.1` | Post production currency table |
+| `6.2` | Social Media pipeline + posting — one stale/gap account per turn when flagged |
 | `7.1` | Workload & hiring table |
 | `8.1` | Late 1:1 visits table — one person per turn when overdue |
 | `9.1` | CL department health — one department per turn when re-rating |
@@ -649,6 +654,39 @@ Review flagged rows **one signal at a time** if any require action. Create Todoi
 
 **Advance:** `6`
 
+<a id="phase-6-b-social-media-8-min"></a>
+## Phase 6-B: Social Media (~8 min)
+
+**Purpose:** Social product customer currency and posting throughput — covers **Social Media** Dev Project sub-item. **Behind tracking:** active Social Media pipeline deals with **no next activity** or **60+ days stale** are reviewed here — one account per turn.
+
+**Data source:** Briefing **SOCIAL MEDIA — PIPELINE & POSTING** (Pipedrive pipeline 13 + Knack `object_65` posts by week). See [`social-media.md`](../../work/chrome-lot/social-media.md).
+
+1. Present **Table 6-B0 — Social pipeline summary** from briefing:
+
+| Signal | Count | Notes |
+|--------|-------|-------|
+| Active social customers (PD stages Advanced / Active Sales / Basic) | | |
+| Inactive Sales | | |
+| Mis-staged deals (wrong pipeline stage) | | flag if high |
+| Deal gaps (active, no next activity) | | |
+| Stale 60+ days (active) | | |
+
+2. Present **Table 6-B1 — Posts by week** (field_975):
+
+| Week of (Mon) | Posts | Review week? |
+|---------------|-------|--------------|
+
+3. When **deal gaps** or **stale active** count > 0 — review **one account per turn**:
+
+**Table 6-B2 — Behind social account** *(one row per turn)*
+
+| Customer | Stage | Days stale / gap | Owner | Action proposed |
+|----------|-------|------------------|-------|-----------------|
+
+If **zero** gap and stale flags on active stages: single row `No behind Social Media flags` and advance.
+
+**Advance:** `6.2`
+
 <a id="phase-7-workload-and-hiring-5-min"></a>
 ## Phase 7: Workload & Hiring (~5 min)
 
@@ -755,6 +793,8 @@ If **zero** overdue 1:1s: single row `No late 1:1 flags` and advance.
 | Phase 4 | Invoice escalations decided | |
 | Phase 5 | Flagged photographers reviewed | |
 | Phase 6 | Post production signals reviewed | |
+| Phase 6 | Social Media pipeline + posting reviewed (or N/A + reason) | |
+| Phase 6 | All behind social accounts reviewed (or none flagged) | |
 | Phase 7 | Workload / hiring actions named (or N/A if not hiring) | |
 | Phase 8 | All late 1:1s reviewed (or none flagged) | |
 | Phase 8 | 1:1s picked for scheduling | |
@@ -794,7 +834,8 @@ Run: `node scripts/workflow-progress.mjs gate --workflow weekly-ops --phase chec
 | Behind PD (Aaron) | overdue + stale resolved | |
 | Team sales nudges | | |
 | Photographer actions | | |
-| Post production / QA | | |
+| Post production / QA | actions from 6.1 | |
+| Social Media | gap/stale clears + posting notes from 6.2 | |
 | Workload / hiring | | |
 | Late 1:1s scheduled | | |
 | Department health updates | count changed / confirmed | |
@@ -851,8 +892,8 @@ Run: `node scripts/workflow-progress.mjs gate --workflow weekly-ops --phase chec
 <a id="cross-cutting-rules"></a>
 ## Cross-Cutting Rules
 
-- **Table contract per phase.** Ledger `current_step` determines which tables are in scope. Phase 1 = work summary (1.1) → scorecard (1.2) → work management (1.3). Phase 2 = behind CS (2.1) → HJD (2.2). Phase 3 = gaps → overdue PD → stale → plan (3.1) → team PD (3.2). Phases 4–8 per domain. Phase 9 = department health (9.1).
-- **Behind tracking in domain sections.** No central Chrome Lot currency check. Stale CS visits → Phase 2.1. Stale sales + overdue Pipedrive → Phase 3.1–3.2. Late 1:1 visits → Phase 8.1. Each behind item gets reviewed or explicitly deferred with reason in `Key Decisions`.
+- **Table contract per phase.** Ledger `current_step` determines which tables are in scope. Phase 1 = work summary (1.1) → scorecard (1.2) → work management (1.3). Phase 2 = behind CS (2.1) → HJD (2.2). Phase 3 = gaps → overdue PD → stale → plan (3.1) → team PD (3.2). Phases 4–8 per domain. Phase 6 = post production (6.1) → social media (6.2). Phase 9 = department health (9.1).
+- **Behind tracking in domain sections.** No central Chrome Lot currency check. Stale CS visits → Phase 2.1. Stale sales + overdue Pipedrive → Phase 3.1–3.2. Social Media gaps/stale → Phase 6.2. Late 1:1 visits → Phase 8.1. Each behind item gets reviewed or explicitly deferred with reason in `Key Decisions`.
 - **FIELD CHECK gate.** `check` must pass before `commit`.
 - **Route every item into a bucket.** Each surfaced item is Automated (n8n), Delegated (team 1:1s), or a Scheduled slice (calendar + Todoist mirror).
 - **Capacity is non-negotiable.** If total planned ops work exceeds available ops hours minus 10–15% buffer, the system pushes back. Something must move.
@@ -875,7 +916,7 @@ Run: `node scripts/workflow-progress.mjs gate --workflow weekly-ops --phase chec
 - **Phase 3:** Deal gaps cleared + overdue PD + stale deals + Aaron sales plan + team behind PD actions.
 - **Phase 4:** Invoice escalation decisions.
 - **Phase 5:** Photographer reviews.
-- **Phase 6:** Post production / QA actions.
+- **Phase 6:** Post production / QA actions + Social Media pipeline/posting review.
 - **Phase 7:** Workload and hiring actions.
 - **Phase 8:** Late 1:1 review + scheduling decisions.
 - **Phase 9:** CL department health confirmed/updated + snapshot for log.
