@@ -2,6 +2,28 @@
 
 # Person Check-In Prep
 
+## Table of contents
+
+- [Execution + logging (mandatory)](#execution-logging-mandatory)
+- [Pre-Flight (silent)](#pre-flight-silent)
+- [Identify the Person](#identify-the-person)
+- [Data Pull (parallel)](#data-pull-parallel)
+  - [If they have Todoist tasks](#if-they-have-todoist-tasks)
+  - [If they have Work Notion CL Tasks](#if-they-have-work-notion-cl-tasks)
+  - [If they have Pipedrive activity](#if-they-have-pipedrive-activity)
+  - [If they have Process Street workflows](#if-they-have-process-street-workflows)
+- [Output contracts (steps `1.1a`–`1.1c` — one table per turn)](#output-contracts-steps-11a11c-one-table-per-turn)
+  - [Table 1.1-A — Session Header + Workload](#table-11-a-session-header-workload)
+  - [Table 1.1-B — Talking Points](#table-11-b-talking-points)
+  - [Table 1.1-C — Delegation + Follow-ups](#table-11-c-delegation-follow-ups)
+  - [Table 2.0 — Commit (FIELD CHECK)](#table-20-commit-field-check)
+- [During the Meeting](#during-the-meeting)
+- [After the Meeting](#after-the-meeting)
+- [Key Rules](#key-rules)
+
+---
+
+
 This rule activates when Aaron says "prep for [name]", "1:1 prep", "meeting with [name]", or "check in with [name]". Target duration: 5 minutes prep.
 
 ## Execution + logging (mandatory)

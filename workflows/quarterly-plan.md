@@ -2,6 +2,49 @@
 
 # Quarterly Plan — SKILL
 
+## Table of contents
+
+- [Trigger](#trigger)
+- [Inputs](#inputs)
+- [Session framing](#session-framing)
+- [Execution Protocol (mandatory)](#execution-protocol-mandatory)
+  - [Ledger step order](#ledger-step-order)
+  - [Present exactly — Part A](#present-exactly-part-a)
+  - [Present exactly — Parts C–E](#present-exactly-parts-ce)
+  - [Present exactly — Part B (narrative → tables)](#present-exactly-part-b-narrative-tables)
+- [Procedure](#procedure)
+- [Project Assessment Rules (apply everywhere in this workflow)](#project-assessment-rules-apply-everywhere-in-this-workflow)
+- [Pre-Flight (silent)](#pre-flight-silent)
+- [Part A -- Look Back (Retrospective) -- ~25 min](#part-a-look-back-retrospective-25-min)
+  - [Phase 1: Wide Retrospective (narrative, ~10 min)](#phase-1-wide-retrospective-narrative-10-min)
+  - [Phase 2: Values Re-examination (~10 min)](#phase-2-values-re-examination-10-min)
+  - [Phase 3: Numeric Retrospective (~5 min)](#phase-3-numeric-retrospective-5-min)
+  - [Phase 3b: Monthly Health Trend Review (~8 min)](#phase-3b-monthly-health-trend-review-8-min)
+- [Part B -- Look Around (Environment scan) -- ~15 min](#part-b-look-around-environment-scan-15-min)
+  - [Phase 4: People & Relationships (~7 min)](#phase-4-people-relationships-7-min)
+  - [Phase 5: External Environment (~5 min)](#phase-5-external-environment-5-min)
+  - [Phase 6: Capacity & Time Reality (~3 min)](#phase-6-capacity-time-reality-3-min)
+- [Part C -- Look Forward Strategically (per domain) -- ~35 min](#part-c-look-forward-strategically-per-domain-35-min)
+  - [Sustained Unhealthy Domain Gate (conditional, before domain blocks)](#sustained-unhealthy-domain-gate-conditional-before-domain-blocks)
+  - [Phase 7: Personal Strategic Forward-Look (~10 min)](#phase-7-personal-strategic-forward-look-10-min)
+  - [Phase 8: Chrome Lot Strategic Forward-Look (~12 min)](#phase-8-chrome-lot-strategic-forward-look-12-min)
+  - [Phase 9: Turbo Gear Strategic Forward-Look (~12 min)](#phase-9-turbo-gear-strategic-forward-look-12-min)
+- [Part D -- Plan the Quarter Tactically -- ~15 min](#part-d-plan-the-quarter-tactically-15-min)
+  - [Phase 10: Commit Projects to This Quarter (~10 min)](#phase-10-commit-projects-to-this-quarter-10-min)
+  - [Phase 11: Per-Domain KPI Targets + Instrumentation Gate (~5 min)](#phase-11-per-domain-kpi-targets-instrumentation-gate-5-min)
+- [Part E -- System & Commit -- ~15 min](#part-e-system-commit-15-min)
+  - [Phase 12: System & Cadence Calibration (~5 min)](#phase-12-system-cadence-calibration-5-min)
+  - [Phase 13: Calendar Stake-in-the-Ground (~5 min)](#phase-13-calendar-stake-in-the-ground-5-min)
+  - [Phase 13b: Planning Context Capture (~3 min)](#phase-13b-planning-context-capture-3-min)
+  - [Phase 14: Commit & Log (~5 min)](#phase-14-commit-log-5-min)
+- [Key Rules](#key-rules)
+- [Outputs](#outputs)
+- [Failure modes & graceful degradation](#failure-modes-graceful-degradation)
+- [See also](#see-also)
+
+---
+
+
 ## Trigger
 
 This skill activates when Aaron says "quarterly plan", "strategy review", "quarterly review", or "big picture". **Target duration: 90-120 minutes.** Run in the first week of each quarter or when a major life/business shift occurs.

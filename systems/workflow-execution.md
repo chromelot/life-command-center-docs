@@ -119,10 +119,14 @@ Ops → **Weekly Ops** workflow.
 | Step | Contract |
 |------|----------|
 | `pre-0`, `0`, `0b` | Gate + pull + RED FLAGS table |
-| `1.1`, `1.2` | Tables 1-A, 1-B |
-| `2.1`, `2.2` | CS cadence, invoices (one customer/turn in 2.2) |
+| `1.1`, `1.2` | Tables 1-A, 1-B (ops foundation) |
+| `2.1` | CS check-in cadence |
 | `3.1`, `3.2` | Aaron sales, team oversight |
-| `4.1`, `4.2` | Photographers (one/turn), staff table |
+| `4.1` | Finance & Admin — invoices (one customer/turn) |
+| `5.1` | Service Delivery — photographers (one/turn) |
+| `6.1` | Post Production — QA / delivery backlog |
+| `7.1` | Workload & Hiring |
+| `8.1` | 1:1 meetings |
 | `check` | FIELD CHECK — **gate before commit** |
 | `commit` | Commit checklist |
 

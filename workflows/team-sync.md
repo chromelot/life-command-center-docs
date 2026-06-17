@@ -2,6 +2,24 @@
 
 # Team sync
 
+## Table of contents
+
+- [Execution + logging (mandatory)](#execution-logging-mandatory)
+- [Philosophy](#philosophy)
+- [Pre-flight (silent)](#pre-flight-silent)
+- [Diff dimensions](#diff-dimensions)
+- [Output contracts](#output-contracts)
+  - [Table 1.1-A — Roster Summary (step `1.1`, first turn)](#table-11-a-roster-summary-step-11-first-turn)
+  - [Table 1.1-B — Drift Flags (step `1.1`, second turn — list only)](#table-11-b-drift-flags-step-11-second-turn-list-only)
+  - [Table 1.2-A — Item Decision (step `1.2`, one row per turn until exhausted)](#table-12-a-item-decision-step-12-one-row-per-turn-until-exhausted)
+  - [Table 2.0 — Commit Checklist (FIELD CHECK)](#table-20-commit-checklist-field-check)
+- [Walk through decisions](#walk-through-decisions)
+- [Completion](#completion)
+- [Key rules](#key-rules)
+
+---
+
+
 This rule activates when Aaron says "team sync", "roster diff", "people sync", or "audit roster". Target duration: 5 minutes.
 
 ## Execution + logging (mandatory)

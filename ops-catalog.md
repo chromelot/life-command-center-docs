@@ -106,7 +106,7 @@ Full phase-by-phase procedures live in Notion **sub-pages** (sidebar under this 
 | Workflow | Summary | Duration | Triggers | Session log | Workspace source |
 |---|---|---|---|---|---|
 | Weekly Plan | Personal life review, then Dev Review (CL/TG) and Personal Project Review — selects This Week from monthly Dev Projects tracker and syncs Notion. | ~40 min (life + dev) | "weekly plan", "weekly meeting", "Monday review", "sprint planning" | Weekly Meeting Log | `context/skills/weekly-planning/SKILL.md` |
-| Weekly Ops | Chrome Lot operations session — Pipedrive activity, CS, sales, photographers, and team oversight. Separate from weekly plan; writes to Weekly Ops Meeting Log. | ~40 min | "weekly ops", "ops review", "CL ops meeting", "operations meeting" | Weekly Ops Meeting Log | `context/skills/weekly-ops/SKILL.md` |
+| Weekly Ops | Chrome Lot operations session — eight domain phases (CS, sales, finance, service delivery, post production, workload, 1:1s) aligned to Dev Projects. Separate from weekly plan; writes to Weekly Ops Meeting Log. | ~40 min | "weekly ops", "ops review", "CL ops meeting", "operations meeting" | Weekly Ops Meeting Log | `context/skills/weekly-ops/SKILL.md` |
 | Monthly Plan | Forward-looking planning for the current calendar month backed by a structured review of the prior month across life, business, and people domains. | 83 min | "monthly plan", "monthly review", "plan this month" | Monthly Plan Log | `context/skills/monthly-plan/SKILL.md` |
 | Quarterly Plan | Quarterly strategy review — retrospective, environment scan, per-domain themes and no-lists, tactical quarter commits, and Quarterly Meeting Log. | 90–120 min | "quarterly plan", "strategy review", "quarterly review", "big picture" | Quarterly Meeting Log | `context/skills/quarterly-plan/SKILL.md` |
 | 1:1 Prep | Five-minute pre-meeting pull of a team member's workload from Todoist, Notion, and Pipedrive plus structured talking points for the check-in. | ~5 min | "1:1 prep", "prep for [name]", "meeting with [name]", "check in with [name]" | 1:1 Prep Log | `.cursor/rules/person-checkin.mdc` |
@@ -182,7 +182,7 @@ Full audit: `node scripts/audit-context.mjs`
 ## Last generated
 
 <!-- AUTO:LAST_GENERATED -->
-**2026-06-17 11:54:41** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
+**2026-06-17 14:24:44** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
 <!-- /AUTO:LAST_GENERATED -->
 
 ## See also

@@ -35,7 +35,7 @@ Every user-facing sub-step should define:
 
 ### Weekly ops reference
 
-`context/skills/weekly-ops/SKILL.md` — same pattern; ledger steps `1.1`–`4.2` map to named tables.
+`context/skills/weekly-ops/SKILL.md` — same pattern; ledger steps `1.1`–`8.1` map to named tables (aligned to Dev Projects sub-items under **Create, and Audit Weekly Ops Plan**).
 
 ## Section completion checklist (before every `advance`)
 

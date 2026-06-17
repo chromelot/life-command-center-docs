@@ -2,6 +2,41 @@
 
 # Weekly Planning — SKILL
 
+## Table of contents
+
+- [Trigger](#trigger)
+- [Inputs](#inputs)
+- [Execution Protocol (mandatory — read `context/workflow-execution.md` + `context/systems/workflow-output-contracts.md`)](#execution-protocol-mandatory-read-contextworkflow-executionmd-contextsystemsworkflow-output-contractsmd)
+- [Interaction Style](#interaction-style)
+- [Required Notion fields — index](#required-notion-fields-index)
+- [Procedure](#procedure)
+- [Pre-Phase 0: Monthly Plan Gate (mandatory — runs before everything else)](#pre-phase-0-monthly-plan-gate-mandatory-runs-before-everything-else)
+- [Phase 0: Data Pull (silent, before conversation)](#phase-0-data-pull-silent-before-conversation)
+  - [Wellness pulls (run first)](#wellness-pulls-run-first)
+  - [Social pulls (with wellness; used in Phase 1.5)](#social-pulls-with-wellness-used-in-phase-15)
+  - [Development pulls (after wellness/social; silent until Phase 2+)](#development-pulls-after-wellnesssocial-silent-until-phase-2)
+- [Phase 0b: Data Integrity Gate (~3 min)](#phase-0b-data-integrity-gate-3-min)
+- [Phase 1: Life Review (~28 min)](#phase-1-life-review-28-min)
+  - [1.0 Create Weekly Log Entry](#10-create-weekly-log-entry)
+  - [1.1 Values Context (~1 min) — **first table to Aaron**](#11-values-context-1-min-first-table-to-aaron)
+  - [1.2 Mind — Review · Mood · Rate · Intentions (~6 min)](#12-mind-review-mood-rate-intentions-6-min)
+  - [1.3 Fitness — Review · Rate · Intentions (~5 min)](#13-fitness-review-rate-intentions-5-min)
+  - [1.4 Sleep — Review · Rate · Intentions (~5 min)](#14-sleep-review-rate-intentions-5-min)
+  - [1.5 Social — Review · Rate · Intentions (~5 min)](#15-social-review-rate-intentions-5-min)
+  - [1.6 Parenting — Review · Rate · Intentions (~4 min)](#16-parenting-review-rate-intentions-4-min)
+  - [1.7 Personal Enjoyment (~2 min)](#17-personal-enjoyment-2-min)
+- [Phase 2: Development (~15 min)](#phase-2-development-15-min)
+  - [2.1 Dev Review (~8 min)](#21-dev-review-8-min)
+  - [2.2 Personal Project Review (~7 min)](#22-personal-project-review-7-min)
+- [Phase 4: Commit (~5 min)](#phase-4-commit-5-min)
+- [Cross-Cutting Rules](#cross-cutting-rules)
+- [Outputs](#outputs)
+- [Failure modes & graceful degradation](#failure-modes-graceful-degradation)
+- [See also](#see-also)
+
+---
+
+
 ## Trigger
 
 This skill activates when Aaron says "weekly plan", "weekly meeting", "plan this week", "sprint planning", or "Monday review". Target duration: ~45 minutes (Phase 1 life ~28 min · Phase 2.1 Dev Review ~8 min · Phase 2.2 Personal Projects ~7 min · Phase 4 commit ~5 min). **CL operations** run in **Weekly Ops** — `context/skills/weekly-ops/SKILL.md`.

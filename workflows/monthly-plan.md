@@ -2,6 +2,56 @@
 
 # Monthly Plan — SKILL
 
+## Table of contents
+
+- [Trigger](#trigger)
+- [Month framing (non-negotiable)](#month-framing-non-negotiable)
+- [Inputs](#inputs)
+- [Execution Protocol (mandatory)](#execution-protocol-mandatory)
+  - [Ledger step order (do not reorder)](#ledger-step-order-do-not-reorder)
+  - [Present only (by step)](#present-only-by-step)
+  - [Output contracts — Phases 3–11](#output-contracts-phases-311)
+- [Interaction Style](#interaction-style)
+- [Procedure](#procedure)
+- [Phase 0: Data Pull (silent, before conversation)](#phase-0-data-pull-silent-before-conversation)
+- [Phase 1: Wellness Trends (~3 min)](#phase-1-wellness-trends-3-min)
+- [Phase 1b: Identity Check (~5 min)](#phase-1b-identity-check-5-min)
+- [Phase 1c: Quarterly Plan Checkpoint (~5 min)](#phase-1c-quarterly-plan-checkpoint-5-min)
+  - [Quarterly plan completeness gate](#quarterly-plan-completeness-gate)
+  - [Quarterly progress review (run only when gate passes)](#quarterly-progress-review-run-only-when-gate-passes)
+- [Phase 1d: Sustained Unhealthy Gate (~10 min, conditional)](#phase-1d-sustained-unhealthy-gate-10-min-conditional)
+- [Phase 2: Fitness Review & Reprioritization (~5 min)](#phase-2-fitness-review-reprioritization-5-min)
+- [Phase 3: Dev Work Review & Goals (~10 min)](#phase-3-dev-work-review-goals-10-min)
+- [Phase 3b: Idea Roadmap Scrub (~8 min)](#phase-3b-idea-roadmap-scrub-8-min)
+  - [Procedure (run once per Type, in this order: TG → CL → Personal)](#procedure-run-once-per-type-in-this-order-tg-cl-personal)
+  - [Sanity guardrails](#sanity-guardrails)
+- [Phase 4: Sales Progress & Goals (~10 min)](#phase-4-sales-progress-goals-10-min)
+  - [Pipeline Health](#pipeline-health)
+  - [Activity Scorecard](#activity-scorecard)
+  - [Team Efficiency Analysis](#team-efficiency-analysis)
+  - [Goal Setting](#goal-setting)
+  - [Pipedrive Reference](#pipedrive-reference)
+  - [Hubstaff Project Reference](#hubstaff-project-reference)
+- [Phase 5: Personal Project Tracker Audit (~10 min)](#phase-5-personal-project-tracker-audit-10-min)
+- [Phase 6: Financial Review (~10 min)](#phase-6-financial-review-10-min)
+  - [Personal Finances](#personal-finances)
+  - [Chrome Lot Business Finances](#chrome-lot-business-finances)
+- [Phase 7: CS Health Monthly Review (~5 min)](#phase-7-cs-health-monthly-review-5-min)
+- [Phase 8: People & Operations Trends (~5 min)](#phase-8-people-operations-trends-5-min)
+- [Phase 8b: Work Domain Health Rating (~5 min)](#phase-8b-work-domain-health-rating-5-min)
+- [Phase 9: Quarterly KPI Update (~5 min)](#phase-9-quarterly-kpi-update-5-min)
+- [Phase 10: Trip Planning with Bus (~5 min)](#phase-10-trip-planning-with-bus-5-min)
+- [Phase 11: Personal Time Off (~3 min)](#phase-11-personal-time-off-3-min)
+- [Phase 11b: Planning Month Dev Projects (~5 min)](#phase-11b-planning-month-dev-projects-5-min)
+- [Phase 12: Commit (~3 min)](#phase-12-commit-3-min)
+- [Cross-Cutting Rules](#cross-cutting-rules)
+- [Outputs](#outputs)
+- [Failure modes & graceful degradation](#failure-modes-graceful-degradation)
+- [See also](#see-also)
+
+---
+
+
 ## Trigger
 
 This skill activates when Aaron says "monthly plan", "monthly review", or "plan this month". Target duration: ~83 minutes.

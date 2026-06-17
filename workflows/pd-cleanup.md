@@ -2,6 +2,32 @@
 
 # Pipedrive Data Cleanup — SKILL
 
+## Table of contents
+
+- [Trigger](#trigger)
+- [Execution Protocol (mandatory)](#execution-protocol-mandatory)
+  - [Ledger step order](#ledger-step-order)
+  - [Output contracts](#output-contracts)
+- [Inputs](#inputs)
+- [Interaction style](#interaction-style)
+- [Approved manifest (required for any write)](#approved-manifest-required-for-any-write)
+- [Phase 0: Analyze (silent)](#phase-0-analyze-silent)
+- [Phase 1: Deal completeness](#phase-1-deal-completeness)
+  - [Per-item loop (all of Phase 1)](#per-item-loop-all-of-phase-1)
+  - [1a — Create photo CS + social](#1a-create-photo-cs-social)
+  - [1b — Adopt unclaimed photo deals](#1b-adopt-unclaimed-photo-deals)
+  - [1c — Delete ex-customer open deals](#1c-delete-ex-customer-open-deals)
+- [Phase 2: Missing orgs + POCs](#phase-2-missing-orgs-pocs)
+  - [2a — Missing org (`5_missing_org`)](#2a-missing-org-5_missing_org)
+  - [2b — Missing POC (`6_missing_poc`)](#2b-missing-poc-6_missing_poc)
+- [Phase 3: Duplicates](#phase-3-duplicates)
+- [Phase 4: Wrong pipeline](#phase-4-wrong-pipeline)
+- [Phase 5: Commit summary](#phase-5-commit-summary)
+- [Out of scope (v1)](#out-of-scope-v1)
+
+---
+
+
 ## Trigger
 
 Activates on **pd cleanup**, **pipedrive cleanup**, **deal cleanup**, or **crm cleanup**. Target duration: ~30–45 min first run; faster on repeat when counts are low.
