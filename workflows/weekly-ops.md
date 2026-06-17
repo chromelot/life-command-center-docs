@@ -249,7 +249,7 @@ Via `weekly-data-pull.mjs` (parallel MCP where applicable):
 3. **Knack Customers** (`object_2`): field_464 (Current Customer), field_1035 (HJD), field_1601 (Health Status), field_1438 (Account Manager), field_1410 (Invoice Follow Up Status), field_1428 (Adjusted Late Invoices), field_1491 (Aged Invoices)
 4. **Knack Photographers** (`object_7`): field_33 (Status), field_1267 (Call-ins Last Month), field_1362 (Avg Issues Per Car), field_1446 (Time Off Requests Last Month), field_1338 (Performance Grade)
 5. **Hubstaff:** Last week's hours per member via `hubstaff_get_weekly_report`
-6. **CS health / photographer performance** sections (script-built flags → RED FLAGS)
+6. **CS health / PHOTOGRAPHER MANAGEMENT** sections (script-built flags → RED FLAGS)
 
 **Reconcile completions first** — before Phase 1, note what's already been done since last ops session.
 
