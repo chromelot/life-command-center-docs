@@ -709,16 +709,18 @@ Review flagged rows **one signal at a time** if any require action. Create Todoi
 
 **Data source:** Briefing **SOCIAL MEDIA — PIPELINE & POSTING** (P&L, active account posting table, Pipedrive pipeline 13 + Knack `object_65` / `object_21` / `object_25`). See [`social-media.md`](../../work/chrome-lot/social-media.md).
 
-1. Present **Table 6-B0 — Social P&L** from briefing **SOCIAL P&L** section:
+1. Present **Table 6-B0 — Social P&L** from briefing **SOCIAL P&L** + **SOCIAL LABOR DETAIL** sections:
 
 | Metric | Review week | Monthly run-rate |
 |--------|-------------|------------------|
 | Active accounts | | |
 | Billing | line items (`object_21` field_266) | Knack product price × active (`object_25` field_281) |
-| Expenses | line items (field_501 / field_262) | unit cost × active (field_501 template) |
-| Margin | | |
+| Labor (Han / Kadyn / Naids) | Hubstaff hours × Airtable Hourly Rate | review-week labor × 52/12 |
+| Buffer subscription | monthly ÷ 52/12 | `SOCIAL_BUFFER_MONTHLY_USD` secret |
+| Total expenses | labor + Buffer | labor est + Buffer |
+| Margin | billing − expenses | billing − expenses |
 
-Note when review-week line items are $0 — run-rate row is the operating picture.
+Note when review-week **billing** line items are $0 — use monthly billing run-rate. Expenses always use **labor + Buffer** (not Knack unit cost).
 
 2. Present **Table 6-B1 — Active account posting** (all active PD accounts — one row each):
 
