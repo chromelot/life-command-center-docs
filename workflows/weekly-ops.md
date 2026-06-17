@@ -34,6 +34,7 @@
   - [Part B — Team Sales Oversight (`3.2`)](#part-b-team-sales-oversight-32)
 - [Phase 4: Finance & Admin (~8 min)](#phase-4-finance-and-admin-8-min)
   - [Part A — Late Invoice Review (`4.1`)](#part-a-late-invoice-review-41)
+  - [Part B — QuickBooks admin (`4.2`)](#part-b-quickbooks-admin-42)
 - [Phase 6: Post Production (~5 min)](#phase-6-post-production-5-min)
 - [Phase 6-B: Social Media (~10 min)](#phase-6-b-social-media-10-min)
 - [Phase 7: 1:1 Meetings (~5 min)](#phase-7-11-meetings-5-min)
@@ -69,7 +70,7 @@ This session audits **`Create, and Audit Weekly Ops Plan`** and its sub-items in
 | Customer Service | Phase 2 — CS Management | `2.2`, `2.3` |
 | Photographer Management | Phase 2 — Photographer Management | `2.4` |
 | Sales Management | Phase 3 — Sales Management | `3.1`, `3.2` |
-| Finance & Admin | Phase 4 — Finance & Admin | `4.1` |
+| Finance & Admin | Phase 4 — Finance & Admin | `4.1`, `4.2` |
 | Post Production | Phase 6 — Post Production | `6.1` |
 | Social Media | Phase 6 — Social Media | `6.2` |
 | 1:1 meetings | Phase 7 — 1:1 Meetings | `7.1` |
@@ -133,12 +134,13 @@ Load via the router. Read these before starting:
 | 10 | `2.4` | Yes — Phase 2-D Photographer Management (roster + perf behind + monitoring) |
 | 11 | `3.1` | Yes — Phase 3-A Aaron sales (gaps → stale → overdue PD → plan week) |
 | 12 | `3.2` | Yes — Phase 3-B team sales oversight + behind Pipedrive |
-| 13 | `4.1` | Yes — Phase 4 — Finance & Admin (late invoices, one customer per turn) |
-| 14 | `6.1` | Yes — Phase 6 — Post Production (QA / delivery backlog) |
-| 15 | `6.2` | Yes — Phase 6 — Social Media (pipeline + posting currency) |
-| 16 | `7.1` | Yes — Phase 7 — 1:1 meetings + late 1:1 visits |
-| 17 | `check` | Yes — ops FIELD CHECK |
-| 18 | `commit` | Yes — log rollup + Team Activity Details + approved writes |
+| 13 | `4.1` | Yes — Phase 4-A — Late invoices (one customer per turn) + Admin dept health |
+| 14 | `4.2` | Yes — Phase 4-B — QuickBooks categorization + quarterly estimates (placeholder) |
+| 15 | `6.1` | Yes — Phase 6 — Post Production (QA / delivery backlog) |
+| 16 | `6.2` | Yes — Phase 6 — Social Media (pipeline + posting currency) |
+| 17 | `7.1` | Yes — Phase 7 — 1:1 meetings + late 1:1 visits |
+| 18 | `check` | Yes — ops FIELD CHECK |
+| 19 | `commit` | Yes — log rollup + Team Activity Details + approved writes |
 
 **Notion log:** Create at start of `1.1` if not already created (`workflow-notion-log create`). Sync after every `advance`. Write phase fields per `context/systems/workflow-logs.md`.
 
@@ -158,7 +160,8 @@ Load via the router. Read these before starting:
 | `2.4` | Photographer roster + perf behind + monitoring — one monitored photographer per turn |
 | `3.1` | Aaron sales (gaps → stale deals one-by-one → overdue PD → plan week) |
 | `3.2` | Team sales oversight table (stale + overdue PD per member) |
-| `4.1` | Late invoice review — one customer per turn |
+| `4.1` | Late invoice review — one customer per turn + Table 4-H (Admin dept health) |
+| `4.2` | Table 4-B — QuickBooks categorization + quarterly estimates (placeholder; briefing **ADMIN — QUICKBOOKS & QUARTERLY ESTIMATES**) |
 | `6.1` | Post production currency table |
 | `6.2` | Social Media — P&L + per-account posting + pipeline gaps — one flagged account per turn |
 | `7.1` | Late 1:1 visits table — one person per turn when overdue |
@@ -643,9 +646,9 @@ If **zero** overdue: single row `No overdue PD flags` and continue.
 <a id="phase-4-finance-and-admin-8-min"></a>
 ## Phase 4: Finance & Admin (~8 min)
 
-**Purpose:** Invoice accountability and admin currency — covers **Finance & Admin** Dev Project sub-item.
+**Purpose:** Invoice accountability, QuickBooks admin currency (placeholder), and admin dept health — covers **Finance & Admin** Dev Project sub-item.
 
-**Data source:** `output/weekly-ops-briefing-YYYY-MM-DD.md` (Knack invoice fields, outstanding invoice aging, Todoist overdue admin tasks).
+**Data source:** `output/weekly-ops-briefing-YYYY-MM-DD.md` (Knack invoice fields, outstanding invoice aging, **ADMIN — QUICKBOOKS & QUARTERLY ESTIMATES**, Todoist overdue admin tasks).
 
 <a id="part-a-late-invoice-review-41"></a>
 ### Part A — Late Invoice Review (`4.1`)
@@ -682,6 +685,30 @@ If **zero** overdue: single row `No overdue PD flags` and continue.
 
 **Advance:** `4.1`
 
+<a id="part-b-quickbooks-admin-42"></a>
+### Part B — QuickBooks admin (`4.2`)
+
+**Purpose:** Surface how far **caught up or behind** Aaron is on QuickBooks transaction categorization and quarterly tax estimates. **Not automated yet** — placeholder until QuickBooks MCP / sync is built.
+
+**Data source:** Briefing **ADMIN — QUICKBOOKS & QUARTERLY ESTIMATES** (placeholder rows until live pull exists). See [`../../work/finances/index.md`](../../work/finances/index.md).
+
+1. Present **Table 4-B — QuickBooks & quarterly estimates** from briefing (fill `—` until automation ships; Aaron may override cells verbally):
+
+| Stream | Through date | Catch-up status | Notes |
+|--------|--------------|-----------------|-------|
+| Bank / card categorization | | | |
+| Receipt / vendor match | | | |
+| CL vs personal split | | | |
+
+| Quarter | Due date | Paid / filed | Catch-up status | Notes |
+|---------|----------|--------------|-----------------|-------|
+| Current quarter estimate | | | | |
+| Prior quarter (if open) | | | | |
+
+2. No remediation required while placeholder — acknowledge status and note any manual catch-up Aaron commits to (optional one-line in Ops Summary at commit).
+
+**Advance:** `4.2`
+
 <a id="phase-6-post-production-5-min"></a>
 ## Phase 6: Post Production (~5 min)
 
@@ -715,7 +742,7 @@ Review flagged rows **one signal at a time** if any require action. Create Todoi
 |--------|-------------|------------------|
 | Active accounts | | |
 | Billing | line items (`object_21` field_266) | confirmed monthly per active account (override → field_281 → field_459) |
-| Labor (Han / Kadyn / Naids) | Hubstaff hours × Airtable Hourly Rate | review-week labor × 52/12 |
+| Labor (Han / Kadyn / Naids) | Hubstaff, Time Doctor, or Airtable Time Punches × Airtable Hourly Rate | review-week labor × 52/12 |
 | Buffer subscription | monthly ÷ 52/12 | `SOCIAL_BUFFER_MONTHLY_USD` secret |
 | Total expenses | labor + Buffer | labor est + Buffer |
 | Margin | billing − expenses | billing − expenses |
@@ -828,6 +855,7 @@ If **zero** overdue 1:1s: single row `No late 1:1 flags` and advance.
 | Phase 3 | Team behind Pipedrive reviewed | |
 | Phase 3 | Account Management dept health confirmed or updated | |
 | Phase 4 | Invoice escalations decided | |
+| Phase 4 | QuickBooks / quarterly estimates placeholder acknowledged (Table 4-B) | |
 | Phase 4 | Admin dept health confirmed or updated | |
 | Phase 6 | Post production signals reviewed | |
 | Phase 6 | Social P&L reviewed (billing vs expenses) | |
@@ -867,6 +895,7 @@ Run: `node scripts/workflow-progress.mjs gate --workflow weekly-ops --phase chec
 | CS check-ins | count + assignees | |
 | Behind CS cleared | count resolved / deferred | |
 | Invoice escalations | count | |
+| QuickBooks / estimates | catch-up noted (or placeholder N/A) | Aaron |
 | Aaron sales stops | count | |
 | Behind PD (Aaron) | overdue + stale resolved | |
 | Team sales nudges | | |
@@ -950,7 +979,7 @@ Run: `node scripts/workflow-progress.mjs gate --workflow weekly-ops --phase chec
 - **Phase 1:** Work summary + activity scorecard + daily ops records + ops priority.
 - **Phase 2:** Hiring pipeline actions + behind CS + HJD + photographer management decisions.
 - **Phase 3:** Deal gaps cleared + overdue PD + stale deals + Aaron sales plan + team behind PD actions.
-- **Phase 4:** Invoice escalation decisions.
+- **Phase 4:** Invoice escalation decisions + QuickBooks/estimates placeholder acknowledged.
 - **Phase 6:** Post production / QA actions + Social Media pipeline/posting review.
 - **Phase 7:** Late 1:1 review + scheduling decisions.
 - **check:** Ops FIELD CHECK pass.
