@@ -249,7 +249,19 @@ DATA INTEGRITY CHECK
 
 **Phase 1 order (session):** `1.0` → `1.1` Values → `1.2` Mind (incl. wellness) → `1.3` Fitness → `1.4` Sleep and Schedule → `1.5` Social → `1.6` Parenting → `1.7` Personal enjoyment → `1.check`
 
-**Print / Week Tracker domain order (Phase 4b):** Sleep and Schedule → Spirituality & Mind → Fitness → Social → Parenting → Personal Enjoyment → Development Work. Each domain renders as a two-column table: *What happened last week · Intentions for next week* (adjustments merged into intentions, bold first), with a Healthy/Unhealthy badge when rated.
+**Print / Week Tracker domain order (Phase 4b):** Sleep and Schedule → Spirituality & Mind → Fitness → Social → Parenting → Personal Enjoyment → Development Work. Each domain renders as a two-column table: *What happened last week · Intentions for next week* (adjustments merged into intentions, bold first), with a five-level health badge when rated. **Trend arrow** (↑ / ↓ / −) compares to the **prior week's** same-domain rating on the Weekly Meeting Log.
+
+**Health rating scale** *(all Phase 1 domain ratings + Phase 2.1 dev health — one letter per turn)*
+
+| | Rating |
+|---|--------|
+| **A** | Very Unhealthy |
+| **B** | Unhealthy |
+| **C** | Okay |
+| **D** | Healthy |
+| **E** | Very Healthy |
+
+**Gates:** Starved Values + behavioral adjustments (1.4-G) trigger when rating is **A or B** (Unhealthy or worse). Okay and above: no starve, no behavioral-adjustment table for that domain.
 
 <a id="10-create-weekly-log-entry"></a>
 ### 1.0 Create Weekly Log Entry
@@ -377,7 +389,7 @@ When escalation is **false**, leave PHQ-2/GAD-2 blank on the log (monthly plan c
 
 | Rating | Evidence (mood + spirit + journal) | → Notion field |
 |--------|-----------------------------------|----------------|
-| Healthy / Unhealthy | cite valence, negative %, spirit min | `Mind Health` |
+| A–E (health scale) | cite valence, negative %, spirit min | `Mind Health` |
 
 **Table 1.2-H — Mind intentions (upcoming week)** *(Aaron approves before Notion write)*
 
@@ -442,7 +454,7 @@ Copy **TABLE 1.3-B-supp** and **TABLE 1.3-C-supp** verbatim from `weekly-habits-
 
 | Rating | → Notion field |
 |--------|----------------|
-| Healthy / Unhealthy | `Fitness Health` |
+| A–E (health scale) | `Fitness Health` |
 
 **Table 1.3-F — Fitness intentions (upcoming week)**
 
@@ -510,7 +522,7 @@ Sync Notion, then **print preview:** `--section fitness` — present verbatim; A
 
 | Rating | → Notion field |
 |--------|----------------|
-| Healthy / Unhealthy | `Sleep Health` |
+| A–E (health scale) | `Sleep Health` |
 
 **Table 1.4-F — Sleep and schedule intentions (upcoming week)**
 
@@ -518,13 +530,13 @@ Sync Notion, then **print preview:** `--section fitness` — present verbatim; A
 |--------------------------------|-----------------------------------|------------------|------------------|-------------------|
 | | | | | `Sleep Intentions`, `Schedule Intentions`, `Sleep Target Hours`, `Target Wake Time` |
 
-**Table 1.4-G — Behavioral adjustments** *(required when **this step's** domain = Unhealthy — concrete commitments; **skip table** (write "—") when Healthy)*
+**Table 1.4-G — Behavioral adjustments** *(required when **this step's** domain = A or B — concrete commitments; **skip table** (write "—") when C or better)*
 
 | Adjustment | Reason |
 |------------|--------|
 | | |
 
-→ Write `Behavioral Adjustments` (append domain-labeled bullets; cumulative across Unhealthy domains this session). **Healthy domains: no adjustments needed.**
+→ Write `Behavioral Adjustments` (append domain-labeled bullets; cumulative across A/B domains this session). **C+ domains: no adjustments needed.**
 
 Sync Notion, then **print preview:** `--section sleep-schedule` — present verbatim; Aaron confirms → advance.
 
@@ -596,7 +608,7 @@ Two weeks running **Contaminated/Divided** (when accessible) → flag in `Social
 
 | Rating | → Notion field |
 |--------|----------------|
-| Healthy / Unhealthy | `Social Health` |
+| A–E (health scale) | `Social Health` |
 
 **Table 1.5-G — Social intentions (upcoming week)**
 
@@ -656,7 +668,7 @@ Sync Notion, then **print preview:** `--section social` — present verbatim; Aa
 
 | Rating | → Notion field |
 |--------|----------------|
-| Healthy / Unhealthy | `Parenting Health` |
+| A–E (health scale) | `Parenting Health` |
 
 **Table 1.6-E — Parenting intentions (upcoming week)**
 
@@ -690,7 +702,7 @@ Sync Notion, then **print preview:** `--section parenting` — present verbatim;
 
 | Rating | → Notion field |
 |--------|----------------|
-| Healthy / Unhealthy | `Enjoyment Health` |
+| A–E (health scale) | `Enjoyment Health` |
 
 → Write `Personal Enjoyment` (rich_text — last week + forward intention). Propose Personal Time Blocks calendar events with approval.
 
@@ -704,7 +716,7 @@ Sync Notion, then **print preview:** `--section enjoyment` — present verbatim;
 | 1.2 | `Intentions Review` (mind row), `Mind Health`, `Mind Intentions`, `Mood Valence`, `Mood Negative %`, `Journal Feelings Summary`, `Mood Distress Flag`, `Energy Rating`, `Screening Escalation`; PHQ/GAD only if `Screening Escalation` = true |
 | 1.3–1.4 | `Fitness/Sleep Health`, `Fitness/Sleep Intentions`, `Schedule Intentions`, `Schedule Review`, `Strength Target`, `Cardio Target`, `Sleep Target Hours`, `Target Wake Time`, `Behavioral Adjustments` |
 | 1.5 | `Small Talk Count`, `Social Events Count`, `Social Review` (incl. **fuel rating**), `Social Intentions Met`, `Social Health`, `Social Priority`, `Social Intentions` |
-| `1.4` (Unhealthy) | `Behavioral Adjustments` — **required for that domain**; skip when Healthy |
+| `1.4` (A or B) | `Behavioral Adjustments` — **required for that domain**; skip when C or better |
 | `1.5` | Fuel **Stage 1 + 2** + **recovery intentions** (1.5-E-b when triggered) in `Social Review` |
 | 1.6 | `Parenting Health`, `Parenting Intentions` |
 | 1.7 | `Personal Enjoyment`, `Enjoyment Health` |
@@ -784,16 +796,19 @@ Then Aaron rates:
 
 | | Rating |
 |---|--------|
-| **A** | Healthy |
+| **A** | Very Unhealthy |
 | **B** | Unhealthy |
+| **C** | Okay |
+| **D** | Healthy |
+| **E** | Very Healthy |
 
 → Write `Work Health`, `Dev Week Rating`, `Dev Intentions Met`, and fold the summary into `Dev Review`.
 
-**Table 2.1-E — Adjustments** *(only if 2.1-D = Unhealthy)*
+**Table 2.1-E — Adjustments** *(only if 2.1-D = A or B)*
 
-**Skip entirely when Healthy.** When Unhealthy: ask Aaron what adjustments he wants to commit to for the next period. **Agent does not recommend adjustments** — capture his words only.
+**Skip entirely when C or better.** When A or B: ask Aaron what adjustments he wants to commit to for the next period. **Agent does not recommend adjustments** — capture his words only.
 
-→ Write `Dev Adjustments` (Aaron’s commitments, or leave empty when Healthy).
+→ Write `Dev Adjustments` (Aaron’s commitments, or leave empty when C+).
 
 **Planning next week — three turns (do not combine)**
 
@@ -902,7 +917,7 @@ This list must **exactly match** the Notion Dev Projects view filtered to `This 
 |-------|------|
 | `Deep Work Minutes`, `Accomplishments`, counts | 2.1-C |
 | `Dev Review`, `Work Health`, `Dev Week Rating`, `Dev Intentions Met` | 2.1-D |
-| `Dev Adjustments` | 2.1-E *(Unhealthy only; Aaron-supplied)* |
+| `Dev Adjustments` | 2.1-E *(A/B only; Aaron-supplied)* |
 | `Dev Projects Intended` | 2.1 sync (after F/G/H) |
 | `Dev Priority Context` | 2.1-G |
 | CL/TG `This Week` sync | 2.1-S |
@@ -921,9 +936,9 @@ This list must **exactly match** the Notion Dev Projects view filtered to `This 
 3. **Confirm "This Week" checkboxes:** Verify all selected Dev Projects have `This Week = true` and no deselected ones still have it checked.
 4. **Store project KPIs on Weekly Meeting Log:** Write `Projects Completed` (count of projects marked Done this week) and `Projects In Progress` (count of projects with This Week checked for the new week).
 5. **Verify all FIELD CHECKs (REQUIRED):** Re-run Phase 1 (`1.check`) and Phase 2 (`2.check`). Confirm nothing is blank without N/A + reason. (Activity KPIs + Team Activity Details → **Weekly Ops** commit.)
-6. **Record life health ratings (REQUIRED):** Verify weekly-rated selects are set — `Mind Health` (→ `Spirituality Health` in Phase 4), `Fitness Health` (1.3), `Sleep Health` (1.4), `Social Health` (1.5), `Parenting Health` (1.6), `Enjoyment Health` (1.7), `Work Health` (2.2). Values: `Healthy` or `Unhealthy`. Admin is not rated in weekly plan.
+6. **Record life health ratings (REQUIRED):** Verify weekly-rated selects are set — `Mind Health` (→ `Spirituality Health` in Phase 4), `Fitness Health` (1.3), `Sleep Health` (1.4), `Social Health` (1.5), `Parenting Health` (1.6), `Enjoyment Health` (1.7), `Work Health` (2.2). Values: **Very Unhealthy → Very Healthy** (five-level scale). Admin is not rated in weekly plan.
 7. **Update Values DB Health (with approval):** For each category where this week's rating differs from current Values DB Health, update via `personal_notion_update_page` on the category page in Values DB (`342f40c2-487b-80c5`). Include **Personal Enjoyment** when added to Values DB.
-8. **Record Starved Values:** Derive from weekly health ratings — set `Starved Values` multi_select to every **rated** category marked **Unhealthy** (Spirituality, Fitness, Work, Social, Parenting, Personal Enjoyment). Admin excluded from weekly rating.
+8. **Record Starved Values:** Derive from weekly health ratings — set `Starved Values` multi_select to every **rated** category marked **Unhealthy or Very Unhealthy** (A or B: Spirituality, Fitness, Work, Social, Parenting, Personal Enjoyment). Admin excluded from weekly rating.
 9. **Confirm accomplishment fields (REQUIRED):** Verify Phase 2.2 wrote `Logged/Unlogged/Total Accomplishments Count`, `Focused Output Hours Estimate`, and `Accomplishments`. Backfill from habit summary if missing.
 10. **Body comp already persisted.** Withings written in Phase 0 (`--days 28`). Don't re-run here.
 11. **Execute remaining:** Create any Todoist/Calendar/Notion items not yet committed during earlier phases.
