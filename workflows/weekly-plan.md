@@ -21,7 +21,7 @@
   - [1.1 Values Context (~1 min) — **first table to Aaron**](#11-values-context-1-min-first-table-to-aaron)
   - [1.2 Mind — Review · Mood · Rate · Intentions (~6 min)](#12-mind-review-mood-rate-intentions-6-min)
   - [1.3 Fitness — Review · Rate · Intentions (~5 min)](#13-fitness-review-rate-intentions-5-min)
-  - [1.4 Sleep — Review · Rate · Intentions (~5 min)](#14-sleep-review-rate-intentions-5-min)
+  - [1.4 Sleep and Schedule — Review · Rate · Intentions (~5 min)](#14-sleep-and-schedule-review-rate-intentions-5-min)
   - [1.5 Social — Review · Rate · Intentions (~5 min)](#15-social-review-rate-intentions-5-min)
   - [1.6 Parenting — Review · Rate · Intentions (~4 min)](#16-parenting-review-rate-intentions-4-min)
   - [1.7 Personal Enjoyment (~2 min)](#17-personal-enjoyment-2-min)
@@ -88,7 +88,7 @@ Load via the router. Read these before starting:
     |------------|------------------|-------|
     | `1.2` | `spirituality` | After death-chart confirm + mind Notion sync |
     | `1.3` | `fitness` | |
-    | `1.4` | `sleep-schedule` | Pulls sleep + morning-stack intentions from mind/fitness already on log |
+    | `1.4` | `sleep-schedule` | Sleep + schedule intentions only (no cross-domain pull) |
     | `1.5` | `social` | After fuel check + social Notion sync |
     | `1.6` | `parenting` | |
     | `1.7` | `enjoyment` | |
@@ -247,7 +247,7 @@ DATA INTEGRITY CHECK
 
 **Purpose:** Values context first, then mind → fitness → sleep → social → parenting → personal enjoyment — one domain at a time (review → rate health where applicable → set intentions). Mind includes wellness screening. Work health rates in Phase 2.2.
 
-**Phase 1 order (session):** `1.0` → `1.1` Values → `1.2` Mind (incl. wellness) → `1.3` Fitness → `1.4` Sleep → `1.5` Social → `1.6` Parenting → `1.7` Personal enjoyment → `1.check`
+**Phase 1 order (session):** `1.0` → `1.1` Values → `1.2` Mind (incl. wellness) → `1.3` Fitness → `1.4` Sleep and Schedule → `1.5` Social → `1.6` Parenting → `1.7` Personal enjoyment → `1.check`
 
 **Print / Week Tracker domain order (Phase 4b):** Sleep and Schedule → Spirituality & Mind → Fitness → Social → Parenting → Personal Enjoyment → Development Work. Each domain renders as a two-column table: *What happened last week · Intentions for next week* (adjustments merged into intentions, bold first), with a Healthy/Unhealthy badge when rated.
 
@@ -454,10 +454,10 @@ Append fitness row to `Intentions Review`.
 
 Sync Notion, then **print preview:** `--section fitness` — present verbatim; Aaron confirms → advance.
 
-<a id="14-sleep-review-rate-intentions-5-min"></a>
-### 1.4 Sleep — Review · Rate · Intentions (~5 min)
+<a id="14-sleep-and-schedule-review-rate-intentions-5-min"></a>
+### 1.4 Sleep and Schedule — Review · Rate · Intentions (~5 min)
 
-**Data sources:** `health_get_summary({ days: 28 })`, `daily-health-sections.mjs` (SLEEP section), prior week's `Sleep Intentions`.
+**Data sources:** `health_get_summary({ days: 28 })`, `daily-health-sections.mjs` (SLEEP section), prior week's `Sleep Intentions` and `Schedule Intentions`.
 
 **Present exactly these tables, then health rating, then intentions:**
 
@@ -466,6 +466,17 @@ Sync Notion, then **print preview:** `--section fitness` — present verbatim; A
 | Last week's `Sleep Intentions` | Evidence | Met? |
 |--------------------------------|----------|------|
 | | 1-line summary | ✓ / ~ / ✗ |
+
+**Table 1.4-A-b — Schedule review (last week)**
+
+| Topic | Evidence | Met? |
+|-------|----------|------|
+| Time blocks honored | | ✓ / ~ / ✗ |
+| Leave house early | | ✓ / ~ / ✗ |
+| Stay on job | | ✓ / ~ / ✗ |
+| Shutdown from work | | ✓ / ~ / ✗ |
+
+→ Write narrative to `Schedule Review` (rich_text).
 
 **Table 1.4-B — Sleep aggregate**
 
@@ -501,11 +512,11 @@ Sync Notion, then **print preview:** `--section fitness` — present verbatim; A
 |--------|----------------|
 | Healthy / Unhealthy | `Sleep Health` |
 
-**Table 1.4-F — Sleep intentions (upcoming week)**
+**Table 1.4-F — Sleep and schedule intentions (upcoming week)**
 
-| Intentions (1–3 bullets) | Sleep target (h) | Wake target (CT) | → Notion field(s) |
-|--------------------------|------------------|------------------|-------------------|
-| | | | `Sleep Intentions`, `Sleep Target Hours`, `Target Wake Time` |
+| Sleep intentions (1–3 bullets) | Schedule intentions (1–3 bullets) | Sleep target (h) | Wake target (CT) | → Notion field(s) |
+|--------------------------------|-----------------------------------|------------------|------------------|-------------------|
+| | | | | `Sleep Intentions`, `Schedule Intentions`, `Sleep Target Hours`, `Target Wake Time` |
 
 **Table 1.4-G — Behavioral adjustments** *(required when **this step's** domain = Unhealthy — concrete commitments; **skip table** (write "—") when Healthy)*
 
@@ -675,6 +686,12 @@ Sync Notion, then **print preview:** `--section parenting` — present verbatim;
 |-------------------------|--------------|
 | what fun to plan or protect | yes / no / propose block |
 
+**Table 1.7-C — Enjoyment health**
+
+| Rating | → Notion field |
+|--------|----------------|
+| Healthy / Unhealthy | `Enjoyment Health` |
+
 → Write `Personal Enjoyment` (rich_text — last week + forward intention). Propose Personal Time Blocks calendar events with approval.
 
 Sync Notion, then **print preview:** `--section enjoyment` — present verbatim; Aaron confirms → advance.
@@ -685,12 +702,12 @@ Sync Notion, then **print preview:** `--section enjoyment` — present verbatim;
 |-------|------------------------|
 | Last-week KPIs | `Strength Sessions`, `Cardio Sessions`, `Spirit Minutes`, `Journal Count`, `Weight Avg`, `Body Fat Avg`, `Lean Mass Avg`, `Sleep Avg`, `Sleep Nights Tracked`, `Wake Time Std Dev Min`, `Bedtime Std Dev Min`, `Sleep Schedule Rating`, `Steps Avg`, `Workout Active Minutes` |
 | 1.2 | `Intentions Review` (mind row), `Mind Health`, `Mind Intentions`, `Mood Valence`, `Mood Negative %`, `Journal Feelings Summary`, `Mood Distress Flag`, `Energy Rating`, `Screening Escalation`; PHQ/GAD only if `Screening Escalation` = true |
-| 1.3–1.4 | `Fitness/Sleep Health`, `Fitness/Sleep Intentions`, `Strength Target`, `Cardio Target`, `Sleep Target Hours`, `Target Wake Time`, `Behavioral Adjustments` |
+| 1.3–1.4 | `Fitness/Sleep Health`, `Fitness/Sleep Intentions`, `Schedule Intentions`, `Schedule Review`, `Strength Target`, `Cardio Target`, `Sleep Target Hours`, `Target Wake Time`, `Behavioral Adjustments` |
 | 1.5 | `Small Talk Count`, `Social Events Count`, `Social Review` (incl. **fuel rating**), `Social Intentions Met`, `Social Health`, `Social Priority`, `Social Intentions` |
 | `1.4` (Unhealthy) | `Behavioral Adjustments` — **required for that domain**; skip when Healthy |
 | `1.5` | Fuel **Stage 1 + 2** + **recovery intentions** (1.5-E-b when triggered) in `Social Review` |
 | 1.6 | `Parenting Health`, `Parenting Intentions` |
-| 1.7 | `Personal Enjoyment` |
+| 1.7 | `Personal Enjoyment`, `Enjoyment Health` |
 
 **Do not proceed to Phase 2 (Work) until Table 1.check passes.**
 
@@ -904,16 +921,16 @@ This list must **exactly match** the Notion Dev Projects view filtered to `This 
 3. **Confirm "This Week" checkboxes:** Verify all selected Dev Projects have `This Week = true` and no deselected ones still have it checked.
 4. **Store project KPIs on Weekly Meeting Log:** Write `Projects Completed` (count of projects marked Done this week) and `Projects In Progress` (count of projects with This Week checked for the new week).
 5. **Verify all FIELD CHECKs (REQUIRED):** Re-run Phase 1 (`1.check`) and Phase 2 (`2.check`). Confirm nothing is blank without N/A + reason. (Activity KPIs + Team Activity Details → **Weekly Ops** commit.)
-6. **Record life health ratings (REQUIRED):** Verify weekly-rated selects are set — `Mind Health` (→ `Spirituality Health` in Phase 4), `Fitness Health` (1.3), `Social Health` (1.5), `Parenting Health` (1.6), `Work Health` (2.2). Values: `Healthy` or `Unhealthy`. Admin is not rated in weekly plan.
-7. **Update Values DB Health (with approval):** For each category where this week's rating differs from current Values DB Health, update via `personal_notion_update_page` on the category page in Values DB (`342f40c2-487b-80c5`).
-8. **Record Starved Values:** Derive from weekly health ratings — set `Starved Values` multi_select to every **rated** category marked **Unhealthy** (Spirituality, Fitness, Work, Social, Parenting). Admin excluded from weekly rating.
+6. **Record life health ratings (REQUIRED):** Verify weekly-rated selects are set — `Mind Health` (→ `Spirituality Health` in Phase 4), `Fitness Health` (1.3), `Sleep Health` (1.4), `Social Health` (1.5), `Parenting Health` (1.6), `Enjoyment Health` (1.7), `Work Health` (2.2). Values: `Healthy` or `Unhealthy`. Admin is not rated in weekly plan.
+7. **Update Values DB Health (with approval):** For each category where this week's rating differs from current Values DB Health, update via `personal_notion_update_page` on the category page in Values DB (`342f40c2-487b-80c5`). Include **Personal Enjoyment** when added to Values DB.
+8. **Record Starved Values:** Derive from weekly health ratings — set `Starved Values` multi_select to every **rated** category marked **Unhealthy** (Spirituality, Fitness, Work, Social, Parenting, Personal Enjoyment). Admin excluded from weekly rating.
 9. **Confirm accomplishment fields (REQUIRED):** Verify Phase 2.2 wrote `Logged/Unlogged/Total Accomplishments Count`, `Focused Output Hours Estimate`, and `Accomplishments`. Backfill from habit summary if missing.
 10. **Body comp already persisted.** Withings written in Phase 0 (`--days 28`). Don't re-run here.
 11. **Execute remaining:** Create any Todoist/Calendar/Notion items not yet committed during earlier phases.
 12. **Log to Notion:** Finalize the Weekly Meeting Log entry (`322f40c2-487b-81bd`) with key decisions, action items, and plan summary. Set `Status = Done`, `Session Complete = Complete`.
 13. **Week Tracker summary (4b — REQUIRED, two sub-steps):**
     - **4b.1 Confirm week record:** Run `node scripts/weekly-plan-week-summary.mjs --ledger <path> --list-candidates`. Present the candidate table to Aaron via **AskQuestion** (one question). Plans finish on different weekdays — Aaron picks which **Week Tracker** page to write to (letter A–E). Do **not** write until confirmed.
-    - **4b.2 Write plan:** Optional gate — `node scripts/weekly-plan-section-preview.mjs --ledger <path> --all` (full print preview). After Aaron confirms, run `node scripts/weekly-plan-week-summary.mjs --ledger <path> --week-page-id <id>`. This (1) creates a **Google Doc** in `Plan Records/weekly/` (`scripts/provision-plan-records-drive.mjs` once), (2) sets **`Plan Doc URL`** on the confirmed week record, (3) appends/replaces the **Weekly Plan** section on that Notion page. Suggested title: `Week Starting M/D` = Sunday before ledger `week_of` (Mon 2026-06-08 → `Week Starting 6/7`). Aaron approves production writes.
+    - **4b.2 Write plan:** Optional gate — `node scripts/weekly-plan-section-preview.mjs --ledger <path> --all` (full print preview). After Aaron confirms, run `node scripts/weekly-plan-week-summary.mjs --ledger <path> --week-page-id <id>`. This (1) renders a **print PDF** via Playwright (also saves `output/weekly-plan-print-{week}.html` + `.pdf`), (2) uploads PDF to `Plan Records/weekly/`, (3) sets **`Plan Doc URL`** on the confirmed week record, (4) appends/replaces the **Weekly Plan** section on that Notion page. Suggested title: `Week Starting M/D` = Sunday before ledger `week_of` (Mon 2026-06-08 → `Week Starting 6/7`). Aaron approves production writes.
 14. **Update context files** if anything changed.
 
 <a id="cross-cutting-rules"></a>
