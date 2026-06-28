@@ -143,7 +143,7 @@ Output: `output/weekly-habits-YYYY-MM-DD.md`. Canonical last-week habit numbers 
 ```
 node "scripts/weekly-journal-feelings.mjs"
 ```
-Output: `output/weekly-journal-feelings-YYYY-MM-DD.md`. **Canonical source for Phase 1.2 mood tables** (valence, tag frequency, daily feelings, escalation, mind insights). Do not re-query Journal DB ad-hoc.
+Output: `output/weekly-journal-feelings-YYYY-MM-DD.md`. **Canonical source for Phase 1.2 mood tables** (valence, tag frequency, daily feelings, escalation, mind insights) **and TABLE 1.2-D-journal** (morning journal gratitude/goals insights). Do not re-query Journal DB ad-hoc.
 
 ```
 node "scripts/daily-health-sections.mjs"
@@ -267,7 +267,7 @@ Create the **new week's** Weekly Meeting Log entry (Name = `Week of [next Monday
 4. `node scripts/daily-health-sections.mjs` — MIND daily section (stdout)
 5. Prior week's `Mind Intentions` from wellness trends file
 
-**Sub-step order within 1.2:** `1.2-A` → `1.2-B` → `1.2-C` → `1.2-C-mood` → `1.2-D` → `1.2-E` → `1.2-E-b` → `1.2-F` → (optional `1.2-F-screen` if escalation) → `1.2-G` → `1.2-H`
+**Sub-step order within 1.2:** `1.2-A` → `1.2-B` → `1.2-B-mj` → `1.2-C` → `1.2-C-mj` → `1.2-C-mood` → `1.2-D` → `1.2-D-journal` → `1.2-E` → `1.2-E-b` → `1.2-F` → (optional `1.2-F-screen` if escalation) → `1.2-G` → `1.2-H`
 
 Copy tables **verbatim** from the feelings file and habit/health scripts — fill every cell; use `—` only when the source file shows `—`.
 
@@ -283,6 +283,12 @@ Copy tables **verbatim** from the feelings file and habit/health scripts — fil
 |--------|-----------|------------|----------------|
 | Spirit Minutes | from `weekly-habits-*.md` | from wellness file | `Spirit Minutes` |
 | Journal Count | from `weekly-habits-*.md` | from wellness file | `Journal Count` |
+| Morning Journal days | from `weekly-habits-*.md` TABLE 1.2-B-mj | — | (in summary) |
+| Affirmations | same as Morning Journal (TABLE 1.2-B-mj) | — | (included in journal ritual) |
+
+**Table 1.2-B-mj — Morning journal aggregate** *(copy from `weekly-habits-*.md` section `TABLE 1.2-B-mj`)*
+
+**Table 1.2-C-mj — Morning journal daily** *(copy from `weekly-habits-*.md` section `TABLE 1.2-C-mj`)*
 
 **Table 1.2-C — Mind daily** *(from `daily-health-sections.mjs` MIND section)*
 
@@ -300,6 +306,8 @@ Copy tables **verbatim** from the feelings file and habit/health scripts — fil
 **Table 1.2-D — Mind insights** *(copy mood row from `weekly-journal-feelings-*.md` section `TABLE 1.2-D`)*
 
 Present the table exactly as generated (2-column or flagged-entry table).
+
+**Table 1.2-D-journal — Morning journal insights** *(copy from `weekly-journal-feelings-*.md` section `TABLE 1.2-D-journal`)*
 
 **Table 1.2-E — Mood from journal** *(copy from `weekly-journal-feelings-*.md` section `TABLE 1.2-E`)*
 
