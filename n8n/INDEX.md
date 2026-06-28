@@ -10,6 +10,7 @@
 |---|---|
 | Any bot / Teams / deploy work | [`conventions.md`](conventions.md) |
 | CL Bot skills, debug, extend | [`bots/cl-bot/teams-bot.md`](bots/cl-bot/teams-bot.md) |
+| LCC Bot (personal habits, health) | [`bots/lcc-bot/lcc-bot.md`](bots/lcc-bot/lcc-bot.md) |
 | PD ↔ Todoist sync | [`sync/pd-todoist/pd-todoist-sync.md`](sync/pd-todoist/pd-todoist-sync.md) |
 | Inbox Guardian (email filter) | [`inbox-guardian/inbox-guardian.md`](inbox-guardian/inbox-guardian.md) |
 | Toggl → Notion time sync | [`sync/toggl-notion/toggl-notion-sync.md`](sync/toggl-notion/toggl-notion-sync.md) |
@@ -31,6 +32,10 @@ n8n/
 │   ├── teams-bot.md
 │   ├── deploy-teams-bot.mjs
 │   ├── check-bot-codestrings.mjs
+│   └── teams-app/
+├── bots/lcc-bot/           ← Personal LCC Bot (Aaron only)
+│   ├── lcc-bot.md
+│   ├── deploy-lcc-bot.mjs
 │   └── teams-app/
 │
 ├── sync/pd-todoist/        ← real-time PD ↔ Todoist stack

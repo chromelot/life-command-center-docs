@@ -384,16 +384,20 @@ Append mind row to `Intentions Review` on the Weekly Meeting Log.
 | Lean Mass Avg (lbs) | | | `Lean Mass Avg` |
 | Steps Avg | | | `Steps Avg` |
 | Workout Active Min | | | `Workout Active Minutes` *(Workouts DB `Minutes` sum, review week — from `daily-health-sections.mjs` aggregate)* |
+| Supplements (days) | from `weekly-habits-*.md` TABLE 1.3-B-supp | ↑/↓ vs prior week | — |
 | Heart Rate Avg (bpm) | | | `Heart Rate Avg` |
 | Resting HR Avg (bpm) | | | `Resting HR Avg` *(not tracked — omit from integrity checks)* |
 | HRV Avg (ms) | | | `HRV Avg` *(not tracked — omit from integrity checks)* |
 
-**Table 1.3-C — Fitness daily** *(from `daily-health-sections.mjs` FITNESS section — **Workouts DB** `127f40c2-487b-80ba`)*
+**Table 1.3-C — Fitness daily** *(from `daily-health-sections.mjs` FITNESS section — **Workouts DB** `127f40c2-487b-80ba`; **Supplements** from same script / `weekly-habits-*.md` TABLE 1.3-C-supp)*
+
+Copy **TABLE 1.3-B-supp** and **TABLE 1.3-C-supp** verbatim from `weekly-habits-*.md` § Supplements (Day Tracker) before or with Table 1.3-C.
 
 **Strength** and **Cardio** rows show **activity labels**, not counts: strength = `Type` (Pull / Push / Legs / …); cardio = `Name` when set (e.g. Yoga, Vest Walk) else `Type`. Multiple same-day entries comma-separated. `—` when none logged.
 
 | Metric | Mon M/D | Tue M/D | Wed M/D | Thu M/D | Fri M/D | Sat M/D | Sun M/D |
 |--------|---------|---------|---------|---------|---------|---------|---------|
+| Supplements | | | | | | | |
 | Strength | | | | | | | |
 | Cardio | | | | | | | |
 | Weight (lbs) | | | | | | | |
