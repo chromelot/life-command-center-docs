@@ -118,7 +118,7 @@ Monthly/quarterly: contracts in each `SKILL.md` **Present exactly** map + phase 
 - **2.1-S / 2.2-D sync:** After each selection, run `scripts/sync-dev-projects-this-week.mjs --selected=<IDs>` — selected `This Week = true`; **all other open** records `This Week = false`; clear stale Done checks. Cumulative IDs through 2.2.
 - **2.check:** One bulleted tree (CL/TG + Personal) must **exactly match** Notion `This Week` filtered view before Phase 4.
 - **4b.1:** `--list-candidates` → Aaron confirms Week Tracker page (plans finish on different weekdays).
-- **4b.2:** `--week-page-id` → Google Doc in `Plan Records/weekly/` + `Plan Doc URL` on week record + `Weekly Plan` section on Notion page (`weekly-plan-week-summary.mjs`). Suggested title maps ledger `week_of` (Monday) → `Week Starting M/D` (Sunday).
+- **4b.2:** `--week-page-id` → Google Doc in `Plan Records/weekly/` + `Plan Doc URL` on week record + `Weekly Plan` section on Notion page (`weekly-plan-week-summary.mjs`). Suggested title maps ledger `week_of` (Monday) → `Week Starting M/D` (Sunday). **Print layout:** seven domain tables — *What happened last week* (brief) · *Intentions for next week* (goals + adjustments merged; major adjustments bold first).
 - **2.2-A/C:** Planning month Personal Dev Projects (`🌙 Month`) — no free-text monthly priorities.
 - **Monthly plan 11b:** Link up to 5 root Dev Projects + open sub-items to planning month (`scripts/sync-dev-projects-month.mjs --include-descendants`). Priority Stack text deprecated.
 

@@ -230,7 +230,9 @@ DATA INTEGRITY CHECK
 
 **Purpose:** Values context first, then mind → fitness → sleep → social → parenting → personal enjoyment — one domain at a time (review → rate health where applicable → set intentions). Mind includes wellness screening. Work health rates in Phase 2.2.
 
-**Phase 1 order:** `1.0` → `1.1` Values → `1.2` Mind (incl. wellness) → `1.3` Fitness → `1.4` Sleep → `1.5` Social → `1.6` Parenting → `1.7` Personal enjoyment → `1.check`
+**Phase 1 order (session):** `1.0` → `1.1` Values → `1.2` Mind (incl. wellness) → `1.3` Fitness → `1.4` Sleep → `1.5` Social → `1.6` Parenting → `1.7` Personal enjoyment → `1.check`
+
+**Print / Week Tracker domain order (Phase 4b):** Sleep and Schedule → Spirituality & Mind → Fitness → Social → Parenting → Personal Enjoyment → Development Work. Each domain renders as a two-column table: *What happened last week · Intentions for next week* (adjustments merged into intentions, bold first), with a Healthy/Unhealthy badge when rated.
 
 <a id="10-create-weekly-log-entry"></a>
 ### 1.0 Create Weekly Log Entry
@@ -365,6 +367,8 @@ When escalation is **false**, leave PHQ-2/GAD-2 blank on the log (monthly plan c
 | Intentions (1–3 bullets) | → Notion field |
 |--------------------------|----------------|
 | | `Mind Intentions` |
+
+**Death chart (mandatory — same turn as 1.2-H, before advancing):** Remind Aaron to **mark this week on the death chart on the wall** (weeks-of-life grid; memento mori). Physical ritual only — not a Notion field. Confirm he did it (or will before the week starts) before `advance --step 1.2` → `1.3`. Always include on Phase 4b printout under Spirituality & Mind → Goals.
 
 Append mind row to `Intentions Review` on the Weekly Meeting Log.
 
