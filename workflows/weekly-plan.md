@@ -78,8 +78,25 @@ Load via the router. Read these before starting:
 7. **Table contract is the spec** — each sub-step lists the **exact tables** to present (column headers fixed). Fill every cell from the named data source; use `—` when data is missing. Do not add metrics, sections, or discussion topics outside that step's tables. **Do not `advance` until every in-scope table for the step is presented and any required Aaron input is collected.**
 8. **One question per turn** — Energy rating and Mind intentions are separate turns; PHQ-2/GAD-2 only when `Screening Escalation` is true (one item per turn)
 9. **Advance after complete:** `node scripts/workflow-progress.mjs advance --workflow weekly-plan --step <id>`
-10. **Phase gates:** `node scripts/workflow-progress.mjs gate --workflow weekly-plan --phase <1|2>` before Phase 2 (work) or Phase 4 (commit)
-11. **Tangents:** fix/interrupt, then resume ledger `current_step` — do not skip ahead
+10. **Print preview (required before each domain advance):** After Aaron approves intentions and **Notion fields for that domain are synced**, run:
+    ```
+    node scripts/weekly-plan-section-preview.mjs --ledger <path> --section <slug>
+    ```
+    Present the script output **verbatim** (same 3-row table as Phase 4b Google Doc). Aaron confirms nothing surprising → then `advance`. If wrong, fix Notion and re-run preview.
+
+    | After step | `--section` slug | Notes |
+    |------------|------------------|-------|
+    | `1.2` | `spirituality` | After death-chart confirm + mind Notion sync |
+    | `1.3` | `fitness` | |
+    | `1.4` | `sleep-schedule` | Pulls sleep + morning-stack intentions from mind/fitness already on log |
+    | `1.5` | `social` | After fuel check + social Notion sync |
+    | `1.6` | `parenting` | |
+    | `1.7` | `enjoyment` | |
+    | `2.1` (after sync + **2.1-S** confirmed) | `development` | Includes CL/TG + personal dev tree when on log |
+
+    Optional before **4b.2** write: `--all` for full seven-domain preview.
+11. **Phase gates:** `node scripts/workflow-progress.mjs gate --workflow weekly-plan --phase <1|2>` before Phase 2 (work) or Phase 4 (commit)
+12. **Tangents:** fix/interrupt, then resume ledger `current_step` — do not skip ahead
 
 <a id="interaction-style"></a>
 ## Interaction Style
@@ -370,7 +387,7 @@ When escalation is **false**, leave PHQ-2/GAD-2 blank on the log (monthly plan c
 
 **Death chart (mandatory — same turn as 1.2-H, before advancing):** Remind Aaron to **mark this week on the death chart on the wall** (weeks-of-life grid; memento mori). Physical ritual only — not a Notion field. Confirm he did it (or will before the week starts) before `advance --step 1.2` → `1.3`. Always include on Phase 4b printout under Spirituality & Mind → Goals.
 
-Append mind row to `Intentions Review` on the Weekly Meeting Log.
+Append mind row to `Intentions Review` on the Weekly Meeting Log. Sync Notion, then **print preview:** `--section spirituality` — present verbatim; Aaron confirms → advance.
 
 <a id="13-fitness-review-rate-intentions-5-min"></a>
 ### 1.3 Fitness — Review · Rate · Intentions (~5 min)
@@ -435,6 +452,8 @@ Copy **TABLE 1.3-B-supp** and **TABLE 1.3-C-supp** verbatim from `weekly-habits-
 
 Append fitness row to `Intentions Review`.
 
+Sync Notion, then **print preview:** `--section fitness` — present verbatim; Aaron confirms → advance.
+
 <a id="14-sleep-review-rate-intentions-5-min"></a>
 ### 1.4 Sleep — Review · Rate · Intentions (~5 min)
 
@@ -495,6 +514,8 @@ Append fitness row to `Intentions Review`.
 | | |
 
 → Write `Behavioral Adjustments` (append domain-labeled bullets; cumulative across Unhealthy domains this session). **Healthy domains: no adjustments needed.**
+
+Sync Notion, then **print preview:** `--section sleep-schedule` — present verbatim; Aaron confirms → advance.
 
 <a id="15-social-review-rate-intentions-5-min"></a>
 ### 1.5 Social — Review · Rate · Intentions (~5 min)
@@ -591,6 +612,8 @@ node scripts/lib/ct-weekday.mjs --today <YYYY-MM-DD> --weekday Wednesday
 ```
 Uses canonical planning Monday for `--today`. Confirm stdout shows correct ISO + weekday before `calendar_create_event`. **Never** map weekday → date by mental math or `week_of + N`.
 
+Sync Notion, then **print preview:** `--section social` — present verbatim; Aaron confirms → advance.
+
 <a id="16-parenting-review-rate-intentions-4-min"></a>
 ### 1.6 Parenting — Review · Rate · Intentions (~4 min)
 
@@ -632,6 +655,8 @@ Uses canonical planning Monday for `--today`. Confirm stdout shows correct ISO +
 
 Append parenting row to `Intentions Review`.
 
+Sync Notion, then **print preview:** `--section parenting` — present verbatim; Aaron confirms → advance.
+
 <a id="17-personal-enjoyment-2-min"></a>
 ### 1.7 Personal Enjoyment (~2 min)
 
@@ -651,6 +676,8 @@ Append parenting row to `Intentions Review`.
 | what fun to plan or protect | yes / no / propose block |
 
 → Write `Personal Enjoyment` (rich_text — last week + forward intention). Propose Personal Time Blocks calendar events with approval.
+
+Sync Notion, then **print preview:** `--section enjoyment` — present verbatim; Aaron confirms → advance.
 
 **FIELD CHECK — Phase 1** *(Table 1.check)*
 
@@ -791,6 +818,8 @@ Execute `node scripts/sync-dev-projects-this-week.mjs --selected=<comma-separate
 
 Output of sync script § Chrome Lot + Turbo Gear only. Aaron confirms before **2.2**.
 
+Sync Notion (`Dev Projects Intended`, `Dev Intentions`, `Work Health`, etc.), then **print preview:** `--section development` — present verbatim; Aaron confirms before **2.2** (re-run after **2.2** if personal dev slate changes the print tree materially).
+
 ---
 
 <a id="22-personal-project-review-7-min"></a>
@@ -884,7 +913,7 @@ This list must **exactly match** the Notion Dev Projects view filtered to `This 
 12. **Log to Notion:** Finalize the Weekly Meeting Log entry (`322f40c2-487b-81bd`) with key decisions, action items, and plan summary. Set `Status = Done`, `Session Complete = Complete`.
 13. **Week Tracker summary (4b — REQUIRED, two sub-steps):**
     - **4b.1 Confirm week record:** Run `node scripts/weekly-plan-week-summary.mjs --ledger <path> --list-candidates`. Present the candidate table to Aaron via **AskQuestion** (one question). Plans finish on different weekdays — Aaron picks which **Week Tracker** page to write to (letter A–E). Do **not** write until confirmed.
-    - **4b.2 Write plan:** After Aaron confirms, run `node scripts/weekly-plan-week-summary.mjs --ledger <path> --week-page-id <id>`. This (1) creates a **Google Doc** in `Plan Records/weekly/` (`scripts/provision-plan-records-drive.mjs` once), (2) sets **`Plan Doc URL`** on the confirmed week record, (3) appends/replaces the **Weekly Plan** section on that Notion page. Suggested title: `Week Starting M/D` = Sunday before ledger `week_of` (Mon 2026-06-08 → `Week Starting 6/7`). Aaron approves production writes.
+    - **4b.2 Write plan:** Optional gate — `node scripts/weekly-plan-section-preview.mjs --ledger <path> --all` (full print preview). After Aaron confirms, run `node scripts/weekly-plan-week-summary.mjs --ledger <path> --week-page-id <id>`. This (1) creates a **Google Doc** in `Plan Records/weekly/` (`scripts/provision-plan-records-drive.mjs` once), (2) sets **`Plan Doc URL`** on the confirmed week record, (3) appends/replaces the **Weekly Plan** section on that Notion page. Suggested title: `Week Starting M/D` = Sunday before ledger `week_of` (Mon 2026-06-08 → `Week Starting 6/7`). Aaron approves production writes.
 14. **Update context files** if anything changed.
 
 <a id="cross-cutting-rules"></a>
