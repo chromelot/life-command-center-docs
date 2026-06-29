@@ -100,6 +100,10 @@ node n8n/inbox-guardian/deploy-inbox-guardian.mjs --enforce   # armed
 node n8n/sync/toggl-notion/deploy-toggl-notion-sync.mjs --dry-run
 node n8n/sync/toggl-notion/deploy-toggl-notion-sync.mjs
 node n8n/sync/toggl-notion/register-toggl-webhook.mjs
+
+# Morning Journal Notion webhook — see sync/morning-journal-notion/morning-journal-notion-sync.md
+node n8n/sync/morning-journal-notion/deploy-morning-journal-notion-sync.mjs
+node n8n/sync/morning-journal-notion/register-notion-morning-journal-webhook.mjs
 ```
 
 ## Deprecated stub paths (still work)
