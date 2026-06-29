@@ -89,11 +89,13 @@ Every mirror task in the shared project has:
 - **Labels**: `['stop']` if PD activity type is `stop`, else `[]`. Stop activities are filterable in Todoist via `@stop`.
 - **Description**:
   ```
-  Pipedrive activity ID: <id>
   Deferrals: <n>
+  [Manual deferrals: <m>]
+  Pipedrive activity ID: <id>
   Owner: <pd_owner_email>
   Assignee: <effective_email> [(delegated via deal Sub AM)] [CC: secondary@...]
   ```
+  `Deferrals:` is intentionally the **first line** so the count shows in Todoist's list-view description preview without opening the task.
 - **Deferral tracking**: Pipedrive activities have no custom fields, so `Team Evening Defer` increments a counter stored in activity **`note`** (`Deferrals: N` / `Manual deferrals: M`). Subject/title stays clean. The mirror applies labels `deferred-1` / `deferred-2` / `deferred-3` (3+ uses `deferred-3`) and shows counts in the Todoist description. Only the 5pm defer job increments auto deferrals — manual date edits increment `Manual deferrals`. Completing an activity resets the count naturally (auto-next creates a fresh activity). Filter stuck items in Todoist with `@deferred-3`. Legacy `[×N]` subject prefixes are still read but stripped on next defer/mirror pass.
 - **Project**: shared Pipedrive project
 - **Due date**: matches PD `due_date` exactly (timezone in CT)
