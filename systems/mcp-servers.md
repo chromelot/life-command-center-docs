@@ -19,6 +19,7 @@ Inventory of every MCP server configured in this workspace, plus how to choose b
 | Send a Teams message via the CL Bot, look up convIds | `teams` |
 | Read Hubstaff hours / activity | `hubstaff` |
 | Pull body comp + watch metrics in one call | `health-data` |
+| Skin condition context (logs, meds snapshot, Drive index) | `skin-care` |
 | List Make scenarios / pull blueprints for n8n migration | `make` |
 | Read exported Zapier JSON for n8n migration | `zapier-export` |
 | List/read Paperform forms, submissions, products, webhooks, Papersign | `paperform` |
@@ -158,6 +159,16 @@ Process Street's remote MCP (~105 tools, workflow authoring) requires **OAuth lo
 - **Tools**: `hubstaff_get_organizations`, `hubstaff_get_members`, `hubstaff_get_weekly_hours`, `hubstaff_get_daily_activities`, `hubstaff_get_time_entries`, `hubstaff_get_projects`, `hubstaff_get_weekly_report`
 - **Best for weekly review**: `hubstaff_get_weekly_report` with org ID — gives complete hours-per-member breakdown with names
 - **Member + project IDs**: → [hubstaff.md](hubstaff.md)
+
+### skin-care — skin condition context
+
+- **Location**: `mcp/skin-care/` in workspace (local Node MCP)
+- **Registered as**: `skin-care` in `.cursor/mcp.json`
+- **Tools**: `skin_source_status`, `skin_get_context({ days })`
+- **Static context**: `context/self/skin.md`
+- **Architecture**: → [skin-care.md](skin-care.md)
+- **Setup docs**: `mcp/skin-care/README.md`
+- **Smoke test**: `cd mcp/skin-care && node test-skin.mjs`
 
 ### health-data — body comp + watch metrics
 

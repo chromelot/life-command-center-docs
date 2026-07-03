@@ -145,6 +145,7 @@ _Notion sub-page links are added when you run `publish-ops-catalog-to-notion.mjs
 | knack-fields.md | All Knack object IDs and field references for ops review |
 | hubstaff.md | Hubstaff API specifics, member IDs, project IDs |
 | health-data.md | Health Data MCP architecture, Withings + Health Sync data flow |
+| skin-care.md | Skin Care MCP architecture, Notion logs + Drive clinical files |
 | operations-catalog.md | Control-plane hub — all cadences, automations, infrastructure (Notion mirror) |
 | notion-guides/ | Human-readable Notion sub-page sources (CL Bot, PD↔Todoist, n8n Tier 1) |
 | cadences.md | Daily / weekly / monthly / quarterly cadences and tier ownership |
@@ -164,10 +165,10 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 ## Health / staleness
 
 <!-- AUTO:HEALTH_REPORT -->
-⚠ **6 issue(s)** across 79 context files.
+⚠ **6 issue(s)** across 82 context files.
 
 ### stale (1)
-- `context/self/current-priorities.md` — 24d old (threshold 14d)
+- `context/self/current-priorities.md` — 26d old (threshold 14d)
 
 ### broken-see-also (1)
 - `context/systems/audiobook-pipeline.md` — ../../output/audiobook-handoff-2026-05-05.md
@@ -186,7 +187,7 @@ Full audit: `node scripts/audit-context.mjs`
 ## Last generated
 
 <!-- AUTO:LAST_GENERATED -->
-**2026-07-01 11:09:35** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
+**2026-07-03 18:21:29** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
 <!-- /AUTO:LAST_GENERATED -->
 
 ## See also
