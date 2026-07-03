@@ -397,7 +397,28 @@ Then proceed with qualitative assessment:
 
 **Purpose:** Am I living in alignment with my values, or just checking boxes?
 
-Read `context/self/values.md` for the 6 value categories and their Pictures of Success. For each category, do a binary honest assessment — **Healthy** or **Unhealthy** (same scale as weekly plan and Values DB). One `AskQuestion` per category.
+Read `context/self/values.md` for the 6 value categories and their Pictures of Success. For each category, rate on the **same five-level scale as weekly plan** (one lettered decision per turn — never AskQuestion):
+
+| | Rating |
+|---|--------|
+| **A** | Very Unhealthy |
+| **B** | Unhealthy |
+| **C** | Okay |
+| **D** | Healthy |
+| **E** | Very Healthy |
+
+*Colloquial mapping Aaron may use: "somewhat unhealthy" → **B**; "somewhat healthy" → **D**.*
+
+**Table 1.2-A** *(one category per turn)*
+
+| Field | Value |
+|-------|-------|
+| Category | [Spirituality / Fitness / Work / Social / Admin / Parenting] |
+| Picture of Success | 1-line from `values.md` |
+| Values DB Health | current select |
+| June weekly trend | from Table 1.1-B |
+| Evidence | 1–2 lines from review month |
+| Monthly rating | Aaron's letter → canonical label |
 
 1. **Spirituality** — practicing state management regularly?
 2. **Fitness** — training consistently and connecting body to mind?
@@ -408,7 +429,7 @@ Read `context/self/values.md` for the 6 value categories and their Pictures of S
 
 Cross-reference with the weekly life-health trajectory from Phase 1 and Values DB. Discrepancies (e.g. mostly Healthy weeks but Unhealthy monthly rating) are discussion points.
 
-For any area rated **Unhealthy**, generate one specific action for **planning month**. Don't over-plan — one action per flagged area.
+For any area rated **Unhealthy or Very Unhealthy** (A or B), capture one specific action for **planning month**. Don't over-plan — one action per flagged area.
 
 Store ratings in session state (`monthly_life_health`) for Phase 12 commit.
 
@@ -448,7 +469,7 @@ Whether or not the full quarterly session happened, review what's committed **on
 <a id="phase-1d-sustained-unhealthy-gate-10-min-conditional"></a>
 ## Phase 1d: Sustained Unhealthy Gate (~10 min, conditional)
 
-**Triggers when any life category has been Unhealthy for 3+ consecutive weeks** (from Phase 1 life-health trajectory, including weeks spanning month boundaries).
+**Triggers when any life category has been Unhealthy or Very Unhealthy for 3+ consecutive weeks** (from Phase 1 life-health trajectory, including weeks spanning month boundaries).
 
 When triggered:
 
