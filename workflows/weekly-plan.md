@@ -86,7 +86,7 @@ Load via the router. Read these before starting:
 
     | After step | `--section` slug | Notes |
     |------------|------------------|-------|
-    | `1.2` | `spirituality` | After death-chart confirm + mind Notion sync |
+    | `1.2` | `spirituality` | After death-chart gate confirm + mind Notion sync |
     | `1.3` | `fitness` | |
     | `1.4` | `sleep-schedule` | Sleep + schedule intentions only (no cross-domain pull) |
     | `1.5` | `social` | After fuel check + social Notion sync |
@@ -403,7 +403,7 @@ When escalation is **false**, leave PHQ-2/GAD-2 blank on the log (monthly plan c
 |--------------------------|----------------|
 | | `Mind Intentions` |
 
-**Death chart (mandatory — same turn as 1.2-H, before advancing):** Remind Aaron to **mark this week on the death chart on the wall** (weeks-of-life grid; memento mori). Physical ritual only — not a Notion field. Confirm he did it (or will before the week starts) before `advance --step 1.2` → `1.3`. Always include on Phase 4b printout under Spirituality & Mind → Goals.
+**Death chart (mandatory gate — after 1.2-H, before print preview / advance):** Remind Aaron to **mark this week on the death chart on the wall** (weeks-of-life grid; memento mori). Physical ritual only — **not** a Notion field, **not** a `Mind Intentions` bullet, **not** on the Phase 4b print preview intentions column. Confirm done (or will before the week starts) before `advance --step 1.2` → `1.3`. Record confirmation in ledger `notes` only (e.g. `death_chart: done`).
 
 Append mind row to `Intentions Review` on the Weekly Meeting Log. Sync Notion, then **print preview:** `--section spirituality` — present verbatim; Aaron confirms → advance.
 
