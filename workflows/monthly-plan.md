@@ -6,6 +6,7 @@
 
 - [Trigger](#trigger)
 - [Month framing (non-negotiable)](#month-framing-non-negotiable)
+- [Pre-Phase 0: Quarterly Plan Gate (mandatory — runs before Phase 0)](#pre-phase-0-quarterly-plan-gate-mandatory-runs-before-phase-0)
 - [Inputs](#inputs)
 - [Execution Protocol (mandatory)](#execution-protocol-mandatory)
   - [Ledger step order (do not reorder)](#ledger-step-order-do-not-reorder)
@@ -88,6 +89,27 @@ Phase 12 writes two Notion artifacts:
 
 Months page title resolution (DB `121f40c2-487b-80f2`): prefer `[FullMonthName] [YYYY]` (e.g. `June 2026`); fall back to month name only (`May`, `June`) when automation used the short form.
 
+**Planning quarter** (for gates + Phase 1c/9): derive from **planning month** calendar — not Quarter Tracker `Current` (which may lag after quarter rollover). Example: planning month **July 2026** → **Q3 2026**.
+
+<a id="pre-phase-0-quarterly-plan-gate-mandatory-runs-before-phase-0"></a>
+## Pre-Phase 0: Quarterly Plan Gate (mandatory — runs before Phase 0)
+
+The monthly plan assumes a committed quarterly frame for the **planning month's calendar quarter**. Same hard-stop pattern as weekly plan → monthly plan (`weekly-planning/SKILL.md` Pre-Phase 0).
+
+1. Compute **planning month** from today's date (America/Chicago) — see Month framing above.
+2. Derive **planning quarter** title from planning month: Jan–Mar → Q1, Apr–Jun → Q2, Jul–Sep → Q3, Oct–Dec → Q4, plus planning year (e.g. July 2026 → `Q3 2026`).
+3. Resolve Quarter Tracker page (`121f40c2-487b-802e`) whose Name equals planning quarter.
+4. Query **Quarterly Meeting Log** (`344f40c2-487b-80ed`) for an entry linked to that quarter with **`Session Complete` = Complete** (shell / in-progress quarterly session does not count).
+5. Pull all three **Quarterly Outcomes** pages (`341f40c2-487b-80c2`) for that quarter. Each must have a committed theme callout (non-empty strategic frame).
+6. **If any check fails:**
+   - Tell Aaron: "Quarterly plan for [planning quarter] is not committed. Run quarterly plan first."
+   - **Pause** this workflow. Run `context/skills/quarterly-plan/SKILL.md` end-to-end (or resume in-progress quarterly ledger).
+   - Resume monthly plan only after quarterly Phase 14 commits (`Session Complete` = Complete`).
+   - Do **not** offer to skip or proceed monthly-only — a **completed** quarterly plan for the planning quarter is a hard prerequisite.
+7. **If gate passes:** Continue to Phase 0. If Quarter Tracker `Current` still points at the prior quarter (common on the first week of a new quarter), note the drift — quarterly plan Phase 14 should roll `Current`, but the gate uses **planning quarter**, not stale `Current`.
+
+**Exception (Aaron override only):** explicit "proceed without quarterly plan" → log gap in Key Misses; cap planning-month commitments to maintenance (no new strategic goals). Default is **stop**.
+
 <a id="inputs"></a>
 ## Inputs
 
@@ -113,7 +135,8 @@ Load via the router. Read these before starting:
 Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts.md`, and `context/systems/workflow-logs.md`.
 
 1. `node scripts/workflow-progress.mjs init --workflow monthly-plan`
-2. Step `0` — silent Phase 0 pulls
+2. **Pre-Phase 0** — quarterly plan gate for **planning month's quarter** (hard stop; see above)
+3. Step `0` — silent Phase 0 pulls
 3. Step `1.0` — `node scripts/workflow-notion-log.mjs create --ledger <path>` (Session Complete = Incomplete)
 4. Every turn: `workflow-progress.mjs status` → present only `current_step` tables → Aaron confirms → `advance` → `workflow-notion-log sync`
 5. Before step `2.1`: `gate --phase 2` (requires `1.check` pass)
@@ -325,7 +348,7 @@ Then pull the rest of the data via MCP tools in parallel:
 
 1. **Weekly Meeting Log DB** (`322f40c2-487b-81bd`): (a) all entries from **review month** (PHQ-2, GAD-2, energy scores, structured KPI fields) for intra-month trajectory; (b) **last 6 entries by Meeting Date** (may span month boundaries) for life-health streak detection in Phase 1d.
 2. **Monthly Plan Log DB** (`344f40c2-487b-806d`): prior entry titled `Monthly Plan for [Review Month YYYY]` for **month-over-month comparison** (when reviewing May, baseline is `Monthly Plan for May 2026`). Also check whether `Monthly Plan for [Planning Month YYYY]` already exists (skip duplicate create in Phase 12 if present).
-3. **Quarterly Meeting Log DB** (`344f40c2-487b-80ed`): entry linked to **current quarter** (Quarter Tracker `Current` = "Current") — completeness gate for Phase 1c
+3. **Quarterly Meeting Log DB** (`344f40c2-487b-80ed`): entry for **planning quarter** (Pre-Phase 0 gate) — completeness already verified before Phase 0; Phase 1c reviews progress
 4. **Notion Workouts DB** (`127f40c2-487b-80ba`): **review month** workout log
 5. **Dev Projects DB** (`341f40c2-487b-80ac`): all projects assigned to current quarter, full status sweep
 6. **Quarterly Outcomes** (`341f40c2-487b-80c2`): current quarter's outcome pages for Phase 1c review + Phase 9 KPI update
@@ -445,14 +468,13 @@ Store ratings in session state (`monthly_life_health`) for Phase 12 commit.
 <a id="quarterly-plan-completeness-gate"></a>
 ### Quarterly plan completeness gate
 
-1. Identify **current quarter** from Quarter Tracker (`Current` select = "Current").
-2. Query Quarterly Meeting Log for an entry whose Quarter relation = current quarter.
-3. Pull all three Quarterly Outcomes pages (CL, TG, Personal) for current quarter. Check: theme callout present? KPI table has targets (not all blank)?
-4. If **no Quarterly Meeting Log entry exists for the current quarter** OR **any of the three Quarterly Outcomes pages lack a committed theme** (no theme callout / empty strategic frame):
-   - **STOP the monthly plan.** Do not proceed to Phase 2 or beyond.
-   - Tell Aaron: "Q[n] quarterly plan is not committed. Run the quarterly plan first."
-   - Activate `context/skills/quarterly-plan/SKILL.md` end-to-end. Resume the monthly plan only after Phase 14 of the quarterly session completes (Quarterly Meeting Log entry exists for the current quarter).
-5. **Exception (Aaron override only):** If Aaron explicitly says "proceed without quarterly plan," log the gap in Key Misses and cap planning-month commitments to maintenance (no new strategic goals). Default is **stop**.
+**Prerequisite:** Pre-Phase 0 quarterly gate must already have passed for **planning quarter** (committed Quarterly Meeting Log + themed outcome pages). Phase 1c is progress review against that quarter — not a substitute for Pre-Phase 0.
+
+1. Use **planning quarter** from Pre-Phase 0 (calendar quarter containing planning month). Do **not** use Quarter Tracker `Current` alone — it may still say Q2 when planning July (Q3).
+2. Query Quarterly Meeting Log for the committed entry (`Session Complete` = Complete) linked to planning quarter.
+3. Pull all three Quarterly Outcomes pages (CL, TG, Personal) for planning quarter. Themes must exist (already verified at Pre-Phase 0; re-check if Aaron resumed mid-session).
+4. If Pre-Phase 0 was bypassed via Aaron override only, treat as maintenance month — skip deep quarterly progress review.
+5. If themes or log are missing despite reaching 1.3: **STOP** — escalate to full quarterly plan (should not happen if Pre-Phase 0 ran).
 
 <a id="quarterly-progress-review-run-only-when-gate-passes"></a>
 ### Quarterly progress review (run only when gate passes)
@@ -758,7 +780,7 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
 - TG Features Shipped / PRs Submitted: owner `torchcommercialmedia`. Active TG repos: `turbo-gear` (frontend), `turbo-gear-api` (backend), `turbo-gear-workspace`, `turbo-gear-feeder`, `turbo-gear-uploader`. For each, call `github_list_pull_requests` with `state=closed, per_page=100`, then filter client-side where `merged_at` is in the target month. Report totals by repo and by author. Treat any PR with non-null `merged_at` as "shipped" (vs. closed-without-merge).
 - Personal KPIs: data source varies per row; skip if no source
 
-1. Pull the current quarter from Quarter Tracker (`121f40c2-487b-802e-b7a8-c0ad8d74f5e7`, `Current` select = "Current")
+1. Pull the **planning quarter** from Pre-Phase 0 (same quarter used in Phase 1c — calendar quarter containing planning month)
 2. Pull all Quarterly Outcomes pages (`341f40c2-487b-80c2-a871-eb600fd78e4d`) linked to the current quarter (all three: CL, TG, Personal)
 3. For each outcome page, fetch the KPI table content.
 4. **Empty-table escape hatch:** If the KPI cells are all blank (no targets set), do NOT attempt to populate actuals. Instead:
@@ -931,7 +953,7 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
 ## Cross-Cutting Rules
 
 - **Forward-looking monthly plan.** Plan the current month; review the prior month. Never treat the session as "last month's plan" unless today is still in that month and the prior month's log wasn't written.
-- **Quarterly plan gate (hard stop).** Phase 1c must confirm a Quarterly Meeting Log entry for the current quarter and committed themes on all three Quarterly Outcomes pages. If not, **stop** and run `context/skills/quarterly-plan/SKILL.md` first. Resume monthly plan only after quarterly Phase 14 completes.
+- **Quarterly plan gate (hard stop).** Pre-Phase 0: committed quarterly plan for **planning month's calendar quarter** (`Session Complete` = Complete). Not Quarter Tracker `Current` alone. If fail, stop and run quarterly plan first.
 - **Quarterly alignment.** When the gate passes, monthly goals must trace to quarterly themes.
 - **Monthly lens, not weekly.** Trends and goal-setting, not daily task triage.
 - **One question at a time.** Never present a wall of choices.
