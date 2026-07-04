@@ -312,10 +312,14 @@ Copy tables **verbatim** from the feelings file and habit/health scripts — fil
 
 | Metric | Last Week | 4-wk trend | → Notion field |
 |--------|-----------|------------|----------------|
-| Spirit Minutes | from `weekly-habits-*.md` | from wellness file | `Spirit Minutes` |
+| Spirit Minutes | from `weekly-habits-*.md` TABLE 1.2-B-spirit | from wellness file | `Spirit Minutes` |
+| Meditation Minutes | from `weekly-habits-*.md` TABLE 1.2-B-spirit | — | (in summary) |
+| Reading Minutes | from `weekly-habits-*.md` TABLE 1.2-B-spirit | — | (in summary) |
 | Journal Count | from `weekly-habits-*.md` | from wellness file | `Journal Count` |
 | Morning Journal days | from `weekly-habits-*.md` TABLE 1.2-B-mj | — | (in summary) |
 | Affirmations | same as Morning Journal (TABLE 1.2-B-mj) | — | (included in journal ritual) |
+
+**Table 1.2-B-spirit — Spirit practice aggregate** *(copy from `weekly-habits-*.md` section `TABLE 1.2-B-spirit`)*
 
 **Table 1.2-B-mj — Morning journal aggregate** *(copy from `weekly-habits-*.md` section `TABLE 1.2-B-mj`)*
 

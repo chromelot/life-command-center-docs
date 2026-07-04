@@ -381,11 +381,15 @@ WELLNESS -- INTRA-MONTH TRAJECTORY
 | Strength Sessions |      |      |      |      |      |         |       |
 | Small Talk Count  |      |      |      |      |      |         |       |
 | Spirit Minutes    |      |      |      |      |      |         |       |
+| Meditation Minutes |     |      |      |      |      |         |       |
+| Reading Minutes   |      |      |      |      |      |         |       |
 | Deep Work Minutes |      |      |      |      |      |         |       |
 | Journal Count     |      |      |      |      |      |         |       |
 ```
 
 "Last Mo" column comes from the previous Monthly Plan Log entry. "Trend" shows the % delta and direction.
+
+**Spirit breakdown:** `Spirit Minutes` per week from Weekly Meeting Log. `Meditation Minutes` and `Reading Minutes` — sum Spirit DB `Total Time` by Name for each review week (or aggregate from `output/weekly-habits-*.md` TABLE 1.2-B-spirit when those weekly pulls exist).
 
 **Flag any metric where:**
 - 3+ consecutive weeks of decline within the month
