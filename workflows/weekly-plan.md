@@ -208,7 +208,7 @@ Also run `weekly-habit-summary.mjs` (logged/unlogged accomplishments). Todoist M
    - Chrome Lot Operations (`136f40c2-487b-80ba`): query all, sum Total Time
    - Field Work (`237f40c2-487b-80ab`): query all, sum Total Time
    - Journal (`99c9e393-812f-4d73`): query all, count entries
-5. **Values DB** (`342f40c2-487b-80c5`): Pull all 6 categories with Health status
+5. **Values context** — `node scripts/weekly-values-context.mjs --ledger <path>` → `output/weekly-values-context-YYYY-MM-DD.md`. Merges prior **closed** week Weekly Meeting Log health selects with Values DB time targets. Excludes current session log via `--ledger`.
 6. **Google Calendar**: Next week's events (dev capacity in Phase 2.4)
 7. **Hubstaff**: Last week's hours via `hubstaff_get_weekly_report` (dev capacity in Phase 2.4)
 8. **Health Data**: `health_get_summary({ days: 28 })` above — used throughout Phase 1.
@@ -276,18 +276,19 @@ Create the **new week's** Weekly Meeting Log entry (Name = `Week of [next Monday
 
 **Purpose:** Orient to the six Values categories before domain deep-dives. Health ratings and intentions are set per-domain in later steps — this step is context only.
 
-**Data source:** Values DB (`342f40c2-487b-80c5`) — pulled in Phase 0.
+**Data source:** `output/weekly-values-context-YYYY-MM-DD.md` (from `node scripts/weekly-values-context.mjs --ledger <path>` in Phase 0 or at step 1.1). Pass `--ledger` so the in-progress session log is excluded; **Effective Health** = prior **closed** week log rating when set; otherwise Values DB fallback.
 
 **Present exactly Table 1.1:**
 
-| Category | Values DB Health | Time Target | 1-line note |
-|----------|------------------|-------------|-------------|
-| Spirituality | from Values DB | from Values DB | |
-| Fitness | from Values DB | from Values DB | |
-| Work | from Values DB | from Values DB | |
-| Social | from Values DB | from Values DB | |
-| Admin | from Values DB | from Values DB | |
-| Parenting | from Values DB | from Values DB | |
+| Category | Prior Week Health | Values DB Health | **Effective Health** | Source | Time Target | 1-line note |
+|----------|-------------------|------------------|----------------------|--------|-------------|-------------|
+| Spirituality | from prior log `Spirituality Health` or `Mind Health` | from Values DB | prior week if set, else Values DB | prior week log / Values DB | from Values DB | |
+| Fitness | `Fitness Health` | from Values DB | same rule | | from Values DB | |
+| Work | `Work Health` | from Values DB | same rule | | from Values DB | |
+| Social | `Social Health` | from Values DB | same rule | | from Values DB | |
+| Admin | `Admin Health` (often blank — weekly plan does not rate Admin) | from Values DB | same rule | | from Values DB | |
+| Parenting | `Parenting Health` | from Values DB | same rule | | from Values DB | |
+| Personal Enjoyment | `Enjoyment Health` | from Values DB | same rule | | from Values DB | |
 
 <a id="12-mind-review-mood-rate-intentions-6-min"></a>
 ### 1.2 Mind — Review · Mood · Rate · Intentions (~6 min)
