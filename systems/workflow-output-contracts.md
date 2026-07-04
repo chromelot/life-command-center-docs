@@ -97,6 +97,8 @@ Within a single ledger step that spans multiple tables (e.g. weekly plan `1.2` =
 | `1.4` | If `Sleep Health` = Unhealthy → Table **1.4-G** required; if Healthy → skip (no adjustments) |
 | `1.5` | Fuel **Stage 1 + 2** + **1.5-E-b recovery intentions** when triggered; all in `Social Review` |
 | `1.check` | `Workout Active Minutes` Fail if Workouts exist and blank; `Behavioral Adjustments` only Fail for **Unhealthy** domains that contributed none |
+| `0b` | Prior week log must have `Week Intentions`, `Social Intentions`, and core KPI numbers — `node scripts/weekly-plan-log-check.mjs prior-week` (also enforced by `workflow-progress advance --step 0b`) |
+| Phase 4 complete | `Week Intentions` + all 1.check/2.check fields — `node scripts/weekly-plan-log-check.mjs commit --ledger <path>` (enforced by `workflow-notion-log complete`) |
 
 ## Session workflows — contract index
 

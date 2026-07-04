@@ -239,6 +239,7 @@ DATA INTEGRITY CHECK
    - Missing watch/sleep → `health_persist_recent({ days: 28 })` then `health_get_summary({ days: 28 })`
    - Missing prior-week log KPIs → backfill from `weekly-habits-*.md` + health MCP into the **prior week's** log entry (with Aaron approval for Notion writes)
 5. If a source remains broken after one fix attempt, note it in the table and continue with `--` for affected metrics — but **name the broken pipeline** so it gets fixed outside the meeting.
+6. **Hard gate — prior week `Week Intentions`:** Before advancing `0b`, `workflow-progress.mjs` runs `checkPriorWeekIntegrity()`. If the most recent Weekly Meeting Log is missing `Week Intentions`, core KPI numbers, or `Social Intentions`, advance is **refused** (exit 4). Remediate via `node scripts/backfill-week-intentions.mjs --meeting-date YYYY-MM-DD --text "..."` (Aaron approval) or re-run prior session Phase 4. Override only with `advance --step 0b --force`.
 
 **Outputs:** Integrity table presented; remediation attempted; known gaps flagged for Phase 1 footers.
 
@@ -717,6 +718,7 @@ Sync Notion, then **print preview:** `--section enjoyment` — present verbatim;
 | Group | Required Notion fields |
 |-------|------------------------|
 | Last-week KPIs | `Strength Sessions`, `Cardio Sessions`, `Spirit Minutes`, `Journal Count`, `Weight Avg`, `Body Fat Avg`, `Lean Mass Avg`, `Sleep Avg`, `Sleep Nights Tracked`, `Wake Time Std Dev Min`, `Bedtime Std Dev Min`, `Sleep Schedule Rating`, `Steps Avg`, `Workout Active Minutes` |
+| Week theme | `Week Intentions` — 1–3 sentence summary of the week's overarching theme (written/confirmed in Phase 4) |
 | 1.2 | `Intentions Review` (mind row), `Mind Health`, `Mind Intentions`, `Mood Valence`, `Mood Negative %`, `Journal Feelings Summary`, `Mood Distress Flag`, `Energy Rating`, `Screening Escalation`; PHQ/GAD only if `Screening Escalation` = true |
 | 1.3–1.4 | `Fitness/Sleep Health`, `Fitness/Sleep Intentions`, `Schedule Intentions`, `Schedule Review`, `Strength Target`, `Cardio Target`, `Sleep Target Hours`, `Target Wake Time`, `Behavioral Adjustments` |
 | 1.5 | `Small Talk Count`, `Social Events Count`, `Social Review` (incl. **fuel rating**), `Social Intentions Met`, `Social Health`, `Social Priority`, `Social Intentions` |
@@ -940,17 +942,18 @@ This list must **exactly match** the Notion Dev Projects view filtered to `This 
 3. **Confirm "This Week" checkboxes:** Verify all selected Dev Projects have `This Week = true` and no deselected ones still have it checked.
 4. **Store project KPIs on Weekly Meeting Log:** Write `Projects Completed` (count of projects marked Done this week) and `Projects In Progress` (count of projects with This Week checked for the new week).
 5. **Verify all FIELD CHECKs (REQUIRED):** Re-run Phase 1 (`1.check`) and Phase 2 (`2.check`). Confirm nothing is blank without N/A + reason. (Activity KPIs + Team Activity Details → **Weekly Ops** commit.)
-6. **Record life health ratings (REQUIRED):** Verify weekly-rated selects are set — `Mind Health` (→ `Spirituality Health` in Phase 4), `Fitness Health` (1.3), `Sleep Health` (1.4), `Social Health` (1.5), `Parenting Health` (1.6), `Enjoyment Health` (1.7), `Work Health` (2.2). Values: **Very Unhealthy → Very Healthy** (five-level scale). Admin is not rated in weekly plan.
-7. **Update Values DB Health (with approval):** For each category where this week's rating differs from current Values DB Health, update via `personal_notion_update_page` on the category page in Values DB (`342f40c2-487b-80c5`). Include **Personal Enjoyment** when added to Values DB.
-8. **Record Starved Values:** Derive from weekly health ratings — set `Starved Values` multi_select to every **rated** category marked **Unhealthy or Very Unhealthy** (A or B: Spirituality, Fitness, Work, Social, Parenting, Personal Enjoyment). Admin excluded from weekly rating.
-9. **Confirm accomplishment fields (REQUIRED):** Verify Phase 2.2 wrote `Logged/Unlogged/Total Accomplishments Count`, `Focused Output Hours Estimate`, and `Accomplishments`. Backfill from habit summary if missing.
-10. **Body comp already persisted.** Withings written in Phase 0 (`--days 28`). Don't re-run here.
-11. **Execute remaining:** Create any Todoist/Calendar/Notion items not yet committed during earlier phases.
-12. **Log to Notion:** Finalize the Weekly Meeting Log entry (`322f40c2-487b-81bd`) with key decisions, action items, and plan summary. Set `Status = Done`, `Session Complete = Complete`.
-13. **Week Tracker summary (4b — REQUIRED, two sub-steps):**
+6. **Write / confirm `Week Intentions` (REQUIRED):** 1–3 sentence week theme capturing the overarching focus for the planning week. Agent proposes from session context; Aaron confirms or edits → write to Weekly Meeting Log. `node scripts/weekly-plan-log-check.mjs commit --ledger <path>` must pass before `workflow-notion-log complete`.
+7. **Record life health ratings (REQUIRED):** Verify weekly-rated selects are set — `Mind Health` (→ `Spirituality Health` in Phase 4), `Fitness Health` (1.3), `Sleep Health` (1.4), `Social Health` (1.5), `Parenting Health` (1.6), `Enjoyment Health` (1.7), `Work Health` (2.2). Values: **Very Unhealthy → Very Healthy** (five-level scale). Admin is not rated in weekly plan.
+8. **Update Values DB Health (with approval):** For each category where this week's rating differs from current Values DB Health, update via `personal_notion_update_page` on the category page in Values DB (`342f40c2-487b-80c5`). Include **Personal Enjoyment** when added to Values DB.
+9. **Record Starved Values:** Derive from weekly health ratings — set `Starved Values` multi_select to every **rated** category marked **Unhealthy or Very Unhealthy** (A or B: Spirituality, Fitness, Work, Social, Parenting, Personal Enjoyment). Admin excluded from weekly rating.
+10. **Confirm accomplishment fields (REQUIRED):** Verify Phase 2.2 wrote `Logged/Unlogged/Total Accomplishments Count`, `Focused Output Hours Estimate`, and `Accomplishments`. Backfill from habit summary if missing.
+11. **Body comp already persisted.** Withings written in Phase 0 (`--days 28`). Don't re-run here.
+12. **Execute remaining:** Create any Todoist/Calendar/Notion items not yet committed during earlier phases.
+13. **Log to Notion:** Finalize the Weekly Meeting Log entry (`322f40c2-487b-81bd`) with key decisions, action items, and plan summary. Set `Status = Done`, `Session Complete = Complete`.
+14. **Week Tracker summary (4b — REQUIRED, two sub-steps):**
     - **4b.1 Confirm week record:** Run `node scripts/weekly-plan-week-summary.mjs --ledger <path> --list-candidates`. Present the candidate table to Aaron via **AskQuestion** (one question). Plans finish on different weekdays — Aaron picks which **Week Tracker** page to write to (letter A–E). Do **not** write until confirmed.
     - **4b.2 Write plan:** Optional gate — `node scripts/weekly-plan-section-preview.mjs --ledger <path> --all` (full print preview). After Aaron confirms, run `node scripts/weekly-plan-week-summary.mjs --ledger <path> --week-page-id <id>`. This (1) renders a **print PDF** via Playwright (also saves `output/weekly-plan-print-{week}.html` + `.pdf`), (2) uploads PDF to `Plan Records/weekly/`, (3) sets **`Plan Doc URL`** on the confirmed week record, (4) appends/replaces the **Weekly Plan** section on that Notion page. Suggested title: `Week Starting M/D` = Sunday before ledger `week_of` (Mon 2026-06-08 → `Week Starting 6/7`). Aaron approves production writes.
-14. **Update context files** if anything changed.
+15. **Update context files** if anything changed.
 
 <a id="cross-cutting-rules"></a>
 ## Cross-Cutting Rules
@@ -984,6 +987,8 @@ This list must **exactly match** the Notion Dev Projects view filtered to `This 
 - **`sources.health_sync.ok = false`:** Drop Recovery + Activity lines in Values Pulse fitness callout (Phase 1); append diagnostic note; render watch metrics as `--` in habit scorecard with "Health Sync data missing" in footer; do not abort the workflow.
 - **`health_persist_recent` / Health Sync issues:** Note in footer; continue with MCP + archived Notion data where available.
 - **Partial or null watch fields (RHR, HRV):** Render as `--` until Health Sync folders are enabled.
+- **Prior week missing `Week Intentions`:** Hard stop at Phase 0b — `workflow-progress advance --step 0b` refuses until backfilled (`scripts/backfill-week-intentions.mjs`) or prior session Phase 4 re-run. Next week's plan depends on reading last week's theme.
+- **Commit missing required fields:** `workflow-notion-log complete` runs `checkCommitFields()` — refuses if `Week Intentions` or other 1.check/2.check fields blank.
 
 <a id="see-also"></a>
 ## See also
