@@ -93,7 +93,7 @@ Within a single ledger step that spans multiple tables (e.g. weekly plan `1.2` =
 
 | Step | Rule |
 |------|------|
-| `1.3-B` | `Workout Active Minutes` = Workouts DB `Minutes` sum (script aggregate). Fail FIELD CHECK if sessions exist and field blank. |
+| `1.3-B` | `Workout Active Minutes` = Workouts DB `Minutes` sum (script aggregate). Fail FIELD CHECK if sessions exist and field blank. **Nutrition** (`Calories Avg` / `Protein Avg` / `Protein Days`) = Nutrition Log per-day means from `daily-health-sections.mjs` — persist only when ≥1 day logged; blank/`—` is OK (voluntary logging, **not** a hard-stop). |
 | `1.4` | If `Sleep Health` = Unhealthy → Table **1.4-G** required; if Healthy → skip (no adjustments) |
 | `1.5` | Fuel **Stage 1 + 2** + **1.5-E-b recovery intentions** when triggered; all in `Social Review` |
 | `1.check` | `Workout Active Minutes` Fail if Workouts exist and blank; `Behavioral Adjustments` only Fail for **Unhealthy** domains that contributed none |

@@ -410,7 +410,7 @@ Append mind row to `Intentions Review` on the Weekly Meeting Log. Sync Notion, t
 <a id="13-fitness-review-rate-intentions-5-min"></a>
 ### 1.3 Fitness — Review · Rate · Intentions (~5 min)
 
-**Data sources:** `weekly-habits-*.md`, `weekly-wellness-trends-*.md`, `health_get_summary({ days: 28 })`, `daily-health-sections.mjs` (FITNESS section), prior week's `Fitness Intentions`.
+**Data sources:** `weekly-habits-*.md`, `weekly-wellness-trends-*.md`, `health_get_summary({ days: 28 })`, `daily-health-sections.mjs` (FITNESS section — includes Nutrition Log calories/protein), prior week's `Fitness Intentions`.
 
 **Present exactly these tables, then health rating, then intentions:**
 
@@ -431,6 +431,9 @@ Append mind row to `Intentions Review` on the Weekly Meeting Log. Sync Notion, t
 | Lean Mass Avg (lbs) | | | `Lean Mass Avg` |
 | Steps Avg | | | `Steps Avg` |
 | Workout Active Min | | | `Workout Active Minutes` *(Workouts DB `Minutes` sum, review week — from `daily-health-sections.mjs` aggregate)* |
+| Calories Avg | | | `Calories Avg` *(Nutrition Log per-day mean, logged days only — `daily-health-sections.mjs` Nutrition aggregate)* |
+| Protein Avg (g) | | | `Protein Avg` *(mean g/day, logged days)* |
+| Protein Days (≥150g) | | | `Protein Days` *(count of logged days hitting 150g)* |
 | Supplements (days) | from `weekly-habits-*.md` TABLE 1.3-B-supp | ↑/↓ vs prior week | — |
 | Heart Rate Avg (bpm) | | | `Heart Rate Avg` |
 | Resting HR Avg (bpm) | | | `Resting HR Avg` *(not tracked — omit from integrity checks)* |
@@ -449,6 +452,10 @@ Copy **TABLE 1.3-B-supp** and **TABLE 1.3-C-supp** verbatim from `weekly-habits-
 | Cardio | | | | | | | |
 | Weight (lbs) | | | | | | | |
 | Steps | | | | | | | |
+| Calories | | | | | | | |
+| Protein (g) | | | | | | | |
+
+*Nutrition rows come from the same `daily-health-sections.mjs` FITNESS section (Nutrition Log `393f40c2-487b-815b`). Nutrition logging is voluntary — show `—` on days with no food logged; **not** a FIELD CHECK hard-stop (unlike `Workout Active Minutes`). Persist `Calories Avg` / `Protein Avg` / `Protein Days` only when ≥1 day was logged.*
 
 **Table 1.3-D — Fitness insights**
 
