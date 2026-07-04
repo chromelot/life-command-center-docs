@@ -132,12 +132,12 @@ The weekly plan assumes a committed monthly frame. Do not start Phase 0 until th
 
 1. Compute **review month** and **planning month** from today's date (America/Chicago) — same framing as `context/skills/monthly-plan/SKILL.md` (Month framing section). Example: session on 2026-06-05 → review month = May 2026, planning month = June 2026.
 2. Query **Monthly Plan Log DB** (`344f40c2-487b-806d`) for an entry whose Name matches `Monthly Plan for [Planning Month YYYY]` OR whose **Month** relation points to **planning month**.
-3. **If no matching entry exists:**
-   - Tell Aaron: "No Monthly Plan Log for [planning month]. Monthly plan must run before weekly plan."
-   - **Pause** this workflow. Run `context/skills/monthly-plan/SKILL.md` end-to-end.
-   - After monthly plan Phase 12 commits the planning-month entry, **resume** weekly plan from Phase 0 below.
-   - Do **not** offer to skip or proceed weekly-only — monthly plan is a hard prerequisite.
-4. **If entry exists:** Hold for Phase 2.1. Continue to Phase 0.
+3. **If no matching entry exists** OR **`Session Complete` ≠ Complete** (shell-only / in-progress monthly session does not count):
+   - Tell Aaron: "Monthly plan for [planning month] is not committed. Finish monthly plan Phase 12 before weekly plan."
+   - **Pause** this workflow. Run `context/skills/monthly-plan/SKILL.md` end-to-end (or resume an in-progress ledger).
+   - After monthly plan Phase 12 commits (`Session Complete` = Complete), **resume** weekly plan from Phase 0 below.
+   - Do **not** offer to skip or proceed weekly-only — a **completed** monthly plan is a hard prerequisite.
+4. **If entry exists and Session Complete = Complete:** Hold for Phase 2.1. Continue to Phase 0.
 
 <a id="phase-0-data-pull-silent-before-conversation"></a>
 ## Phase 0: Data Pull (silent, before conversation)
