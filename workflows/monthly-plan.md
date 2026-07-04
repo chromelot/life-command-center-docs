@@ -135,19 +135,20 @@ Load via the router. Read these before starting:
 Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts.md`, and `context/systems/workflow-logs.md`.
 
 1. `node scripts/workflow-progress.mjs init --workflow monthly-plan`
-2. **Pre-Phase 0** — quarterly plan gate for **planning month's quarter** (hard stop; see above)
+2. **Pre-Phase 0** — quarterly plan gate for **planning month's quarter** (hard stop; see above). Ledger step `pre-0`. `workflow-progress.mjs` blocks init/advance until gate passes.
 3. Step `0` — silent Phase 0 pulls
-3. Step `1.0` — `node scripts/workflow-notion-log.mjs create --ledger <path>` (Session Complete = Incomplete)
-4. Every turn: `workflow-progress.mjs status` → present only `current_step` tables → Aaron confirms → `advance` → `workflow-notion-log sync`
-5. Before step `2.1`: `gate --phase 2` (requires `1.check` pass)
-6. Before step `12.0`: `gate --phase 12`
-7. Step `12.0` — `workflow-notion-log complete`
+4. Step `1.0` — `node scripts/workflow-notion-log.mjs create --ledger <path>` (Session Complete = Incomplete)
+5. Every turn: `workflow-progress.mjs status` → present only `current_step` tables → Aaron confirms → `advance` → `workflow-notion-log sync`
+6. Before step `2.1`: `gate --phase 2` (requires `1.check` pass)
+7. Before step `12.0`: `gate --phase 12`
+8. Step `12.0` — `workflow-notion-log complete`
 
 <a id="ledger-step-order-do-not-reorder"></a>
 ### Ledger step order (do not reorder)
 
 | Step | Skill phase | User-facing? |
 |------|-------------|--------------|
+| `pre-0` | Pre-Phase 0 Quarterly gate | Yes — gate result; hard stop if blocked |
 | `0` | Phase 0 Data Pull | Silent |
 | `1.0` | Create Monthly Plan Log entry shell | Yes |
 | `1.1` | Phase 1 Wellness Trends | Yes — Table 1.1-A, 1.1-B |
