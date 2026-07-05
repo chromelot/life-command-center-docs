@@ -14,6 +14,7 @@
 | PD ↔ Todoist sync | [`sync/pd-todoist/pd-todoist-sync.md`](sync/pd-todoist/pd-todoist-sync.md) |
 | Inbox Guardian (email filter) | [`inbox-guardian/inbox-guardian.md`](inbox-guardian/inbox-guardian.md) |
 | Toggl 2 → Notion time sync | [`sync/toggl-notion/toggl-notion-sync.md`](sync/toggl-notion/toggl-notion-sync.md) |
+| Toggl 2 overrun watch (>4h auto-stop) | [`sync/toggl-overrun/toggl-overrun-watch.md`](sync/toggl-overrun/toggl-overrun-watch.md) |
 | Notion Start Timer → Toggl 2 | [`webhooks/toggl-start/toggl-start-code.mjs`](webhooks/toggl-start/toggl-start-code.mjs) |
 | Tracker Matcher (period links) | [`sync/tracker-matcher/tracker-matcher-sync.md`](sync/tracker-matcher/tracker-matcher-sync.md) |
 | Week Tracker Sunday create | [`sync/week-tracker/week-tracker-create.md`](sync/week-tracker/week-tracker-create.md) |
