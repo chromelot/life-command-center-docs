@@ -123,10 +123,12 @@ Aaron's projects are tracked in **Dev Projects DB** (`341f40c2-487b-80ac`), unif
 
 ### Quarterly → Weekly → Daily flow
 
-1. **Quarterly Plan**: assign projects from roadmap to current quarter. Set KPI targets on Quarterly Outcomes pages.
-2. **Monthly Plan**: track progress, update KPI actuals.
-3. **Weekly Meeting**: select 1-3 projects from current quarter using One Thing Framework. Set This Week checkbox.
-4. **Daily Planning**: dev block works on whatever has This Week checked AND is In Progress.
+1. **Quarterly plan:** Horizon → Roadmapped/Committed + Target Quarter; themes on Outcomes; promote top items to Dev Projects
+2. **Monthly plan:** `horizon-replot-report.mjs`; carry/park Horizon; promote into Dev Projects + `🌙 Month`
+3. **Weekly plan:** Dev Projects `This Week` only (execution)
+4. **Daily dev block:** work on `This Week` + Status = In progress
+
+Horizon layer: [horizon-roadmap.md](horizon-roadmap.md)
 
 ### Rules
 
