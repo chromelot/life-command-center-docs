@@ -320,6 +320,7 @@ Copy tables **verbatim** from the feelings file and habit/health scripts — fil
 | Journal Count | from `weekly-habits-*.md` | from wellness file | `Journal Count` |
 | Morning Journal days | from `weekly-habits-*.md` TABLE 1.2-B-mj (Journal DB entry exists) | — | (in summary) |
 | Affirmations | from `weekly-habits-*.md` TABLE 1.2-B-mj (`Affirmations done` to_do in journal page — separate from journal completion) | — | (in summary) |
+| Quick Reading | from `weekly-habits-*.md` TABLE 1.2-B-mj (`Quick reading session done` to_do in journal page — separate from journal completion) | — | (in summary) |
 
 **Table 1.2-B-spirit — Spirit practice aggregate** *(copy from `weekly-habits-*.md` section `TABLE 1.2-B-spirit`)*
 

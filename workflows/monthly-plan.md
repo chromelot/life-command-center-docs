@@ -335,15 +335,15 @@ Use the returned `daily` (one row per date) to slice **review month** vs. the mo
 
 **Months DB gate (planning + review month records):**
 
-Before other pulls, resolve both Months pages. Store `planning_month_page_id` and `review_month_page_id` for Phase 12.
+Before other pulls, run `node scripts/period-tracker-ensure.mjs --planning-and-review` (idempotent — same logic as n8n `Period Tracker Create`). Store `planning_month_page_id` and `review_month_page_id` from stdout for Phase 12.
 
-1. Query **Months DB** (`121f40c2-487b-80f2`) for **planning month**: search title `[FullMonthName] [YYYY]` first, then month name only.
-2. If no planning month record exists, create via `personal_notion_create_database_entry`:
-   - `database_id`: `121f40c2-487b-80f2-8cbf-ca5d3d5c33c2`
-   - `properties`: `{ "Month": { "title": [{ "text": { "content": "[FullMonthName] [YYYY]" } }] } }`
-   - Set page icon 🗓️ via `personal_notion_update_page` after create.
-3. Resolve **review month** Months page the same way (for retrospective context; Monthly Plan Log `Month` relation points to **planning month**).
-4. If planning month `Previous Month` is empty and review month page exists, set `Previous Month` relation on planning month → review month page.
+Equivalent via MCP: `ensureMonthRow` in `scripts/lib/period-tracker-create.mjs` — creates if missing with:
+
+- Title: `[FullMonthName] [YYYY]` (e.g. `July 2026`)
+- 📅 page icon
+- `Previous Month` → review month page; prior month gets `Next Month`
+
+Legacy short titles (`June`) are upgraded to full form automatically.
 
 Then pull the rest of the data via MCP tools in parallel:
 

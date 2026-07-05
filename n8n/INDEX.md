@@ -14,6 +14,8 @@
 | PD ↔ Todoist sync | [`sync/pd-todoist/pd-todoist-sync.md`](sync/pd-todoist/pd-todoist-sync.md) |
 | Inbox Guardian (email filter) | [`inbox-guardian/inbox-guardian.md`](inbox-guardian/inbox-guardian.md) |
 | Toggl → Notion time sync | [`sync/toggl-notion/toggl-notion-sync.md`](sync/toggl-notion/toggl-notion-sync.md) |
+| Week Tracker Sunday create | [`sync/week-tracker/week-tracker-create.md`](sync/week-tracker/week-tracker-create.md) |
+| Month/Quarter/Year rollover | [`sync/period-tracker/period-tracker-create.md`](sync/period-tracker/period-tracker-create.md) |
 | AM strategy / roadmap | [`account-management/roadmap.md`](account-management/roadmap.md) |
 | AM Process Street setup | [`sync/am-setup/ps-am-setup-verification.md`](sync/am-setup/ps-am-setup-verification.md) |
 | Roster / permissions | [`shared/airtable-roster.mjs`](shared/airtable-roster.mjs) + `context/systems/airtable-roster.md` |
