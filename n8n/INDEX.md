@@ -16,6 +16,7 @@
 | Toggl 2 → Notion time sync | [`sync/toggl-notion/toggl-notion-sync.md`](sync/toggl-notion/toggl-notion-sync.md) |
 | Toggl 2 overrun watch (>4h auto-stop) | [`sync/toggl-overrun/toggl-overrun-watch.md`](sync/toggl-overrun/toggl-overrun-watch.md) |
 | Notion Start Timer → Toggl 2 | [`webhooks/toggl-start/toggl-start-code.mjs`](webhooks/toggl-start/toggl-start-code.mjs) |
+| Roadmap ▶ Start → Dev Project | [`webhooks/roadmap-promote/roadmap-promote.md`](webhooks/roadmap-promote/roadmap-promote.md) |
 | Tracker Matcher (period links) | [`sync/tracker-matcher/tracker-matcher-sync.md`](sync/tracker-matcher/tracker-matcher-sync.md) |
 | Week Tracker Sunday create | [`sync/week-tracker/week-tracker-create.md`](sync/week-tracker/week-tracker-create.md) |
 | Month/Quarter/Year rollover | [`sync/period-tracker/period-tracker-create.md`](sync/period-tracker/period-tracker-create.md) |
@@ -68,6 +69,9 @@ n8n/
 ├── webhooks/toggl-start/   ← Notion ▶ Start Timer → Toggl 2
 │   ├── toggl-start-code.mjs
 │   └── deploy-toggl-start.mjs
+├── webhooks/roadmap-promote/  ← Roadmap ▶ Start → Dev Project promote
+│   ├── roadmap-promote-code.mjs
+│   └── deploy-roadmap-promote.mjs
 ├── sync/tracker-matcher/   ← Notion page.created → Day/Week/Month/Quarter/Year links
 │   ├── tracker-matcher-sync.md
 │   └── deploy-tracker-matcher.mjs
