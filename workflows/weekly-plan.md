@@ -204,10 +204,9 @@ Also run `weekly-habit-summary.mjs` (logged/unlogged accomplishments). Todoist M
    - Workouts (`127f40c2-487b-80ba`): query all, count by Type
    - Small Talk (`121f40c2-487b-802d`): query all, count entries
    - Spirit (`2aaf40c2-487b-8070`): query all, sum Total Time
-   - Business Development (`127f40c2-487b-803e`): query all, sum Total Time (formula property -- reader must read `properties["Total Time"].formula.number`, not `.number`)
-   - Chrome Lot Operations (`136f40c2-487b-80ba`): query all, sum Total Time
-   - Field Work (`237f40c2-487b-80ab`): query all, sum Total Time
+   - **Time Punches** (`394f40c2-487b-8168`): query by **Category** — Deep Work, Ops, Field, Admin, Reading — sum **Total Time** (formula: `properties["Total Time"].formula.number`)
    - Journal (`99c9e393-812f-4d73`): query all, count entries
+   - *Legacy per-bucket DBs (Business Development, CL Ops, Field Work, Admin, Reading) are retired — do not query.*
 5. **Values context** — `node scripts/weekly-values-context.mjs --ledger <path>` → `output/weekly-values-context-YYYY-MM-DD.md`. Merges prior **closed** week Weekly Meeting Log health selects with Values DB time targets. Excludes current session log via `--ledger`.
 6. **Google Calendar**: Next week's events (dev capacity in Phase 2.4)
 7. **Hubstaff**: Last week's hours via `hubstaff_get_weekly_report` (dev capacity in Phase 2.4)
@@ -771,9 +770,9 @@ Sync Notion, then **print preview:** `--section enjoyment` — present verbatim;
 | Day (Mon–Sun) | Minutes | |
 |---------------|---------|---|
 | | | |
-| **Total** | | `weekly-dev-review` Business Development DB |
+| **Total** | | `weekly-dev-review` Time Punches (Category = Deep Work) |
 
-→ Write `Deep Work Minutes` (review week total). Ops/Field from `weekly-habits` if needed.
+→ Write `Deep Work Minutes` (review week total). Ops/Field/Admin/Reading from `weekly-habits` Time Punches sections.
 
 **Table 2.1-C — What was accomplished**
 

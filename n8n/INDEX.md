@@ -13,7 +13,9 @@
 | LCC Bot (personal habits, health) | [`bots/lcc-bot/lcc-bot.md`](bots/lcc-bot/lcc-bot.md) |
 | PD ↔ Todoist sync | [`sync/pd-todoist/pd-todoist-sync.md`](sync/pd-todoist/pd-todoist-sync.md) |
 | Inbox Guardian (email filter) | [`inbox-guardian/inbox-guardian.md`](inbox-guardian/inbox-guardian.md) |
-| Toggl → Notion time sync | [`sync/toggl-notion/toggl-notion-sync.md`](sync/toggl-notion/toggl-notion-sync.md) |
+| Toggl 2 → Notion time sync | [`sync/toggl-notion/toggl-notion-sync.md`](sync/toggl-notion/toggl-notion-sync.md) |
+| Notion Start Timer → Toggl 2 | [`webhooks/toggl-start/toggl-start-code.mjs`](webhooks/toggl-start/toggl-start-code.mjs) |
+| Tracker Matcher (period links) | [`sync/tracker-matcher/tracker-matcher-sync.md`](sync/tracker-matcher/tracker-matcher-sync.md) |
 | Week Tracker Sunday create | [`sync/week-tracker/week-tracker-create.md`](sync/week-tracker/week-tracker-create.md) |
 | Month/Quarter/Year rollover | [`sync/period-tracker/period-tracker-create.md`](sync/period-tracker/period-tracker-create.md) |
 | AM strategy / roadmap | [`account-management/roadmap.md`](account-management/roadmap.md) |
@@ -57,11 +59,17 @@ n8n/
 │   ├── inbox-guardian.md
 │   └── deploy-inbox-guardian.mjs
 │
-├── sync/toggl-notion/      ← Toggl time punches → Notion (tag-routed)
+├── sync/toggl-notion/      ← Toggl 2 → Time Punches (2-min poll)
 │   ├── toggl-notion-sync.md
 │   ├── deploy-toggl-notion-sync.mjs
-│   ├── register-toggl-webhook.mjs
+│   ├── bootstrap-toggl2-secrets.mjs
 │   └── toggl-notion-code.mjs
+├── webhooks/toggl-start/   ← Notion ▶ Start Timer → Toggl 2
+│   ├── toggl-start-code.mjs
+│   └── deploy-toggl-start.mjs
+├── sync/tracker-matcher/   ← Notion page.created → Day/Week/Month/Quarter/Year links
+│   ├── tracker-matcher-sync.md
+│   └── deploy-tracker-matcher.mjs
 │
 ├── shared/                 ← modules imported by deploy scripts
 │   ├── airtable-roster.mjs
@@ -98,10 +106,14 @@ node n8n/inbox-guardian/deploy-inbox-guardian.mjs --dry-run   # validate
 node n8n/inbox-guardian/deploy-inbox-guardian.mjs             # shadow (default)
 node n8n/inbox-guardian/deploy-inbox-guardian.mjs --enforce   # armed
 
-# Toggl → Notion (tag-based time sync) — see sync/toggl-notion/toggl-notion-sync.md
+# Toggl 2 → Notion (Time Punches poll + start timer) — see sync/toggl-notion/toggl-notion-sync.md
+node n8n/sync/toggl-notion/bootstrap-toggl2-secrets.mjs --token=toggl_sk_...
 node n8n/sync/toggl-notion/deploy-toggl-notion-sync.mjs --dry-run
 node n8n/sync/toggl-notion/deploy-toggl-notion-sync.mjs
-node n8n/sync/toggl-notion/register-toggl-webhook.mjs
+node n8n/webhooks/toggl-start/deploy-toggl-start.mjs
+
+# Tracker Matcher — see sync/tracker-matcher/tracker-matcher-sync.md
+node n8n/sync/tracker-matcher/deploy-tracker-matcher.mjs
 
 # Morning Journal Notion webhook — see sync/morning-journal-notion/morning-journal-notion-sync.md
 node n8n/sync/morning-journal-notion/deploy-morning-journal-notion-sync.mjs
@@ -133,4 +145,5 @@ Muscle-memory aliases at `n8n/` root forward to canonical locations:
 | **AM Setup** | `sync/am-setup/` |
 | **AM Strategy** | `account-management/` |
 | **Inbox Guardian** | `inbox-guardian/` |
-| **Toggl→Notion** | `sync/toggl-notion/` |
+| **Toggl→Notion** | `sync/toggl-notion/` + `webhooks/toggl-start/` |
+| **Tracker Matcher** | `sync/tracker-matcher/` |
