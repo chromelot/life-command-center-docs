@@ -113,7 +113,7 @@ Each phase ends with an inline **FIELD CHECK** listing its required Weekly Meeti
 
 **Dev tracker hygiene (every Phase 2 session):**
 1. **Tracker first** — monthly incomplete lists come from Dev Projects (Notion), not log prose.
-2. **Selection sync** — after each Phase 2 sub-step (2.1 then 2.2), run `scripts/sync-dev-projects-this-week.mjs` with the cumulative selected page IDs: set `This Week = true` on selected only; **`This Week = false` on every other open Dev Project** (domain-scoped within that phase, then combined pass at 2.check). Present the finalized bulleted slate; it must match the Notion `This Week` filter exactly.
+2. **Selection sync** — after each Phase 2 sub-step (2.1 then 2.2), run `scripts/sync-dev-projects-this-week.mjs` with the cumulative selected page IDs: set `This Week = true` on selected only; **`This Week = false` on every other open Dev Project** (domain-scoped within that phase, then combined pass at 2.check). That script also **provisions Toggl 2 tasks for the slate and deletes mirrored tasks** for anything no longer on `This Week` (keeps Focus uncluttered). Present the finalized bulleted slate; it must match the Notion `This Week` filter exactly.
 3. **Missing records** — work Aaron describes that is not in Dev Projects → create a record (with approval) before toggling `This Week`.
 4. **Personal mirrors** — Phase 2.2 creates Todoist tasks for selected Personal items (case-by-case approval); verify last week's mirrors via Todoist MCP.
 
@@ -857,6 +857,7 @@ Execute `node scripts/sync-dev-projects-this-week.mjs --selected=<comma-separate
 1. `This Week = true` on carryover + any roadmap picks only.
 2. `This Week = false` on **every other open** CL/TG Dev Project (not just unselected domain items — full open-database sweep for CL/TG types).
 3. Clear `This Week` on any **Done** records still checked (stale bulk-close artifacts).
+4. **Toggl tasks** — same script chains `sync-dev-projects-toggl-tasks.mjs`: create/assign tasks for selected items; **delete** mirrored Toggl tasks (and clear `Toggl Task ID` on Dev Projects) for anything not on the slate.
 
 → Write `Dev Projects Intended` (snapshot), `Dev Priority Context`.
 
