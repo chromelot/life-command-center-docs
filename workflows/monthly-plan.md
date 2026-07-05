@@ -389,7 +389,7 @@ WELLNESS -- INTRA-MONTH TRAJECTORY
 
 "Last Mo" column comes from the previous Monthly Plan Log entry. "Trend" shows the % delta and direction.
 
-**Spirit breakdown:** `Spirit Minutes` per week from Weekly Meeting Log. `Meditation Minutes` and `Reading Minutes` — sum Spirit DB `Total Time` by Name for each review week (or aggregate from `output/weekly-habits-*.md` TABLE 1.2-B-spirit when those weekly pulls exist).
+**Spirit breakdown:** `Spirit Minutes` per week from Weekly Meeting Log. `Meditation Minutes` and `Reading Minutes` — sum **Time Punches** (`Category = Spirit` or `Reading`) for each review week, or aggregate from `output/weekly-habits-*.md` TABLE 1.2-B-spirit when those weekly pulls exist.
 
 **Flag any metric where:**
 - 3+ consecutive weeks of decline within the month
@@ -559,7 +559,7 @@ If no 3-week streaks: skip silently (~0 min).
 
 1. Pull all Dev Projects assigned to the current quarter. How many are Done vs. In Progress vs. Not Started?
 2. What shipped in **review month** vs. what stalled? Which projects had "This Week" set but didn't move?
-3. Dev hours spent vs. budgeted (from capacity math, Time Punches `Category = Deep Work` for deep work minutes). Plot weekly Deep Work Minutes from Weekly Meeting Log to show intra-month trajectory.
+3. Dev hours spent vs. budgeted (from capacity math, Time Punches `Category = CL Dev` + `TG Dev` for deep work minutes). Plot weekly Deep Work Minutes from Weekly Meeting Log to show intra-month trajectory.
 4. **Quarterly progress check**: Are we on track to complete the quarter's assigned projects? If not, which ones are at risk and why?
 5. Non-TG dev: did personal and CL projects get attention, or consumed by ops?
 6. Compare Projects Completed, Projects In Progress against previous Monthly Plan Log entry -- flag if >20% change in either direction.

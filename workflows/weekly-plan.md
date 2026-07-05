@@ -203,8 +203,8 @@ Also run `weekly-habit-summary.mjs` (logged/unlogged accomplishments). Todoist M
 4. **Habit source DBs** (past 7 days — habit summary script is canonical; MCP only if script missing):
    - Workouts (`127f40c2-487b-80ba`): query all, count by Type
    - Small Talk (`121f40c2-487b-802d`): query all, count entries
-   - Spirit (`2aaf40c2-487b-8070`): query all, sum Total Time
-   - **Time Punches** (`394f40c2-487b-8168`): query by **Category** — Deep Work, Ops, Field, Admin, Reading — sum **Total Time** (formula: `properties["Total Time"].formula.number`)
+   - Spirit — **Time Punches** `Category = Spirit` (or `weekly-habit-summary` § Spirit; retired Spirit DB is historical only)
+   - **Time Punches** (`394f40c2-487b-8168`): query by **Category** — CL Dev, TG Dev, Ops, Field, Admin, Reading — sum **Total Time** (formula: `properties["Total Time"].formula.number`)
    - Journal (`99c9e393-812f-4d73`): query all, count entries
    - *Legacy per-bucket DBs (Business Development, CL Ops, Field Work, Admin, Reading) are retired — do not query.*
 5. **Values context** — `node scripts/weekly-values-context.mjs --ledger <path>` → `output/weekly-values-context-YYYY-MM-DD.md`. Merges prior **closed** week Weekly Meeting Log health selects with Values DB time targets. Excludes current session log via `--ledger`.
@@ -770,9 +770,9 @@ Sync Notion, then **print preview:** `--section enjoyment` — present verbatim;
 | Day (Mon–Sun) | Minutes | |
 |---------------|---------|---|
 | | | |
-| **Total** | | `weekly-dev-review` Time Punches (Category = Deep Work) |
+| **Total** | | `weekly-dev-review` Time Punches (`Category = CL Dev` + `TG Dev`) |
 
-→ Write `Deep Work Minutes` (review week total). Ops/Field/Admin/Reading from `weekly-habits` Time Punches sections.
+→ Write `Deep Work Minutes` (review week total = CL Dev + TG Dev). Ops/Field/Admin/Reading from `weekly-habits` Time Punches sections.
 
 **Table 2.1-C — What was accomplished**
 
@@ -907,7 +907,8 @@ Execute `node scripts/sync-dev-projects-this-week.mjs --selected=<all CL/TG IDs 
 1. `This Week = true` on selected Personal Dev Projects only.
 2. `This Week = false` on **every other open** Personal Dev Project.
 3. Re-run with **combined** CL/TG + Personal selected IDs so the full slate is authoritative (one sync pass).
-4. For each selected item: propose **Todoist mirror** (due date + project) — **case-by-case approval** before create.
+4. **Toggl tasks** — same script chains `sync-dev-projects-toggl-tasks.mjs`: create/assign Focus tasks for selected items; **delete** off-slate mirrors (and clear `Toggl Task ID`).
+5. For each selected item: propose **Todoist mirror** (due date + project) — **case-by-case approval** before create.
 
 ---
 
