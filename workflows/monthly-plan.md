@@ -24,7 +24,7 @@
 - [Phase 2: Fitness Review & Reprioritization (~5 min)](#phase-2-fitness-review-and-reprioritization-5-min)
 - [Phase 3: Dev Work Review & Goals (~10 min)](#phase-3-dev-work-review-and-goals-10-min)
 - [Phase 3b: Idea Roadmap Scrub (~8 min)](#phase-3b-idea-roadmap-scrub-8-min)
-  - [Procedure (run once per Type, in this order: TG → CL → Personal)](#procedure-run-once-per-type-in-this-order-tg-cl-personal)
+  - [Procedure (run once per Domain, in this order: TG → CL → Personal)](#procedure-run-once-per-domain-in-this-order-tg-cl-personal)
   - [Sanity guardrails](#sanity-guardrails)
 - [Phase 4: Sales Progress & Goals (~10 min)](#phase-4-sales-progress-and-goals-10-min)
   - [Pipeline Health](#pipeline-health)
@@ -572,22 +572,22 @@ If no 3-week streaks: skip silently (~0 min).
 
 **Purpose:** Sweep the upstream **Status = Idea** backlog for each roadmap (Turbo Gear, Chrome Lot, Personal). Promote ideas worth queuing, archive stale ones, hold the rest. Prevents the Idea status from becoming a graveyard and feeds the next quarterly plan with a curated candidate list.
 
-**Data source:** Dev Projects DB (`341f40c2-487b-80ac`). For each Type in turn — Turbo Gear, Chrome Lot, Personal — query with `Status = Idea`, sort by created time ascending (oldest first).
+**Data source:** Roadmap DB (`394f40c2-487b-815f`). For each **Domain** in turn — Turbo Gear, Chrome Lot, Personal — query with `Status = Idea`, sort by created time ascending (oldest first).
 
-<a id="procedure-run-once-per-type-in-this-order-tg-cl-personal"></a>
-### Procedure (run once per Type, in this order: TG → CL → Personal)
+<a id="procedure-run-once-per-domain-in-this-order-tg-cl-personal"></a>
+### Procedure (run once per Domain, in this order: TG → CL → Personal)
 
-1. Query Dev Projects with `Type = <current>` AND `Status = Idea`. Pull the title, created time, Due Date, 🧭 Value relation, and any sub-item count.
+1. Query Roadmap with `Domain = <current>` AND `Status = Idea`. Pull the title, created time, Date, 🎯 Value relation.
 2. **AI pre-assessment** for each idea (silent — present results in step 3):
-   - **Overlap:** Does this duplicate or directly relate to an existing project (any Status) in Dev Projects, CL Internal Projects, or active Quarterly Outcomes?
+   - **Overlap:** Does this duplicate or directly relate to an existing Roadmap item (any Status) or active Dev Project / Quarterly Outcome?
    - **Difficulty:** XS / S / M / L / XL based on title + any sub-items
    - **Delegation potential:** Could a team member execute this? (CL → Lexie/Tristen/Ran; TG → Pyakz/markwillcraft; Personal → likely no)
    - **Values alignment:** Which of the 6 categories does this serve? Flag if it doesn't clearly serve any.
-   - **Recommendation:** Promote (→ Not started) / Archive / Delegate / Hold
+   - **Recommendation:** Roadmap (→ Roadmapped) / Archive (→ Parked) / Delegate / Hold
 3. Present the list to Aaron with recommendations:
 
    ```
-   IDEA SCRUB — [Type] ([N] ideas)
+   IDEA SCRUB — [Domain] ([N] ideas)
    1. "[Idea name]" (created [date])
       Difficulty: [X], Serves: [Value], Delegation: [Y/N to whom]
       Overlaps with: [existing project or "none"]
@@ -595,22 +595,22 @@ If no 3-week streaks: skip silently (~0 min).
    2. ...
    ```
 4. Decide one idea at a time (use AskQuestion). For each:
-   - **Promote:** Update Status `Idea → Not started`. Optionally set 🍁 Quarter relation if it should be considered for next quarter (see Phase 9). Optionally set Due Date.
-   - **Delegate:** Route to the appropriate system (Work Notion CL Tasks for CL ops, Todoist for personal handoffs, Pipedrive activity for customer-facing). Then archive the Dev Projects idea entry with explicit approval.
-   - **Archive:** Set Status `Idea → Done` (or trash the page) — explicit approval required.
-   - **Hold:** Leave as-is for next month's scrub.
-5. **Caps per Type per month:**
-   - Promote at most **3 ideas to Not started**. If more look promising, defer to next month or surface them in the next quarterly plan.
-   - No cap on archives — clearing dead ideas is encouraged.
+   - **Roadmap:** Update Status `Idea → Roadmapped` (or `Committed` if quarter-bound). Optionally set 🍁 Target Quarter (see Phase 9). Use **▶ Start** when entering execution window.
+   - **Delegate:** Route to the appropriate system (Work Notion CL Tasks for CL ops, Todoist for personal handoffs, Pipedrive activity for customer-facing). Then set Roadmap Status = **Parked** with explicit approval.
+   - **Archive:** Status = **Parked** (or **Done** if achieved) — explicit approval required.
+   - **Hold:** Leave as Idea for next month's scrub.
+5. **Caps per Domain per month:**
+   - Roadmap at most **3 ideas → Roadmapped/Committed** per domain. If more look promising, defer to next month or quarterly plan.
+   - No cap on Parked — clearing dead ideas is encouraged.
 
 <a id="sanity-guardrails"></a>
 ### Sanity guardrails
 
-- If a Type has **>15 Idea-status entries**, flag it as inbox bloat and recommend a deeper triage outside the monthly cadence.
-- If the same idea has been **Held for 3+ consecutive monthly scrubs**, force a Promote-or-Archive decision this round (no more holds).
-- Do not promote an idea that overlaps with an active project — instead, append it as a sub-item to that project (or archive as duplicate).
+- If a Domain has **>15 Idea-status entries**, flag inbox bloat.
+- If the same idea has been **Held for 3+ consecutive monthly scrubs**, force Roadmap-or-Park this round.
+- Do not Roadmap an idea that overlaps an active Dev Project — link or Park as duplicate.
 
-**Outputs:** Status updates in Dev Projects (Idea → Not started / Done). Delegated tasks in target systems. Notes on held ideas (with hold count) for next-month review and for the quarterly plan candidate pool.
+**Outputs:** Roadmap status updates (Idea → Roadmapped / Committed / Parked). Delegated tasks in target systems. Hold notes for next month and quarterly candidate pool.
 
 <a id="phase-4-sales-progress-and-goals-10-min"></a>
 ## Phase 4: Sales Progress & Goals (~10 min)
@@ -833,7 +833,7 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
 
 **Required every monthly plan.** Store in session state (`monthly_dev_project_ids`, `monthly_domains_parked`) for Phase 12.
 
-1. Pull open Dev Projects (current quarter, Status ≠ Done/Idea) grouped by Type. Present lettered multi-select — **max 5 total** across all domains (Personal + CL + TG combined).
+1. Pull open Dev Projects (current quarter, Status ≠ Done) grouped by Type. Present lettered multi-select — **max 5 total** across all domains (Personal + CL + TG combined).
 2. On confirm (Notion approval): set `🌙 Month` → **planning month** on each selected project **and all open sub-items** under it (`scripts/sync-dev-projects-month.mjs --include-descendants`). Clear `🌙 Month` from projects removed from this month's plate (do not clear `🍁 Quarter`). Quarter-only work stays quarter-linked, not month-linked.
 3. Create missing Dev Project records before linking.
 4. **Table 11.2-B — Domains parked** *(multi-select — reply with letters)*
