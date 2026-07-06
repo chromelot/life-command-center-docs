@@ -31,12 +31,21 @@ Inventory of every MCP server configured in this workspace, plus how to choose b
 
 ### todoist — primary daily task driver
 
-- **Token**: `45703e887d680663d4fdd69689876c5f5fc0ddb9`
+- **Token (personal workspace)**: `45703e887d680663d4fdd69689876c5f5fc0ddb9` — MCP + Cursor agent **default** for Aaron's personal tasks
+- **Token (Chrome Lot admin)**: `TODOIST_ADMIN_TOKEN` in `n8n/.secrets.local` — team workspace; used by n8n PD↔Todoist sync and CL Bot. **Cursor agents must not use this token for personal tasks.**
 - **Tools**: `get_task`, `get_tasks`, `get_completed_tasks`, `create_task`, `update_task`, `complete_task`, `reopen_task`, `delete_task`, `get_projects`, `create_project`, `add_comment`
-- **Project IDs**: see below
-- **Critical exclusion**: `Shopping List` (`6W36wRPXj8qC2RCc`) is excluded from all planning workflows. Aaron uses it at the store only.
+- **Critical exclusion**: `Shopping List` (`6W36wRPXj8qC2RCc`, personal) is excluded from all planning workflows. Aaron uses it at the store only.
 
-#### Todoist project IDs
+#### Two workspaces — do not mix
+
+| Workspace | ID | Who uses it | Cursor agent default? |
+|---|---|---|---|
+| **Personal** | (none on project) | Aaron's life, habits, health, personal admin, dev mirrors | **Yes** — always default here |
+| **Chrome Lot** | `172492` | Shared team execution — PD mirrors, CL recurring ops | **No** — double confirmation required (`context/rules.md`) |
+
+**Anti-pattern:** Personal habits (skin log, gym, journal, etc.) must **never** use Chrome Lot projects such as `Recurring` or `Pipedrive`. Personal workspace has **no** `Recurring` project — if an agent picks `Recurring` (`6VrfxRV66H7GwQQg`), that is Chrome Lot workspace.
+
+#### Personal workspace project IDs
 
 | Project | ID | Notes |
 |---|---|---|
@@ -44,21 +53,27 @@ Inventory of every MCP server configured in this workspace, plus how to choose b
 | Physical Warm Up & Spirit | `6fMXPxXq8X2XQwcM` | Morning routine |
 | Morning Setup | `6Vq243QXJjHvJ2mM` | Morning routine |
 | Gym Work | `6fMXQmM8PrwWFqfc` | Workout tracking |
-| Fake Demos | `6Vm7xh838xXRGVWm` | CL demo tasks |
-| Office | `6VpxxqrxF655M5QQ` | Aaron personal office/desk work (not PD mirror destination) |
-| Errands | `6VmM476xRh7pPjHj` | Aaron personal errands (not PD mirror destination) |
-| Pipedrive | `6gfPq74rf2fJwGJx` | **Shared Chrome Lot workspace** — all team PD activity mirrors land here |
-| Home | `6VmM2Rg8fg665JmR` | Home tasks |
+| Office | `6VpxxqrxF655M5QQ` | Personal desk/admin work, health tracking mirrors |
+| Errands | `6VmM476xRh7pPjHj` | Personal errands (not PD mirror destination) |
+| Personal Time | `6gxrCWWqxx9VFjrw` | Protected personal blocks |
 | Evening | `6VrPwCwfr5QmcwX2` | Evening routine |
-| Shopping List | `6W36wRPXj8qC2RCc` | **EXCLUDED from planning workflows** |
-| Books | `6cMRhQC98pQVQxx7` | Reading list |
-| Sales Packets | `6cQpR3qQHrj5F49p` | CL sales prep |
-| Same Day To Do | `6VmQrCh6h5X7FfFh` | Urgent same-day items |
-| Customer Projects | `6VpXPGr3F574xMwc` | CL customer work |
-| Recurring | `6VrfxRV66H7GwQQg` | Recurring tasks |
-| Mackenzie | `6WgjjjpwqJ4V76Fv` | INACTIVE — do not use |
 | Pending Aaron | `6g3hXfFffjP8RxVH` | Waiting on Aaron |
-| Afternoon Work | `6g6jFvJC9FmwCcMP` | Tasks deferred from morning to afternoon |
+| Shopping List | `6W36wRPXj8qC2RCc` | **EXCLUDED from planning workflows** |
+| Lists | `6gxrCgXHWqr5M4JG` | Reference lists |
+| Download | `6gXV7PWwWfqXHm8C` | Download queue |
+
+#### Chrome Lot workspace project IDs (`172492`)
+
+| Project | ID | Notes |
+|---|---|---|
+| Pipedrive | `6gfPq74rf2fJwGJx` | Shared — all team PD activity mirrors land here |
+| Recurring | `6VrfxRV66H7GwQQg` | **CL team recurring ops only** — not for personal habits |
+| Customer Projects | `6VpXPGr3F574xMwc` | CL customer work |
+| Fake Demos | `6Vm7xh838xXRGVWm` | CL demo tasks |
+| Sales Packets | `6cQpR3qQHrj5F49p` | CL sales prep |
+| Same Day To Do | `6VmQrCh6h5X7FfFh` | Urgent same-day CL items |
+| Project Tracker | `6Vm7x4mHwgqrqVJp` | CL project tracker |
+| Random | `6Vm7cjxM2xVXGC36` | CL misc |
 
 ### pipedrive — Chrome Lot CRM
 
