@@ -165,10 +165,11 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 ## Health / staleness
 
 <!-- AUTO:HEALTH_REPORT -->
-⚠ **6 issue(s)** across 84 context files.
+⚠ **7 issue(s)** across 85 context files.
 
-### stale (1)
-- `context/self/current-priorities.md` — 29d old (threshold 14d)
+### stale (2)
+- `context/self/current-priorities.md` — 32d old (threshold 14d)
+- `context/systems/operations-catalog.md` — 33d old (threshold 30d)
 
 ### broken-see-also (1)
 - `context/systems/audiobook-pipeline.md` — ../../output/audiobook-handoff-2026-05-05.md
@@ -187,7 +188,7 @@ Full audit: `node scripts/audit-context.mjs`
 ## Last generated
 
 <!-- AUTO:LAST_GENERATED -->
-**2026-07-06 14:54:28** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
+**2026-07-09 18:20:38** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
 <!-- /AUTO:LAST_GENERATED -->
 
 ## See also
