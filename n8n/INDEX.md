@@ -20,6 +20,7 @@
 | Tracker Matcher (period links) | [`sync/tracker-matcher/tracker-matcher-sync.md`](sync/tracker-matcher/tracker-matcher-sync.md) |
 | Week Tracker Sunday create | [`sync/week-tracker/week-tracker-create.md`](sync/week-tracker/week-tracker-create.md) |
 | Month/Quarter/Year rollover | [`sync/period-tracker/period-tracker-create.md`](sync/period-tracker/period-tracker-create.md) |
+| Dev Projects period links (Month + Week) | [`sync/dev-project-period-links/dev-project-period-links.md`](sync/dev-project-period-links/dev-project-period-links.md) |
 | AM strategy / roadmap | [`account-management/roadmap.md`](account-management/roadmap.md) |
 | AM Process Street setup | [`sync/am-setup/ps-am-setup-verification.md`](sync/am-setup/ps-am-setup-verification.md) |
 | Roster / permissions | [`shared/airtable-roster.mjs`](shared/airtable-roster.mjs) + `context/systems/airtable-roster.md` |
@@ -119,6 +120,9 @@ node n8n/webhooks/toggl-start/deploy-toggl-start.mjs
 
 # Tracker Matcher — see sync/tracker-matcher/tracker-matcher-sync.md
 node n8n/sync/tracker-matcher/deploy-tracker-matcher.mjs
+
+# Dev Project period links (Month + Week backfill)
+node n8n/sync/dev-project-period-links/deploy-dev-project-period-links.mjs
 
 # Morning Journal Notion webhook — see sync/morning-journal-notion/morning-journal-notion-sync.md
 node n8n/sync/morning-journal-notion/deploy-morning-journal-notion-sync.mjs
