@@ -315,7 +315,7 @@ Copy tables **verbatim** from the feelings file and habit/health scripts — fil
 |--------|-----------|------------|----------------|
 | Spirit Minutes | from `weekly-habits-*.md` TABLE 1.2-B-spirit | from wellness file | `Spirit Minutes` |
 | Meditation Minutes | from `weekly-habits-*.md` TABLE 1.2-B-spirit | — | (in summary) |
-| Reading Minutes | from `weekly-habits-*.md` TABLE 1.2-B-spirit | — | (in summary) |
+| **Reading Minutes** | from `weekly-habits-*.md` TABLE 1.2-B-spirit (`Category = Reading` time punches) | — | (in summary) |
 | Journal Count | from `weekly-habits-*.md` | from wellness file | `Journal Count` |
 | Morning Journal days | from `weekly-habits-*.md` TABLE 1.2-B-mj (Journal DB entry exists) | — | (in summary) |
 | Affirmations | from `weekly-habits-*.md` TABLE 1.2-B-mj (`Affirmations done` to_do in journal page — separate from journal completion) | — | (in summary) |
@@ -767,12 +767,14 @@ Sync Notion, then **print preview:** `--section enjoyment` — present verbatim;
 
 **Table 2.1-B — Dev time logged**
 
-| Day (Mon–Sun) | Minutes | |
-|---------------|---------|---|
-| | | |
-| **Total** | | `weekly-dev-review` Time Punches (`Category = CL Dev` + `TG Dev`) |
+*All categories from Time Punches (`Total Time` formula). **Reading** is reported in Phase **1.2** Mind (TABLE 1.2-B-spirit), not here.*
 
-→ Write `Deep Work Minutes` (review week total = CL Dev + TG Dev). Ops/Field/Admin/Reading from `weekly-habits` Time Punches sections.
+| Day | CL Dev | TG Dev | Admin | Ops | Day total |
+|-----|--------|--------|-------|-----|-----------|
+| | | | | | |
+| **Total** | | | | | |
+
+→ Write `Deep Work Minutes` = **CL Dev + TG Dev + Admin + Ops** (review week). *Or document subset if Aaron defines deep work differently each month.*
 
 **Table 2.1-C — What was accomplished**
 
