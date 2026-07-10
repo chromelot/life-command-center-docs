@@ -845,7 +845,7 @@ Then Aaron rates:
 
 **Turn 1 — What was accomplished** *(was 2.1-C content; now first in F)*
 
-Same tree as review-week queue (`weekly-dev-review` § Review week — queued dev work). Group **Chrome Lot → Turbo Gear → Personal (Admin)**. ~~Strikethrough~~ on Done. Then off-queue logged wins + unlogged sweep highlights (Aaron flags count).
+Same tree as review-week queue (`weekly-dev-review` § Review week — queued dev work). Group **Chrome Lot → Turbo Gear → Personal (Admin)**. **Always show sub-items** (full parent → child nesting). ~~Strikethrough~~ on Done. *Skip off-queue agent/infra tuning during the session unless Aaron flags it.*
 
 → Fold into `Accomplishments`, accomplishment counts, `Focused Output Hours Estimate`.
 
