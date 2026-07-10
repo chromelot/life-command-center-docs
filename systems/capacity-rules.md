@@ -124,7 +124,7 @@ Aaron's projects are tracked in **Dev Projects DB** (`341f40c2-487b-80ac`), unif
 ### Quarterly → Weekly → Daily flow
 
 1. **Quarterly plan:** Roadmap → Roadmapped/Committed + Target Quarter; themes on Outcomes; promote top items to Dev Projects
-2. **Monthly plan:** `roadmap-replot-report.mjs`; carry/park Roadmap; promote into Dev Projects + `🌙 Month`
+2. **Monthly plan:** `roadmap-replot-report.mjs`; extend Behind item dates + align quarters; promote into Dev Projects + `🌙 Month`
 3. **Weekly plan:** Dev Projects `This Week` only (execution)
 4. **Daily dev block:** work on `This Week` + Status = In progress
 
