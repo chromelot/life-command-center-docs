@@ -763,7 +763,7 @@ Sync Notion, then **print preview:** `--section enjoyment` — present verbatim;
 |-------|-------|--------|
 | Work health (dev efforts) | | Prior Weekly Log `Work Health` |
 | Adjustments trying | | Prior `Dev Adjustments` |
-| **Queued dev work** | Parents + sub-items, grouped by domain (CL, then TG) | **Primary:** `weekly-dev-review` § Review week — queued CL/TG dev work, or `weekly-habits` § This Week (CL/TG only). **Cross-check:** prior log `Dev Projects Intended` when populated |
+| **Queued dev work** | Parents + sub-items, grouped by domain (CL, TG, Personal) | **Primary:** `weekly-dev-review` § Review week — queued dev work (all types). **Cross-check:** prior log `Dev Projects Intended` when populated |
 
 **Table 2.1-B — Time logged** *(two tiers — dev first, then all logged)*
 
@@ -787,9 +787,9 @@ Sync Notion, then **print preview:** `--section enjoyment` — present verbatim;
 
 *Present Tier 1 first in 2.1-D narrative; Tier 2 for full work-week picture.*
 
-**Table 2.1-C — What was accomplished**
+**Table 2.1-C — What was accomplished** *(legacy ID — content now presented as **2.1-F Turn 1**; keep field writes here)*
 
-**From plan** — *same tree as **2.1-A** (domain → parent → sub-bullets). Do **not** flatten to a table. Mark finished items with ~~strikethrough~~ (Status = Done). Open items stay plain.*
+**From plan** — *same tree as **2.1-A** across **Chrome Lot · Turbo Gear · Personal (Admin)**. Do **not** flatten to a table. Mark finished items with ~~strikethrough~~ (Status = Done). Open items stay plain.*
 
 ```
 **Chrome Lot**
@@ -837,20 +837,38 @@ Then Aaron rates:
 
 → Write `Dev Adjustments` (Aaron’s commitments, or leave empty when C+).
 
-**Planning next week — three turns (do not combine)**
+**Planning next week — four turns (do not combine)**
 
-**Table 2.1-F — Carryover (last week leftovers)**
+**Table 2.1-F — Review week close-out** *(all Dev Project types: Chrome Lot · Turbo Gear · Personal)*
 
-Open items from the **2.1-C queue tree** still not Done, with **full parent → sub-bullet nesting** (fetch entire ancestor chain; never flatten). **Done parent + open child is not stale** — often a bulk-close artifact (e.g. Operational Reset); Aaron defers explicitly. Empty-titled records: archive, don't present. One turn only.
+*Personal Dev Projects log as **Admin** time in Time Punches. Present all three types together — not CL/TG only.*
+
+**Turn 1 — What was accomplished** *(was 2.1-C content; now first in F)*
+
+Same tree as review-week queue (`weekly-dev-review` § Review week — queued dev work). Group **Chrome Lot → Turbo Gear → Personal (Admin)**. ~~Strikethrough~~ on Done. Then off-queue logged wins + unlogged sweep highlights (Aaron flags count).
+
+→ Fold into `Accomplishments`, accomplishment counts, `Focused Output Hours Estimate`.
+
+**Turn 2 — What's still open**
+
+Re-present **only open items** from the same tree (full parent → sub nesting; letter each root). Cross-check prior log `Dev Projects Intended` when Week Tracker link is empty.
 
 | | |
 |---|---|
-| **A** | Continue all on this week's plate |
+| **Reply** | Letters of items to **mark Done** now (or **none**) |
+
+Per-item Notion `Status → Done` only after Aaron names the letter(s). Re-fetch tree before Turn 3.
+
+**Turn 3 — Carryover decision**
+
+| | |
+|---|---|
+| **A** | Continue all **remaining** open items on this week's plate |
 | **B** | Defer some — reply with item letters to **drop** from carryover |
 
 Deferred items: `This Week = false` at sync (approval). Carried items stay selected for sync.
 
-**Table 2.1-G — Add from roadmap?**
+**Turn 4 — Table 2.1-G — Add from roadmap?**
 
 | | |
 |---|---|
@@ -874,9 +892,9 @@ Execute `node scripts/sync-dev-projects-this-week.mjs --selected=<comma-separate
 
 → Write `Dev Projects Intended` (snapshot), `Dev Priority Context`.
 
-**Present Table 2.1-S — CL/TG This Week slate** *(bulleted tree; must match Notion `This Week` filter exactly)*
+**Present Table 2.1-S — This Week slate** *(CL + TG + Personal; must match Notion `This Week` filter exactly)*
 
-Output of sync script § Chrome Lot + Turbo Gear only. Aaron confirms before **2.2**.
+Output of sync script — all domains. Aaron confirms before **2.2** (Todoist mirrors only if Personal items selected).
 
 Sync Notion (`Dev Projects Intended`, `Dev Intentions`, `Work Health`, etc.), then **print preview:** `--section development` — present verbatim; Aaron confirms before **2.2** (re-run after **2.2** if personal dev slate changes the print tree materially).
 
@@ -884,6 +902,8 @@ Sync Notion (`Dev Projects Intended`, `Dev Intentions`, `Work Health`, etc.), th
 
 <a id="22-personal-project-review-7-min"></a>
 ### 2.2 Personal Project Review (~7 min)
+
+*Personal carryover and week selection now run in **2.1-F** (all three types). Phase 2.2 = Todoist mirror check + any gaps not covered in 2.1-F/G.*
 
 #### A — Context + last week
 

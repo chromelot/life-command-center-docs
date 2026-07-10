@@ -112,12 +112,12 @@ Monthly/quarterly: contracts in each `SKILL.md` **Present exactly** map + phase 
 
 **Dev tracker rule (weekly plan Phase 2):**
 
-- **2.1-A (review):** Queued CL/TG dev work = Dev Projects `This Week` during the week under review — not a reconstructed guess from log text. Log `Dev Projects Intended` is cross-check only.
-- **2.1-C (accomplished):** Re-present the **same tree as 2.1-A** with ~~strikethrough~~ on Done items — no flat shipped table. Logged completions = Done + `This Week` + `last_edited` in review window (`weekly-habits`); do not cite Done pages without `This Week`.
+- **2.1-A (review):** Queued dev work = Dev Projects on review-week `📅 Week Tracker` — **Chrome Lot · Turbo Gear · Personal (Admin)**. Log `Dev Projects Intended` is cross-check only.
+- **2.1-C (accomplished):** Content now **2.1-F Turn 1** — same tree with ~~strikethrough~~ on Done; all three types.
 - **2.1-D (dev health):** Agent summarizes output, time, and month-goal progress; Aaron rates Healthy/Unhealthy. No agent recommendations.
 - **2.1-E (adjustments):** **Only if Unhealthy.** Aaron states commitments; agent captures verbatim — never proposes adjustments.
-- **2.1-F/G/H (plan):** F = carryover; G = add from planning month?; H = `🌙 Month` linked CL/TG (`weekly-dev-review`). Personal → 2.2 via same month relation.
-- **2.1-S / 2.2-D sync:** After each selection, run `scripts/sync-dev-projects-this-week.mjs --selected=<IDs>` — selected `This Week = true`; **all other open** records `This Week = false`; clear stale Done checks; chain **Toggl task provision + off-slate prune**. Cumulative IDs through 2.2.
+- **2.1-F (plan close-out):** Turn 1 = accomplished · Turn 2 = still open + mark-Done letters · Turn 3 = carryover A/B · then **2.1-G/H** = roadmap adds. All three Dev Project types in one flow.
+- **2.1-S / 2.2:** Sync covers CL/TG/Personal in one `--selected` pass. **2.2** = Todoist mirror check for selected Personal items (carryover selection is in 2.1-F).
 - **2.check:** One bulleted tree (CL/TG + Personal) must **exactly match** Notion `This Week` filtered view before Phase 4.
 - **4b.1:** `--list-candidates` → Aaron confirms Week Tracker page (plans finish on different weekdays).
 - **4b.2:** `--week-page-id` → **print PDF** (Playwright) uploaded to `Plan Records/weekly/` + `Plan Doc URL` on week record + `Weekly Plan` section on Notion page (`weekly-plan-week-summary.mjs`). Local copies: `output/weekly-plan-print-{week}.html` + `.pdf`. Suggested title maps ledger `week_of` (Monday) → `Week Starting M/D` (Sunday). **Print layout:** CSS grid per domain — *What happened last week* · *Intentions for next week* (36–44% / 56–64% columns; adjustments bold). **Mid-session:** `weekly-plan-section-preview.mjs --section <slug>` before advancing; optional `--all` before 4b.2.
