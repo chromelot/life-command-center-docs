@@ -11,6 +11,7 @@
 - [Required Notion fields — index](#required-notion-fields-index)
 - [Procedure](#procedure)
 - [Pre-Phase 0: Monthly Plan Gate (mandatory — runs before everything else)](#pre-phase-0-monthly-plan-gate-mandatory-runs-before-everything-else)
+- [Phase 0a: Confirm Review + Planning Weeks (~1 min)](#phase-0a-confirm-review-planning-weeks-1-min)
 - [Phase 0: Data Pull (silent, before conversation)](#phase-0-data-pull-silent-before-conversation)
   - [Wellness pulls (run first)](#wellness-pulls-run-first)
   - [Social pulls (with wellness; used in Phase 1.5)](#social-pulls-with-wellness-used-in-phase-15)
@@ -67,18 +68,19 @@ Load via the router. Read these before starting:
 
 1. **Date context (every turn, before any weekday or "this week" language):**
    ```
-   node scripts/planning-dates.mjs [--today=YYYY-MM-DD] [--week-of=<ledger week_of>]
+   node scripts/planning-dates.mjs --ledger <path> [--today=YYYY-MM-DD]
    ```
-   Aaron may run weekly plan on **any day** — never assume session day = Monday. Use script output for review week, planning week, and weekday→ISO mapping. `Today's date` from `user_info` must match `--today` (CT).
-2. **Init ledger** at session start: `node scripts/workflow-progress.mjs init --workflow weekly-plan` — omit `--week-of` to auto-set canonical planning Monday from today; if set manually, must be a Monday and should match `planning-dates.mjs`. Weekly log title = `Week of <planning Monday>`.
-3. **Notion log** — at step `1.0`: `node scripts/workflow-notion-log.mjs create --ledger <path>`. After every `advance`: `workflow-notion-log sync`. Write phase fields per `context/systems/workflow-logs.md`. On commit: `workflow-notion-log complete`.
-4. **Every turn:** `node scripts/workflow-progress.mjs status --workflow weekly-plan` — present only `current_step` (status includes date warnings if ledger `week_of` is wrong)
-5. **Phase banner** on every user-facing message: `**[Weekly Plan · Phase X.Y — title]**`
-6. **One sub-step per turn** — never bundle 1.2 + 1.3 + 1.4 + 1.5 + 1.6 + 1.7 (each life domain is a separate step)
-7. **Table contract is the spec** — each sub-step lists the **exact tables** to present (column headers fixed). Fill every cell from the named data source; use `—` when data is missing. Do not add metrics, sections, or discussion topics outside that step's tables. **Do not `advance` until every in-scope table for the step is presented and any required Aaron input is collected.**
-8. **One question per turn** — Energy rating and Mind intentions are separate turns; PHQ-2/GAD-2 only when `Screening Escalation` is true (one item per turn)
-9. **Advance after complete:** `node scripts/workflow-progress.mjs advance --workflow weekly-plan --step <id>`
-10. **Print preview (required before each domain advance):** After Aaron approves intentions and **Notion fields for that domain are synced**, run:
+   Aaron may run weekly plan on **any day** — never assume session day = Monday. Use script output for **review week** (look back), **planning week** (look forward), and weekday→ISO mapping. `Today's date` from `user_info` must match `--today` (CT).
+2. **Init ledger** at session start: `node scripts/workflow-progress.mjs init --workflow weekly-plan` — sets default Review + Planning Week Tracker rows and `week_of` = **planning Monday** (not review Monday). Weekly log title = `Week of <planning Monday>`.
+3. **Step `0a` — confirm weeks (before any Phase 0 pull):** Run `node scripts/weekly-plan-weeks.mjs --ledger <path>`. Present the table verbatim. Aaron confirms (letter **A** = defaults, or override IDs). Then `node scripts/weekly-plan-weeks.mjs --ledger <path> --confirm` (or `--review-week-id` / `--planning-week-id` if overriding). Advance `0a` only after `--confirm`.
+4. **Notion log** — at step `1.0`: `node scripts/workflow-notion-log.mjs create --ledger <path>` (writes **Review Week** + **Planning Week** relations from ledger). After every `advance`: `workflow-notion-log sync`. Write phase fields per `context/systems/workflow-logs.md`. On commit: `workflow-notion-log complete`.
+5. **Every turn:** `node scripts/workflow-progress.mjs status --workflow weekly-plan` — present only `current_step`
+6. **Phase banner** on every user-facing message: `**[Weekly Plan · Phase X.Y — title]**`
+7. **One sub-step per turn** — never bundle 1.2 + 1.3 + 1.4 + 1.5 + 1.6 + 1.7 (each life domain is a separate step)
+8. **Table contract is the spec** — each sub-step lists the **exact tables** to present (column headers fixed). Fill every cell from the named data source; use `—` when data is missing. Do not add metrics, sections, or discussion topics outside that step's tables. **Do not `advance` until every in-scope table for the step is presented and any required Aaron input is collected.**
+9. **One question per turn** — Energy rating and Mind intentions are separate turns; PHQ-2/GAD-2 only when `Screening Escalation` is true (one item per turn)
+10. **Advance after complete:** `node scripts/workflow-progress.mjs advance --workflow weekly-plan --step <id>`
+11. **Print preview (required before each domain advance):** After Aaron approves intentions and **Notion fields for that domain are synced**, run:
     ```
     node scripts/weekly-plan-section-preview.mjs --ledger <path> --section <slug>
     ```
@@ -94,9 +96,9 @@ Load via the router. Read these before starting:
     | `1.7` | `enjoyment` | |
     | `2.1` (after sync + **2.1-S** confirmed) | `development` | Includes CL/TG + personal dev tree when on log |
 
-    Optional before **4b.2** write: `--all` for full seven-domain preview.
-11. **Phase gates:** `node scripts/workflow-progress.mjs gate --workflow weekly-plan --phase <1|2>` before Phase 2 (work) or Phase 4 (commit)
-12. **Tangents:** fix/interrupt, then resume ledger `current_step` — do not skip ahead
+    Optional before **4b** write: `--all` for full seven-domain preview.
+12. **Phase gates:** `node scripts/workflow-progress.mjs gate --workflow weekly-plan --phase <1|2>` before Phase 2 (work) or Phase 4 (commit)
+13. **Tangents:** fix/interrupt, then resume ledger `current_step` — do not skip ahead
 
 <a id="interaction-style"></a>
 ## Interaction Style
@@ -137,10 +139,39 @@ The weekly plan assumes a committed monthly frame. Do not start Phase 0 until th
    - **Pause** this workflow. Run `context/skills/monthly-plan/SKILL.md` end-to-end (or resume an in-progress ledger).
    - After monthly plan Phase 12 commits (`Session Complete` = Complete), **resume** weekly plan from Phase 0 below.
    - Do **not** offer to skip or proceed weekly-only — a **completed** monthly plan is a hard prerequisite.
-4. **If entry exists and Session Complete = Complete:** Hold for Phase 2.1. Continue to Phase 0.
+4. **If entry exists and Session Complete = Complete:** Hold for Phase 2.1. Continue to **Phase 0a** (confirm weeks), then Phase 0.
+
+<a id="phase-0a-confirm-review-planning-weeks-1-min"></a>
+## Phase 0a: Confirm Review + Planning Weeks (~1 min)
+
+**Purpose:** Lock which Week Tracker rows this session **reviews** vs **plans for** — before any data pull. Aaron's default workflow (Fri–Mon):
+
+| Session day | Review week | Planning week |
+|-------------|-------------|---------------|
+| **Friday / Saturday** | Current calendar week (still in) | **Next** Week Tracker row |
+| **Sunday / Monday** | Prior Week Tracker row | Current week (entering) |
+
+1. Run `node scripts/weekly-plan-weeks.mjs --ledger <path>` — present output **verbatim**.
+2. **Present exactly Table 0a:**
+
+```
+TABLE 0a — Week pair confirmation
+| | Week Tracker | Dates | page_id |
+|---|--------------|-------|---------|
+| Review (look back) | … | Sun–Sat | … |
+| Planning (look forward) | … | Sun–Sat | … |
+```
+
+3. Aaron confirms: **A** = accept defaults · **B** = override (agent re-runs with `--review-week-id` / `--planning-week-id`, then confirm).
+4. Run `node scripts/weekly-plan-weeks.mjs --ledger <path> --confirm` (sets ledger `weeks_confirmed`, `week_of`, and Meeting Log relations when log exists).
+5. `advance --step 0a` — **blocked** until `--confirm` has run.
+
+All Phase 0+ pulls use `--ledger <path>` so habits, dev review, dev slate sync, and 4b write target the confirmed weeks.
 
 <a id="phase-0-data-pull-silent-before-conversation"></a>
 ## Phase 0: Data Pull (silent, before conversation)
+
+**Prerequisite:** Step `0a` complete (`weeks_confirmed = true`).
 
 **Order:** wellness + log trends first, then work pulls. Mind/body phases run before any work discussion.
 
@@ -153,7 +184,7 @@ node "scripts/weekly-wellness-trends.mjs"
 Output: `output/weekly-wellness-trends-YYYY-MM-DD.md`. **Canonical source for 4-week Weekly Meeting Log trends + prior-week intentions + data-integrity report.** Read this before Phase 0b and Phase 1.
 
 ```
-node "scripts/weekly-habit-summary.mjs"
+node "scripts/weekly-habit-summary.mjs" --ledger <path>
 ```
 Output: `output/weekly-habits-YYYY-MM-DD.md`. Canonical last-week habit numbers + actionable Dev Projects slate. Do not re-query habit DBs ad-hoc.
 
@@ -195,7 +226,7 @@ Output: stdout **Small Talk list, days since last entry, daily counts, calendar 
 ### Development pulls (after wellness/social; silent until Phase 2+)
 
 ```
-node scripts/weekly-dev-review.mjs
+node scripts/weekly-dev-review.mjs --ledger <path>
 ```
 Output: `output/weekly-dev-review-YYYY-MM-DD.md` — **canonical Phase 2 source** (prior week plan, dev time by day, monthly incomplete by domain, personal carryover).
 
@@ -993,9 +1024,9 @@ This list must **exactly match** the Notion Dev Projects view filtered to `This 
 11. **Body comp already persisted.** Withings written in Phase 0 (`--days 28`). Don't re-run here.
 12. **Execute remaining:** Create any Todoist/Calendar/Notion items not yet committed during earlier phases.
 13. **Log to Notion:** Finalize the Weekly Meeting Log entry (`322f40c2-487b-81bd`) with key decisions, action items, and plan summary. Set `Status = Done`, `Session Complete = Complete`.
-14. **Week Tracker summary (4b — REQUIRED, two sub-steps):**
-    - **4b.1 Confirm week record:** Run `node scripts/weekly-plan-week-summary.mjs --ledger <path> --list-candidates`. Present the candidate table to Aaron via **AskQuestion** (one question). Plans finish on different weekdays — Aaron picks which **Week Tracker** page to write to (letter A–E). Do **not** write until confirmed.
-    - **4b.2 Write plan:** Optional gate — `node scripts/weekly-plan-section-preview.mjs --ledger <path> --all` (full print preview). After Aaron confirms, run `node scripts/weekly-plan-week-summary.mjs --ledger <path> --week-page-id <id>`. This (1) renders a **print PDF** via Playwright (also saves `output/weekly-plan-print-{week}.html` + `.pdf`), (2) uploads PDF to `Plan Records/weekly/`, (3) sets **`Plan Doc URL`** on the confirmed week record, (4) appends/replaces the **Weekly Plan** section on that Notion page. Suggested title: `Week Starting M/D` = Sunday before ledger `week_of` (Mon 2026-06-08 → `Week Starting 6/7`). Aaron approves production writes.
+14. **Week Tracker summary (4b — REQUIRED):**
+    - Planning week was confirmed at **0a** (`planning_week_page_id` on ledger). Optional gate — `node scripts/weekly-plan-section-preview.mjs --ledger <path> --all` (full print preview).
+    - After Aaron confirms, run `node scripts/weekly-plan-week-summary.mjs --ledger <path>` (uses ledger planning week — no end-of-session week picker). This (1) renders a **print PDF** via Playwright (also saves `output/weekly-plan-print-{week}.html` + `.pdf`), (2) uploads PDF to `Plan Records/weekly/`, (3) sets **`Plan Doc URL`** on the planning week record, (4) appends/replaces the **Weekly Plan** section on that Notion page. Aaron approves production writes.
 15. **Update context files** if anything changed.
 
 <a id="cross-cutting-rules"></a>
@@ -1014,12 +1045,13 @@ This list must **exactly match** the Notion Dev Projects view filtered to `This 
 ## Outputs
 
 - **Pre-Phase 0:** Monthly plan gate pass (or full monthly plan run + resume).
+- **Phase 0a:** Review + Planning Week Tracker rows confirmed on ledger + Weekly Meeting Log relations.
 - **Phase 0:** Wellness + journal feelings + social + dev data pulls; trend files; 4-week log history.
 - **Phase 0b:** Data integrity table; remediation before Phase 1.
 - **Phase 1:** Life review (values, mind, fitness, sleep, social, parenting, personal enjoyment) + targets on Weekly Meeting Log.
 - **Phase 2:** Development review + next-week dev plan.
 - **Phase 4:** Full Weekly Meeting Log finalized + all FIELD CHECKs; Values DB sync (with approval).
-- **Phase 4b:** Confirmed Week Tracker page gets domain-by-domain plan summary + linked Google Doc in `Plan Records/weekly/`.
+- **Phase 4b:** Planning week record (from 0a) gets domain-by-domain plan summary + linked Google Doc in `Plan Records/weekly/`.
 
 <a id="failure-modes-and-graceful-degradation"></a>
 ## Failure modes & graceful degradation

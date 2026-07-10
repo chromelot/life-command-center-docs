@@ -112,15 +112,15 @@ Monthly/quarterly: contracts in each `SKILL.md` **Present exactly** map + phase 
 
 **Dev tracker rule (weekly plan Phase 2):**
 
-- **2.1-A (review):** Queued dev work = Dev Projects on review-week `📅 Week Tracker` — **Chrome Lot · Turbo Gear · Personal (Admin)**. Log `Dev Projects Intended` is cross-check only.
+- **0a:** `weekly-plan-weeks.mjs` → Aaron confirms Review + Planning Week Tracker rows before any pull.
+- **2.1-A (review):** Queued dev work = Dev Projects on review-week `📅 Week Tracker` (ledger `review_week_page_id`) — **Chrome Lot · Turbo Gear · Personal (Admin)**.
 - **2.1-C (accomplished):** Content now **2.1-F Turn 1** — same tree with ~~strikethrough~~ on Done; all three types.
 - **2.1-D (dev health):** Agent summarizes output, time, and month-goal progress; Aaron rates Healthy/Unhealthy. No agent recommendations.
 - **2.1-E (adjustments):** **Only if Unhealthy.** Aaron states commitments; agent captures verbatim — never proposes adjustments.
 - **2.1-F (plan close-out):** Turn 1 = accomplished · Turn 2 = still open + mark-Done letters · Turn 3 = carryover A/B · then **2.1-G/H** = roadmap adds. All three Dev Project types in one flow.
 - **2.1-S / 2.2:** Sync covers CL/TG/Personal in one `--selected` pass. **2.2** = Todoist mirror check for selected Personal items (carryover selection is in 2.1-F).
 - **2.check:** One bulleted tree (CL/TG + Personal) must **exactly match** Notion `This Week` filtered view before Phase 4.
-- **4b.1:** `--list-candidates` → Aaron confirms Week Tracker page (plans finish on different weekdays).
-- **4b.2:** `--week-page-id` → **print PDF** (Playwright) uploaded to `Plan Records/weekly/` + `Plan Doc URL` on week record + `Weekly Plan` section on Notion page (`weekly-plan-week-summary.mjs`). Local copies: `output/weekly-plan-print-{week}.html` + `.pdf`. Suggested title maps ledger `week_of` (Monday) → `Week Starting M/D` (Sunday). **Print layout:** CSS grid per domain — *What happened last week* · *Intentions for next week* (36–44% / 56–64% columns; adjustments bold). **Mid-session:** `weekly-plan-section-preview.mjs --section <slug>` before advancing; optional `--all` before 4b.2.
+- **4b:** `weekly-plan-week-summary.mjs --ledger` → writes to **planning week** from step 0a (print PDF + `Plan Records/weekly/` + `Plan Doc URL` + Notion `Weekly Plan` section). **Mid-session:** `weekly-plan-section-preview.mjs --section <slug>` before advancing; optional `--all` before 4b.
 - **2.2-A/C:** Planning month Personal Dev Projects (`🌙 Month`) — no free-text monthly priorities.
 - **Monthly plan 11b:** Link up to 5 root Dev Projects + open sub-items to planning month (`scripts/sync-dev-projects-month.mjs --include-descendants`). Priority Stack text deprecated.
 
