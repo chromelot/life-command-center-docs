@@ -765,16 +765,27 @@ Sync Notion, then **print preview:** `--section enjoyment` — present verbatim;
 | Adjustments trying | | Prior `Dev Adjustments` |
 | **Queued dev work** | Parents + sub-items, grouped by domain (CL, then TG) | **Primary:** `weekly-dev-review` § Review week — queued CL/TG dev work, or `weekly-habits` § This Week (CL/TG only). **Cross-check:** prior log `Dev Projects Intended` when populated |
 
-**Table 2.1-B — Dev time logged**
+**Table 2.1-B — Time logged** *(two tiers — dev first, then all logged)*
 
-*All categories from Time Punches (`Total Time` formula). **Reading** is reported in Phase **1.2** Mind (TABLE 1.2-B-spirit), not here.*
+*Source: Time Punches (`Total Time` formula). **Reading** → Phase **1.2** Mind (TABLE 1.2-B-spirit), not here.*
 
-| Day | CL Dev | TG Dev | Admin | Ops | Day total |
-|-----|--------|--------|-------|-----|-----------|
-| | | | | | |
-| **Total** | | | | | |
+**Tier 1 — Dev time** *(CL Dev + TG Dev + Admin; excludes Ops/Field)*
 
-→ Write `Deep Work Minutes` = **CL Dev + TG Dev + Admin + Ops** (review week). *Or document subset if Aaron defines deep work differently each month.*
+| Day | CL Dev | TG Dev | Admin | Dev total |
+|-----|--------|--------|-------|-----------|
+| | | | | |
+| **Total** | | | | |
+
+→ Write `Deep Work Minutes` = **dev total** (CL Dev + TG Dev + Admin only).
+
+**Tier 2 — All logged time** *(dev + Ops + Field)*
+
+| Day | Dev | Ops | Field | All logged |
+|-----|-----|-----|-------|------------|
+| | | | | |
+| **Total** | | | | |
+
+*Present Tier 1 first in 2.1-D narrative; Tier 2 for full work-week picture.*
 
 **Table 2.1-C — What was accomplished**
 
