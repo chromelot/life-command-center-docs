@@ -70,6 +70,36 @@
       ]
     },
     {
+      "id": "personal-week",
+      "title": "Personal — This Week",
+      "icon": "\ud83c\udfaf",
+      "subtitle": "Progress on the goals I set in the weekly plan (week starts Sunday).",
+      "widgets": [
+        { "type": "section", "title": "Goal progress" },
+        { "type": "progress", "label": "Strength workouts", "metric": "life.strength_sessions", "field": "week", "target": "goal.strength_target", "span": 2 },
+        { "type": "progress", "label": "Cardio sessions", "metric": "life.cardio_sessions", "field": "week", "target": "goal.cardio_target", "span": 2 },
+        { "type": "progress", "label": "Sleep (avg vs target)", "metric": "personal.sleep_hours", "field": "week", "target": "goal.sleep_target_hours", "span": 2 },
+        { "type": "progress", "label": "Small talk / sarges", "metric": "life.small_talk", "field": "week", "targetValue": 5, "span": 2 },
+        { "type": "section", "title": "This week's intentions" },
+        { "type": "text", "title": "Week theme", "text_key": "text.week_intentions", "span": 4 },
+        { "type": "text", "title": "Fitness", "text_key": "text.fitness_intentions", "span": 2 },
+        { "type": "text", "title": "Sleep / schedule", "text_key": "text.sleep_intentions", "span": 2 },
+        { "type": "text", "title": "Mind / spirit", "text_key": "text.mind_intentions", "span": 2 },
+        { "type": "text", "title": "Social", "text_key": "text.social_intentions", "span": 2 },
+        { "type": "text", "title": "Parenting", "text_key": "text.parenting_intentions", "span": 2 },
+        { "type": "section", "title": "Where I am right now" },
+        {
+          "type": "group",
+          "metrics": [
+            { "metric": "life.strength_sessions", "field": "week", "label": "Strength (wk)" },
+            { "metric": "life.cardio_sessions", "field": "week", "label": "Cardio (wk)" },
+            { "metric": "life.spirit_min", "field": "week", "label": "Spirit (wk)" },
+            { "metric": "life.small_talk", "field": "week", "label": "Small talk (wk)" }
+          ]
+        }
+      ]
+    },
+    {
       "id": "finance",
       "title": "Finance",
       "icon": "\ud83d\udcb0",
