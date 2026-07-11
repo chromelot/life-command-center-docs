@@ -108,7 +108,7 @@ America/Chicago; do not trust stale ledger `week_of`.
 | 5–11 | `1.1`–`1.7` | Life review — one domain per step, contract tables per skill |
 | 12 | `1.check` | FIELD CHECK — **gate before Phase 2** |
 | 13 | `2.1` | Dev Review — CL/TG last week + monthly selection |
-| 14 | `2.2` | Personal Project Review + Todoist mirrors |
+| 14 | `2.2` | Systems/Workshop/Admin Review — deep-work=Systems; Workshop cap + Admin blocks; Todoist mirrors |
 | 15 | `2.check` | FIELD CHECK — **gate before commit** |
 | 16 | `4` | Commit checklist + all FIELD CHECKs |
 

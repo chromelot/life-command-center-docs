@@ -820,7 +820,7 @@ Sync Notion, then **print preview:** `--section enjoyment` — present verbatim;
 
 **Table 2.1-C — What was accomplished** *(legacy ID — content now presented as **2.1-F Turn 1**; keep field writes here)*
 
-**From plan** — *same tree as **2.1-A** across **Chrome Lot · Turbo Gear · Personal (Admin)**. Do **not** flatten to a table. Mark finished items with ~~strikethrough~~ (Status = Done). Open items stay plain.*
+**From plan** — *same tree as **2.1-A** across **Chrome Lot · Turbo Gear · Systems · Workshop · Admin**. Do **not** flatten to a table. Mark finished items with ~~strikethrough~~ (Status = Done). Open items stay plain.*
 
 ```
 **Chrome Lot**
@@ -876,7 +876,7 @@ Then Aaron rates:
 
 **Turn 1 — What was accomplished** *(was 2.1-C content; now first in F)*
 
-Same tree as review-week queue (`weekly-dev-review` § Review week — queued dev work). Group **Chrome Lot → Turbo Gear → Personal (Admin)**. **Always show sub-items** (full parent → child nesting). ~~Strikethrough~~ on Done. *Skip off-queue agent/infra tuning during the session unless Aaron flags it.*
+Same tree as review-week queue (`weekly-dev-review` § Review week — queued dev work). Group **Chrome Lot → Turbo Gear → Systems → Workshop → Admin** (deep work = CL/TG/Systems; Workshop capped; Admin standing). **Always show sub-items** (full parent → child nesting). ~~Strikethrough~~ on Done. *Skip off-queue agent/infra tuning during the session unless Aaron flags it.*
 
 → Fold into `Accomplishments`, accomplishment counts, `Focused Output Hours Estimate`.
 

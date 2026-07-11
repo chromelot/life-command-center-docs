@@ -459,7 +459,7 @@ Each domain block follows the same shape: context recap → name a theme → wal
 
 This sentence gets written as a callout at the top of the Personal Quarterly Outcomes page in Phase 11.
 
-**7C: Personal Roadmap (6 min).** Walk the Dev Projects roadmap view with Type=Personal -- all statuses, all quarter assignments. For each live project, decide:
+**7C: Personal Roadmap (6 min).** Walk the Dev Projects roadmap view for the personal-side domains — Type ∈ {Systems, Workshop, Admin} -- all statuses, all quarter assignments. (Systems = deep-work infrastructure; Workshop = capped QoL/hobby; Admin = life/legal.) For each live project, decide:
 
 - Assign to Q[next] (active this quarter)
 - Assign to Q[next+1] / Q[next+2] / Q[next+3] (on the roadmap, not now)

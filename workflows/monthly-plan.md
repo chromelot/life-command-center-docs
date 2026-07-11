@@ -570,9 +570,9 @@ If no 3-week streaks: skip silently (~0 min).
 <a id="phase-3b-idea-roadmap-scrub-8-min"></a>
 ## Phase 3b: Idea Roadmap Scrub (~8 min)
 
-**Purpose:** Sweep the upstream **Status = Idea** backlog for each roadmap (Turbo Gear, Chrome Lot, Personal). Promote ideas worth queuing, archive stale ones, hold the rest. Prevents the Idea status from becoming a graveyard and feeds the next quarterly plan with a curated candidate list.
+**Purpose:** Sweep the upstream **Status = Idea** backlog for each roadmap domain (Turbo Gear, Chrome Lot, Systems, Workshop, Admin). Promote ideas worth queuing, archive stale ones, hold the rest. Prevents the Idea status from becoming a graveyard and feeds the next quarterly plan with a curated candidate list.
 
-**Data source:** Roadmap DB (`394f40c2-487b-815f`). For each **Domain** in turn — Turbo Gear, Chrome Lot, Personal — query with `Status = Idea`, sort by created time ascending (oldest first).
+**Data source:** Roadmap DB (`394f40c2-487b-815f`). For each **Domain** in turn — Turbo Gear, Chrome Lot, Systems, Workshop, Admin — query with `Status = Idea`, sort by created time ascending (oldest first). (Deep work = CL/TG/Systems; Workshop = capped QoL; Admin = life/legal.)
 
 <a id="procedure-run-once-per-domain-in-this-order-tg-cl-personal"></a>
 ### Procedure (run once per Domain, in this order: TG → CL → Personal)
@@ -680,9 +680,9 @@ Cross-reference Hubstaff time data with activity totals per team member (Aaron, 
 <a id="phase-5-personal-project-tracker-audit-10-min"></a>
 ## Phase 5: Personal Project Tracker Audit (~10 min)
 
-**Purpose:** Deep cleanup that weekly micro-scrubs can't do. Scoped to personal projects only — TG and CL projects are covered in Phase 3 and the weekly plan. Projects **kept active** for planning month should receive `🌙 Month` in Phase 11b (or here if already certain).
+**Purpose:** Deep cleanup that weekly micro-scrubs can't do. Scoped to the personal-side domains (**Systems / Workshop / Admin**) — TG and CL projects are covered in Phase 3 and the weekly plan. Projects **kept active** for planning month should receive `🌙 Month` in Phase 11b (or here if already certain).
 
-1. Pull Dev Projects with Type=Personal (`341f40c2-487b-80ac`, filter Type=Personal)
+1. Pull Dev Projects with Type ∈ {Systems, Workshop, Admin} (`341f40c2-487b-80ac`). Note the block each feeds: Systems → deep work; Workshop → capped ~3 hr; Admin → standing/life.
 2. Flag stalled projects: "In progress" for 30+ days with no sub-step completion
 3. Backlog review: present top backlog items (Status=Not started), bring 1-2 up to active
 4. Archive truly dead projects (with approval)
