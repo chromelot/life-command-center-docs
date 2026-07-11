@@ -54,7 +54,7 @@ Daily morning/evening Cursor reviews were retired. The PD ↔ Todoist loop is re
 1. Center (wellness screening, values pulse, capacity adjustment)
 1a. Monthly Plan Review (align week with committed monthly Action Items + KPIs)
 2. Last Week Review (habit scorecard, project review)
-3. Project Selection (One Thing Framework — pick 1-3 Dev Projects, set This Week; schedule Personal-project tasks + Todoist mirrors, incl. custody)
+3. Project Selection (One Thing Framework — pick 1-3 Dev Projects, set This Week). Deep-work block = Chrome Lot + Turbo Gear + Systems. Then schedule a **separate Workshop block** (capped ~3 hr — QoL/hobby) and a **separate Admin block** (life/legal incl. custody) outside the deep-work block; Todoist mirrors as needed.
 4. CS Management (check-in cadence + delegation; late invoice review)
 5. Sales Management (Aaron's pipeline; team sales oversight)
 6. People Management (photographer review; staff 1:1s + Hubstaff)

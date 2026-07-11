@@ -42,6 +42,19 @@ These rules exist because Aaron's #1 failure mode is overcommitment: trying to d
 - Weekly meeting selects 1-3 projects using the One Thing Framework
 - Selection pulls only from current quarter's docket
 
+### Deep work vs Workshop vs Admin (the "One Thing" gate)
+
+The dev goal is about **leverage**, not domain. Every project/time punch carries **one** domain label, and the label decides which block it belongs to.
+
+**The gate question:** *If I don't do this, does something important become harder, slower, or impossible?*
+- **Yes → Deep Work** (counts toward the dev goal): **Chrome Lot + Turbo Gear + Systems**. Systems = fundamental operating infrastructure that unblocks everything (this dev tracker rebuild, core tooling, a home/office move's setup).
+- **No, it's cool / smoother / more "complete" → Workshop** (QoL/hobby — home automation, Plex, media, dashboards). Own **capped budget (~3 hr/wk)**; never in the One Thing block.
+- **Personal-life / legal → Admin** (custody, will, disability, house). Standing category, its own block, **not** counted as dev.
+
+**Failure mode this prevents:** tinkering (home automation, Plex) laundering itself into "dev" hours because it used to land in the catch-all Admin bucket. Workshop and Admin are now separate labels with separate blocks and budgets.
+
+**Weekly plan schedules three distinct blocks:** Deep Work (One Thing — CL/TG/Systems), **Workshop** (capped ~3 hr), **Admin** — Workshop and Admin sit **outside** the deep-work block.
+
 ### Project intake
 
 - Max 2 new projects added to any single project database per week

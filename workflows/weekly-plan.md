@@ -28,7 +28,7 @@
   - [1.7 Personal Enjoyment (~2 min)](#17-personal-enjoyment-2-min)
 - [Phase 2: Development (~15 min)](#phase-2-development-15-min)
   - [2.1 Dev Review (~8 min)](#21-dev-review-8-min)
-  - [2.2 Personal Project Review (~7 min)](#22-personal-project-review-7-min)
+  - [2.2 Systems / Workshop / Admin Review (~7 min)](#22-systems-workshop-admin-review-7-min)
 - [Phase 4: Commit (~5 min)](#phase-4-commit-5-min)
 - [Cross-Cutting Rules](#cross-cutting-rules)
 - [Outputs](#outputs)
@@ -931,28 +931,39 @@ Sync Notion (`Dev Projects Intended`, `Dev Intentions`, `Work Health`, etc.), th
 
 ---
 
-<a id="22-personal-project-review-7-min"></a>
-### 2.2 Personal Project Review (~7 min)
+<a id="22-systems-workshop-admin-review-7-min"></a>
+### 2.2 Systems / Workshop / Admin Review (~7 min)
 
-*Personal carryover and week selection now run in **2.1-F** (all three types). Phase 2.2 = Todoist mirror check + any gaps not covered in 2.1-F/G.*
+*Carryover and week selection run in **2.1-F** (all domains). Phase 2.2 = Todoist mirror check + block scheduling for the non-CL/TG domains + any gaps not covered in 2.1-F/G.*
+
+**Domain → block mapping (single-axis labels, see `capacity-rules.md`):**
+- **Systems** = deep work — joins the **One Thing / deep-work block** alongside Chrome Lot + Turbo Gear. Counts toward the dev goal.
+- **Workshop** = QoL/hobby (home automation, Plex, dashboards) — schedule a **separate Workshop block, capped ~3 hr/wk**. Never in the deep-work block. Does not count as dev.
+- **Admin** = personal-life/legal (custody, will, house) — schedule a **separate Admin block, outside the deep-work block**. Not dev.
+
+**Required:** the plan must place a distinct **Admin block** and a distinct **Workshop block** outside the deep-work block. If Workshop candidates exceed the ~3 hr cap, defer the remainder — do not let tinkering crowd out deep work.
 
 #### A — Context + last week
 
-**Table 2.2-A — Planning month Personal Dev Projects**
+**Table 2.2-A — Planning month Systems / Workshop / Admin Dev Projects**
 
-Present `weekly-dev-review` § **Planning month — Personal** (`🌙 Month` → planning month). Full parent → sub-bullet tree. **No free-text priority themes** — monthly plan links records in Phase 11b / Phase 5.
+Present `weekly-dev-review` § **Planning month** for the non-CL/TG domains (`🌙 Month` → planning month), **grouped by domain: Systems / Workshop / Admin**. Full parent → sub-bullet tree. **No free-text priority themes** — monthly plan links records in Phase 11b / Phase 5. Flag which block each root feeds (Systems → deep work; Workshop → capped block; Admin → admin block).
 
 **Table 2.2-B — Last week personal plan**
 
 **Bulleted tree only** — same nesting as **2.2-A** / **2.1-C**. Do **not** flatten to a table. One parent block per root; indent children. Append mirror + outcome on each line.
 
 ```
-**Personal**
+**Systems**
 - **Parent** — Status · mirror: none / open / completed · done: ✓ / ✗
   - **Child** — Status · mirror: … · done: …
+**Workshop**
+- …
+**Admin**
+- …
 ```
 
-Source: prior `Dev Projects Intended` (Personal only) + prior-week Personal `This Week` carryover + **Todoist MCP** (tasks due/completed last week). Confirm completions with Aaron.
+Source: prior `Dev Projects Intended` (Systems/Workshop/Admin) + prior-week `This Week` carryover for those domains + **Todoist MCP** (tasks due/completed last week). Confirm completions with Aaron.
 
 #### B — Plan for next week
 
@@ -985,7 +996,11 @@ Run `sync-dev-projects-this-week.mjs` output (or `weekly-habit-summary.mjs` § T
 - parent → children
 **Turbo Gear**
 - …
-**Personal**
+**Systems**
+- …
+**Workshop**
+- …
+**Admin**
 - …
 ```
 
