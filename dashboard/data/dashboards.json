@@ -1,5 +1,5 @@
 {
-  "_comment": "Dashboard layouts. EDIT THIS FILE to add/rearrange dashboards and widgets — no code changes needed. Each dashboard has an id, title, icon and a list of widgets. Widget types: section | stat | group | trend | list | note. A widget references a metric by its catalog key (see metrics.json). 'field' selects which number a stat/trend shows: current (headline, default) | week (this-week aggregate). 'span' (1-4) sets column width. Order in the array = order on screen.",
+  "_comment": "Dashboard layouts. EDIT THIS FILE to add/rearrange dashboards and widgets — no code changes needed. `group` buckets a dashboard in the sidebar (e.g. Personal / Work). Widget types: section | stat | goal | group | trend | progress | text | note. Reference a metric by its catalog key (metrics.json). 'field' selects the number for stat/goal/trend/progress: current (headline: latest for last-metrics, today for sum/count) | week (this-week aggregate). 'span' (1-4) = column width. Order in the array = order on screen.",
   "settings": {
     "refreshSeconds": 900,
     "columns": 4
@@ -7,27 +7,35 @@
   "dashboards": [
     {
       "id": "personal-day",
+      "group": "Personal",
       "title": "Personal — Today",
       "icon": "\u2600\ufe0f",
-      "subtitle": "Body composition + daily habits. Current stats with recent trend.",
+      "subtitle": "Today's priorities: movement, spirit, tracked time, and body basics.",
       "widgets": [
-        { "type": "section", "title": "Today at a glance" },
+        { "type": "section", "title": "Did I move today?" },
+        { "type": "goal", "metric": "life.strength_sessions", "field": "current", "target": 1, "label": "Strength" },
+        { "type": "goal", "metric": "life.cardio_sessions", "field": "current", "target": 1, "label": "Cardio" },
+        { "type": "stat", "metric": "life.spirit_min", "field": "current", "label": "Spirit", "showTrend": true },
+        { "type": "stat", "metric": "life.morning_stack_pct", "field": "current", "label": "Morning Stack", "showTrend": false },
+        { "type": "section", "title": "Time tracked today" },
         {
           "type": "group",
           "metrics": [
-            { "metric": "personal.weight_lbs", "showTrend": true },
-            { "metric": "personal.body_fat_pct", "showTrend": true },
-            { "metric": "personal.lean_mass_lbs", "showTrend": true },
-            { "metric": "personal.sleep_hours", "showTrend": true }
+            { "metric": "dev.total_dev_min", "field": "current", "label": "Total Dev", "showTrend": false },
+            { "metric": "dev.workshop_min", "field": "current", "label": "Workshop", "showTrend": false },
+            { "metric": "dev.ops_min", "field": "current", "label": "Ops", "showTrend": false },
+            { "metric": "dev.admin_min", "field": "current", "label": "Admin", "showTrend": false },
+            { "metric": "dev.reading_min", "field": "current", "label": "Reading", "showTrend": false }
           ]
         },
+        { "type": "section", "title": "Body" },
         {
           "type": "group",
           "metrics": [
-            { "metric": "personal.steps", "showTrend": true },
-            { "metric": "personal.resting_hr", "showTrend": true },
-            { "metric": "life.spirit_min", "field": "current", "showTrend": true },
-            { "metric": "life.small_talk", "field": "current", "showTrend": true }
+            { "metric": "personal.weight_lbs", "field": "current", "label": "Weigh-in", "showTrend": true },
+            { "metric": "personal.sleep_hours", "field": "current", "label": "Sleep", "showTrend": true },
+            { "metric": "personal.steps", "field": "current", "label": "Steps", "showTrend": true },
+            { "metric": "personal.resting_hr", "field": "current", "label": "Resting HR", "showTrend": true }
           ]
         },
         { "type": "section", "title": "Trends" },
@@ -38,39 +46,8 @@
       ]
     },
     {
-      "id": "weekly-work",
-      "title": "Chrome Lot — This Week",
-      "icon": "\ud83d\ude97",
-      "subtitle": "Operational + dev throughput. Today vs this week vs trend.",
-      "widgets": [
-        { "type": "section", "title": "Today" },
-        {
-          "type": "group",
-          "metrics": [
-            { "metric": "work.cars_shot", "field": "current", "label": "Cars Shot (today)", "showTrend": true },
-            { "metric": "work.cars_shot", "field": "week", "label": "Cars Shot (this wk)", "showTrend": true },
-            { "metric": "dev.projects_done", "field": "week", "label": "Projects Done (wk)", "showTrend": true },
-            { "metric": "dev.projects_in_progress", "field": "current", "showTrend": false }
-          ]
-        },
-        { "type": "section", "title": "Dev + ops time this week" },
-        {
-          "type": "group",
-          "metrics": [
-            { "metric": "dev.cl_dev_min", "field": "week", "showTrend": true },
-            { "metric": "dev.tg_dev_min", "field": "week", "showTrend": true },
-            { "metric": "dev.ops_min", "field": "week", "showTrend": true }
-          ]
-        },
-        { "type": "section", "title": "Trends" },
-        { "type": "trend", "metric": "work.cars_shot", "range": 28, "chart": "bar", "span": 2 },
-        { "type": "trend", "metric": "dev.cl_dev_min", "range": 28, "chart": "bar", "span": 2 },
-        { "type": "trend", "metric": "trend.energy_rating", "range": 56, "chart": "line", "span": 2 },
-        { "type": "trend", "metric": "trend.mood_valence", "range": 56, "chart": "line", "span": 2 }
-      ]
-    },
-    {
       "id": "personal-week",
+      "group": "Personal",
       "title": "Personal — This Week",
       "icon": "\ud83c\udfaf",
       "subtitle": "Progress on the goals I set in the weekly plan (week starts Sunday).",
@@ -100,7 +77,42 @@
       ]
     },
     {
+      "id": "weekly-work",
+      "group": "Work",
+      "title": "Chrome Lot — This Week",
+      "icon": "\ud83d\ude97",
+      "subtitle": "Operational + dev throughput. Today vs this week vs trend.",
+      "widgets": [
+        { "type": "section", "title": "Today" },
+        {
+          "type": "group",
+          "metrics": [
+            { "metric": "work.cars_shot", "field": "current", "label": "Cars Shot (today)", "showTrend": true },
+            { "metric": "work.cars_shot", "field": "week", "label": "Cars Shot (this wk)", "showTrend": true },
+            { "metric": "dev.projects_done", "field": "week", "label": "Projects Done (wk)", "showTrend": true },
+            { "metric": "dev.projects_in_progress", "field": "current", "showTrend": false }
+          ]
+        },
+        { "type": "section", "title": "Dev + ops time this week" },
+        {
+          "type": "group",
+          "metrics": [
+            { "metric": "dev.total_dev_min", "field": "week", "showTrend": true },
+            { "metric": "dev.cl_dev_min", "field": "week", "showTrend": true },
+            { "metric": "dev.tg_dev_min", "field": "week", "showTrend": true },
+            { "metric": "dev.ops_min", "field": "week", "showTrend": true }
+          ]
+        },
+        { "type": "section", "title": "Trends" },
+        { "type": "trend", "metric": "work.cars_shot", "range": 28, "chart": "bar", "span": 2 },
+        { "type": "trend", "metric": "dev.total_dev_min", "range": 28, "chart": "bar", "span": 2 },
+        { "type": "trend", "metric": "trend.energy_rating", "range": 56, "chart": "line", "span": 2 },
+        { "type": "trend", "metric": "trend.mood_valence", "range": 56, "chart": "line", "span": 2 }
+      ]
+    },
+    {
       "id": "finance",
+      "group": "Personal",
       "title": "Finance",
       "icon": "\ud83d\udcb0",
       "subtitle": "DEPRIORITIZED — populated once SimpleFIN is connected. See dev project subtasks.",
