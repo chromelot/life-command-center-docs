@@ -1,0 +1,83 @@
+{
+  "_comment": "Dashboard layouts. EDIT THIS FILE to add/rearrange dashboards and widgets — no code changes needed. Each dashboard has an id, title, icon and a list of widgets. Widget types: section | stat | group | trend | list | note. A widget references a metric by its catalog key (see metrics.json). 'field' selects which number a stat/trend shows: current (headline, default) | week (this-week aggregate). 'span' (1-4) sets column width. Order in the array = order on screen.",
+  "settings": {
+    "refreshSeconds": 900,
+    "columns": 4
+  },
+  "dashboards": [
+    {
+      "id": "personal-day",
+      "title": "Personal — Today",
+      "icon": "\u2600\ufe0f",
+      "subtitle": "Body composition + daily habits. Current stats with recent trend.",
+      "widgets": [
+        { "type": "section", "title": "Today at a glance" },
+        {
+          "type": "group",
+          "metrics": [
+            { "metric": "personal.weight_lbs", "showTrend": true },
+            { "metric": "personal.body_fat_pct", "showTrend": true },
+            { "metric": "personal.lean_mass_lbs", "showTrend": true },
+            { "metric": "personal.sleep_hours", "showTrend": true }
+          ]
+        },
+        {
+          "type": "group",
+          "metrics": [
+            { "metric": "personal.steps", "showTrend": true },
+            { "metric": "personal.resting_hr", "showTrend": true },
+            { "metric": "life.spirit_min", "field": "current", "showTrend": true },
+            { "metric": "life.small_talk", "field": "current", "showTrend": true }
+          ]
+        },
+        { "type": "section", "title": "Trends" },
+        { "type": "trend", "metric": "personal.weight_lbs", "range": 60, "chart": "line", "span": 2 },
+        { "type": "trend", "metric": "personal.body_fat_pct", "range": 60, "chart": "line", "span": 2 },
+        { "type": "trend", "metric": "personal.sleep_hours", "range": 30, "chart": "bar", "span": 2 },
+        { "type": "trend", "metric": "personal.steps", "range": 30, "chart": "bar", "span": 2 }
+      ]
+    },
+    {
+      "id": "weekly-work",
+      "title": "Chrome Lot — This Week",
+      "icon": "\ud83d\ude97",
+      "subtitle": "Operational + dev throughput. Today vs this week vs trend.",
+      "widgets": [
+        { "type": "section", "title": "Today" },
+        {
+          "type": "group",
+          "metrics": [
+            { "metric": "work.cars_shot", "field": "current", "label": "Cars Shot (today)", "showTrend": true },
+            { "metric": "work.cars_shot", "field": "week", "label": "Cars Shot (this wk)", "showTrend": true },
+            { "metric": "dev.projects_done", "field": "week", "label": "Projects Done (wk)", "showTrend": true },
+            { "metric": "dev.projects_in_progress", "field": "current", "showTrend": false }
+          ]
+        },
+        { "type": "section", "title": "Dev + ops time this week" },
+        {
+          "type": "group",
+          "metrics": [
+            { "metric": "dev.cl_dev_min", "field": "week", "showTrend": true },
+            { "metric": "dev.tg_dev_min", "field": "week", "showTrend": true },
+            { "metric": "dev.ops_min", "field": "week", "showTrend": true }
+          ]
+        },
+        { "type": "section", "title": "Trends" },
+        { "type": "trend", "metric": "work.cars_shot", "range": 28, "chart": "bar", "span": 2 },
+        { "type": "trend", "metric": "dev.cl_dev_min", "range": 28, "chart": "bar", "span": 2 },
+        { "type": "trend", "metric": "trend.energy_rating", "range": 56, "chart": "line", "span": 2 },
+        { "type": "trend", "metric": "trend.mood_valence", "range": 56, "chart": "line", "span": 2 }
+      ]
+    },
+    {
+      "id": "finance",
+      "title": "Finance",
+      "icon": "\ud83d\udcb0",
+      "subtitle": "DEPRIORITIZED — populated once SimpleFIN is connected. See dev project subtasks.",
+      "hidden": false,
+      "widgets": [
+        { "type": "note", "text": "Financial widgets are deprioritized. Once SimpleFIN Bridge is connected on lcc-hub, add a finance-snapshot collector and reference finance.* metrics here (net worth, spend MTD, per-account balances, holdings). Tracked as sub-items under the dashboard Dev Project." }
+      ]
+    }
+  ]
+}
