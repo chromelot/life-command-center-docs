@@ -17,6 +17,7 @@
 | Toggl 2 overrun watch (>4h auto-stop) | [`sync/toggl-overrun/toggl-overrun-watch.md`](sync/toggl-overrun/toggl-overrun-watch.md) |
 | Notion Start Timer → Toggl 2 | [`webhooks/toggl-start/toggl-start-code.mjs`](webhooks/toggl-start/toggl-start-code.mjs) |
 | Roadmap ▶ Start → Dev Project | [`webhooks/roadmap-promote/roadmap-promote.md`](webhooks/roadmap-promote/roadmap-promote.md) |
+| Roadmap ⏸ Pause | [`webhooks/roadmap-pause/roadmap-pause.md`](webhooks/roadmap-pause/roadmap-pause.md) |
 | Dev Project 📋 Todoist mirror | [`webhooks/dev-project-todoist-mirror/dev-project-todoist-mirror.md`](webhooks/dev-project-todoist-mirror/dev-project-todoist-mirror.md) |
 | Tracker Matcher (period links) | [`sync/tracker-matcher/tracker-matcher-sync.md`](sync/tracker-matcher/tracker-matcher-sync.md) |
 | Week Tracker Sunday create | [`sync/week-tracker/week-tracker-create.md`](sync/week-tracker/week-tracker-create.md) |
@@ -74,6 +75,9 @@ n8n/
 ├── webhooks/roadmap-promote/  ← Roadmap ▶ Start → Dev Project promote
 │   ├── roadmap-promote-code.mjs
 │   └── deploy-roadmap-promote.mjs
+├── webhooks/roadmap-pause/  ← Roadmap ⏸ Pause → Status = Paused
+│   ├── roadmap-pause-code.mjs
+│   └── deploy-roadmap-pause.mjs
 ├── webhooks/dev-project-todoist-mirror/  ← Dev Projects 📋 Todoist → Inbox mirror
 │   ├── dev-project-todoist-mirror-code.mjs
 │   └── deploy-dev-project-todoist-mirror.mjs
