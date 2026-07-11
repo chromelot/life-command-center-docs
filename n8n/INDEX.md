@@ -17,6 +17,7 @@
 | Toggl 2 overrun watch (>4h auto-stop) | [`sync/toggl-overrun/toggl-overrun-watch.md`](sync/toggl-overrun/toggl-overrun-watch.md) |
 | Notion Start Timer → Toggl 2 | [`webhooks/toggl-start/toggl-start-code.mjs`](webhooks/toggl-start/toggl-start-code.mjs) |
 | Roadmap ▶ Start → Dev Project | [`webhooks/roadmap-promote/roadmap-promote.md`](webhooks/roadmap-promote/roadmap-promote.md) |
+| Dev Project 📋 Todoist mirror | [`webhooks/dev-project-todoist-mirror/dev-project-todoist-mirror.md`](webhooks/dev-project-todoist-mirror/dev-project-todoist-mirror.md) |
 | Tracker Matcher (period links) | [`sync/tracker-matcher/tracker-matcher-sync.md`](sync/tracker-matcher/tracker-matcher-sync.md) |
 | Week Tracker Sunday create | [`sync/week-tracker/week-tracker-create.md`](sync/week-tracker/week-tracker-create.md) |
 | Month/Quarter/Year rollover | [`sync/period-tracker/period-tracker-create.md`](sync/period-tracker/period-tracker-create.md) |
@@ -73,6 +74,9 @@ n8n/
 ├── webhooks/roadmap-promote/  ← Roadmap ▶ Start → Dev Project promote
 │   ├── roadmap-promote-code.mjs
 │   └── deploy-roadmap-promote.mjs
+├── webhooks/dev-project-todoist-mirror/  ← Dev Projects 📋 Todoist → Inbox mirror
+│   ├── dev-project-todoist-mirror-code.mjs
+│   └── deploy-dev-project-todoist-mirror.mjs
 ├── sync/tracker-matcher/   ← Notion page.created → Day/Week/Month/Quarter/Year links
 │   ├── tracker-matcher-sync.md
 │   └── deploy-tracker-matcher.mjs
@@ -117,6 +121,10 @@ node n8n/sync/toggl-notion/bootstrap-toggl2-secrets.mjs --token=toggl_sk_...
 node n8n/sync/toggl-notion/deploy-toggl-notion-sync.mjs --dry-run
 node n8n/sync/toggl-notion/deploy-toggl-notion-sync.mjs
 node n8n/webhooks/toggl-start/deploy-toggl-start.mjs
+node n8n/webhooks/dev-project-todoist-mirror/deploy-dev-project-todoist-mirror.mjs
+node scripts/provision-dev-projects-todoist-mirror-formula.mjs
+# After changing n8n/shared/dev-project-todoist.mjs (Todoist→Notion title sync):
+node n8n/sync/pd-todoist/deploy-todoist-events.mjs
 
 # Tracker Matcher — see sync/tracker-matcher/tracker-matcher-sync.md
 node n8n/sync/tracker-matcher/deploy-tracker-matcher.mjs
