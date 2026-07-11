@@ -60,7 +60,7 @@ Load via the router:
 - `context/self/values.md` — six categories, Pictures of Success, current Health statuses
 - `context/self/current-priorities.md` — what's hot this quarter (will be updated in Part E)
 - `context/self/spiritual.md` + `fitness.md` + `social.md` + `parenting.md` + `admin.md` + `dating.md` — operational rules per category, used in Part C personal block
-- `context/systems/notion-databases.md` — Quarter Tracker, Quarterly Outcomes, Dev Projects, Quarterly Meeting Log, Monthly + Weekly Meeting Logs, all source DBs
+- `context/systems/notion-databases.md` — Quarter Tracker (plan content lives on the page + `Plan Doc URL` PDF; Quarterly Outcomes DB retired), Dev Projects, Quarterly Meeting Log, Monthly + Weekly Meeting Logs, all source DBs
 - `context/systems/pipedrive.md` + `knack-fields.md` + `hubstaff.md` + `health-data.md` — data sources for the numeric retrospective
 - `context/systems/capacity-rules.md` — Part D capacity check, Part E intervention naming
 - `context/systems/cadences.md` — Part E cadence calibration
@@ -209,7 +209,7 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 | Item | Pass |
 |------|------|
 | Quarterly Meeting Log entry complete | |
-| Outcomes pages have themes + no-lists + KPIs | |
+| Quarter page has per-domain themes + no-lists + KPIs + PDF (`Plan Doc URL`) | |
 | Priority Stack + Domains Parked from 13b | |
 | Team Activity Details appended | |
 | Context file updates (if any) done | |
@@ -258,7 +258,7 @@ Use `daily` to slice "this quarter" vs. "prior quarter" for the body-comp + reco
 Pull data in parallel:
 1. **Values DB** (`342f40c2-487b-80c5`): All 6 categories with Health statuses and full page content (Pictures of Success)
 2. **Quarter Tracker** (`121f40c2-487b-802e`): Find outgoing quarter (Current=Previous or most recent) and current/new quarter. Also check whether future quarter records exist (Q[next+1], Q[next+2], Q[next+3]).
-3. **Quarterly Outcomes** (`341f40c2-487b-80c2`): All pages linked to the outgoing quarter (Personal, CL, TG)
+3. **Outgoing Quarter Tracker page**: the prior quarter's per-domain plan sections (theme / no-list / KPIs) written on its page (the retired Quarterly Outcomes DB's role)
 4. **Dev Projects** (`341f40c2-487b-80ac`): All projects by Type, across all quarter assignments (current, future, and unassigned backlog). This is the material for per-domain roadmap work.
 5. **CL Departments** (`341f40c2-487b-80cc`): All departments with health, priority, and full page content (Pictures of Success)
 6. **TG Departments** (`341f40c2-487b-80c9`): Same -- health, priority, and full page content
@@ -457,7 +457,7 @@ Each domain block follows the same shape: context recap → name a theme → wal
 - "Rebuild Spirituality after it got starved last quarter."
 - "Protect family time through the custody modification."
 
-This sentence gets written as a callout at the top of the Personal Quarterly Outcomes page in Phase 11.
+This sentence gets written as a callout at the top of the **Personal** section on the Quarter Tracker page in Phase 11.
 
 **7C: Personal Roadmap (6 min).** Walk the Dev Projects roadmap view for the personal-side domains — Type ∈ {Systems, Workshop, Admin} -- all statuses, all quarter assignments. (Systems = deep-work infrastructure; Workshop = capped QoL/hobby; Admin = life/legal.) For each live project, decide:
 
@@ -468,7 +468,7 @@ This sentence gets written as a callout at the top of the Personal Quarterly Out
 
 Use the Project Assessment Rules at the top of this file. Every live project ends this phase with either a `🍁 Quarter` relation or an explicit decision to kill it.
 
-**Personal No-List:** name 2-3 Personal things deliberately not happening this year. Examples: "Not starting any new hobby projects until custody is resolved." "Not doing any home renovations in 2026." These get written as a "Deliberate No-List" section on the Personal Quarterly Outcomes page in Phase 11.
+**Personal No-List:** name 2-3 Personal things deliberately not happening this year. Examples: "Not starting any new hobby projects until custody is resolved." "Not doing any home renovations in 2026." These get written as a "Deliberate No-List" section under **Personal** on the Quarter Tracker page in Phase 11.
 
 <a id="phase-8-chrome-lot-strategic-forward-look-12-min"></a>
 ### Phase 8: Chrome Lot Strategic Forward-Look (~12 min)
@@ -486,11 +486,11 @@ Edit department pages via `personal_notion_update_page` if Pictures need to chan
 - "Instrument CL revenue and churn so next quarter has real numbers."
 - "Get Aaron out of field work."
 
-Written as a callout at the top of the CL Quarterly Outcomes page in Phase 11.
+Written as a callout at the top of the **Chrome Lot** section on the Quarter Tracker page in Phase 11.
 
 **8C: CL Roadmap (6 min).** Walk the Dev Projects roadmap view with Type=Chrome Lot -- all statuses, all quarter assignments. Same decision tree as 7C: Q[next], a future quarter, someday/Idea, or archive. Every live project ends with a clear home.
 
-**CL No-List:** name 2-3 CL things deliberately not happening this year. Examples: "No new service line expansion this year." "Not hiring another senior until the ones we have are back on track." Written on the CL Quarterly Outcomes page in Phase 11.
+**CL No-List:** name 2-3 CL things deliberately not happening this year. Examples: "No new service line expansion this year." "Not hiring another senior until the ones we have are back on track." Written under **Chrome Lot** on the Quarter Tracker page in Phase 11.
 
 <a id="phase-9-turbo-gear-strategic-forward-look-12-min"></a>
 ### Phase 9: Turbo Gear Strategic Forward-Look (~12 min)
@@ -502,11 +502,11 @@ Written as a callout at the top of the CL Quarterly Outcomes page in Phase 11.
 - "Achieve Knack feature parity and stop shipping net-new internal features."
 - "Build the external sales motion from zero."
 
-Written as a callout at the top of the TG Quarterly Outcomes page in Phase 11.
+Written as a callout at the top of the **Turbo Gear** section on the Quarter Tracker page in Phase 11.
 
 **9C: TG Roadmap (6 min).** Walk the Dev Projects roadmap view with Type=Turbo Gear. Same decision tree as 7C/8C.
 
-**TG No-List:** name 2-3 TG things deliberately not happening this year. Examples: "No new integrations until Knack parity is done." "Not building billing until first external customer commits." Written on the TG Quarterly Outcomes page in Phase 11.
+**TG No-List:** name 2-3 TG things deliberately not happening this year. Examples: "No new integrations until Knack parity is done." "Not building billing until first external customer commits." Written under **Turbo Gear** on the Quarter Tracker page in Phase 11.
 
 **Roadmap tagging rules (apply in 7C, 8C, 9C):**
 - Every live project ends with either a `🍁 Quarter` relation or an explicit kill decision.
@@ -535,12 +535,14 @@ Candidates are the projects Phases 7C/8C/9C tagged to Q[next]. For each:
 <a id="phase-11-per-domain-kpi-targets-instrumentation-gate-5-min"></a>
 ### Phase 11: Per-Domain KPI Targets + Instrumentation Gate (~5 min)
 
-For each of the three Quarterly Outcomes pages (Personal, CL, TG):
+**The Quarterly Outcomes DB is retired** — the quarterly plan is written **directly on the Q[next] Quarter Tracker page** (`121f40c2-487b-802e`), one section per domain, then rendered to a printable PDF (Phase 14). No separate outcomes DB.
 
-1. Ensure the page exists for Q[next]; create or update via `personal_notion_update_page` / `personal_notion_create_database_entry`.
-2. Write the per-domain theme from 7B/8B/9B as a callout at the top of the page.
-3. Write the domain's Deliberate No-List as a section on the page (format: heading + bullet list).
-4. Write the project list with Due Dates.
+For each domain (Personal, CL, TG), write its section on the **Q[next] Quarter Tracker page**. If re-running the same quarter, clear the prior plan sections first (delete blocks from the first `— Q[next]` domain heading onward), then rebuild:
+
+1. Domain heading — H2 `<Domain> — Q[next]`.
+2. Theme callout (from 7B/8B/9B) directly under the heading.
+3. **Deliberate No-List** — H3 + bullet list.
+4. **KPIs** — H3 + table (KPI / Target / Instrumented? / Gap), with the project list + Due Dates as context.
 5. Set KPI targets relevant to the domain:
    - **Personal**: project completion rate, habit consistency goals, social interaction frequency
    - **CL**: revenue, customer count, churn, invoice aging, CS visit frequency, team Pipedrive activity
@@ -599,7 +601,8 @@ These are the dates that get eaten first when things get busy. Block them now so
 <a id="phase-14-commit-and-log-5-min"></a>
 ### Phase 14: Commit & Log (~5 min)
 
-1. Verify: all project assignments saved (quarter relations set), Due Dates on current-quarter projects, KPI targets on all three Outcomes pages, themes as callouts at top, no-lists as sections, department health statuses current, future Quarter Tracker records exist. **Also verify** Phase 13b planning context captured.
+1. Verify: all project assignments saved (quarter relations set), Due Dates on current-quarter projects, and all three domain sections written on the **Q[next] Quarter Tracker page** (theme callout + Deliberate No-List + KPIs table each), department health statuses current, future Quarter Tracker records exist. **Also verify** Phase 13b planning context captured.
+1b. **Render the printable PDF (REQUIRED):** `node scripts/quarterly-plan-summary.mjs --quarter="Q[next]"` — renders the Quarter page's domain sections to a PDF, uploads to Plan Records/quarterly/, and sets **`Plan Doc URL`** on the Quarter record (same pattern as the weekly plan's Phase 4b). Aaron approves the production write.
 2. **Log to Quarterly Meeting Log** (`344f40c2-487b-80ed`) via `personal_notion_create_database_entry`. New entry linked to the outgoing quarter with:
    - Meeting Date, Quarter relation
    - Wellness averages (PHQ-2, GAD-2, Energy -- averaged from Weekly Meeting Log entries)
@@ -679,8 +682,8 @@ These are the dates that get eaten first when things get busy. Block them now so
 - **Pre-Flight:** Withings refreshed; watch data persisted where possible; MCP `health_get_summary({ days: 200 })`; parallel data pulls oriented to Q transition.
 - **Part A Phase 1–3:** Narrative Lessons Learned captured for Phase 14; Picture of Success updates applied in Notion; numeric retrospective tables; 2–3 named priority metrics for Q[next].
 - **Part B Phase 4–6:** Relationship action commitments; environment narrative captured to Quarterly Meeting Log in Phase 14; Hubstaff/calendar gap surfaced.
-- **Part C Phase 7–9:** Quarterly Outcomes scaffolding (themes, no-lists prepared for Phase 11); Dev Projects quarter assignments cleared for every live row; Quarter Tracker futures created where missing.
-- **Part D Phase 10–11:** Current-quarter commits (6–10 projects), Due Dates, KPI targets with instrumentation gate; Quarterly Outcomes pages updated.
+- **Part C Phase 7–9:** Per-domain plan scaffolding (themes, no-lists prepared for Phase 11); Dev Projects quarter assignments cleared for every live row; Quarter Tracker futures created where missing.
+- **Part D Phase 10–11:** Current-quarter commits (6–10 projects), Due Dates, KPI targets with instrumentation gate; per-domain sections written on the Quarter Tracker page + printable PDF rendered (`Plan Doc URL`).
 - **Part E Phase 13b:** Priority Stack + Domains Parked captured (session state).
 - **Part E Phase 12–14:** Calendar infrastructure for quarter/cadences; Quarterly Meeting Log entry with full rollup + planning context fields + Team Activity Details; context updates (`values.md`, `current-priorities.md`, `capacity-rules.md`, `people/index.md`).
 

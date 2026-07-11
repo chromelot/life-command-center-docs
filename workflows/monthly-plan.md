@@ -100,7 +100,7 @@ The monthly plan assumes a committed quarterly frame for the **planning month's 
 2. Derive **planning quarter** title from planning month: Jan–Mar → Q1, Apr–Jun → Q2, Jul–Sep → Q3, Oct–Dec → Q4, plus planning year (e.g. July 2026 → `Q3 2026`).
 3. Resolve Quarter Tracker page (`121f40c2-487b-802e`) whose Name equals planning quarter.
 4. Query **Quarterly Meeting Log** (`344f40c2-487b-80ed`) for an entry linked to that quarter with **`Session Complete` = Complete** (shell / in-progress quarterly session does not count).
-5. Pull all three **Quarterly Outcomes** pages (`341f40c2-487b-80c2`) for that quarter. Each must have a committed theme callout (non-empty strategic frame).
+5. Read the **Quarter Tracker page** for that quarter — its three per-domain sections must each have a committed **Theme** callout (non-empty strategic frame). (Quarterly Outcomes DB retired; content lives on the Quarter page.)
 6. **If any check fails:**
    - Tell Aaron: "Quarterly plan for [planning quarter] is not committed. Run quarterly plan first."
    - **Pause** this workflow. Run `context/skills/quarterly-plan/SKILL.md` end-to-end (or resume in-progress quarterly ledger).
@@ -352,7 +352,7 @@ Then pull the rest of the data via MCP tools in parallel:
 3. **Quarterly Meeting Log DB** (`344f40c2-487b-80ed`): entry for **planning quarter** (Pre-Phase 0 gate) — completeness already verified before Phase 0; Phase 1c reviews progress
 4. **Notion Workouts DB** (`127f40c2-487b-80ba`): **review month** workout log
 5. **Dev Projects DB** (`341f40c2-487b-80ac`): all projects assigned to current quarter, full status sweep
-6. **Quarterly Outcomes** (`341f40c2-487b-80c2`): current quarter's outcome pages for Phase 1c review + Phase 9 KPI update
+6. **Quarter Tracker page** (`121f40c2-487b-802e`): current quarter's per-domain sections (theme / no-list / KPIs) for Phase 1c review + Phase 9 KPI update (replaces retired Quarterly Outcomes DB)
 7. **Values DB** (`342f40c2-487b-80c5`): current health statuses for all 6 categories
 8. **Pipedrive**: sales pipeline velocity for **review month** (deals created, won, lost), CS pipeline snapshot
 9. **Knack Customers** (`object_2`): field_464, field_1035, field_1601, field_1438, field_1428, field_1491
@@ -468,7 +468,7 @@ Store ratings in session state (`monthly_life_health`) for Phase 12 commit.
 
 **Purpose:** Confirm the current quarter has a committed strategic frame before setting **planning month** goals. Monthly goals must ladder up to quarterly themes — not float independently.
 
-**Data sources:** Quarterly Meeting Log (`344f40c2-487b-80ed`), Quarter Tracker (`121f40c2-487b-802e`), Quarterly Outcomes pages (`341f40c2-487b-80c2`), Dev Projects with 🍁 Quarter = current quarter.
+**Data sources:** Quarterly Meeting Log (`344f40c2-487b-80ed`), Quarter Tracker page + its per-domain sections (`121f40c2-487b-802e`), Dev Projects with 🍁 Quarter = current quarter. (Quarterly Outcomes DB retired.)
 
 <a id="quarterly-plan-completeness-gate"></a>
 ### Quarterly plan completeness gate
@@ -786,11 +786,11 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
 - Personal KPIs: data source varies per row; skip if no source
 
 1. Pull the **planning quarter** from Pre-Phase 0 (same quarter used in Phase 1c — calendar quarter containing planning month)
-2. Pull all Quarterly Outcomes pages (`341f40c2-487b-80c2-a871-eb600fd78e4d`) linked to the current quarter (all three: CL, TG, Personal)
-3. For each outcome page, fetch the KPI table content.
-4. **Empty-table escape hatch:** If the KPI cells are all blank (no targets set), do NOT attempt to populate actuals. Instead:
-   - Create a Todoist task: "Set Q[n] KPI targets on [outcome page title]" due before the next monthly review
-   - Skip to the next outcome page
+2. Read the **Quarter Tracker page** (`121f40c2-487b-802e`) for the current quarter — it holds the three per-domain sections (Personal / Chrome Lot / Turbo Gear), each with a **KPIs** table (Quarterly Outcomes DB retired 2026-07-11).
+3. For each domain section, read its KPI table content.
+4. **Empty-table escape hatch:** If a domain's KPI cells are all blank (no targets set), do NOT attempt to populate actuals. Instead:
+   - Create a Todoist task: "Set Q[n] KPI targets for [domain] on the Quarter page" due before the next monthly review
+   - Skip to the next domain section
 5. If targets exist, for each KPI row:
    - Pull the month-to-date actual from the data source listed above
    - Update the correct Month 1/2/3 cell (requires manual Notion edit -- MCP can't write table cells)
