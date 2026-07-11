@@ -165,15 +165,14 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 ## Health / staleness
 
 <!-- AUTO:HEALTH_REPORT -->
-⚠ **8 issue(s)** across 91 context files.
+⚠ **7 issue(s)** across 91 context files.
 
 ### stale (2)
 - `context/self/current-priorities.md` — 34d old (threshold 14d)
 - `context/systems/operations-catalog.md` — 35d old (threshold 30d)
 
-### broken-see-also (2)
+### broken-see-also (1)
 - `context/systems/audiobook-pipeline.md` — ../../output/audiobook-handoff-2026-05-05.md
-- `context/systems/lcc-dashboard.md` — ../../dashboard/README.md
 
 ### missing-frontmatter (4)
 - `context/systems/notion-guides/cl-bot-first-time-setup.md` — no-frontmatter
@@ -189,7 +188,7 @@ Full audit: `node scripts/audit-context.mjs`
 ## Last generated
 
 <!-- AUTO:LAST_GENERATED -->
-**2026-07-11 14:54:37** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
+**2026-07-11 15:06:13** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
 <!-- /AUTO:LAST_GENERATED -->
 
 ## See also
