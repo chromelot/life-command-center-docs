@@ -583,7 +583,7 @@ If no 3-week streaks: skip silently (~0 min).
    - **Difficulty:** XS / S / M / L / XL based on title + any sub-items
    - **Delegation potential:** Could a team member execute this? (CL → Lexie/Tristen/Ran; TG → Pyakz/markwillcraft; Personal → likely no)
    - **Values alignment:** Which of the 6 categories does this serve? Flag if it doesn't clearly serve any.
-   - **Recommendation:** Roadmap (→ Roadmapped) / Archive (→ Parked) / Delegate / Hold
+   - **Recommendation:** Roadmap (→ Roadmapped) / Archive (→ Paused) / Delegate / Hold
 3. Present the list to Aaron with recommendations:
 
    ```
@@ -595,13 +595,13 @@ If no 3-week streaks: skip silently (~0 min).
    2. ...
    ```
 4. Decide one idea at a time (use AskQuestion). For each:
-   - **Roadmap:** Update Status `Idea → Roadmapped` (or `Committed` if quarter-bound). Optionally set 🍁 Target Quarter (see Phase 9). Use **▶ Start** when entering execution window.
-   - **Delegate:** Route to the appropriate system (Work Notion CL Tasks for CL ops, Todoist for personal handoffs, Pipedrive activity for customer-facing). Then set Roadmap Status = **Parked** with explicit approval.
-   - **Archive:** Status = **Parked** (or **Done** if achieved) — explicit approval required.
+   - **Roadmap:** Update Status `Idea → Roadmapped`. Optionally set 🍁 Target Quarter (see Phase 9). Use **▶ Start** when entering execution window (→ In progress + Dev Project).
+   - **Delegate:** Route to the appropriate system (Work Notion CL Tasks for CL ops, Todoist for personal handoffs, Pipedrive activity for customer-facing). Then set Roadmap Status = **Paused** with explicit approval.
+   - **Archive:** Status = **Paused** (or **Done** if achieved) — explicit approval required.
    - **Hold:** Leave as Idea for next month's scrub.
 5. **Caps per Domain per month:**
-   - Roadmap at most **3 ideas → Roadmapped/Committed** per domain. If more look promising, defer to next month or quarterly plan.
-   - No cap on Parked — clearing dead ideas is encouraged.
+   - Roadmap at most **3 ideas → Roadmapped** per domain. If more look promising, defer to next month or quarterly plan.
+   - No cap on Paused — clearing dead ideas is encouraged.
 
 <a id="sanity-guardrails"></a>
 ### Sanity guardrails
@@ -610,7 +610,7 @@ If no 3-week streaks: skip silently (~0 min).
 - If the same idea has been **Held for 3+ consecutive monthly scrubs**, force Roadmap-or-Park this round.
 - Do not Roadmap an idea that overlaps an active Dev Project — link or Park as duplicate.
 
-**Outputs:** Roadmap status updates (Idea → Roadmapped / Committed / Parked). Delegated tasks in target systems. Hold notes for next month and quarterly candidate pool.
+**Outputs:** Roadmap status updates (Idea → Roadmapped / Paused). Delegated tasks in target systems. Hold notes for next month and quarterly candidate pool.
 
 <a id="phase-4-sales-progress-and-goals-10-min"></a>
 ## Phase 4: Sales Progress & Goals (~10 min)
