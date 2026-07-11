@@ -985,6 +985,17 @@ Execute `node scripts/sync-dev-projects-this-week.mjs --selected=<all CL/TG IDs 
 4. **Toggl tasks** — same script chains `sync-dev-projects-toggl-tasks.mjs`: create/assign Focus tasks for selected items; **delete** off-slate mirrors (and clear `Toggl Task ID`).
 5. For each selected item: propose **Todoist mirror** (due date + project) — **case-by-case approval** before create.
 
+#### W — Workshop time intention *(step `2.2-W` — REQUIRED every week)*
+
+Workshop (QoL/hobby) is time-boxed so tinkering never crowds out deep work. Set the budget **and** aim it at specific item(s).
+
+1. **Retrospective:** show **last week's Workshop actual** (Week Tracker `Workshop` rollup / `weekly-dev-review` § non-dev logged Workshop minutes) vs the prior week's **`Workshop Hours Intended`**. One line: `Workshop last week: actual Xh vs intended Yh`.
+2. **Table 2.2-W — Workshop plan** — present open **Domain = Workshop** items (lettered tree from 2.2-A Workshop group). Aaron replies with:
+   - **hours** for `Workshop Hours Intended` (cap **~3 hr**; **0 = skip Workshop this week**), and
+   - **letter(s)** for the item(s) that time goes to.
+3. **Cap guard:** if the intention exceeds ~3 hr, confirm it's a deliberate trade against deep work before accepting. If 0, no Workshop items go on the slate this week.
+4. Selected Workshop items are included in the **2.2-D** `This Week` sync (they carry Domain = Workshop). Write `Workshop Hours Intended` (number) + `Workshop Focus` (item names + one-line intention) to the Weekly Meeting Log at **Phase 4 commit**.
+
 ---
 
 **Table 2.check — Final This Week slate** *(required before Phase 4)*
@@ -1017,6 +1028,7 @@ This list must **exactly match** the Notion Dev Projects view filtered to `This 
 | `Dev Priority Context` | 2.1-G |
 | CL/TG `This Week` sync | 2.1-S |
 | Personal `This Week` sync | 2.2-D |
+| `Workshop Hours Intended`, `Workshop Focus` | 2.2-W |
 | **Final slate = Notion view** | **2.check** |
 
 **Do not proceed to Phase 4 until `2.check` passes.**
@@ -1036,6 +1048,7 @@ This list must **exactly match** the Notion Dev Projects view filtered to `This 
 8. **Update Values DB Health (with approval):** For each category where this week's rating differs from current Values DB Health, update via `personal_notion_update_page` on the category page in Values DB (`342f40c2-487b-80c5`). Include **Personal Enjoyment** when added to Values DB.
 9. **Record Starved Values:** Derive from weekly health ratings — set `Starved Values` multi_select to every **rated** category marked **Unhealthy or Very Unhealthy** (A or B: Spirituality, Fitness, Work, Social, Parenting, Personal Enjoyment). Admin excluded from weekly rating.
 10. **Confirm accomplishment fields (REQUIRED):** Verify Phase 2.2 wrote `Logged/Unlogged/Total Accomplishments Count`, `Focused Output Hours Estimate`, and `Accomplishments`. Backfill from habit summary if missing.
+10b. **Write Workshop intention (REQUIRED):** From Phase 2.2-W, write `Workshop Hours Intended` (number, 0 allowed) + `Workshop Focus` (rich_text — selected item(s) + one-line intention) to the Weekly Meeting Log. `weekly-plan-log-check` commit gate requires `Workshop Hours Intended`.
 11. **Body comp already persisted.** Withings written in Phase 0 (`--days 28`). Don't re-run here.
 12. **Execute remaining:** Create any Todoist/Calendar/Notion items not yet committed during earlier phases.
 13. **Log to Notion:** Finalize the Weekly Meeting Log entry (`322f40c2-487b-81bd`) with key decisions, action items, and plan summary. Set `Status = Done`, `Session Complete = Complete`.
