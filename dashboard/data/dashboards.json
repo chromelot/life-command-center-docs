@@ -302,7 +302,7 @@
         {
           "type": "todoisttoday",
           "span": 2,
-          "title": "Todoist — Today",
+          "title": "Todoist",
           "scope": "personal"
         },
         {
@@ -311,23 +311,20 @@
           "title": "Pipedrive"
         },
         {
-          "type": "section",
-          "title": "Ops",
-          "collapsible": true,
-          "collapseWeekend": true
-        },
-        {
           "type": "opstoday",
+          "span": 1,
           "metric": "dev.ops_min",
           "title": "Ops"
         },
         {
           "type": "fieldtoday",
+          "span": 1,
           "metric": "dev.field_min",
           "title": "Field"
         },
         {
           "type": "goal",
+          "span": 2,
           "metric": "dev.total_ops_work_min",
           "field": "current",
           "target": 120,
