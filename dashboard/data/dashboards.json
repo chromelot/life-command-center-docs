@@ -451,6 +451,24 @@
           "span": 4
         },
         {
+          "type": "statlist",
+          "title": "Work close-out (this week)",
+          "span": 2,
+          "items": [
+            {
+              "metric": "life.work_closeout_done",
+              "field": "week",
+              "label": "Days closed"
+            },
+            {
+              "metric": "life.work_closeout_hour",
+              "field": "weekAvg",
+              "label": "Avg sign-off (CT)",
+              "minCount": 1
+            }
+          ]
+        },
+        {
           "type": "section",
           "title": "Morning — days done this week"
         },
