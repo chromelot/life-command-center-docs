@@ -506,6 +506,23 @@ Copy **TABLE 1.3-B-supp** and **TABLE 1.3-C-supp** verbatim from `weekly-habits-
 |--------------------------|-----------------|---------------|-------------------|
 | | | | `Fitness Intentions`, `Strength Target`, `Cardio Target` |
 
+**Sub-step 1.3-N — Nutrition / calorie target (REQUIRED every week)**
+
+Set an evidence-based daily **calorie goal** for the week (protein stays **150 g/day**). This feeds the dashboard's Fitness "Calories vs target" tile.
+
+1. **Estimate maintenance (TDEE) from Aaron's own data — not a generic formula first.** Pull the last **2–4 weeks** of: Withings **weight** trend (Health Data `Weight Lbs`), **logged intake** (Nutrition Log avg calories/day — `weekly-physique-coach.mjs` / `daily-health-sections.mjs`), **activity** (steps avg, workout active minutes), body-fat/lean trend. Preferred method — **observed energy balance:** over a span with enough logged days, `maintenance ≈ avg_logged_calories + (weekly_weight_change_lb × 3500 / 7)` (weight up ⇒ ate above maintenance; weight down ⇒ below). Fall back to Mifflin-St Jeor × activity factor only when intake logging is too sparse; **state which method was used and the confidence** (logged-days count is the key driver of accuracy).
+2. **Ask direction (lettered — one decision):**
+   - **A — Lose** (recommend TDEE − 300–500; ~0.3–1 lb/wk loss)
+   - **B — Maintain** (recommend ≈ TDEE)
+   - **C — Gain** (recommend TDEE + 150–300; lean gain ~0.25–0.5 lb/wk)
+3. **Recommend a number + expected outcome.** e.g. "Maintenance ≈ 2,450 (from 12 logged days, weight flat). For **Lose**, target **2,000/day** → ~0.9 lb/wk. Protein 150 g." Aaron accepts or adjusts.
+
+**Table 1.3-N — Calorie target**
+
+| Maintenance est (method, confidence) | Direction (A/B/C) | Calorie target | Expected weekly change | → Notion field(s) |
+|---|---|---|---|---|
+| | | | | `Calorie Target`, `Weight Goal Direction`, `Calorie Rationale` |
+
 Append fitness row to `Intentions Review`.
 
 Sync Notion, then **print preview:** `--section fitness` — present verbatim; Aaron confirms → advance.
@@ -759,7 +776,7 @@ Sync Notion, then **print preview:** `--section enjoyment` — present verbatim;
 | Last-week KPIs | `Strength Sessions`, `Cardio Sessions`, `Spirit Minutes`, `Journal Count`, `Weight Avg`, `Body Fat Avg`, `Lean Mass Avg`, `Sleep Avg`, `Sleep Nights Tracked`, `Wake Time Std Dev Min`, `Bedtime Std Dev Min`, `Sleep Schedule Rating`, `Steps Avg`, `Workout Active Minutes` |
 | Week theme | `Week Intentions` — 1–3 sentence summary of the week's overarching theme (written/confirmed in Phase 4) |
 | 1.2 | `Intentions Review` (mind row), `Mind Health`, `Mind Intentions`, `Mood Valence`, `Mood Negative %`, `Journal Feelings Summary`, `Mood Distress Flag`, `Energy Rating`, `Screening Escalation`; PHQ/GAD only if `Screening Escalation` = true |
-| 1.3–1.4 | `Fitness/Sleep Health`, `Fitness/Sleep Intentions`, `Schedule Intentions`, `Schedule Review`, `Strength Target`, `Cardio Target`, `Sleep Target Hours`, `Target Wake Time`, `Behavioral Adjustments` |
+| 1.3–1.4 | `Fitness/Sleep Health`, `Fitness/Sleep Intentions`, `Schedule Intentions`, `Schedule Review`, `Strength Target`, `Cardio Target`, `Calorie Target`, `Weight Goal Direction`, `Calorie Rationale`, `Sleep Target Hours`, `Target Wake Time`, `Behavioral Adjustments` |
 | 1.5 | `Small Talk Count`, `Social Events Count`, `Social Review` (incl. **fuel rating**), `Social Intentions Met`, `Social Health`, `Social Priority`, `Social Intentions` |
 | `1.4` (A or B) | `Behavioral Adjustments` — **required for that domain**; skip when C or better |
 | `1.5` | Fuel **Stage 1 + 2** + **recovery intentions** (1.5-E-b when triggered) in `Social Review` |
