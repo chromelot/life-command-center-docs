@@ -201,7 +201,7 @@ Output: `output/weekly-wellness-trends-YYYY-MM-DD.md`. **Canonical source for 4-
 ```
 node "scripts/weekly-habit-summary.mjs" --ledger <path>
 ```
-Output: `output/weekly-habits-YYYY-MM-DD.md`. Canonical last-week habit numbers + actionable Tasks slate. Do not re-query habit DBs ad-hoc.
+Output: `output/weekly-habits-YYYY-MM-DD.md`. Canonical last-week habit numbers + actionable Tasks slate. Includes **work close-out** (days closed + avg sign-off CT from Day Tracker). Do not re-query habit DBs ad-hoc.
 
 ```
 node "scripts/weekly-journal-feelings.mjs"
@@ -482,6 +482,7 @@ Append mind row to `Intentions Review` on the Weekly Meeting Log. Sync Notion, t
 | Protein Avg (g) | | | `Protein Avg` *(mean g/day, logged days)* |
 | Protein Days (≥150g) | | | `Protein Days` *(count of logged days hitting 150g)* |
 | Supplements (days) | from `weekly-habits-*.md` TABLE 1.3-B-supp | ↑/↓ vs prior week | — |
+| **Work close-out (days / avg sign-off CT)** | from `weekly-habits-*.md` TABLE work-closeout | vs prior week row | — |
 | Heart Rate Avg (bpm) | | | `Heart Rate Avg` |
 | Resting HR Avg (bpm) | | | `Resting HR Avg` *(not tracked — omit from integrity checks)* |
 | HRV Avg (ms) | | | `HRV Avg` *(not tracked — omit from integrity checks)* |

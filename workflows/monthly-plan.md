@@ -360,6 +360,7 @@ Then pull the rest of the data via MCP tools in parallel:
 12. **Google Calendar**: **planning month** major events, available weekends for trip/time off
 13. **Small Talk DB** (`121f40c2-487b-802d`): all entries from **review month** (social interaction frequency)
 14. **Health Data + Watch metrics**: Loaded via the `health_get_summary({ days: 60 })` call above. Use throughout Phase 1 (recovery/wellness) and Phase 2 (body-comp + sleep + RHR + HRV trends).
+15. **Work close-out** (dashboard sign-off habit): `node scripts/work-closeout-summary.mjs --month=YYYY-MM` for **review month** → `output/work-closeout-summary-YYYY-MM-DD.md` (days closed + avg sign-off time CT from Day Tracker). Surface in Phase 1 wellness or Phase 8 capacity — wind-down discipline vs ideal day (work done after 5pm).
 
 <a id="phase-1-wellness-trends-3-min"></a>
 ## Phase 1: Wellness Trends (~3 min)
