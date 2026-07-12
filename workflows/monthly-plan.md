@@ -902,7 +902,7 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
    - **Health Intervention Notes** (from Phase 1d, if gate fired)
    - **Planning context (REQUIRED):**
      - `Domains Parked` (multi_select) — from Phase 11b (`monthly_domains_parked`)
-     - `Priority Stack` (rich_text) — **optional snapshot** auto-generated from linked Dev Project titles (not authoritative)
+     - `Priority Stack` (rich_text) — **optional snapshot** auto-generated from linked Task titles (not authoritative)
      - **`🌙 Month` on Tasks** — authoritative; written in Phase 11b via Notion API
    - `Starved Values` — derived from life-health selects (categories rated Unhealthy)
    - Key Wins, Key Misses, Action Items (Action Items commit **planning month** priorities)
