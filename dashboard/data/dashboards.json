@@ -1093,58 +1093,126 @@
       ]
     },
     {
-      "id": "plans-roadmap",
+      "id": "plans-week",
       "group": "Plans",
-      "title": "Plans / Roadmap",
-      "icon": "🗺️",
-      "subtitle": "Goals, the project timeline, and department health. Click a project bar (or its name) to open its task board — same board as dev work: add, rename, set status, start a timer, log time.",
+      "title": "Plan — This Week",
+      "icon": "📅",
+      "periodMode": "week",
+      "subtitle": "Weekly plan snapshot: life-area health, intentions, and projects queued for this week. Browse past weeks with the picker (same as Personal boards). Click a project for its task board.",
       "widgets": [
         {
           "type": "section",
-          "title": "Goals — progress toward outcomes"
+          "title": "Life area health"
+        },
+        {
+          "type": "planhealth"
+        },
+        {
+          "type": "section",
+          "title": "Intentions"
+        },
+        {
+          "type": "planintentions"
+        },
+        {
+          "type": "section",
+          "title": "Projects"
+        },
+        {
+          "type": "planprojects",
+          "title": "Projects this week"
+        }
+      ]
+    },
+    {
+      "id": "plans-month",
+      "group": "Plans",
+      "title": "Plan — This Month",
+      "icon": "🌙",
+      "periodMode": "month",
+      "subtitle": "Monthly plan snapshot: domain health ratings, forward commitments, and projects on the month timeline. Browse past months with the picker.",
+      "widgets": [
+        {
+          "type": "section",
+          "title": "Life & work health"
+        },
+        {
+          "type": "planhealth"
+        },
+        {
+          "type": "section",
+          "title": "Monthly commitments"
+        },
+        {
+          "type": "planintentions"
+        },
+        {
+          "type": "section",
+          "title": "Projects"
+        },
+        {
+          "type": "planprojects",
+          "title": "Projects this month"
+        }
+      ]
+    },
+    {
+      "id": "plans-quarter",
+      "group": "Plans",
+      "title": "Plan — Quarter",
+      "icon": "🍁",
+      "periodMode": "quarter",
+      "subtitle": "Quarterly roadmap view — goals and projects spanning the quarter. Full quarterly-plan printout integration coming next.",
+      "widgets": [
+        {
+          "type": "note",
+          "text": "Quarter board is a lightweight template for now. Use the week and month boards for execution; run the quarterly plan workflow for the full narrative + PDF.",
+          "span": 4
+        },
+        {
+          "type": "section",
+          "title": "Goals"
         },
         {
           "type": "goalcards"
         },
         {
           "type": "section",
-          "title": "Roadmap — all domains"
+          "title": "Projects this quarter"
         },
         {
-          "type": "roadmaptimeline",
-          "title": "Project timeline"
-        },
+          "type": "planprojects",
+          "title": "Quarter project queue"
+        }
+      ]
+    },
+    {
+      "id": "plans-year",
+      "group": "Plans",
+      "title": "Plan — Year",
+      "icon": "📆",
+      "periodMode": "year",
+      "subtitle": "Annual goals and year-scale project timeline. Full year-plan integration coming next.",
+      "widgets": [
         {
-          "type": "section",
-          "title": "By domain",
-          "collapsible": true
-        },
-        {
-          "type": "roadmaptimeline",
-          "title": "Turbo Gear",
-          "domain": "Turbo Gear"
-        },
-        {
-          "type": "roadmaptimeline",
-          "title": "Chrome Lot",
-          "domain": "Chrome Lot"
-        },
-        {
-          "type": "roadmaptimeline",
-          "title": "Systems",
-          "domain": "Systems"
-        },
-        {
-          "type": "roadmaptimeline",
-          "title": "Personal",
-          "domain": "Personal"
+          "type": "note",
+          "text": "Year board is a lightweight template for now. Annual plan workflow populates Goals + rough project buckets — drill down via week/month for execution.",
+          "span": 4
         },
         {
           "type": "section",
-          "title": "Department health"
+          "title": "Goals"
         },
         {
-          "type": "depthealth"
+          "type": "goalcards"
+        },
+        {
+          "type": "section",
+          "title": "Projects this year"
+        },
+        {
+          "type": "planprojects",
+          "title": "Year project queue"
         }
       ]
     },
