@@ -302,7 +302,12 @@
         {
           "type": "todoisttoday",
           "span": 2,
-          "title": "Todoist — Today"
+          "title": "Ops — Todoist"
+        },
+        {
+          "type": "fieldtoday",
+          "span": 2,
+          "title": "Field — Pipedrive"
         },
         {
           "type": "section",
@@ -1084,6 +1089,62 @@
               "color": "#4f8cff"
             }
           ]
+        }
+      ]
+    },
+    {
+      "id": "plans-roadmap",
+      "group": "Plans",
+      "title": "Plans / Roadmap",
+      "icon": "🗺️",
+      "subtitle": "Goals, the project timeline, and department health. Click a project bar (or its name) to open its task board — same board as dev work: add, rename, set status, start a timer, log time.",
+      "widgets": [
+        {
+          "type": "section",
+          "title": "Goals — progress toward outcomes"
+        },
+        {
+          "type": "goalcards"
+        },
+        {
+          "type": "section",
+          "title": "Roadmap — all domains"
+        },
+        {
+          "type": "roadmaptimeline",
+          "title": "Project timeline"
+        },
+        {
+          "type": "section",
+          "title": "By domain",
+          "collapsible": true
+        },
+        {
+          "type": "roadmaptimeline",
+          "title": "Turbo Gear",
+          "domain": "Turbo Gear"
+        },
+        {
+          "type": "roadmaptimeline",
+          "title": "Chrome Lot",
+          "domain": "Chrome Lot"
+        },
+        {
+          "type": "roadmaptimeline",
+          "title": "Systems",
+          "domain": "Systems"
+        },
+        {
+          "type": "roadmaptimeline",
+          "title": "Personal",
+          "domain": "Personal"
+        },
+        {
+          "type": "section",
+          "title": "Department health"
+        },
+        {
+          "type": "depthealth"
         }
       ]
     },
