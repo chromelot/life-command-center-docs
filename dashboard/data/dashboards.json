@@ -79,13 +79,13 @@
         { "type": "section", "title": "Morning — days done this week" },
         {
           "type": "progressgroup",
-          "title": "Morning stack (days / 7)",
+          "title": "Morning stack (goal 6 days)",
           "span": 2,
           "items": [
-            { "metric": "life.supplements_done", "field": "week", "targetValue": 7, "label": "Supplements" },
-            { "metric": "life.weigh_in_done", "field": "week", "targetValue": 7, "label": "Weigh in" },
-            { "metric": "life.morning_journal_done", "field": "week", "targetValue": 7, "label": "Morning journal" },
-            { "metric": "life.spirit_time_done", "field": "week", "targetValue": 7, "label": "Spirit time" }
+            { "metric": "life.supplements_done", "field": "week", "targetValue": 6, "format": "integer", "label": "Supplements" },
+            { "metric": "life.weigh_in_done", "field": "week", "targetValue": 6, "format": "integer", "label": "Weigh in" },
+            { "metric": "life.morning_journal_done", "field": "week", "targetValue": 6, "format": "integer", "label": "Morning journal" },
+            { "metric": "life.spirit_time_done", "field": "week", "targetValue": 6, "format": "integer", "label": "Spirit time" }
           ]
         },
         { "type": "section", "title": "Fitness" },
