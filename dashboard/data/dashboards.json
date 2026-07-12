@@ -71,7 +71,7 @@
         {
           "type": "progressgroup",
           "title": "Nutrition",
-          "span": 2,
+          "span": 1,
           "nudgeAfterHour": 20,
           "foodLog": true,
           "items": [
@@ -103,6 +103,11 @@
               "format": "grams"
             }
           ]
+        },
+        {
+          "type": "quote",
+          "title": "Quote",
+          "span": 1
         },
         {
           "type": "section",
