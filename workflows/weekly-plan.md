@@ -508,22 +508,46 @@ Copy **TABLE 1.3-B-supp** and **TABLE 1.3-C-supp** verbatim from `weekly-habits-
 
 **Sub-step 1.3-N — Nutrition / calorie target (REQUIRED every week)**
 
-Set an evidence-based daily **calorie goal** for the week (protein stays **150 g/day**). This feeds the dashboard's Fitness "Calories vs target" tile.
+Set an evidence-based daily **calorie goal** for the week (protein stays **150 g/day**). Feeds the dashboard's Fitness "Calories vs target" tile via `Calorie Target`.
 
-1. **Estimate maintenance (TDEE) from Aaron's own data — not a generic formula first.** Pull the last **2–4 weeks** of: Withings **weight** trend (Health Data `Weight Lbs`), **logged intake** (Nutrition Log avg calories/day — `weekly-physique-coach.mjs` / `daily-health-sections.mjs`), **activity** (steps avg, workout active minutes), body-fat/lean trend. Preferred method — **observed energy balance:** over a span with enough logged days, `maintenance ≈ avg_logged_calories + (weekly_weight_change_lb × 3500 / 7)` (weight up ⇒ ate above maintenance; weight down ⇒ below). Fall back to Mifflin-St Jeor × activity factor only when intake logging is too sparse; **state which method was used and the confidence** (logged-days count is the key driver of accuracy).
-2. **Ask direction (lettered — one decision):**
-   - **A — Lose** (recommend TDEE − 300–500; ~0.3–1 lb/wk loss)
-   - **B — Maintain** (recommend ≈ TDEE)
-   - **C — Gain** (recommend TDEE + 150–300; lean gain ~0.25–0.5 lb/wk)
-3. **Recommend a number + expected outcome.** e.g. "Maintenance ≈ 2,450 (from 12 logged days, weight flat). For **Lose**, target **2,000/day** → ~0.9 lb/wk. Protein 150 g." Aaron accepts or adjusts.
+> **This is a deterministic algorithm, not a vibe.** Run the steps exactly. The **Tunable weights** table holds every adjustable constant — change *those* (and note why in `Calorie Rationale`) as Aaron's real-world response teaches us his true numbers. Do not invent ad-hoc math elsewhere.
+
+**Inputs** (lookback window `L` days, default **21**; sources: Health Data `Weight Lbs`, Nutrition Log `Calories`, Health Data `Steps` / `Workout Active Minutes`; `weekly-physique-coach.mjs` already compiles these):
+- `W_start`, `W_end` = mean body weight over the first/last **3 logged weigh-ins** of the window.
+- `R_week` = weekly weight change = `(W_end − W_start) / L × 7` lb/wk (positive = gaining).
+- `C_logged` = mean **logged** calories per logged day; `N_logged` = number of logged days in the window.
+- `Steps_avg` = mean daily steps. `kg` = `W_end / 2.2046`; `cm`, `age`, `sex` from `secrets/withings-credentials.json` (+ profile).
+
+**Algorithm:**
+1. **Observed TDEE** (energy balance): `TDEE_obs = C_logged − R_week × KCAL_PER_LB / 7`. *(Weight up ⇒ ate above maintenance ⇒ subtract; down ⇒ add.)*
+2. **Formula TDEE** (Mifflin-St Jeor): `BMR = 10·kg + 6.25·cm − 5·age + S_sex`; `TDEE_formula = BMR × AF(Steps_avg)` using the activity-factor ladder below.
+3. **Blend by logging confidence:** `w = clamp(N_logged / N_full, 0, 1)`; `TDEE = w·TDEE_obs + (1−w)·TDEE_formula`. *(Sparse logging ⇒ trust the formula; consistent logging ⇒ trust observed.)*
+4. **Under-logging guard:** if `N_logged < N_full` **and** `C_logged` is implausibly low next to high `Steps_avg`/stable weight, **discard `TDEE_obs`**, use `TDEE_formula`, and flag "log intake more consistently" in the rationale.
+5. **Target by direction:** `Maintain = TDEE`; `Lose = TDEE − DEFICIT`; `Gain = TDEE + SURPLUS`. **Round to nearest 50.**
+6. **Expected weekly change** = `(Target − TDEE) / KCAL_PER_LB × 7` lb/wk. State it.
+
+**Tunable weights** *(adjust these as Aaron's data teaches us; record changes in `Calorie Rationale`)*:
+
+| Constant | Default | Meaning |
+|---|---|---|
+| `L` | 21 | lookback window (days) |
+| `N_full` | 14 | logged-days for full confidence in observed method |
+| `KCAL_PER_LB` | 3500 | kcal per lb of body mass |
+| `AF` ladder (steps→factor) | <5k→1.4 · 5–8k→1.55 · 8–12k→1.7 · 12–18k→1.8 · >18k→1.9 | activity factor from `Steps_avg` |
+| `S_sex` | +5 (male) / −161 (female) | Mifflin sex constant |
+| `DEFICIT` | 400 (range 300–500) | daily cut for **Lose** (~0.6–1 lb/wk) |
+| `SURPLUS` | 200 (range 150–300) | daily add for **Gain** (~0.25–0.5 lb/wk) |
+| `PROTEIN_G` | 150 | daily protein target (constant) |
+
+**Then:** ask direction (lettered — **A Lose / B Maintain / C Gain**), show the computed target + expected change, Aaron accepts or overrides.
 
 **Table 1.3-N — Calorie target**
 
-| Maintenance est (method, confidence) | Direction (A/B/C) | Calorie target | Expected weekly change | → Notion field(s) |
+| TDEE (obs/formula/blend + N_logged) | Direction (A/B/C) | Calorie target | Expected weekly change | → Notion field(s) |
 |---|---|---|---|---|
 | | | | | `Calorie Target`, `Weight Goal Direction`, `Calorie Rationale` |
 
-Append fitness row to `Intentions Review`.
+Write the estimator inputs + which method won into `Calorie Rationale` so the next run (and the dashboard) can see the reasoning. Append fitness row to `Intentions Review`.
 
 Sync Notion, then **print preview:** `--section fitness` — present verbatim; Aaron confirms → advance.
 
