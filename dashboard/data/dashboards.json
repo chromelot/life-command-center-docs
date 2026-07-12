@@ -9,6 +9,7 @@
       "id": "personal-day",
       "group": "Personal",
       "title": "Personal — Today",
+      "titleMode": "day",
       "icon": "☀️",
       "subtitle": "How today is going, at a glance.",
       "widgets": [
@@ -443,6 +444,7 @@
       "id": "personal-week",
       "group": "Personal",
       "title": "Personal — This Week",
+      "titleMode": "week",
       "icon": "🎯",
       "subtitle": "This week's scorecard (starts Sunday) — where I'm on track and where to push. Same data as Today, pivoted to the week.",
       "widgets": [
