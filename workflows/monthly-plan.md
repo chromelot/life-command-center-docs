@@ -313,11 +313,7 @@ node "scripts/withings-sync.mjs" --days 60 --write
 
 That populates the Health Data DB for the target month plus the prior month (so trend math works). Skip silently if the script errors -- Notion will still have whatever was previously synced.
 
-Then archive recent watch data into the Health Data DB. Health Sync's Drive export is rolling ~30 days, so this step is what makes 60-day MoM math possible:
-
-```
-health_persist_recent({ days: 60 })
-```
+Watch metrics (steps, sleep+stages, HR, SpO₂) are now archived **continuously** in the Health Data DB via the **HC Webhook → n8n** pipeline — **`health_persist_recent` is retired** (2026-07-12; the Health Sync→Drive→CSV→MCP writer is deprecated). Do **not** run it — it would fight the live HC data. `withings-sync` above still writes body comp. If watch data is stale, it's an HC pipeline issue (check the **Health Sync Watchdog** / HC Webhook app), not a persist step.
 
 This upserts Steps, Heart Rate Avg/Max, Sleep stages, and Workout aggregates per day. The MCP returns `counts: { created, updated, skipped }`. Older days that fell out of Drive's window will have already been persisted by previous monthly/weekly runs -- they stay in Notion as the long-term archive. If counts.errors > 0, note in Phase 2 footer.
 

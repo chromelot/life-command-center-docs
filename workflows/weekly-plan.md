@@ -216,9 +216,7 @@ Output: stdout **Mind / Fitness / Sleep** section tables for Phase 1.2–1.4 (da
 ```
 node "scripts/withings-sync.mjs" --days 28 --write
 ```
-```
-health_persist_recent({ days: 28 })
-```
+> **Watch metrics are now live via HC Webhook → n8n** (steps, sleep+stages, HR, SpO₂ upsert to the Health Data DB continuously). **Do not run `health_persist_recent`** — it's retired along with the Health Sync→Drive→CSV→MCP writer (2026-07-12) and would fight the HC data. Only `withings-sync` (body comp) still writes in Phase 0. If watch data looks stale, that's an HC pipeline issue — check the **Health Sync Watchdog** / HC Webhook app on the phone, don't re-persist.
 ```
 health_get_summary({ days: 28 })
 ```
@@ -281,7 +279,7 @@ DATA INTEGRITY CHECK
 
 4. **Attempt fixes before Phase 1** (run yourself, don't hand off):
    - Missing body comp → `withings-sync.mjs --days 28 --write`
-   - Missing watch/sleep → `health_persist_recent({ days: 28 })` then `health_get_summary({ days: 28 })`
+   - Missing watch/sleep → HC pipeline issue (not a persist step anymore): check the **Health Sync Watchdog** DM / HC Webhook app on the phone (network, last sync). Data lands live; re-read with `health_get_summary({ days: 28 })`.
    - Missing prior-week log KPIs → backfill from `weekly-habits-*.md` + health MCP into the **prior week's** log entry (with Aaron approval for Notion writes)
 5. If a source remains broken after one fix attempt, note it in the table and continue with `--` for affected metrics — but **name the broken pipeline** so it gets fixed outside the meeting.
 6. **Hard gate — prior week `Week Intentions`:** Before advancing `0b`, `workflow-progress.mjs` runs `checkPriorWeekIntegrity()`. If the most recent Weekly Meeting Log is missing `Week Intentions` or core KPI numbers, advance is **refused** (exit 4). *(Domain `*Intentions` are qualitative-only and may be blank — no longer gated.)* Remediate via `node scripts/backfill-week-intentions.mjs --meeting-date YYYY-MM-DD --text "..."` (Aaron approval) or re-run prior session Phase 4. Override only with `advance --step 0b --force`.

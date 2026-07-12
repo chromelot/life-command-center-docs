@@ -255,11 +255,7 @@ node "scripts/withings-sync.mjs" --days 200 --write
 
 That populates the Health Data DB for the outgoing quarter plus the prior quarter (so QoQ math works). Skip silently if it errors -- Notion still has whatever was previously synced.
 
-Then archive recent watch data into the Notion Health Data DB. Health Sync's Drive export is rolling ~30 days, so this captures the most recent month into the long-term archive. Older days from the quarter are already in Notion from previous monthly/weekly persister runs:
-
-```
-health_persist_recent({ days: 60 })
-```
+Watch metrics are now archived **continuously** in the Notion Health Data DB via the **HC Webhook → n8n** pipeline — **`health_persist_recent` is retired** (2026-07-12; the old Health Sync→Drive→CSV→MCP writer is deprecated). Do **not** run it. `withings-sync` above still writes body comp. Older quarter days are already archived in Notion. If watch data is stale, check the **Health Sync Watchdog** / HC Webhook app on the phone.
 
 (The persister is capped at 60 days because Drive doesn't reliably hold more than that. Quarterly history accumulates over time as monthly + weekly plans run their own persisters.)
 
