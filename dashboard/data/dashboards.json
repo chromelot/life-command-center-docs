@@ -11,7 +11,6 @@
       "title": "Personal — Today",
       "titleMode": "day",
       "icon": "☀️",
-      "subtitle": "How today is going, at a glance.",
       "widgets": [
         {
           "type": "dayprogress",
