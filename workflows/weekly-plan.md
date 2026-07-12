@@ -977,7 +977,7 @@ Source: `weekly-dev-review` § **Planning month — {domain}** (`🌙 Month` →
 
 **Table 2.1-J — Turbo Gear backlog (Pass 2 — bottom-up)** *(after Projects/Tasks are committed above; TG dev block only)*
 
-Passes 2.1-F→H are **top-down** (Projects + their Tasks). This is **bottom-up**: the standalone TG backlog (bugs / small features / optimizations with **no Project**). Run `node scripts/scan-tg-backlog.mjs` — it lists un-queued TG orphan roots **grouped by Priority (High → Medium → Low → Unset), oldest-first**, with a health line (counts + oldest-High age).
+Passes 2.1-F→H are **top-down** (Projects + their Tasks). This is **bottom-up**: the standalone TG backlog (bugs / small features / optimizations with **no Project**). Run `node scripts/scan-tg-backlog.mjs` — it lists un-queued TG orphan roots **grouped by Priority (High → Medium → Low → Unset), oldest-first**, with a health line (counts + oldest-High age). *(Aaron's browsing view: [Turbo Gear Backlog](https://notion.so/39bf40c2487b81f9a232d2ba0f1ab8e6).)*
 
 Present **capacity-gated**: after Pass-1 TG commitments, estimate the **TG-dev hours left** in the sprint and surface only enough backlog to fill it — default cap **~3–5 items**, High/Medium first (Low only if capacity clearly allows). Letter each surfaced row. Flag any **High aging past ~14d** as "must address."
 
@@ -1001,7 +1001,7 @@ Execute `node scripts/sync-dev-projects-this-week.mjs --selected=<comma-separate
 
 → Write `Dev Projects Intended` (snapshot), `Dev Priority Context`.
 
-**Present Table 2.1-S — This Week slate** *(CL + TG + Personal; must match the `Is Current Week` / planning-week filter exactly)*
+**Present Table 2.1-S — This Week slate** *(CL + TG + Personal; must match the `Is Current Week` / planning-week filter exactly)* — Aaron executes this slate from the [This Week — Dev Slate](https://notion.so/39bf40c2487b81d2a7acf44e0706775f) view (Start Timer · Logged Minutes This Week · TWC).
 
 Output of sync script — all domains. Aaron confirms before **2.2** (Todoist mirrors only if Personal items selected).
 

@@ -566,7 +566,7 @@ If no 3-week streaks: skip silently (~0 min).
 4. **Quarterly progress check**: Are we on track to complete the quarter's assigned projects? If not, which ones are at risk and why?
 5. Non-TG dev: did personal and CL projects get attention, or consumed by ops?
 6. Compare Projects Completed, Projects In Progress against previous Monthly Plan Log entry -- flag if >20% change in either direction.
-7. Confirm **planning month** Dev Project candidates align with Phase 1c quarterly themes — final `🌙 Month` links happen in **Phase 11b** (not free-text goals).
+7. Confirm **planning month** Dev Project candidates align with Phase 1c quarterly themes — final `🌙 Month` links happen in **Phase 11b** (not free-text goals). *(Association view: [Tasks by Month](https://notion.so/39bf40c2487b81afadbfd9bbd086567e).)*
 
 **Outputs:** Dev Projects status updates. Candidate list for Phase 11b month linking. Todoist tasks if needed.
 
@@ -575,7 +575,7 @@ If no 3-week streaks: skip silently (~0 min).
 
 **Purpose:** Sweep the upstream **Status = Idea** backlog for each roadmap domain (Turbo Gear, Chrome Lot, Systems, Workshop, Admin). Promote ideas worth queuing, archive stale ones, hold the rest. Prevents the Idea status from becoming a graveyard and feeds the next quarterly plan with a curated candidate list.
 
-**Data source:** Roadmap DB (`394f40c2-487b-815f`). For each **Domain** in turn — Turbo Gear, Chrome Lot, Systems, Workshop, Admin — query with `Status = Idea`, sort by created time ascending (oldest first). (Deep work = CL/TG/Systems; Workshop = capped QoL; Admin = life/legal.)
+**Data source:** Projects DB (`394f40c2-487b-815f`). For each **Domain** in turn — Turbo Gear, Chrome Lot, Systems, Workshop, Admin — query with `Status = Idea`, sort by created time ascending (oldest first). (Deep work = CL/TG/Systems; Workshop = capped QoL; Admin = life/legal.) *(Browsing view: [Projects — Idea Hopper](https://notion.so/39bf40c2487b8127b058eb200ac243d3); active initiatives: [Projects — Active](https://notion.so/39bf40c2487b815e8e1cf4915f8212ef).)*
 
 <a id="procedure-run-once-per-domain-in-this-order-tg-cl-personal"></a>
 ### Procedure (run once per Domain, in this order: TG → CL → Personal)
@@ -620,7 +620,7 @@ If no 3-week streaks: skip silently (~0 min).
 
 **Purpose:** Groom the standalone **Tasks** backlog — TG bugs / small features / optimizations that have **no Project** (created ad-hoc, queued into sprints weekly in Pass 2). The weekly plan only *queues* from this backlog; **monthly is where it gets triaged** so the weekly list stays meaningful and nothing rots silently.
 
-**Data source:** `node scripts/scan-tg-backlog.mjs` — un-queued TG orphan roots grouped by Priority (High → Medium → Low → **Unset**), oldest-first, with health counts + oldest-High age.
+**Data source:** `node scripts/scan-tg-backlog.mjs` — un-queued TG orphan roots grouped by Priority (High → Medium → Low → **Unset**), oldest-first, with health counts + oldest-High age. *(Browsing view: [Turbo Gear Backlog](https://notion.so/39bf40c2487b81f9a232d2ba0f1ab8e6).)*
 
 <a id="procedure-2"></a>
 ### Procedure

@@ -259,7 +259,7 @@ Pull data in parallel:
 1. **Values DB** (`342f40c2-487b-80c5`): All 6 categories with Health statuses and full page content (Pictures of Success)
 2. **Quarter Tracker** (`121f40c2-487b-802e`): Find outgoing quarter (Current=Previous or most recent) and current/new quarter. Also check whether future quarter records exist (Q[next+1], Q[next+2], Q[next+3]).
 3. **Outgoing Quarter Tracker page**: the prior quarter's per-domain plan sections (theme / no-list / KPIs) written on its page (the retired Quarterly Outcomes DB's role)
-4. **Dev Projects** (`341f40c2-487b-80ac`): All projects by Type, across all quarter assignments (current, future, and unassigned backlog). This is the material for per-domain roadmap work.
+4. **Projects** (`394f40c2-487b-815f`) + **Tasks** (`341f40c2-487b-80ac`): initiatives by Domain across quarter assignments (current, future, unassigned). Material for per-domain roadmap work. *(Browsing views: [Projects by Quarter](https://notion.so/39bf40c2487b816f9d31cfa7e2dec05f), [Projects — Active](https://notion.so/39bf40c2487b815e8e1cf4915f8212ef), [Goals](https://notion.so/39bf40c2487b813dbffbec3adaa277de).)*
 5. **CL Departments** (`341f40c2-487b-80cc`): All departments with health, priority, and full page content (Pictures of Success)
 6. **TG Departments** (`341f40c2-487b-80c9`): Same -- health, priority, and full page content
 7. **Quarterly Meeting Log** (`344f40c2-487b-80ed`): Last 2 entries (outgoing quarter AND the one before it) for quarter-over-quarter trend comparison
