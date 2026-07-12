@@ -302,12 +302,13 @@
         {
           "type": "todoisttoday",
           "span": 2,
-          "title": "Ops — Todoist"
+          "title": "Todoist — Today",
+          "scope": "personal"
         },
         {
-          "type": "fieldtoday",
+          "type": "pipedrivetoday",
           "span": 2,
-          "title": "Field — Pipedrive"
+          "title": "Pipedrive"
         },
         {
           "type": "section",
@@ -316,30 +317,14 @@
           "collapseWeekend": true
         },
         {
-          "type": "stat",
+          "type": "opstoday",
           "metric": "dev.ops_min",
-          "field": "current",
-          "label": "Ops Time",
-          "showTrend": false,
-          "detail": "timepunches",
-          "detailFilter": {
-            "category": [
-              "Ops"
-            ]
-          }
+          "title": "Ops"
         },
         {
-          "type": "stat",
+          "type": "fieldtoday",
           "metric": "dev.field_min",
-          "field": "current",
-          "label": "Field Time",
-          "showTrend": false,
-          "detail": "timepunches",
-          "detailFilter": {
-            "category": [
-              "Field"
-            ]
-          }
+          "title": "Field"
         },
         {
           "type": "goal",
