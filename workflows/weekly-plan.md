@@ -206,7 +206,7 @@ Output: `output/weekly-habits-YYYY-MM-DD.md`. Canonical last-week habit numbers 
 ```
 node "scripts/weekly-journal-feelings.mjs"
 ```
-Output: `output/weekly-journal-feelings-YYYY-MM-DD.md`. **Canonical source for Phase 1.2 mood tables** (valence, tag frequency, daily feelings, escalation, mind insights) **and TABLE 1.2-D-journal** (morning journal gratitude/goals insights). Do not re-query Journal DB ad-hoc.
+Output: `output/weekly-journal-feelings-YYYY-MM-DD.md`. **Canonical source for Phase 1.2 mood tables** (valence, mood score frequency, daily mood, escalation, mind insights) **and TABLE 1.2-D-journal** (morning journal gratitude/goals insights). Do not re-query Journal DB ad-hoc.
 
 ```
 node "scripts/daily-health-sections.mjs"
@@ -380,10 +380,10 @@ Copy tables **verbatim** from the feelings file and habit/health scripts — fil
 | Spirit min | | | | | | | |
 | Journal | | | | | | | |
 
-**Table 1.2-C-mood — Feelings by day** *(copy from `weekly-journal-feelings-*.md` section `TABLE 1.2-C-mood`)*
+**Table 1.2-C-mood — Mood by day** *(copy from `weekly-journal-feelings-*.md` section `TABLE 1.2-C-mood`)*
 
-| Day | Date | Entries | Dominant | Day valence | Tags |
-|-----|------|---------|----------|-------------|------|
+| Day | Date | Entries | Dominant | Day valence | Scores |
+|-----|------|---------|----------|-------------|--------|
 | | | | | | |
 
 **Table 1.2-D — Mind insights** *(copy mood row from `weekly-journal-feelings-*.md` section `TABLE 1.2-D`)*
@@ -399,14 +399,15 @@ Present the table exactly as generated (2-column or flagged-entry table).
 | Mood Valence | | | | `Mood Valence` |
 | Mood Negative % | | | | `Mood Negative %` |
 | Entries (total) | | | | `Journal Count` |
-| Entries tagged | | | | (in `Journal Feelings Summary`) |
-| Dominant tag | | | | (in summary) |
-| Tag volatility | | | | (in summary) |
+| Entries scored | | | | (in `Journal Feelings Summary`) |
+| Legacy tagged | | | | (in summary) |
+| Dominant mood | | | | (in summary) |
+| Score volatility | | | | (in summary) |
 | Distress entries | | | | `Mood Distress Flag` |
 
 → Write `Mood Valence`, `Mood Negative %`, `Journal Feelings Summary`, `Mood Distress Flag` from the feelings file **Notion write payload** section. **`Mood Negative %`:** Notion percent field — store as decimal (`0.45` = 45%).
 
-**Table 1.2-E-b — Tag frequency** *(copy from `weekly-journal-feelings-*.md` section `TABLE 1.2-E-b`)*
+**Table 1.2-E-b — Mood score frequency** *(copy from `weekly-journal-feelings-*.md` section `TABLE 1.2-E-b`)*
 
 | Tag | Count | Valence wt |
 |-----|-------|------------|
