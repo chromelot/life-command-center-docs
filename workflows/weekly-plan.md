@@ -278,7 +278,7 @@ DATA INTEGRITY CHECK
    - Missing watch/sleep → `health_persist_recent({ days: 28 })` then `health_get_summary({ days: 28 })`
    - Missing prior-week log KPIs → backfill from `weekly-habits-*.md` + health MCP into the **prior week's** log entry (with Aaron approval for Notion writes)
 5. If a source remains broken after one fix attempt, note it in the table and continue with `--` for affected metrics — but **name the broken pipeline** so it gets fixed outside the meeting.
-6. **Hard gate — prior week `Week Intentions`:** Before advancing `0b`, `workflow-progress.mjs` runs `checkPriorWeekIntegrity()`. If the most recent Weekly Meeting Log is missing `Week Intentions`, core KPI numbers, or `Social Intentions`, advance is **refused** (exit 4). Remediate via `node scripts/backfill-week-intentions.mjs --meeting-date YYYY-MM-DD --text "..."` (Aaron approval) or re-run prior session Phase 4. Override only with `advance --step 0b --force`.
+6. **Hard gate — prior week `Week Intentions`:** Before advancing `0b`, `workflow-progress.mjs` runs `checkPriorWeekIntegrity()`. If the most recent Weekly Meeting Log is missing `Week Intentions` or core KPI numbers, advance is **refused** (exit 4). *(Domain `*Intentions` are qualitative-only and may be blank — no longer gated.)* Remediate via `node scripts/backfill-week-intentions.mjs --meeting-date YYYY-MM-DD --text "..."` (Aaron approval) or re-run prior session Phase 4. Override only with `advance --step 0b --force`.
 
 **Outputs:** Integrity table presented; remediation attempted; known gaps flagged for Phase 1 footers.
 
@@ -287,9 +287,11 @@ DATA INTEGRITY CHECK
 
 **Purpose:** Values context first, then mind → fitness → sleep → social → parenting → personal enjoyment — one domain at a time (review → rate health where applicable → set intentions). Mind includes wellness screening. Work health rates in Phase 2.2.
 
+> **Intentions vs targets — keep them separate (do not restate numbers).** Every recurring **numeric goal** lives in a **structured target field** that drives the dashboard widgets: `Strength Target`, `Cardio Target` (fitness) · `Sleep Target Hours`, `Target Wake Time` (sleep) · `Calorie Target`, `Weight Goal Direction` (nutrition) · `Social Target` (social small-talk/sarges) · `Workshop Hours Intended` (workshop). The `*Intentions` rich_text fields (`Mind/Fitness/Sleep/Social/Parenting Intentions`, `Week Intentions`) capture **only qualitative changes** for the week — behavioral shifts, experiments, focus themes, one-off adjustments. **Never** write "5 strength workouts" or "3–5 sarges" into an intention field; that number goes in its target field. If a domain has no qualitative change this week, **leave its intention blank** (better empty than restating a target). This keeps the weekly printout + dashboard clean and non-redundant.
+
 **Phase 1 order (session):** `1.0` → `1.1` Values → `1.2` Mind (incl. wellness) → `1.3` Fitness → `1.4` Sleep and Schedule → `1.5` Social → `1.6` Parenting → `1.7` Personal enjoyment → `1.check`
 
-**Print / Week Tracker domain order (Phase 4b):** Sleep and Schedule → Spirituality & Mind → Fitness → Social → Parenting → Personal Enjoyment → Development Work. Each domain renders as a two-column table: *What happened last week · Intentions for next week* (adjustments merged into intentions, bold first), with a five-level health badge when rated. **Trend arrow** (↑ / ↓ / −) compares to the **prior week's** same-domain rating on the Weekly Meeting Log.
+**Print / Week Tracker domain order (Phase 4b):** Sleep and Schedule → Spirituality & Mind → Fitness → Social → Parenting → Personal Enjoyment → Development Work. Each domain renders as **three parts**: *What happened last week* · **Targets for next week** (the structured numbers — Strength/Cardio, Sleep hours + wake time, Calories + direction, Social target, Workshop hours — rendered as a compact line/badges) · *Intentions for next week* (**qualitative only** — behavioral changes / experiments; **omit the line entirely when blank**, don't pad with restated targets). Five-level health badge when rated; **trend arrow** (↑ / ↓ / −) vs the **prior week's** same-domain rating. This keeps the printout's intentions section clean and meaningful (targets are shown once, as numbers, not repeated as prose).
 
 **Health rating scale** *(all Phase 1 domain ratings + Phase 2.1 dev health — one letter per turn)*
 
@@ -706,9 +708,9 @@ Two weeks running **Contaminated/Divided** (when accessible) → flag in `Social
 
 **Table 1.5-G — Social intentions (upcoming week)**
 
-| Social Priority | Intentions (1–3 bullets) | → Notion field(s) |
-|-----------------|--------------------------|-------------------|
-| Active / Maintenance / Deprioritized | e.g. "2 Small Talk + 1 fitness class" | `Social Priority`, `Social Intentions` |
+| Social Priority | Weekly small-talk / sarges **target** (number → `Social Target`) | Qualitative intention (0–2 bullets, optional) | → Notion field(s) |
+|-----------------|---------------------------------------------|-----------------------------------------------|-------------------|
+| Active / Maintenance / Deprioritized | e.g. `5` (number only — **not** prose) | qualitative only — e.g. "host a dinner", "reconnect with an old friend"; **blank if no change** | `Social Priority`, `Social Target`, `Social Intentions` |
 
 Deprioritized reason → note in `Social Review`. Append social row to `Intentions Review`.
 
@@ -810,7 +812,7 @@ Sync Notion, then **print preview:** `--section enjoyment` — present verbatim;
 | Week theme | `Week Intentions` — 1–3 sentence summary of the week's overarching theme (written/confirmed in Phase 4) |
 | 1.2 | `Intentions Review` (mind row), `Mind Health`, `Mind Intentions`, `Mood Valence`, `Mood Negative %`, `Journal Feelings Summary`, `Mood Distress Flag`, `Energy Rating`, `Screening Escalation`; PHQ/GAD only if `Screening Escalation` = true |
 | 1.3–1.4 | `Fitness/Sleep Health`, `Fitness/Sleep Intentions`, `Schedule Intentions`, `Schedule Review`, `Strength Target`, `Cardio Target`, `Calorie Target`, `Weight Goal Direction`, `Calorie Rationale`, `Sleep Target Hours`, `Target Wake Time`, `Behavioral Adjustments` |
-| 1.5 | `Small Talk Count`, `Social Events Count`, `Social Review` (incl. **fuel rating**), `Social Intentions Met`, `Social Health`, `Social Priority`, `Social Intentions` |
+| 1.5 | `Small Talk Count`, `Social Events Count`, `Social Review` (incl. **fuel rating**), `Social Intentions Met`, `Social Health`, `Social Priority`, `Social Target` (number), `Social Intentions` (qualitative, optional) |
 | `1.4` (A or B) | `Behavioral Adjustments` — **required for that domain**; skip when C or better |
 | `1.5` | Fuel **Stage 1 + 2** + **recovery intentions** (1.5-E-b when triggered) in `Social Review` |
 | 1.6 | `Parenting Health`, `Parenting Intentions` |
