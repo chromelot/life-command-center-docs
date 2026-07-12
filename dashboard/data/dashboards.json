@@ -409,7 +409,9 @@
               "field": "current",
               "label": "Small Talk",
               "showTrend": false,
-              "detail": "smalltalk"
+              "detail": "smalltalk",
+              "detailPage": true,
+              "pageKind": "smalltalk"
             },
             {
               "metric": "dev.reading_min",
@@ -421,7 +423,9 @@
                 "category": [
                   "Reading"
                 ]
-              }
+              },
+              "detailPage": true,
+              "pageKind": "reading"
             }
           ]
         }
@@ -572,7 +576,9 @@
               "field": "week",
               "target": "goal.social_target",
               "label": "Small talk / sarges",
-              "detail": "smalltalk"
+              "detail": "smalltalk",
+              "detailPage": true,
+              "pageKind": "smalltalk"
             }
           ]
         },
@@ -866,7 +872,9 @@
                 "category": [
                   "Reading"
                 ]
-              }
+              },
+              "detailPage": true,
+              "pageKind": "reading"
             }
           ]
         },
@@ -1033,7 +1041,9 @@
               "metric": "life.small_talk",
               "label": "Small talk",
               "color": "#b57bff",
-              "detail": "smalltalk"
+              "detail": "smalltalk",
+              "detailPage": true,
+              "pageKind": "smalltalk"
             }
           ]
         },
