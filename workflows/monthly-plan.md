@@ -491,8 +491,10 @@ Whether or not the full quarterly session happened, review what's committed **on
 
 1. **Themes:** One-line recap per domain (CL / TG / Personal) from Quarterly Outcomes pages.
 2. **Project pace:** Dev Projects assigned to current quarter — Done vs In Progress vs Not Started vs at-risk (Due Date passed or In Progress 30+ days with no sub-item movement).
-3. **KPI pace preview:** Which KPI rows have targets? Any already >50% behind expected pace for the month we're in? (Full actuals update happens in Phase 9.)
-4. **Alignment check:** Flag if proposed **planning month** priorities (surfaced in Phases 3–4) don't serve the quarterly theme — force a reconcile before committing.
+3. **Goal trajectory (month granularity):** Using the [Goals — Milestones](https://notion.so/39bf40c2487b810d905fdb9585ceddf9) view + Goals `Progress`/`Behind Projects` rollups, check each active Goal. If a goal has `Behind Projects` > 0 or its projects keep getting deferred month-over-month, **either** prioritize its projects into this planning month (Phase 11b / weekly sprint) **or** flag it to escalate to the next quarterly for a re-prioritize-or-adjust decision. Don't let a goal drift silently across months.
+4. **Behind → shift:** any `Behind` project surfaced here gets one call — reslot (`Date`), cut/pause, or fund (Priority + pull into the month). Reference the [Roadmap — Timeline](https://notion.so/39bf40c2487b8188bc05d953ac5d8802).
+5. **KPI pace preview:** Which KPI rows have targets? Any already >50% behind expected pace for the month we're in? (Full actuals update happens in Phase 9.)
+6. **Alignment check:** Flag if proposed **planning month** priorities (surfaced in Phases 3–4) don't serve the quarterly theme — force a reconcile before committing.
 
 **Outputs:** Quarterly alignment notes carried into Phases 3–4 and Phase 9. If gate failed, monthly plan **stops here** — no Phase 1d or Phase 2+. Escalation to full quarterly plan is mandatory unless Aaron explicitly overrides.
 

@@ -14,6 +14,8 @@
   - [Present exactly — Part B (narrative → tables)](#present-exactly-part-b-narrative-tables)
 - [Procedure](#procedure)
 - [Project Assessment Rules (apply everywhere in this workflow)](#project-assessment-rules-apply-everywhere-in-this-workflow)
+  - [Goal trajectory review (Part A look-back + before committing in Part D)](#goal-trajectory-review-part-a-look-back-before-committing-in-part-d)
+  - [Behind → structured shift](#behind-structured-shift)
 - [Pre-Flight (silent)](#pre-flight-silent)
 - [Part A -- Look Back (Retrospective) -- ~25 min](#part-a-look-back-retrospective-25-min)
   - [Phase 1: Wide Retrospective (narrative, ~10 min)](#phase-1-wide-retrospective-narrative-10-min)
@@ -227,6 +229,20 @@ When reviewing or planning projects in any phase:
 2. **Use the `Completion` rollup** (percent of sub-items at Status=Done) as the primary indicator of real progress. A project at 80%+ Completion with remaining sub-items is a candidate for either (a) finishing the last mile or (b) scoping the remainder into its own follow-up project.
 3. **Ask before guessing scope.** If a project's size, effort, or dependencies aren't clear from the Dev Projects data, ask Aaron before deciding whether to keep, drop, or add it. Offer AskQuestion with specific scope options.
 4. **Set a Due Date on every project assigned to the current quarter.** The Dev Projects DB has a `Due Date` date property. In Phase 10, walk through each assigned project and either set the date or mark Off Track if the date can't be committed. Projects tagged to future quarters don't need a due date yet.
+5. **Set the `Date` (start+end) on every committed project** — this populates the [Roadmap — Timeline](https://notion.so/39bf40c2487b8188bc05d953ac5d8802) and forces sequencing. Link each committed project to its **`🥅 Goals`** (or mark it conscious no-goal maintenance).
+
+<a id="goal-trajectory-review-part-a-look-back-before-committing-in-part-d"></a>
+### Goal trajectory review (Part A look-back + before committing in Part D)
+
+Roadmap planning is **goal-driven**. Using the [Goals — Milestones](https://notion.so/39bf40c2487b810d905fdb9585ceddf9) + [Projects by Goal](https://notion.so/39bf40c2487b8120be53c40f6730fb45) views (and the Goals `Progress` + `Behind Projects` rollups), walk each active Goal:
+
+- **On track?** Signal = `Behind Projects` > 0, or `Target Date` approaching with low `Progress`.
+- **If off track — make ONE conscious decision** (lettered table, per goal): **(A) Re-prioritize** — pull the lagging project(s) into the next month/sprint, bump Priority, or re-date earlier; or **(B) Adjust the goal** — move `Target Date`, cut scope (Success Metric), or drop it. This keeps goals **challenging but achievable per the active plan** — never let a goal silently miss. Record the decision on the Goal + the Quarterly Meeting Log.
+
+<a id="behind-structured-shift"></a>
+### Behind → structured shift
+
+Surface `Behind` projects first (the `Behind` formula). Each gets exactly one call — **reslot** (push its `Date`; re-sequence), **cut/pause** (`⏸ Pause`), or **fund** (raise Priority + pull its Tasks into the month). If a reslot pushes a project past its Goal's `Target Date`, escalate to the goal decision above. Nothing slips without a decision.
 
 <a id="pre-flight-silent"></a>
 ## Pre-Flight (silent)

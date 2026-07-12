@@ -47,6 +47,7 @@ Full schedule and tier ownership: [`cadences.md`](cadences.md). Agent intent rou
 | weekly ops | Tier 2 (Cursor) | Weekly (separate session) | ~40 min | ops + CS + sales + people + commit | Same planning week as weekly plan | "weekly ops", "ops review", "CL ops meeting", "operations meeting" |
 | monthly plan | Tier 2 (Cursor) | Monthly (first week) | 83 min | 14 | Quarterly plan must be committed | "monthly plan", "monthly review" |
 | quarterly plan | Tier 2 (Cursor) | Quarterly (week 1) + mid-quarter week 6 | 90–120 min / 15 min checkpoint | 5-part, 14 phases | None (top-level strategic gate) | "quarterly plan", "strategy review" |
+| annual plan | Tier 2 (Cursor) | On demand | — | — | — | "annual plan", "year kickoff", "plan this year" |
 | 1:1 prep | Tier 2 (Cursor) | On demand (before check-ins) | ~5 min | inline in rule | None | "1:1 prep", "person check-in", "<name> check-in" |
 | team sync | Tier 2 (Cursor) | On demand | ~10 min | inline in rule | None | "team sync", "roster diff", "people sync", "audit roster" |
 | pd cleanup | Tier 2 (Cursor) | On demand | 30–45 min | 6 | Explicit approval per batch | "pd cleanup", "pipedrive cleanup", "deal cleanup", "crm cleanup" |
@@ -90,6 +91,7 @@ Spec files: `n8n/conventions.md`, `n8n/bots/cl-bot/teams-bot.md`, `n8n/sync/pd-t
 | "weekly ops", "ops review", "CL ops meeting", "operations meeting" | `.cursor/rules/weekly-ops.mdc` | `context/skills/weekly-ops/SKILL.md` | systems/cadences.md, systems/pipedrive.md, systems/knack-fields.md, work/chrome-lot/, people/index.md |
 | "monthly plan", "monthly review" | `.cursor/rules/monthly-plan.mdc` | `context/skills/monthly-plan/SKILL.md` | systems/cadences.md, systems/notion-databases.md, self/values.md, people/index.md, work/chrome-lot/, work/turbo-gear/ |
 | "quarterly plan", "strategy review" | `.cursor/rules/strategy-review.mdc` | `context/skills/quarterly-plan/SKILL.md` | self/values.md, work/chrome-lot/, work/turbo-gear/, self/, people/index.md |
+| "annual plan", "year kickoff", "plan this year" | `.cursor/rules/annual-plan.mdc` | `context/skills/annual-plan/SKILL.md` | self/values.md, systems/notion-databases.md (Goals/Projects/Year Tracker), work/chrome-lot/, work/turbo-gear/ |
 | "1:1 prep", "person check-in", "<name> check-in" | `.cursor/rules/person-checkin.mdc` | `(inline in rule)` | people/index.md, [domain folder for that person] |
 | "team sync", "roster diff", "people sync", "audit roster" | `.cursor/rules/team-sync.mdc` | `(inline in rule)` | systems/airtable-roster.md, people/index.md, cast.md |
 | "pd cleanup", "pipedrive cleanup", "deal cleanup", "crm cleanup" | `.cursor/rules/pd-cleanup.mdc` | `context/skills/pd-cleanup/SKILL.md` | systems/pipedrive.md, systems/knack-fields.md, work/chrome-lot/customer-service.md |
@@ -165,20 +167,21 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 ## Health / staleness
 
 <!-- AUTO:HEALTH_REPORT -->
-⚠ **7 issue(s)** across 91 context files.
+⚠ **8 issue(s)** across 92 context files.
 
 ### stale (2)
 - `context/self/current-priorities.md` — 35d old (threshold 14d)
 - `context/systems/operations-catalog.md` — 36d old (threshold 30d)
 
-### broken-see-also (1)
-- `context/systems/audiobook-pipeline.md` — ../../output/audiobook-handoff-2026-05-05.md
-
-### missing-frontmatter (4)
+### missing-frontmatter (5)
+- `context/skills/annual-plan/SKILL.md` — no-frontmatter
 - `context/systems/notion-guides/cl-bot-first-time-setup.md` — no-frontmatter
 - `context/systems/notion-guides/cl-bot.md` — no-frontmatter
 - `context/systems/notion-guides/n8n-automations.md` — no-frontmatter
 - `context/systems/notion-guides/pd-todoist-automation.md` — no-frontmatter
+
+### broken-see-also (1)
+- `context/systems/audiobook-pipeline.md` — ../../output/audiobook-handoff-2026-05-05.md
 
 Full audit: `node scripts/audit-context.mjs`
 <!-- /AUTO:HEALTH_REPORT -->
@@ -188,7 +191,7 @@ Full audit: `node scripts/audit-context.mjs`
 ## Last generated
 
 <!-- AUTO:LAST_GENERATED -->
-**2026-07-12 24:13:18** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
+**2026-07-12 24:16:27** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
 <!-- /AUTO:LAST_GENERATED -->
 
 ## See also
