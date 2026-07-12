@@ -5,7 +5,7 @@
 ## Table of contents
 
 - [Trigger](#trigger)
-- [Domain map — Dev Projects alignment](#domain-map-dev-projects-alignment)
+- [Domain map — Tasks alignment](#domain-map-tasks-alignment)
 - [Inputs](#inputs)
 - [Execution Protocol (mandatory — read `context/workflow-execution.md` + `context/systems/workflow-output-contracts.md`)](#execution-protocol-mandatory-read-contextworkflow-executionmd-contextsystemsworkflow-output-contractsmd)
   - [Ledger step order (do not reorder)](#ledger-step-order-do-not-reorder)
@@ -63,8 +63,8 @@ This skill activates when Aaron says **"weekly ops"**, **"ops review"**, **"CL o
 
 **Separate session** from Weekly Plan — typically a different day the same planning week. Weekly Plan covers life review + development planning; Weekly Ops covers CL operating execution (Pipedrive accountability, CS, sales, people).
 
-<a id="domain-map-dev-projects-alignment"></a>
-## Domain map — Dev Projects alignment
+<a id="domain-map-tasks-alignment"></a>
+## Domain map — Tasks alignment
 
 This session audits **`Create, and Audit Weekly Ops Plan`** and its sub-items in **Tasks** (`341f40c2-487b-80ac`). Each sub-item maps to a dedicated workflow phase:
 
@@ -363,7 +363,7 @@ COMPLETED ACTIVITIES — WEEK-OVER-WEEK
 
 **Purpose:** Examine **each business day** in the review week at the business level — throughput, coverage stress, and which **backup** photographers were required — then set org **ops priority** (sales vs hiring vs service delivery) for the planning week.
 
-**Data source:** Briefing **DAILY OPERATIONS RECORDS**, **BACKUPS REQUIRED**, **CL DEPARTMENTS**, **HIRING — KNACK HIRING APP** (ops priority signals). See [`work-management.md`](../../work/chrome-lot/work-management.md).
+**Data source:** Briefing **DAILY OPERATIONS RECORDS**, **BACKUPS REQUIRED**, **DEPARTMENTS**, **HIRING — KNACK HIRING APP** (ops priority signals). See [`work-management.md`](../../work/chrome-lot/work-management.md).
 
 1. Present **Table 1.3-A — Daily operations records** — one row per day in the review week (from briefing; do not skip days with zero jobs if they were business days):
 

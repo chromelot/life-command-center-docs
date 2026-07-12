@@ -41,7 +41,7 @@ R6=1 for monthly/quarterly: Phase 0 pulls inline (no single briefing script yet)
 ### weekly-ops
 - [x] Logging wired in rule
 - [x] In-step multi-item loops documented in skill for 4.1, 3.1, 5.1
-- [x] Domain map aligned to Dev Projects sub-items (Phases 2–8)
+- [x] Domain map aligned to Tasks (Phases 2–8)
 
 ### monthly-plan
 - [x] Ledger map + FIELD CHECKs + Present map (Phases 3–11 tables) in SKILL

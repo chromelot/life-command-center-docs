@@ -201,7 +201,7 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 | Shipped vs stalled | | | Tasks + Weekly Log |
 | Deep work trajectory | | | Weekly Meeting Log |
 | Quarterly on-track? | | | Quarter Tracker page |
-| Planning month Dev Projects (`🌙 Month`) | | | Phase 11b selection |
+| Planning month Tasks (`🌙 Month`) | | | Phase 11b selection |
 
 **Table 3.2-A — Idea scrub** *(step `3.2`, one Type per turn)*
 
@@ -262,7 +262,7 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 
 | Field | Value |
 |-------|-------|
-| Dev Projects linked to planning month (`🌙 Month`, max 5 total) | |
+| Tasks linked to planning month (`🌙 Month`, max 5 total) | |
 | Domains Parked | |
 
 **FIELD CHECK — Phase 1** *(Table 1.check)*
@@ -282,7 +282,7 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 | Item | Pass |
 |------|------|
 | Monthly Plan Log entry created (`Monthly Plan for [Planning Month YYYY]`) | |
-| Planning month Dev Projects linked (`🌙 Month` on each selected record) + Domains Parked on Monthly Log | |
+| Planning month Tasks linked (`🌙 Month` on each selected record) + Domains Parked on Monthly Log | |
 | Life + work health selects populated | |
 | Team Activity Details appended | |
 | Planning month Months page log appended | |
@@ -605,7 +605,7 @@ If no 3-week streaks: skip silently (~0 min).
    - **Archive:** Status = **Paused** (or **Done** if achieved) — explicit approval required.
    - **Hold:** Leave as Idea for next month's scrub.
 5. **Caps per Domain per month:**
-   - Roadmap at most **3 ideas → Roadmapped** per domain. If more look promising, defer to next month or quarterly plan.
+   - Promote at most **3 ideas → Roadmapped** per domain. If more look promising, defer to next month or quarterly plan.
    - No cap on Paused — clearing dead ideas is encouraged.
 
 <a id="sanity-guardrails"></a>
@@ -613,7 +613,7 @@ If no 3-week streaks: skip silently (~0 min).
 
 - If a Domain has **>15 Idea-status entries**, flag inbox bloat.
 - If the same idea has been **Held for 3+ consecutive monthly scrubs**, force Roadmap-or-Park this round.
-- Do not Roadmap an idea that overlaps an active Dev Project — link or Park as duplicate.
+- Do not promote an idea that overlaps an active Task — link or Park as duplicate.
 
 **Outputs:** Projects status updates (Idea → Roadmapped / Paused). Delegated tasks in target systems. Hold notes for next month and quarterly candidate pool.
 

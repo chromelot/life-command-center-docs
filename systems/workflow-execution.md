@@ -1,5 +1,11 @@
 > **Source:** [`context/workflow-execution.md`](https://github.com/chromelot/life-command-center/blob/main/context/workflow-execution.md) in the private workspace repo. Do not edit this mirror directly.
 
+﻿---
+updated: 2026-06-09
+status: active
+tags: [meta, workflow, execution]
+---
+
 # Workflow Execution Protocol
 
 Canonical rules for **all Tier 2 Cursor workflows**. Skills define *what* to present (output contracts); this file defines *how* to execute so output is **consistent week to week** and sections are **never skipped**.
@@ -43,7 +49,7 @@ Example:
 
 **Reply with:** letter(s) only (e.g. `B` or `A, C`).
 
-**Dev planning:** Dev Projects `This Week` tracker is canonical state. Meeting logs are cross-check only. **Phase 2.1-A** presents that queue for the **week under review** (CL/TG `This Week` at review time); **2.1-G** writes the **upcoming** week’s queue. Work not in Dev Projects → create a record before committing the week.
+**Dev planning:** Tasks `This Week` tracker is canonical state. Meeting logs are cross-check only. **Phase 2.1-A** presents that queue for the **week under review** (CL/TG `This Week` at review time); **2.1-G** writes the **upcoming** week's queue. Work not in Tasks → create a record before committing the week.
 
 Full contract anatomy → `context/systems/workflow-output-contracts.md`.
 

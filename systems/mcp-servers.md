@@ -9,7 +9,7 @@ Inventory of every MCP server configured in this workspace, plus how to choose b
 | If you need to... | Call MCP |
 |---|---|
 | Create or move a Todoist task | `todoist` |
-| Read or update a Notion personal-side DB (Dev Projects, Workouts, Values, etc.) | `notion-personal` |
+| Read or update a Notion personal-side DB (Tasks, Projects, Workouts, Values, etc.) | `notion-personal` |
 | Read or update a Notion work-side DB (CL Tasks, CL Projects, TG Features, Team) | `notion` |
 | Look up or create a Pipedrive deal/activity/contact | `pipedrive` |
 | Read Knack customer/photographer/job records | `knack` |

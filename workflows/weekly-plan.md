@@ -1,5 +1,11 @@
 > **Source:** [`context/skills/weekly-planning/SKILL.md`](https://github.com/chromelot/life-command-center/blob/main/context/skills/weekly-planning/SKILL.md) in the private workspace repo. Do not edit this mirror directly.
 
+﻿---
+updated: 2026-06-18
+status: active
+tags: [skill, weekly-planning, procedure]
+---
+
 # Weekly Planning — SKILL
 
 ## Table of contents
@@ -900,7 +906,7 @@ Agent presents a short narrative — **no recommendations, no task list** (selec
 
 1. **Output** — accomplishments vs queued dev work (2.1-C counts + queue tree).
 2. **Time** — dev minutes logged (2.1-B) vs realistic capacity.
-3. **Goal progress** — review week vs **planning month** Dev Projects (`weekly-dev-review` § Planning month — CL/TG/Personal trees via `🌙 Month`): what moved, what’s stuck, parked domains noted.
+3. **Goal progress** — review week vs **planning month** Tasks (`weekly-dev-review` § Planning month — CL/TG/Personal trees via `🌙 Month`): what moved, what’s stuck, parked domains noted.
 
 Then Aaron rates:
 
@@ -924,7 +930,7 @@ Then Aaron rates:
 
 **Table 2.1-F — Review week close-out** *(all Task types: Chrome Lot · Turbo Gear · Personal)*
 
-*Personal Dev Projects log as **Admin** time in Time Punches. Present all three types together — not CL/TG only.*
+*Personal Tasks log as **Admin** time in Time Punches. Present all three types together — not CL/TG only.*
 
 **Turn 1 — What was accomplished** *(was 2.1-C content; now first in F)*
 
