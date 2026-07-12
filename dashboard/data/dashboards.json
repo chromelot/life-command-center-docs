@@ -266,6 +266,171 @@
       ]
     },
     {
+      "id": "health-trends",
+      "group": "Health",
+      "title": "Health — Deep Dive",
+      "icon": "\ud83e\ude7a",
+      "subtitle": "Deeper dive into health trends. Set the window with the Range dropdown (top-right): past 7 / 30 / 60 / 90 days, 6 months, or a year. Every widget re-summarizes over that window. Click a chart point or summary tile for the underlying records.",
+      "rangeSelect": { "options": [7, 30, 60, 90, 180, 365], "default": 30 },
+      "widgets": [
+        { "type": "section", "title": "Body composition" },
+        {
+          "type": "rangesummary",
+          "title": "Averages over the window",
+          "span": 4,
+          "items": [
+            { "metric": "personal.weight_lbs", "label": "Weight", "mode": "avg", "showRange": true },
+            { "metric": "personal.body_fat_pct", "label": "Body fat", "mode": "avg", "showRange": true },
+            { "metric": "personal.lean_mass_lbs", "label": "Lean mass", "mode": "avg" },
+            { "metric": "personal.muscle_mass_lbs", "label": "Muscle mass", "mode": "avg" },
+            { "metric": "personal.bmi", "label": "BMI", "mode": "avg" }
+          ]
+        },
+        {
+          "type": "rangetrend",
+          "title": "Weight & mass",
+          "span": 2,
+          "series": [
+            { "metric": "personal.weight_lbs", "label": "Weight", "color": "#f6c453" },
+            { "metric": "personal.lean_mass_lbs", "label": "Lean", "color": "#39d98a" },
+            { "metric": "personal.muscle_mass_lbs", "label": "Muscle", "color": "#4f8cff" }
+          ]
+        },
+        {
+          "type": "rangetrend",
+          "title": "Body fat %",
+          "span": 2,
+          "series": [{ "metric": "personal.body_fat_pct", "label": "Body fat %", "color": "#b57bff" }]
+        },
+        { "type": "section", "title": "Fitness & activity" },
+        {
+          "type": "rangesummary",
+          "title": "Fitness over the window",
+          "span": 4,
+          "items": [
+            { "metric": "life.strength_sessions", "label": "Strength", "mode": "total", "detail": "workouts", "detailFilter": { "type": ["Pull", "Push", "Legs", "Deadlift", "Full Body"] } },
+            { "metric": "life.cardio_sessions", "label": "Cardio", "mode": "total", "detail": "workouts", "detailFilter": { "type": ["Cardio"] } },
+            { "metric": "personal.workout_active_min", "label": "Active min/day", "mode": "avg" },
+            { "metric": "personal.steps", "label": "Steps/day", "mode": "avg", "showRange": true },
+            { "metric": "personal.workout_calories", "label": "Workout cal/day", "mode": "avg" }
+          ]
+        },
+        {
+          "type": "rangetrend",
+          "title": "Workouts",
+          "span": 2,
+          "series": [
+            { "metric": "life.strength_sessions", "label": "Strength", "color": "#4f8cff", "detail": "workouts", "detailFilter": { "type": ["Pull", "Push", "Legs", "Deadlift", "Full Body"] } },
+            { "metric": "life.cardio_sessions", "label": "Cardio", "color": "#39d98a", "detail": "workouts", "detailFilter": { "type": ["Cardio"] } }
+          ]
+        },
+        {
+          "type": "rangetrend",
+          "title": "Steps / day",
+          "span": 2,
+          "series": [{ "metric": "personal.steps", "label": "Steps", "color": "#39d98a" }]
+        },
+        { "type": "section", "title": "Sleep & recovery" },
+        {
+          "type": "rangesummary",
+          "title": "Sleep & recovery over the window",
+          "span": 4,
+          "items": [
+            { "metric": "personal.sleep_hours", "label": "Sleep", "mode": "avg", "showRange": true },
+            { "metric": "personal.deep_sleep_min", "label": "Deep sleep", "mode": "avg" },
+            { "metric": "personal.rem_sleep_min", "label": "REM sleep", "mode": "avg" },
+            { "metric": "personal.resting_hr", "label": "Resting HR", "mode": "avg", "showRange": true },
+            { "metric": "personal.spo2_pct", "label": "SpO2", "mode": "avg" }
+          ]
+        },
+        {
+          "type": "rangetrend",
+          "title": "Sleep hours / night",
+          "span": 2,
+          "series": [{ "metric": "personal.sleep_hours", "label": "Sleep (h)", "color": "#4f8cff" }]
+        },
+        {
+          "type": "rangetrend",
+          "title": "Resting heart rate",
+          "span": 2,
+          "series": [{ "metric": "personal.resting_hr", "label": "Resting HR", "color": "#ff6b6b" }]
+        },
+        { "type": "section", "title": "Nutrition" },
+        {
+          "type": "rangesummary",
+          "title": "Daily average intake over the window",
+          "span": 4,
+          "items": [
+            { "metric": "nutrition.calories", "label": "Calories", "mode": "avg", "detail": "nutrition" },
+            { "metric": "nutrition.protein_g", "label": "Protein", "mode": "avg", "detail": "nutrition" },
+            { "metric": "nutrition.carbs_g", "label": "Carbs", "mode": "avg", "detail": "nutrition" },
+            { "metric": "nutrition.fat_g", "label": "Fat", "mode": "avg", "detail": "nutrition" }
+          ]
+        },
+        {
+          "type": "rangetrend",
+          "title": "Calories / day",
+          "span": 2,
+          "series": [{ "metric": "nutrition.calories", "label": "Calories", "color": "#f6c453", "bucketMode": "perday", "detail": "nutrition" }]
+        },
+        {
+          "type": "rangetrend",
+          "title": "Protein / day",
+          "span": 2,
+          "series": [{ "metric": "nutrition.protein_g", "label": "Protein (g)", "color": "#39d98a", "bucketMode": "perday", "detail": "nutrition" }]
+        },
+        { "type": "section", "title": "Skin condition" },
+        { "type": "note", "text": "Extent (zones involved / extent score) is the stable clinical outcome — lower is better. Redness is noisy severity (varies with debridement). Source: weekly tracking-shot measurements. See context/self/skin-tracking.md.", "span": 4 },
+        {
+          "type": "rangesummary",
+          "title": "Latest skin reading",
+          "span": 2,
+          "items": [
+            { "metric": "skin.zones_involved", "label": "Zones involved", "mode": "latest", "detail": "skin" },
+            { "metric": "skin.extent_score", "label": "Extent score", "mode": "latest", "detail": "skin" },
+            { "metric": "skin.redness", "label": "Redness", "mode": "latest", "detail": "skin" }
+          ]
+        },
+        {
+          "type": "rangetrend",
+          "title": "Skin extent trend (lower = better)",
+          "span": 2,
+          "series": [
+            { "metric": "skin.zones_involved", "label": "Zones", "color": "#b57bff", "detail": "skin" },
+            { "metric": "skin.extent_score", "label": "Extent", "color": "#ff6b6b", "detail": "skin" }
+          ]
+        },
+        { "type": "section", "title": "Care & appointments" },
+        {
+          "type": "duecard",
+          "label": "Dentist checkup",
+          "span": 2,
+          "daysMetric": "care.dental_days_until_due",
+          "lastText": "text.dental_last_visit",
+          "nextText": "text.dental_next_due",
+          "cadenceLabel": "Goal: checkup every 6 months",
+          "detail": "dental"
+        },
+        {
+          "type": "rangesummary",
+          "title": "Sessions logged in the window",
+          "span": 2,
+          "items": [
+            { "metric": "care.whitening_sessions", "label": "Teeth whitening", "mode": "total", "detail": "whitening" },
+            { "metric": "care.dental_visits", "label": "Dental visits", "mode": "total", "detail": "dental" }
+          ]
+        },
+        {
+          "type": "rangetrend",
+          "title": "Teeth whitening sessions",
+          "span": 2,
+          "chart": "bar",
+          "series": [{ "metric": "care.whitening_sessions", "label": "Whitening", "color": "#5bd1d7", "detail": "whitening" }]
+        },
+        { "type": "note", "text": "Dentist visits + teeth whitening are logged in Notion (Dental Visits Log / Teeth Whitening Log). The dentist card turns amber within 30 days of the 6-month due date and red when overdue — book the next cleaning when it does.", "span": 2 }
+      ]
+    },
+    {
       "id": "work-day",
       "group": "Work",
       "title": "Chrome Lot — Today",
