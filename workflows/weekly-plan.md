@@ -146,10 +146,17 @@ The weekly plan assumes a committed monthly frame. Do not start Phase 0 until th
 
 **Purpose:** Lock which Week Tracker rows this session **reviews** vs **plans for** — before any data pull. Aaron's default workflow (Fri–Mon):
 
-| Session day | Review week | Planning week |
-|-------------|-------------|---------------|
-| **Friday / Saturday** | Current calendar week (still in) | **Next** Week Tracker row |
-| **Sunday / Monday** | Prior Week Tracker row | Current week (entering) |
+| Session day | Review week | Planning week | Turnover state |
+|-------------|-------------|---------------|----------------|
+| **Friday / Saturday** | Current calendar week (still in) | **Next** Week Tracker row | **Pre-turnover** — review week is still `Is Current Week` |
+| **Sunday / Monday** | Prior Week Tracker row | Current week (entering) | **Post-turnover** — auto-defer already ran |
+
+**Turnover = the `WeekDefer` automation (Sun ~3 AM CT).** At the week flip it moves every open Task still linked to the ending week onto the new current week (`scripts/defer-week-tasks.mjs`; Done tasks stay put as history). This drives the pre/post-turnover branch in Phase 2.1-F carryover:
+
+- **Pre-turnover (Fri/Sat)** — the review week is still current. Auto-defer has **not** run yet, so at carryover ask Aaron which open review-week Tasks he **might still finish** (leave linked to the current/review week — WeekDefer will sweep any that stay open Sunday) vs **defer now** (link to the planning/next week). Tasks legitimately live on two weeks during this window; that's expected.
+- **Post-turnover (Sun/Mon)** — WeekDefer already moved every unfinished Task to the current (= planning) week. **Do not** ask "what are you still trying to finish" — treat the carried slate as already deferred; only prune and add.
+
+Detect the state from Table 0a: if the **Review** row's `Is Current Week` is still true → pre-turnover; if it's a past row → post-turnover.
 
 1. Run `node scripts/weekly-plan-weeks.mjs --ledger <path>` — present output **verbatim**.
 2. **Present exactly Table 0a:**
@@ -931,14 +938,25 @@ Re-present **only open items** from the same tree (full parent → sub nesting; 
 
 Per-item Notion `Status → Done` only after Aaron names the letter(s). Re-fetch tree before Turn 3.
 
-**Turn 3 — Carryover decision**
+**Turn 3 — Carryover decision** *(branch on turnover state from Phase 0a)*
+
+**Pre-turnover (Fri/Sat — review week still current):** split open review-week items into finish-this-week vs defer.
+
+| | |
+|---|---|
+| **A** | Keep finishing this week — item stays linked to the **current/review** week (WeekDefer sweeps it to the new week Sunday if still open) |
+| **B** | Defer now to the **planning/next** week — reply with letters to move onto the planning-week slate |
+
+*"Keep finishing" items are simply not added to the planning-week slate; leave their `📅 Week Tracker` on the current week. The Sun 3 AM WeekDefer moves whatever is still open forward automatically.*
+
+**Post-turnover (Sun/Mon — auto-defer already ran):** every unfinished Task is already on the current (= planning) week. Do **not** ask about finishing.
 
 | | |
 |---|---|
 | **A** | Continue all **remaining** open items on this week's plate |
-| **B** | Defer some — reply with item letters to **drop** from carryover |
+| **B** | Prune some — reply with letters to **drop** from the plate (clears `📅 Week Tracker`, i.e. back to backlog) |
 
-Deferred items: `This Week = false` at sync (approval). Carried items stay selected for sync.
+Dropped/pruned items: week relation cleared at sync (approval). Carried items stay selected for sync.
 
 **Turn 4 — Table 2.1-G — Add from roadmap?**
 
@@ -957,14 +975,16 @@ Source: `weekly-dev-review` § **Planning month — {domain}** (`🌙 Month` →
 
 Execute `node scripts/sync-dev-projects-this-week.mjs --selected=<comma-separated page IDs>`:
 
-1. `This Week = true` on carryover + any roadmap picks only.
-2. `This Week = false` on **every other open** CL/TG Dev Project (not just unselected domain items — full open-database sweep for CL/TG types).
-3. Clear `This Week` on any **Done** records still checked (stale bulk-close artifacts).
-4. **Toggl tasks** — same script chains `sync-dev-projects-toggl-tasks.mjs`: create/assign tasks for selected items; **delete** mirrored Toggl tasks (and clear `Toggl Task ID` on Dev Projects) for anything not on the slate.
+1. **Link** `📅 Week Tracker` = **planning week** on carryover + any roadmap/project picks only.
+2. **Clear** `📅 Week Tracker` on **every other open** CL/TG Task (full open-database sweep for CL/TG types → back to backlog).
+3. Clear `📅 Week Tracker` on any **Done** records still linked to the planning week (stale bulk-close artifacts).
+4. **Toggl tasks** — same script chains `sync-dev-projects-toggl-tasks.mjs`: create/assign tasks for selected items; **delete** mirrored Toggl tasks (and clear `Toggl Task ID` on Tasks) for anything not on the slate.
+
+*Pre-turnover: "keep finishing" items keep their current-week link untouched — the sync only manages the **planning-week** slate. The slate view = Tasks whose `📅 Week Tracker` = current week (`Is Current Week` rollup).*
 
 → Write `Dev Projects Intended` (snapshot), `Dev Priority Context`.
 
-**Present Table 2.1-S — This Week slate** *(CL + TG + Personal; must match Notion `This Week` filter exactly)*
+**Present Table 2.1-S — This Week slate** *(CL + TG + Personal; must match the `Is Current Week` / planning-week filter exactly)*
 
 Output of sync script — all domains. Aaron confirms before **2.2** (Todoist mirrors only if Personal items selected).
 
