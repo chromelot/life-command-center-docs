@@ -109,6 +109,15 @@
             { "metric": "personal.body_fat_pct", "field": "weekAvg", "label": "Body fat (avg)" }
           ]
         },
+        { "type": "section", "title": "Social" },
+        {
+          "type": "progressgroup",
+          "title": "Social vs weekly goal",
+          "span": 2,
+          "items": [
+            { "metric": "life.small_talk", "field": "week", "target": "goal.social_target", "label": "Small talk / sarges" }
+          ]
+        },
         { "type": "section", "title": "Nutrition — daily average" },
         {
           "type": "progressgroup",
@@ -167,11 +176,11 @@
           "span": 2,
           "items": [
             { "metric": "dev.workshop_min", "field": "week", "label": "Workshop" },
-            { "metric": "life.small_talk", "field": "week", "label": "Small talk" },
             { "metric": "dev.reading_min", "field": "week", "label": "Reading" }
           ]
         },
-        { "type": "section", "title": "This week's intentions" },
+        { "type": "section", "title": "Adjustments & experiments this week" },
+        { "type": "note", "text": "Qualitative focus only — the numeric targets live in the widgets above. These are the behavioral changes / experiments I'm making this week.", "span": 4 },
         { "type": "text", "title": "Week theme", "text_key": "text.week_intentions", "span": 4 },
         { "type": "text", "title": "Fitness", "text_key": "text.fitness_intentions", "span": 2 },
         { "type": "text", "title": "Sleep / schedule", "text_key": "text.sleep_intentions", "span": 2 },
