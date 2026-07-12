@@ -1169,7 +1169,7 @@
       "title": "Plan — Year",
       "icon": "📆",
       "periodMode": "year",
-      "subtitle": "Annual plan — year progress, goals by value, and scheduled project timeline.",
+      "subtitle": "Annual plan — year progress, goals by domain, and scheduled project timeline.",
       "widgets": [
         {
           "type": "yearprogress",
@@ -1177,7 +1177,7 @@
         },
         {
           "type": "section",
-          "title": "Goals by value"
+          "title": "Goals by domain"
         },
         {
           "type": "goalsbyvalue",
