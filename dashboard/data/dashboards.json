@@ -322,7 +322,7 @@
           "type": "pipedrivetoday",
           "span": 1,
           "metric": "dev.field_min",
-          "title": "Pipedrive"
+          "title": "Field"
         },
         {
           "type": "goal",
