@@ -137,9 +137,7 @@
           "label": "Cardio",
           "labelPrefix": "Cardio - ",
           "labelTextKey": "text.planned_cardio",
-          "complete": {
-            "kind": "cardio"
-          },
+          "pageKind": "cardio",
           "showWhen": {
             "anyPositive": [
               "life.planned_cardio_set",
