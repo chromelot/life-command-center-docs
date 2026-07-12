@@ -190,6 +190,72 @@
       ]
     },
     {
+      "id": "personal-month",
+      "group": "Personal",
+      "title": "Personal — Trends",
+      "icon": "\ud83d\udcc8",
+      "subtitle": "Weekly trends over the last ~12 weeks. Click a week on any chart to see what you did.",
+      "widgets": [
+        { "type": "section", "title": "Dev throughput / week" },
+        {
+          "type": "weektrend",
+          "title": "Completed tasks per week",
+          "weeks": 12,
+          "span": 4,
+          "series": [
+            { "metric": "dev.projects_done", "label": "Notion dev tasks", "color": "#4f8cff", "detail": "projects_done" },
+            { "metric": "ops.todoist_done", "label": "Todoist tasks", "color": "#39d98a", "detail": "todoist" }
+          ]
+        },
+        { "type": "section", "title": "Time / week" },
+        {
+          "type": "weektrend",
+          "title": "Dev & ops minutes per week",
+          "weeks": 12,
+          "span": 4,
+          "series": [
+            { "metric": "dev.total_dev_min", "label": "Total Dev", "color": "#4f8cff", "detail": "timepunches", "detailFilter": { "category": ["CL Dev", "TG Dev", "Systems"] } },
+            { "metric": "dev.total_ops_work_min", "label": "Total Ops Work", "color": "#f6c453", "detail": "timepunches", "detailFilter": { "category": ["Ops", "Field"] } }
+          ]
+        },
+        { "type": "section", "title": "Fitness & social / week" },
+        {
+          "type": "weektrend",
+          "title": "Workouts per week",
+          "weeks": 12,
+          "span": 2,
+          "series": [
+            { "metric": "life.strength_sessions", "label": "Strength", "color": "#4f8cff", "detail": "workouts", "detailFilter": { "type": ["Pull", "Push", "Legs", "Deadlift", "Full Body"] } },
+            { "metric": "life.cardio_sessions", "label": "Cardio", "color": "#39d98a", "detail": "workouts", "detailFilter": { "type": ["Cardio"] } }
+          ]
+        },
+        {
+          "type": "weektrend",
+          "title": "Small talk per week",
+          "weeks": 12,
+          "span": 2,
+          "series": [
+            { "metric": "life.small_talk", "label": "Small talk", "color": "#b57bff", "detail": "smalltalk" }
+          ]
+        },
+        { "type": "section", "title": "Body" },
+        {
+          "type": "weektrend",
+          "title": "Weight (weekly avg)",
+          "weeks": 12,
+          "span": 2,
+          "series": [{ "metric": "personal.weight_lbs", "label": "Weight (lb)", "color": "#f6c453" }]
+        },
+        {
+          "type": "weektrend",
+          "title": "Sleep (avg hrs / night)",
+          "weeks": 12,
+          "span": 2,
+          "series": [{ "metric": "personal.sleep_hours", "label": "Sleep (h)", "color": "#4f8cff" }]
+        }
+      ]
+    },
+    {
       "id": "weekly-work",
       "group": "Work",
       "title": "Chrome Lot — This Week",
