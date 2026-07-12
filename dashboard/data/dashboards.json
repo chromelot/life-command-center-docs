@@ -57,7 +57,7 @@
         { "type": "section", "title": "Fitness" },
         { "type": "goal", "metric": "life.strength_sessions", "field": "current", "target": 1, "weekTargetMetric": "goal.strength_target", "label": "Strength", "detail": "workouts", "detailFilter": { "type": ["Pull", "Push", "Legs", "Deadlift", "Full Body"] } },
         { "type": "goal", "metric": "life.cardio_sessions", "field": "current", "target": 1, "weekTargetMetric": "goal.cardio_target", "label": "Cardio", "detail": "workouts", "detailFilter": { "type": ["Cardio"] } },
-        { "type": "stat", "metric": "personal.steps", "field": "current", "label": "Steps", "showTrend": false },
+        { "type": "goal", "metric": "personal.steps", "field": "current", "target": 10000, "label": "Steps" },
         { "type": "section", "title": "Development work" },
         { "type": "stat", "metric": "dev.cl_dev_min", "field": "current", "label": "Chrome Lot", "showTrend": false, "detail": "timepunches", "detailFilter": { "category": ["CL Dev"] } },
         { "type": "stat", "metric": "dev.tg_dev_min", "field": "current", "label": "Turbo Gear", "showTrend": false, "detail": "timepunches", "detailFilter": { "category": ["TG Dev"] } },
@@ -86,6 +86,7 @@
       "icon": "\ud83c\udfaf",
       "subtitle": "This week's scorecard (starts Sunday) — where I'm on track and where to push. Same data as Today, pivoted to the week.",
       "widgets": [
+        { "type": "monthprogress", "span": 4 },
         { "type": "section", "title": "Morning — days done this week" },
         {
           "type": "progressgroup",
@@ -106,6 +107,14 @@
           "items": [
             { "metric": "life.strength_sessions", "field": "week", "target": "goal.strength_target", "label": "Strength", "detail": "workouts", "detailFilter": { "type": ["Pull", "Push", "Legs", "Deadlift", "Full Body"] } },
             { "metric": "life.cardio_sessions", "field": "week", "target": "goal.cardio_target", "label": "Cardio", "detail": "workouts", "detailFilter": { "type": ["Cardio"] } }
+          ]
+        },
+        {
+          "type": "progressgroup",
+          "title": "10k step days",
+          "span": 2,
+          "items": [
+            { "metric": "personal.steps_10k", "field": "week", "targetValue": 7, "format": "integer", "label": "Days ≥ 10k steps" }
           ]
         },
         {
