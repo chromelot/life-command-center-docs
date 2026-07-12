@@ -501,14 +501,170 @@
       ]
     },
     {
-      "id": "finance",
-      "group": "Personal",
-      "title": "Finance",
-      "icon": "\ud83d\udcb0",
-      "subtitle": "DEPRIORITIZED — populated once SimpleFIN is connected. See dev project subtasks.",
-      "hidden": false,
+      "id": "work-banking",
+      "group": "Work",
+      "title": "Chrome Lot — Banking",
+      "icon": "\ud83c\udfe6",
+      "subtitle": "Business cash & spend from connected bank accounts. QuickBooks stays the system of record for P&L.",
+      "rangeSelect": { "options": [30, 60, 90, 180, 365], "default": 30 },
       "widgets": [
-        { "type": "note", "text": "Financial widgets are deprioritized. Once SimpleFIN Bridge is connected on lcc-hub, add a finance-snapshot collector and reference finance.* metrics here (net worth, spend MTD, per-account balances, holdings). Tracked as sub-items under the dashboard Dev Project." }
+        { "type": "section", "title": "Cash position" },
+        { "type": "stat", "metric": "finance.biz_cash", "label": "Business cash", "span": 2, "field": "current", "detail": "finance_accounts_biz" },
+        { "type": "stat", "metric": "finance.biz_liabilities", "label": "Liabilities", "span": 1 },
+        { "type": "stat", "metric": "finance.biz_net", "label": "Net cash", "span": 1 },
+        {
+          "type": "rangetrend",
+          "title": "Business cash",
+          "span": 4,
+          "series": [{ "metric": "finance.biz_cash", "label": "Business cash", "color": "#4f8cff" }]
+        },
+        { "type": "section", "title": "Cash flow" },
+        {
+          "type": "group",
+          "title": "This month",
+          "span": 4,
+          "metrics": [
+            { "metric": "finance.biz_spend_mtd", "label": "Spend MTD" },
+            { "metric": "finance.biz_income_mtd", "label": "Income MTD" },
+            { "metric": "finance.biz_net_cashflow_mtd", "label": "Net flow MTD" },
+            { "metric": "finance.biz_account_count", "label": "Accounts" }
+          ]
+        },
+        {
+          "type": "rangesummary",
+          "title": "Spend vs income over the window",
+          "span": 4,
+          "items": [
+            { "metric": "finance.biz_spend_daily", "label": "Total spend", "mode": "total", "detail": "finance_spend_biz" },
+            { "metric": "finance.biz_income_daily", "label": "Total income", "mode": "total" }
+          ]
+        },
+        {
+          "type": "rangetrend",
+          "title": "Business spend vs income",
+          "chart": "bar",
+          "span": 4,
+          "series": [
+            { "metric": "finance.biz_spend_daily", "label": "Spend", "color": "#ff6b6b", "detail": "finance_spend_biz" },
+            { "metric": "finance.biz_income_daily", "label": "Income", "color": "#39d98a" }
+          ]
+        },
+        { "type": "section", "title": "Accounts & transactions" },
+        { "type": "table", "detail": "finance_accounts_biz", "title": "Business accounts", "allRows": true, "span": 2, "emptyText": "No business accounts classified yet. Tag Chase business accounts in dashboard/config/finance-accounts.json." },
+        { "type": "table", "detail": "finance_transactions_biz", "title": "Business transactions (window)", "window": true, "span": 2, "limit": 40, "emptyText": "No business transactions in this window." },
+        { "type": "note", "span": 4, "text": "Chase business accounts feed this board via SimpleFIN, classified in dashboard/config/finance-accounts.json. QuickBooks remains the system of record for P&L, categorization, and quarterly estimates (separate pipe — see context/work/finances/index.md)." }
+      ]
+    },
+    {
+      "id": "finance-overview",
+      "group": "Finance",
+      "title": "Finance — Overview",
+      "icon": "\ud83d\udcb0",
+      "subtitle": "Personal net worth, balances, and trend. Business banking lives under Chrome Lot \u203a Banking.",
+      "rangeSelect": { "options": [30, 90, 180, 365], "default": 90 },
+      "widgets": [
+        { "type": "section", "title": "Net worth" },
+        { "type": "stat", "metric": "finance.net_worth", "label": "Net worth", "span": 2, "field": "current", "detail": "finance_accounts" },
+        { "type": "stat", "metric": "finance.liabilities", "label": "Liabilities", "span": 1 },
+        { "type": "stat", "metric": "finance.account_count", "label": "Accounts", "span": 1 },
+        {
+          "type": "group",
+          "title": "Balances",
+          "span": 4,
+          "metrics": [
+            { "metric": "finance.liquid_cash", "label": "Liquid cash" },
+            { "metric": "finance.investments", "label": "Investments" },
+            { "metric": "finance.assets", "label": "Assets" },
+            { "metric": "finance.liabilities", "label": "Liabilities" }
+          ]
+        },
+        {
+          "type": "rangetrend",
+          "title": "Net worth, cash & investments",
+          "span": 4,
+          "series": [
+            { "metric": "finance.net_worth", "label": "Net worth", "color": "#39d98a" },
+            { "metric": "finance.liquid_cash", "label": "Liquid cash", "color": "#4f8cff" },
+            { "metric": "finance.investments", "label": "Investments", "color": "#b57bff" }
+          ]
+        },
+        { "type": "section", "title": "Accounts" },
+        { "type": "table", "detail": "finance_accounts", "title": "Personal accounts", "allRows": true, "span": 4, "emptyText": "No personal accounts yet — connect institutions in SimpleFIN, then rebuild." },
+        { "type": "note", "span": 4, "text": "Net-worth / cash trend is reconstructed from current balances + transaction history (exact for cash & credit; investment market drift between trades is approximate). Accounts are split personal vs business in dashboard/config/finance-accounts.json." }
+      ]
+    },
+    {
+      "id": "finance-spending",
+      "group": "Finance",
+      "title": "Finance — Spending",
+      "icon": "\ud83e\uddfe",
+      "subtitle": "Personal cash flow, categories, and recurring charges over the selected window.",
+      "rangeSelect": { "options": [30, 60, 90, 180, 365], "default": 30 },
+      "widgets": [
+        { "type": "section", "title": "This month" },
+        {
+          "type": "group",
+          "title": "Month to date",
+          "span": 4,
+          "metrics": [
+            { "metric": "finance.spend_mtd", "label": "Spend MTD" },
+            { "metric": "finance.income_mtd", "label": "Income MTD" },
+            { "metric": "finance.net_cashflow_mtd", "label": "Net cash flow" },
+            { "metric": "finance.recurring_count", "label": "Recurring" }
+          ]
+        },
+        { "type": "section", "title": "Over the selected window" },
+        {
+          "type": "rangesummary",
+          "title": "Spend vs income",
+          "span": 4,
+          "items": [
+            { "metric": "finance.spend_daily", "label": "Total spend", "mode": "total", "detail": "finance_spend" },
+            { "metric": "finance.income_daily", "label": "Total income", "mode": "total" }
+          ]
+        },
+        {
+          "type": "rangetrend",
+          "title": "Spend vs income",
+          "chart": "bar",
+          "span": 4,
+          "series": [
+            { "metric": "finance.spend_daily", "label": "Spend", "color": "#ff6b6b", "detail": "finance_spend" },
+            { "metric": "finance.income_daily", "label": "Income", "color": "#39d98a" }
+          ]
+        },
+        { "type": "section", "title": "By category" },
+        { "type": "grouptrend", "title": "Spending by category / week", "detail": "finance_spend", "groupBy": "category", "valueField": "amount", "weeks": 12, "span": 4 },
+        { "type": "section", "title": "Recurring & transactions" },
+        { "type": "table", "detail": "finance_recurring", "title": "Recurring merchants", "allRows": true, "span": 2, "emptyText": "No recurring charges detected yet (needs 2+ months of history)." },
+        { "type": "table", "detail": "finance_transactions", "title": "Transactions (window)", "window": true, "span": 2, "limit": 40, "emptyText": "No transactions in this window." }
+      ]
+    },
+    {
+      "id": "finance-investments",
+      "group": "Finance",
+      "title": "Finance — Investments",
+      "icon": "\ud83d\udcc8",
+      "subtitle": "Personal brokerage / retirement holdings, where SimpleFIN returns them.",
+      "widgets": [
+        { "type": "section", "title": "Portfolio" },
+        { "type": "stat", "metric": "finance.holdings_value", "label": "Portfolio value", "span": 2, "field": "current", "detail": "finance_holdings" },
+        { "type": "stat", "metric": "finance.holdings_gain", "label": "Unrealized gain", "span": 1 },
+        { "type": "stat", "metric": "finance.holdings_gain_pct", "label": "Gain %", "span": 1 },
+        {
+          "type": "group",
+          "title": "Basis",
+          "span": 4,
+          "metrics": [
+            { "metric": "finance.holdings_value", "label": "Market value" },
+            { "metric": "finance.holdings_cost", "label": "Cost basis" },
+            { "metric": "finance.holdings_gain", "label": "Unrealized gain" },
+            { "metric": "finance.investments", "label": "Investment balance" }
+          ]
+        },
+        { "type": "section", "title": "Holdings" },
+        { "type": "table", "detail": "finance_holdings", "title": "Holdings", "allRows": true, "span": 4, "emptyText": "No holdings returned yet. SimpleFIN exposes brokerage holdings for some institutions only." },
+        { "type": "note", "span": 4, "text": "Investment data is second-class in SimpleFIN — balances are reliable; per-lot holdings and cost basis vary by brokerage. For full portfolio analytics, add a broker CSV import later." }
       ]
     }
   ]
