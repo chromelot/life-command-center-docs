@@ -971,11 +971,24 @@ Source: `weekly-dev-review` § **Planning month — {domain}** (`🌙 Month` →
 
 **Empty Dev Project records** (no `Name` title): archive in Notion when detected — do not present.
 
-**Sync** *(after F + G/H confirmed — **run immediately**, approval before Notion writes)*
+**Table 2.1-J — Turbo Gear backlog (Pass 2 — bottom-up)** *(after Projects/Tasks are committed above; TG dev block only)*
+
+Passes 2.1-F→H are **top-down** (Projects + their Tasks). This is **bottom-up**: the standalone TG backlog (bugs / small features / optimizations with **no Project**). Run `node scripts/scan-tg-backlog.mjs` — it lists un-queued TG orphan roots **grouped by Priority (High → Medium → Low → Unset), oldest-first**, with a health line (counts + oldest-High age).
+
+Present **capacity-gated**: after Pass-1 TG commitments, estimate the **TG-dev hours left** in the sprint and surface only enough backlog to fill it — default cap **~3–5 items**, High/Medium first (Low only if capacity clearly allows). Letter each surfaced row. Flag any **High aging past ~14d** as "must address."
+
+| | |
+|---|---|
+| **A** | None this week — backlog stays as-is |
+| **(letters)** | Add selected orphan tasks to the sprint |
+
+Selected orphan IDs join the **Sync** `--selected` set below (they get `📅 Week Tracker` = planning week like any pick). If a High item is aging and repeatedly skipped, treat it like a 3×-deferred task (delegation/convert-to-Project or cut). Record the backlog health line in `Dev Priority Context`.
+
+**Sync** *(after F + G/H + J confirmed — **run immediately**, approval before Notion writes)*
 
 Execute `node scripts/sync-dev-projects-this-week.mjs --selected=<comma-separated page IDs>`:
 
-1. **Link** `📅 Week Tracker` = **planning week** on carryover + any roadmap/project picks only.
+1. **Link** `📅 Week Tracker` = **planning week** on carryover + roadmap/project picks (2.1-H) + TG backlog picks (2.1-J).
 2. **Clear** `📅 Week Tracker` on **every other open** CL/TG Task (full open-database sweep for CL/TG types → back to backlog).
 3. Clear `📅 Week Tracker` on any **Done** records still linked to the planning week (stale bulk-close artifacts).
 4. **Toggl tasks** — same script chains `sync-dev-projects-toggl-tasks.mjs`: create/assign tasks for selected items; **delete** mirrored Toggl tasks (and clear `Toggl Task ID` on Tasks) for anything not on the slate.

@@ -26,6 +26,8 @@
 - [Phase 3b: Idea Roadmap Scrub (~8 min)](#phase-3b-idea-roadmap-scrub-8-min)
   - [Procedure (run once per Domain, in this order: TG → CL → Personal)](#procedure-run-once-per-domain-in-this-order-tg-cl-personal)
   - [Sanity guardrails](#sanity-guardrails)
+- [Phase 3c: Turbo Gear Backlog Audit (~6 min) — step `3.3`](#phase-3c-turbo-gear-backlog-audit-6-min-step-33)
+  - [Procedure](#procedure-2)
 - [Phase 4: Sales Progress & Goals (~10 min)](#phase-4-sales-progress-and-goals-10-min)
   - [Pipeline Health](#pipeline-health)
   - [Activity Scorecard](#activity-scorecard)
@@ -159,6 +161,7 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 | `2.1` | Phase 2 Fitness | Yes — Table 2.1-A |
 | `3.1` | Phase 3 Dev goals | Yes |
 | `3.2` | Phase 3b Idea scrub | Yes — one Type per turn |
+| `3.3` | Phase 3c TG backlog audit | Yes — one item per turn |
 | `4.1`–`11.2` | Phases 4–11b | Yes — per Present map below |
 | `12.0` | Phase 12 Commit | Yes — Table 12.check + writes |
 
@@ -611,6 +614,27 @@ If no 3-week streaks: skip silently (~0 min).
 - Do not Roadmap an idea that overlaps an active Dev Project — link or Park as duplicate.
 
 **Outputs:** Roadmap status updates (Idea → Roadmapped / Paused). Delegated tasks in target systems. Hold notes for next month and quarterly candidate pool.
+
+<a id="phase-3c-turbo-gear-backlog-audit-6-min-step-33"></a>
+## Phase 3c: Turbo Gear Backlog Audit (~6 min) — step `3.3`
+
+**Purpose:** Groom the standalone **Tasks** backlog — TG bugs / small features / optimizations that have **no Project** (created ad-hoc, queued into sprints weekly in Pass 2). The weekly plan only *queues* from this backlog; **monthly is where it gets triaged** so the weekly list stays meaningful and nothing rots silently.
+
+**Data source:** `node scripts/scan-tg-backlog.mjs` — un-queued TG orphan roots grouped by Priority (High → Medium → Low → **Unset**), oldest-first, with health counts + oldest-High age.
+
+<a id="procedure-2"></a>
+### Procedure
+1. Run the scan; present the grouped list + health line.
+2. Triage **one item at a time via a lettered table** (never AskQuestion), prioritizing **Unset** items and **aging High**:
+   - **Flag** — set a **Priority** (High/Medium/Low) on any Unset item staying in the backlog.
+   - **Convert → Project** — if it's outgrown a small task (multi-step / strategic), promote it to a **Project** (or link to an existing one) so it's formally scheduled; it then leaves the orphan backlog.
+   - **Archive** — obsolete / duplicate / irrelevant → Status **Done** or archive the page (explicit approval).
+   - **Hold** — leave in backlog with its priority.
+3. Backlog-health guardrails:
+   - **High count rising month-over-month** or **oldest High > ~30d** → TG-dev capacity is under-allocated; raise in Phase 8b (domain health) and/or quarterly.
+   - **> ~30 open orphans** → bloat; force an aggressive archive / batch-convert pass.
+
+**Outputs:** Priority flags set; items converted to Projects or archived; backlog-health line noted for Phase 8b + the plan log.
 
 <a id="phase-4-sales-progress-and-goals-10-min"></a>
 ## Phase 4: Sales Progress & Goals (~10 min)
