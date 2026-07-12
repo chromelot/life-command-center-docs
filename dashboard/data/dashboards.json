@@ -19,10 +19,10 @@
           "title": "Morning stack",
           "span": 2,
           "items": [
-            { "metric": "life.supplements_done", "label": "Supplements" },
-            { "metric": "life.weigh_in_done", "label": "Weigh in" },
-            { "metric": "life.morning_journal_done", "label": "Morning journal" },
-            { "metric": "life.spirit_time_done", "label": "Spirit time" }
+            { "metric": "life.supplements_done", "label": "Supplements", "habit": "supplements" },
+            { "metric": "life.weigh_in_done", "label": "Weigh in", "habit": "weigh-in", "needs": "weight" },
+            { "metric": "life.morning_journal_done", "label": "Morning journal", "habit": "morning-journal" },
+            { "metric": "life.spirit_time_done", "label": "Spirit time", "habit": "spirit-time" }
           ]
         },
         { "type": "section", "title": "Fitness" },
