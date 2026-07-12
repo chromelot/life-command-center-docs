@@ -10,39 +10,53 @@
       "group": "Personal",
       "title": "Personal — Today",
       "icon": "\u2600\ufe0f",
-      "subtitle": "Today's priorities: movement, spirit, tracked time, and body basics.",
+      "subtitle": "How today is going, at a glance.",
       "widgets": [
-        { "type": "section", "title": "Did I move today?" },
+        { "type": "section", "title": "Morning" },
+        {
+          "type": "checklist",
+          "title": "Morning stack",
+          "span": 2,
+          "items": [
+            { "metric": "life.supplements_done", "label": "Supplements" },
+            { "metric": "life.weigh_in_done", "label": "Weigh in" },
+            { "metric": "life.morning_journal_done", "label": "Morning journal" },
+            { "metric": "life.spirit_time_done", "label": "Spirit time" }
+          ]
+        },
+        { "type": "section", "title": "Fitness" },
         { "type": "goal", "metric": "life.strength_sessions", "field": "current", "target": 1, "label": "Strength" },
         { "type": "goal", "metric": "life.cardio_sessions", "field": "current", "target": 1, "label": "Cardio" },
-        { "type": "stat", "metric": "life.spirit_min", "field": "current", "label": "Spirit", "showTrend": true },
-        { "type": "stat", "metric": "life.morning_stack_pct", "field": "current", "label": "Morning Stack", "showTrend": false },
-        { "type": "section", "title": "Time tracked today" },
+        { "type": "stat", "metric": "personal.steps", "field": "current", "label": "Steps", "showTrend": false },
+        { "type": "section", "title": "Development work" },
         {
           "type": "group",
           "metrics": [
             { "metric": "dev.total_dev_min", "field": "current", "label": "Total Dev", "showTrend": false },
-            { "metric": "dev.workshop_min", "field": "current", "label": "Workshop", "showTrend": false },
-            { "metric": "dev.ops_min", "field": "current", "label": "Ops", "showTrend": false },
-            { "metric": "dev.admin_min", "field": "current", "label": "Admin", "showTrend": false },
-            { "metric": "dev.reading_min", "field": "current", "label": "Reading", "showTrend": false }
+            { "metric": "dev.cl_dev_min", "field": "current", "label": "Chrome Lot", "showTrend": false },
+            { "metric": "dev.tg_dev_min", "field": "current", "label": "Turbo Gear", "showTrend": false },
+            { "metric": "dev.systems_min", "field": "current", "label": "Systems", "showTrend": false }
           ]
         },
-        { "type": "section", "title": "Body" },
+        { "type": "section", "title": "Ops" },
         {
           "type": "group",
           "metrics": [
-            { "metric": "personal.weight_lbs", "field": "current", "label": "Weigh-in", "showTrend": true },
-            { "metric": "personal.sleep_hours", "field": "current", "label": "Sleep", "showTrend": true },
-            { "metric": "personal.steps", "field": "current", "label": "Steps", "showTrend": true },
-            { "metric": "personal.resting_hr", "field": "current", "label": "Resting HR", "showTrend": true }
+            { "metric": "ops.todoist_done", "field": "current", "label": "Todoist Done", "showTrend": false },
+            { "metric": "dev.ops_min", "field": "current", "label": "Ops Time", "showTrend": false },
+            { "metric": "dev.field_min", "field": "current", "label": "Field Time", "showTrend": false },
+            { "metric": "dev.total_work_min", "field": "current", "label": "Total Work", "showTrend": false }
           ]
         },
-        { "type": "section", "title": "Trends" },
-        { "type": "trend", "metric": "personal.weight_lbs", "range": 60, "chart": "line", "span": 2 },
-        { "type": "trend", "metric": "personal.body_fat_pct", "range": 60, "chart": "line", "span": 2 },
-        { "type": "trend", "metric": "personal.sleep_hours", "range": 30, "chart": "bar", "span": 2 },
-        { "type": "trend", "metric": "personal.steps", "range": 30, "chart": "bar", "span": 2 }
+        { "type": "section", "title": "Workshop & extras" },
+        {
+          "type": "group",
+          "metrics": [
+            { "metric": "dev.workshop_min", "field": "current", "label": "Workshop", "showTrend": false },
+            { "metric": "life.small_talk", "field": "current", "label": "Small Talk", "showTrend": false },
+            { "metric": "dev.reading_min", "field": "current", "label": "Reading", "showTrend": false }
+          ]
+        }
       ]
     },
     {
