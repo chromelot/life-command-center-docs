@@ -26,16 +26,7 @@
               "metric": "life.spirit_time_done",
               "label": "Spirit time",
               "habit": "spirit-time",
-              "needs": "form",
-              "form": {
-                "title": "Log spirit time",
-                "fields": [
-                  { "key": "type", "label": "Practice", "type": "select", "required": true, "placeholder": "Pick one", "options": ["Meditation", "Reading", "Yoga", "Prayer", "Breathwork", "Journaling", "Other"] },
-                  { "key": "what", "label": "What you did", "type": "text", "placeholder": "e.g. Headspace morning session" },
-                  { "key": "minutes", "label": "Minutes", "type": "number", "min": 1, "max": 300, "required": true, "placeholder": "e.g. 15" },
-                  { "key": "notes", "label": "Notes on the experience", "type": "textarea", "placeholder": "How it felt, anything notable…" }
-                ]
-              }
+              "openTimeLog": { "filterCategory": "Spirit", "timerCategory": "Spirit", "habitOnLog": "spirit-time", "preset": { "category": "Spirit", "name": "Spirit" } }
             },
             {
               "metric": "life.plan_workout_done",
