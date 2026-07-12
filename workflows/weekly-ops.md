@@ -66,9 +66,9 @@ This skill activates when Aaron says **"weekly ops"**, **"ops review"**, **"CL o
 <a id="domain-map-dev-projects-alignment"></a>
 ## Domain map — Dev Projects alignment
 
-This session audits **`Create, and Audit Weekly Ops Plan`** and its sub-items in **Dev Projects** (`341f40c2-487b-80ac`). Each sub-item maps to a dedicated workflow phase:
+This session audits **`Create, and Audit Weekly Ops Plan`** and its sub-items in **Tasks** (`341f40c2-487b-80ac`). Each sub-item maps to a dedicated workflow phase:
 
-| Dev Projects sub-item | Workflow phase | Ledger step(s) |
+| Task sub-item | Workflow phase | Ledger step(s) |
 |---|---|---|
 | *(cross-cutting)* Work summary + ops foundation | Phase 1 — Work Summary | `1.1`, `1.2`, `1.3` |
 | Hiring | Phase 2 — Hiring | `2.1` |
@@ -82,7 +82,7 @@ This session audits **`Create, and Audit Weekly Ops Plan`** and its sub-items in
 
 Department **Health** / **Priority** is confirmed or updated **in the phase for that department** — not a separate cross-cutting phase. See [`work-management.md`](../../work/chrome-lot/work-management.md) department→phase map.
 
-Sub-items under **1:1 meetings** (e.g. remote transitions) are handled in Phase 5. **LESA Reshoot fixes** and other root-level Dev Projects are out of scope for this workflow unless surfaced in RED FLAGS. Dev Projects sub-item may still read **Workload & Hiring** — workflow phase title is **Hiring**.
+Sub-items under **1:1 meetings** (e.g. remote transitions) are handled in Phase 5. **LESA Reshoot fixes** and other root-level Tasks are out of scope for this workflow unless surfaced in RED FLAGS. Task sub-item may still read **Workload & Hiring** — workflow phase title is **Hiring**.
 
 <a id="inputs"></a>
 ## Inputs
@@ -372,7 +372,7 @@ COMPLETED ACTIVITIES — WEEK-OVER-WEEK
 
 2. Summarize **backups required** for the week — which day(s), which backup-tier photographers (`field_1209` contains Backup), and whether coverage was adequate.
 
-3. From briefing **CL DEPARTMENTS** + **HIRING ACTIVE** (Knack hiring app) + Phase 2.1 / Phase 8 context, recommend an **ops priority** for the planning week.
+3. From briefing **DEPARTMENTS** + **HIRING ACTIVE** (Knack hiring app) + Phase 2.1 / Phase 8 context, recommend an **ops priority** for the planning week.
 
 **Table 1.3-B — Ops priority this week** *(single-select — reply with letter)*
 
@@ -397,7 +397,7 @@ If **HIRING ACTIVE: no**, do not offer **B** — choose A, C, or D only.
 <a id="hiring-21"></a>
 ### Hiring (`2.1`)
 
-**Purpose:** Review **active job posts**, the **health of each ad**, and application import cadence — decide actions to keep the pipeline healthy (repost jobs, step in on applicant review, or redelegate review). Covers **Hiring** Dev Project sub-item (may still be named Workload & Hiring in Notion).
+**Purpose:** Review **active job posts**, the **health of each ad**, and application import cadence — decide actions to keep the pipeline healthy (repost jobs, step in on applicant review, or redelegate review). Covers **Hiring** Task sub-item (may still be named Workload & Hiring in Notion).
 
 **Data source:** Briefing **HIRING — KNACK HIRING APP** (open positions `object_2`, job ads `object_23` field_453, applications `object_4` field_113). See [`work-management.md`](../../work/chrome-lot/work-management.md).
 
@@ -438,7 +438,7 @@ If **zero** pipeline issues: single row `Hiring pipeline healthy — no actions`
 | Department | Health | Priority | Change? | Reason |
 |------------|--------|----------|---------|--------|
 
-Confirm or update each on CL Departments with approval (one department per turn when changing).
+Confirm or update each on Departments with approval (one department per turn when changing).
 
 **Outputs:** Todoist tasks for repost/review handoffs; Process Street **Daily Hiring Follow Up** nudge if standing workflow stale (case-by-case approval).
 
@@ -447,7 +447,7 @@ Confirm or update each on CL Departments with approval (one department per turn 
 <a id="phase-3-photographer-management-8-min"></a>
 ## Phase 3: Photographer Management (~8 min)
 
-**Purpose:** Field photographer roster, perf-meeting cadence, and active monitoring — covers **Photographer Management** Dev Project sub-item.
+**Purpose:** Field photographer roster, perf-meeting cadence, and active monitoring — covers **Photographer Management** Task sub-item.
 
 **Data source:** Briefing **PHOTOGRAPHER MANAGEMENT** (Knack `object_7` roster, `field_985` since 1:1, monitoring flags). See [`operations.md`](../../work/chrome-lot/operations.md).
 
@@ -481,14 +481,14 @@ Confirm or update each on CL Departments with approval (one department per turn 
 
 If **zero** perf-behind and **zero** monitoring: note "Photographer roster confirmed — no flags" and continue.
 
-**Department health — Photographer Management:** Present **Table 2.4-H** (same contract as Table 2.3-H). Confirm or update on CL Departments with approval.
+**Department health — Photographer Management:** Present **Table 2.4-H** (same contract as Table 2.3-H). Confirm or update on Departments with approval.
 
 **Advance:** `2.4`
 
 <a id="phase-4-social-media-10-min"></a>
 ## Phase 4: Social Media (~10 min)
 
-**Purpose:** Social product **P&L** (billing vs expenses), **per-account posting coverage**, and pipeline currency — covers **Social Media** Dev Project sub-item. **Behind tracking:** active accounts with **zero posts in review week**, plus deal gaps / stale PD activity — one flagged account per turn.
+**Purpose:** Social product **P&L** (billing vs expenses), **per-account posting coverage**, and pipeline currency — covers **Social Media** Task sub-item. **Behind tracking:** active accounts with **zero posts in review week**, plus deal gaps / stale PD activity — one flagged account per turn.
 
 **Data source:** Briefing **SOCIAL MEDIA — PIPELINE & POSTING** (P&L, active account posting table, Pipedrive pipeline 13 + Knack `object_65` / `object_21` / `object_25`). See [`social-media.md`](../../work/chrome-lot/social-media.md).
 
@@ -554,16 +554,16 @@ If **zero** MISSING rows: single row `All active accounts posted in review week`
 
 If **zero** gap, stale, and missing-post flags: note pipeline confirmed and continue to dept health.
 
-**Department health — Social Media:** Present **Table 6.2-H** (same contract as Table 2.3-H). Confirm or update on CL Departments with approval.
+**Department health — Social Media:** Present **Table 6.2-H** (same contract as Table 2.3-H). Confirm or update on Departments with approval.
 
 **Advance:** `6.2`
 
 <a id="phase-5-11-meetings-5-min"></a>
 ## Phase 5: 1:1 Meetings (~5 min)
 
-**Purpose:** Relationship cadence and scheduled check-ins — covers **1:1 meetings** Dev Project sub-item (including sub-tasks like remote transitions). **Behind tracking:** overdue 1:1 visits live here — not in a central currency pass.
+**Purpose:** Relationship cadence and scheduled check-ins — covers **1:1 meetings** Task sub-item (including sub-tasks like remote transitions). **Behind tracking:** overdue 1:1 visits live here — not in a central currency pass.
 
-**Data source:** `context/people/index.md` (1:1 cadence + last-meeting dates) + briefing RED FLAGS if present + Dev Projects sub-items under **1:1 meetings** with `This Week` checked.
+**Data source:** `context/people/index.md` (1:1 cadence + last-meeting dates) + briefing RED FLAGS if present + Tasks sub-items under **1:1 meetings** with `This Week` checked.
 
 <a id="11-meetings-71"></a>
 ### 1:1 Meetings (`7.1`)
@@ -571,11 +571,11 @@ If **zero** gap, stale, and missing-post flags: note pipeline confirmed and cont
 1. Pull everyone **overdue for a 1:1** per people directory cadence (days since last 1:1 vs. target interval).
 2. Present **Table 7-A0 — Late 1:1 summary:**
 
-| Person | Days overdue | Last 1:1 | Target cadence | Dev Project sub-item? |
+| Person | Days overdue | Last 1:1 | Target cadence | Task sub-item? |
 |--------|--------------|----------|----------------|----------------------|
 
 3. Review **one overdue person per turn** when count > 0 — schedule, delegate prep, or explicit defer with reason in `Key Decisions`.
-4. Cross-check Dev Projects **1:1 meetings** sub-items flagged `This Week`
+4. Cross-check Tasks **1:1 meetings** sub-items flagged `This Week`
 5. Pick top 1–2 overdue 1:1s (and any required transition meetings) to schedule this week
 6. Any delegation decisions from earlier phases that need to be communicated in 1:1s
 
@@ -666,7 +666,7 @@ If **zero** customers HJD > 10: single row `No HJD flags` and continue.
 
 **Knack reference:** `field_1035` High Job Days — see [`knack-fields.md`](../../systems/knack-fields.md).
 
-**Department health — Customer Service:** From briefing **CL DEPARTMENTS**. Compare to Phase 6 evidence. Present **Table 2.3-H**:
+**Department health — Customer Service:** From briefing **DEPARTMENTS**. Compare to Phase 6 evidence. Present **Table 2.3-H**:
 
 | Health | Priority | Change? | Reason |
 |--------|----------|---------|--------|
@@ -678,7 +678,7 @@ If **Health** or **Priority** changes: lettered confirm → **`personal_notion_u
 <a id="phase-7-finance-and-admin-8-min"></a>
 ## Phase 7: Finance & Admin (~8 min)
 
-**Purpose:** Invoice accountability, QuickBooks admin currency (placeholder), and admin dept health — covers **Finance & Admin** Dev Project sub-item.
+**Purpose:** Invoice accountability, QuickBooks admin currency (placeholder), and admin dept health — covers **Finance & Admin** Task sub-item.
 
 **Data source:** `output/weekly-ops-briefing-YYYY-MM-DD.md` (Knack invoice fields, outstanding invoice aging, **ADMIN — QUICKBOOKS & QUARTERLY ESTIMATES**, Todoist overdue admin tasks).
 
@@ -713,7 +713,7 @@ If **Health** or **Priority** changes: lettered confirm → **`personal_notion_u
 
 **Outputs:** Pipedrive escalation activities for invoice issues. Todoist admin follow-ups if needed (case-by-case approval).
 
-**Department health — Admin:** Present **Table 4-H** (same contract as Table 2.3-H). Confirm or update on CL Departments with approval.
+**Department health — Admin:** Present **Table 4-H** (same contract as Table 2.3-H). Confirm or update on Departments with approval.
 
 **Advance:** `4.1`
 
@@ -823,14 +823,14 @@ If **zero** overdue: single row `No overdue PD flags` and continue.
 
 **Outputs:** Pipedrive activities for Aaron's sales stops. Pipedrive activities or nudges for team sales. Todoist tasks for follow-ups (case-by-case approval).
 
-**Department health — Account Management:** Present **Table 3-H** (same contract as Table 2.3-H). Confirm or update on CL Departments with approval.
+**Department health — Account Management:** Present **Table 3-H** (same contract as Table 2.3-H). Confirm or update on Departments with approval.
 
 **Advance:** `3.2`
 
 <a id="phase-9-post-production-5-min"></a>
 ## Phase 9: Post Production (~5 min)
 
-**Purpose:** Editor/QA delivery backlog — covers **Post Production** Dev Project sub-item.
+**Purpose:** Editor/QA delivery backlog — covers **Post Production** Task sub-item.
 
 **Data source:** Briefing RED FLAGS + `weekly-data-pull.mjs` sections: **QA ISSUES LAST 7 DAYS**, outstanding invoice aging (editor billing context), any reshoot flags.
 

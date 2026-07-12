@@ -62,7 +62,7 @@ Load via the router:
 - `context/self/values.md` — six categories, Pictures of Success, current Health statuses
 - `context/self/current-priorities.md` — what's hot this quarter (will be updated in Part E)
 - `context/self/spiritual.md` + `fitness.md` + `social.md` + `parenting.md` + `admin.md` + `dating.md` — operational rules per category, used in Part C personal block
-- `context/systems/notion-databases.md` — Quarter Tracker (plan content lives on the page + `Plan Doc URL` PDF; Quarterly Outcomes DB retired), Dev Projects, Quarterly Meeting Log, Monthly + Weekly Meeting Logs, all source DBs
+- `context/systems/notion-databases.md` — Quarter Tracker (plan content lives on the page + `Plan Doc URL` PDF; Quarterly Outcomes DB retired 2026-07-11), Tasks, Projects, Quarterly Meeting Log, Monthly + Weekly Meeting Logs, all source DBs
 - `context/systems/pipedrive.md` + `knack-fields.md` + `hubstaff.md` + `health-data.md` — data sources for the numeric retrospective
 - `context/systems/capacity-rules.md` — Part D capacity check, Part E intervention naming
 - `context/systems/cadences.md` — Part E cadence calibration
@@ -225,10 +225,10 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 
 When reviewing or planning projects in any phase:
 
-1. **Never infer status from context or chat history.** Always read the project's actual Status and Completion rollup from the Dev Projects DB. If a project has open sub-items, it is not Done regardless of what prior messages implied.
+1. **Never infer status from context or chat history.** Always read the project's actual Status and Completion rollup from the Tasks DB. If a project has open sub-items, it is not Done regardless of what prior messages implied.
 2. **Use the `Completion` rollup** (percent of sub-items at Status=Done) as the primary indicator of real progress. A project at 80%+ Completion with remaining sub-items is a candidate for either (a) finishing the last mile or (b) scoping the remainder into its own follow-up project.
-3. **Ask before guessing scope.** If a project's size, effort, or dependencies aren't clear from the Dev Projects data, ask Aaron before deciding whether to keep, drop, or add it. Offer AskQuestion with specific scope options.
-4. **Set a Due Date on every project assigned to the current quarter.** The Dev Projects DB has a `Due Date` date property. In Phase 10, walk through each assigned project and either set the date or mark Off Track if the date can't be committed. Projects tagged to future quarters don't need a due date yet.
+3. **Ask before guessing scope.** If a project's size, effort, or dependencies aren't clear from the Tasks data, ask Aaron before deciding whether to keep, drop, or add it. Offer AskQuestion with specific scope options.
+4. **Set a Due Date on every project assigned to the current quarter.** The Tasks DB has a `Due Date` date property. In Phase 10, walk through each assigned project and either set the date or mark Off Track if the date can't be committed. Projects tagged to future quarters don't need a due date yet.
 5. **Set the `Date` (start+end) on every committed project** — this populates the [Roadmap — Timeline](https://notion.so/39bf40c2487b8188bc05d953ac5d8802) and forces sequencing. Link each committed project to its **`🥅 Goals`** (or mark it conscious no-goal maintenance).
 
 <a id="goal-trajectory-review-part-a-look-back-before-committing-in-part-d"></a>
@@ -474,7 +474,7 @@ Each domain block follows the same shape: context recap → name a theme → wal
 
 This sentence gets written as a callout at the top of the **Personal** section on the Quarter Tracker page in Phase 11.
 
-**7C: Personal Roadmap (6 min).** Walk the Dev Projects roadmap view for the personal-side domains — Type ∈ {Systems, Workshop, Admin} -- all statuses, all quarter assignments. (Systems = deep-work infrastructure; Workshop = capped QoL/hobby; Admin = life/legal.) For each live project, decide:
+**7C: Personal Projects (6 min).** Walk the Tasks DB for the personal-side domains — Domain ∈ {Systems, Workshop, Admin} -- all statuses, all quarter assignments. (Systems = deep-work infrastructure; Workshop = capped QoL/hobby; Admin = life/legal.) For each live project, decide:
 
 - Assign to Q[next] (active this quarter)
 - Assign to Q[next+1] / Q[next+2] / Q[next+3] (on the roadmap, not now)
@@ -503,7 +503,7 @@ Edit dept pages via `personal_notion_update_page`.
 
 Written as a callout at the top of the **Chrome Lot** section on the Quarter Tracker page in Phase 11.
 
-**8C: CL Roadmap (6 min).** Walk the Dev Projects roadmap view with Type=Chrome Lot -- all statuses, all quarter assignments. Same decision tree as 7C: Q[next], a future quarter, someday/Idea, or archive. Every live project ends with a clear home.
+**8C: CL Projects (6 min).** Walk the Tasks DB with Domain=Chrome Lot -- all statuses, all quarter assignments. Same decision tree as 7C: Q[next], a future quarter, someday/Idea, or archive. Every live project ends with a clear home.
 
 **CL No-List:** name 2-3 CL things deliberately not happening this year. Examples: "No new service line expansion this year." "Not hiring another senior until the ones we have are back on track." Written under **Chrome Lot** on the Quarter Tracker page in Phase 11.
 
@@ -519,11 +519,11 @@ Written as a callout at the top of the **Chrome Lot** section on the Quarter Tra
 
 Written as a callout at the top of the **Turbo Gear** section on the Quarter Tracker page in Phase 11.
 
-**9C: TG Roadmap (6 min).** Walk the Dev Projects roadmap view with Type=Turbo Gear. Same decision tree as 7C/8C.
+**9C: TG Projects (6 min).** Walk the Tasks DB with Domain=Turbo Gear. Same decision tree as 7C/8C.
 
 **TG No-List:** name 2-3 TG things deliberately not happening this year. Examples: "No new integrations until Knack parity is done." "Not building billing until first external customer commits." Written under **Turbo Gear** on the Quarter Tracker page in Phase 11.
 
-**Roadmap tagging rules (apply in 7C, 8C, 9C):**
+**Project assignment rules (apply in 7C, 8C, 9C):**
 - Every live project ends with either a `🍁 Quarter` relation or an explicit kill decision.
 - Projects moved to a future quarter are real commitments, not wishes -- only assign if you'd take the same project this quarter if capacity allowed.
 - The no-lists are not aspirational -- name things you can feel yourself being tempted to do but shouldn't.
@@ -697,7 +697,7 @@ These are the dates that get eaten first when things get busy. Block them now so
 - **Pre-Flight:** Withings refreshed; watch data persisted where possible; MCP `health_get_summary({ days: 200 })`; parallel data pulls oriented to Q transition.
 - **Part A Phase 1–3:** Narrative Lessons Learned captured for Phase 14; Picture of Success updates applied in Notion; numeric retrospective tables; 2–3 named priority metrics for Q[next].
 - **Part B Phase 4–6:** Relationship action commitments; environment narrative captured to Quarterly Meeting Log in Phase 14; Hubstaff/calendar gap surfaced.
-- **Part C Phase 7–9:** Per-domain plan scaffolding (themes, no-lists prepared for Phase 11); Dev Projects quarter assignments cleared for every live row; Quarter Tracker futures created where missing.
+- **Part C Phase 7–9:** Per-domain plan scaffolding (themes, no-lists prepared for Phase 11); Tasks quarter assignments cleared for every live row; Quarter Tracker futures created where missing.
 - **Part D Phase 10–11:** Current-quarter commits (6–10 projects), Due Dates, KPI targets with instrumentation gate; per-domain sections written on the Quarter Tracker page + printable PDF rendered (`Plan Doc URL`).
 - **Part E Phase 13b:** Priority Stack + Domains Parked captured (session state).
 - **Part E Phase 12–14:** Calendar infrastructure for quarter/cadences; Quarterly Meeting Log entry with full rollup + planning context fields + Team Activity Details; context updates (`values.md`, `current-priorities.md`, `capacity-rules.md`, `people/index.md`).

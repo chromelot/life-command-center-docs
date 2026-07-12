@@ -22,7 +22,7 @@ These rules exist because Aaron's #1 failure mode is overcommitment: trying to d
 - 5:30-7:00 AM — Reflection, reading, morning routine (protected, no work)
 - 7:00-8:30 AM — Gym workout (protected, no distractions)
 - On demand — CL Bot `today` / `deal gaps` (replaces retired 9am Morning DM)
-- 9:00-12:00 PM — **Dev block** (current task from dev queue, see `../work/turbo-gear/` and `../work/chrome-lot/` Dev Projects)
+- 9:00-12:00 PM — **Dev block** (current task from dev queue, see `../work/turbo-gear/` and `../work/chrome-lot/` Tasks)
 - 12:00-1:00 PM — Lunch + Todoist quick tasks
 - 1:00-4:00 PM — Operations, meetings, Pipedrive activities, field work
 - 4:00-5:00 PM — Todoist cleanup, respond to messages, handle subordinate needs
@@ -38,7 +38,7 @@ These rules exist because Aaron's #1 failure mode is overcommitment: trying to d
 
 ### Dev block
 
-- Dev block works on projects selected for the week via the **This Week** checkbox in Dev Projects (`341f40c2-487b-80ac`)
+- Dev block works on projects selected for the week via the **This Week** checkbox in Tasks (`341f40c2-487b-80ac`)
 - Weekly meeting selects 1-3 projects using the One Thing Framework
 - Selection pulls only from current quarter's docket
 
@@ -80,7 +80,7 @@ When detected, the system **must** intervene with a specific cut recommendation,
 - >5 tasks rescheduled 3+ times this week
 - Pipedrive activities not touched in >5 days
 - 1:1 meetings overdue >2 weeks for any team member
-- No Dev Projects had This Week checked last week (no project focus)
+- No Tasks had This Week checked last week (no project focus)
 
 ### Monthly intervention (raised in strategy review)
 
@@ -119,7 +119,7 @@ The weekly plan must check **before finalizing**:
 - **Total weekly hours**: Sum of all planned work (dev + ops + field + meetings) **must not exceed 40h**; recommend cuts if over
 - **Deferred task check**: Any task deferred 3+ times must route through delegation framework before rescheduling again
 - **CS stop delegation**: Weekly CS check-in batch (6-9 stops) **must distribute across team**, not pile on Aaron
-- **Dev projects**: 1-3 selected via This Week. One Thing Framework applied.
+- **Tasks**: 1-3 selected via This Week. One Thing Framework applied.
 
 ## Intervention protocol
 
@@ -132,13 +132,13 @@ When a trigger fires, the AI **must**:
 
 ## Project management workflow
 
-Aaron's projects are tracked in **Dev Projects DB** (`341f40c2-487b-80ac`), unified across Personal / Chrome Lot / Turbo Gear. CL Internal Projects (`30df40c2`) remains a separate lightweight DB for CL ops improvements.
+Aaron's projects are tracked in **Tasks DB** (`341f40c2-487b-80ac`), unified across Personal / Chrome Lot / Turbo Gear. CL Internal Projects (`30df40c2`) remains a separate lightweight DB for CL ops improvements.
 
 ### Quarterly → Weekly → Daily flow
 
-1. **Quarterly plan:** Roadmap → Roadmapped + Target Quarter; themes on Outcomes; ▶ Start top items to Dev Projects
-2. **Monthly plan:** `roadmap-replot-report.mjs`; extend Behind item dates + align quarters; promote into Dev Projects + `🌙 Month`
-3. **Weekly plan:** Dev Projects `This Week` only (execution)
+1. **Quarterly plan:** Projects → Roadmapped + Target Quarter; themes on Quarter Tracker page; ▶ Start top items to Tasks
+2. **Monthly plan:** `roadmap-replot-report.mjs`; extend Behind item dates + align quarters; promote into Tasks + `🌙 Month`
+3. **Weekly plan:** Tasks `This Week` only (execution)
 4. **Daily dev block:** work on `This Week` + Status = In progress
 
 Roadmap layer: [horizon-roadmap.md](horizon-roadmap.md)

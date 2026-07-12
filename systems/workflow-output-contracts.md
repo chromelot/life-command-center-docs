@@ -35,7 +35,7 @@ Every user-facing sub-step should define:
 
 ### Weekly ops reference
 
-`context/skills/weekly-ops/SKILL.md` — same pattern; ledger steps `1.1`–`1.3`, then `2.1`, `2.4`, `6.2`, `7.1`, `2.2`–`2.3`, `4.1`–`4.2`, `3.1`–`3.2`, `6.1` map to named tables (aligned to Dev Projects sub-items under **Create, and Audit Weekly Ops Plan**). Phase 1.3 = daily ops records + ops priority; Phase 2 = Hiring; Phase 3 = Photographer Management; Phase 4 = Social Media; Phase 5 = 1:1; Phase 6 = CS; Phase 7 = Finance (4.2 = QuickBooks placeholder); Phase 8 = Sales; Phase 9 = Post Production; department Health/Priority confirmed in each domain phase (no separate health phase).
+`context/skills/weekly-ops/SKILL.md` — same pattern; ledger steps `1.1`–`1.3`, then `2.1`, `2.4`, `6.2`, `7.1`, `2.2`–`2.3`, `4.1`–`4.2`, `3.1`–`3.2`, `6.1` map to named tables (aligned to Tasks under **Create, and Audit Weekly Ops Plan**). Phase 1.3 = daily ops records + ops priority; Phase 2 = Hiring; Phase 3 = Photographer Management; Phase 4 = Social Media; Phase 5 = 1:1; Phase 6 = CS; Phase 7 = Finance (4.2 = QuickBooks placeholder); Phase 8 = Sales; Phase 9 = Post Production; department Health/Priority confirmed in each domain phase (no separate health phase).
 
 ## Section completion checklist (before every `advance`)
 
@@ -113,16 +113,16 @@ Monthly/quarterly: contracts in each `SKILL.md` **Present exactly** map + phase 
 **Dev tracker rule (weekly plan Phase 2):**
 
 - **0a:** `weekly-plan-weeks.mjs` → Aaron confirms Review + Planning Week Tracker rows before any pull.
-- **2.1-A (review):** Queued dev work = Dev Projects on review-week `📅 Week Tracker` (ledger `review_week_page_id`) — **Chrome Lot · Turbo Gear · Personal (Admin)**.
+- **2.1-A (review):** Queued dev work = Tasks on review-week `📅 Week Tracker` (ledger `review_week_page_id`) — **Chrome Lot · Turbo Gear · Personal (Admin)**.
 - **2.1-C (accomplished):** Content now **2.1-F Turn 1** — same tree with ~~strikethrough~~ on Done; all three types.
 - **2.1-D (dev health):** Agent summarizes output, time, and month-goal progress; Aaron rates Healthy/Unhealthy. No agent recommendations.
 - **2.1-E (adjustments):** **Only if Unhealthy.** Aaron states commitments; agent captures verbatim — never proposes adjustments.
-- **2.1-F (plan close-out):** Turn 1 = accomplished · Turn 2 = still open + mark-Done letters · Turn 3 = carryover A/B · then **2.1-G/H** = roadmap adds. All three Dev Project types in one flow.
+- **2.1-F (plan close-out):** Turn 1 = accomplished · Turn 2 = still open + mark-Done letters · Turn 3 = carryover A/B · then **2.1-G/H** = project adds. All three Task types in one flow.
 - **2.1-S / 2.2:** Sync covers CL/TG/Personal in one `--selected` pass. **2.2** = Todoist mirror check for selected Personal items (carryover selection is in 2.1-F).
 - **2.check:** One bulleted tree (CL/TG + Personal) must **exactly match** Notion `This Week` filtered view before Phase 4.
 - **4b:** `weekly-plan-week-summary.mjs --ledger` → writes to **planning week** from step 0a (print PDF + `Plan Records/weekly/` + `Plan Doc URL` + Notion `Weekly Plan` section). **Mid-session:** `weekly-plan-section-preview.mjs --section <slug>` before advancing; optional `--all` before 4b.
-- **2.2-A/C:** Planning month Personal Dev Projects (`🌙 Month`) — no free-text monthly priorities.
-- **Monthly plan 11b:** Link up to 5 root Dev Projects + open sub-items to planning month (`scripts/sync-dev-projects-month.mjs --include-descendants`). Priority Stack text deprecated.
+- **2.2-A/C:** Planning month Personal Tasks (`🌙 Month`) — no free-text monthly priorities.
+- **Monthly plan 11b:** Link up to 5 root Tasks + open sub-items to planning month (`scripts/sync-dev-projects-month.mjs --include-descendants`). Priority Stack text deprecated.
 
 ## Adding contracts to a new workflow
 

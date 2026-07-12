@@ -16,9 +16,9 @@
 | Toggl 2 → Notion time sync | [`sync/toggl-notion/toggl-notion-sync.md`](sync/toggl-notion/toggl-notion-sync.md) |
 | Toggl 2 overrun watch (>4h auto-stop) | [`sync/toggl-overrun/toggl-overrun-watch.md`](sync/toggl-overrun/toggl-overrun-watch.md) |
 | Notion Start Timer → Toggl 2 | [`webhooks/toggl-start/toggl-start-code.mjs`](webhooks/toggl-start/toggl-start-code.mjs) |
-| Roadmap ▶ Start → Dev Project | [`webhooks/roadmap-promote/roadmap-promote.md`](webhooks/roadmap-promote/roadmap-promote.md) |
+| Roadmap Promote (▶ Start → Task) | [`webhooks/roadmap-promote/roadmap-promote.md`](webhooks/roadmap-promote/roadmap-promote.md) |
 | Roadmap ⏸ Pause | [`webhooks/roadmap-pause/roadmap-pause.md`](webhooks/roadmap-pause/roadmap-pause.md) |
-| Dev Project 📋 Todoist mirror | [`webhooks/dev-project-todoist-mirror/dev-project-todoist-mirror.md`](webhooks/dev-project-todoist-mirror/dev-project-todoist-mirror.md) |
+| Task 📋 Todoist mirror | [`webhooks/dev-project-todoist-mirror/dev-project-todoist-mirror.md`](webhooks/dev-project-todoist-mirror/dev-project-todoist-mirror.md) |
 | ~~Dev ↔ Roadmap sync (name/icon/link)~~ | **RETIRED 2026-07-11** — Tasks no longer require a Project (standalone TG backlog); auto-link/name-sync removed. Promote/Pause + `Projects.Completion` rollup remain. |
 | Tracker Matcher (period links) | [`sync/tracker-matcher/tracker-matcher-sync.md`](sync/tracker-matcher/tracker-matcher-sync.md) |
 | Week Tracker Sunday create | [`sync/week-tracker/week-tracker-create.md`](sync/week-tracker/week-tracker-create.md) |
@@ -73,13 +73,13 @@ n8n/
 ├── webhooks/toggl-start/   ← Notion ▶ Start Timer → Toggl 2
 │   ├── toggl-start-code.mjs
 │   └── deploy-toggl-start.mjs
-├── webhooks/roadmap-promote/  ← Roadmap ▶ Start → Dev Project promote
+├── webhooks/roadmap-promote/  ← Roadmap Promote (▶ Start → Task)
 │   ├── roadmap-promote-code.mjs
 │   └── deploy-roadmap-promote.mjs
 ├── webhooks/roadmap-pause/  ← Roadmap ⏸ Pause → Status = Paused
 │   ├── roadmap-pause-code.mjs
 │   └── deploy-roadmap-pause.mjs
-├── webhooks/dev-project-todoist-mirror/  ← Dev Projects 📋 Todoist → Inbox mirror
+├── webhooks/dev-project-todoist-mirror/  ← Tasks 📋 Todoist → Inbox mirror
 │   ├── dev-project-todoist-mirror-code.mjs
 │   └── deploy-dev-project-todoist-mirror.mjs
 ├── sync/tracker-matcher/   ← Notion page.created → Day/Week/Month/Quarter/Year links
@@ -134,7 +134,7 @@ node n8n/sync/pd-todoist/deploy-todoist-events.mjs
 # Tracker Matcher — see sync/tracker-matcher/tracker-matcher-sync.md
 node n8n/sync/tracker-matcher/deploy-tracker-matcher.mjs
 
-# Dev Project period links (Month + Week backfill)
+# Dev Project Period Links (Month + Week backfill)
 node n8n/sync/dev-project-period-links/deploy-dev-project-period-links.mjs
 
 # Morning Journal Notion webhook — see sync/morning-journal-notion/morning-journal-notion-sync.md

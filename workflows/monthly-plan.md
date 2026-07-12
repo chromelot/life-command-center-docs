@@ -23,7 +23,7 @@
 - [Phase 1d: Sustained Unhealthy Gate (~10 min, conditional)](#phase-1d-sustained-unhealthy-gate-10-min-conditional)
 - [Phase 2: Fitness Review & Reprioritization (~5 min)](#phase-2-fitness-review-and-reprioritization-5-min)
 - [Phase 3: Dev Work Review & Goals (~10 min)](#phase-3-dev-work-review-and-goals-10-min)
-- [Phase 3b: Idea Roadmap Scrub (~8 min)](#phase-3b-idea-roadmap-scrub-8-min)
+- [Phase 3b: Idea Projects Scrub (~8 min)](#phase-3b-idea-projects-scrub-8-min)
   - [Procedure (run once per Domain, in this order: TG → CL → Personal)](#procedure-run-once-per-domain-in-this-order-tg-cl-personal)
   - [Sanity guardrails](#sanity-guardrails)
 - [Phase 3c: Turbo Gear Backlog Audit (~6 min) — step `3.3`](#phase-3c-turbo-gear-backlog-audit-6-min-step-33)
@@ -45,7 +45,7 @@
 - [Phase 9: Quarterly KPI Update (~5 min)](#phase-9-quarterly-kpi-update-5-min)
 - [Phase 10: Trip Planning with Bus (~5 min)](#phase-10-trip-planning-with-bus-5-min)
 - [Phase 11: Personal Time Off (~3 min)](#phase-11-personal-time-off-3-min)
-- [Phase 11b: Planning Month Dev Projects (~5 min)](#phase-11b-planning-month-dev-projects-5-min)
+- [Phase 11b: Planning Month Tasks (~5 min)](#phase-11b-planning-month-tasks-5-min)
 - [Phase 12: Commit (~3 min)](#phase-12-commit-3-min)
 - [Cross-Cutting Rules](#cross-cutting-rules)
 - [Outputs](#outputs)
@@ -119,7 +119,7 @@ Load via the router. Read these before starting:
 
 - `context/systems/cadences.md` — cadence health check
 - `context/systems/capacity-rules.md` — limits, overcommitment triggers
-- `context/systems/notion-databases.md` — Weekly Meeting Log, Monthly Plan Log, Dev Projects, Quarterly Outcomes, Values, Workouts, Small Talk, Health Data DB schemas + IDs
+- `context/systems/notion-databases.md` — Weekly Meeting Log, Monthly Plan Log, Tasks, Values, Workouts, Small Talk, Health Data DB schemas + IDs (Quarterly Outcomes DB retired 2026-07-11; content on Quarter Tracker page)
 - `context/systems/pipedrive.md` — pipeline IDs, user IDs, completion-time API quirks
 - `context/systems/knack-fields.md` — Customer + Invoice field references for Phases 6, 7
 - `context/systems/hubstaff.md` — member IDs, project IDs (3563292, 3563452 for sales efficiency), monthly hours
@@ -177,7 +177,7 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 | `1.check` | Table 1.check |
 | `2.1` | Table 2.1-A (body comp + watch MoM) |
 | `3.1` | Table 3.1-A (dev goals + quarterly progress) |
-| `3.2` | Table 3.2-A — one roadmap Type (TG → CL → Personal) per turn |
+| `3.2` | Table 3.2-A — one Projects domain (TG → CL → Personal) per turn |
 | `4.1` | Table 4.1-A (activity scorecard), then Table 4.1-B (team efficiency) |
 | `5.1` | Table 5.1-A (personal project audit — one decision per turn) |
 | `6.1` | Table 6.1-A (personal finances), then Table 6.1-B (CL finances) |
@@ -187,7 +187,7 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 | `9.1` | Table 9.1-A (KPI update — one Quarterly Outcome page per turn) |
 | `10.1` | Table 10.1-A (Bus trip — one option per turn until confirmed) |
 | `11.1` | Table 11.1-A (PTO blocks + coverage) |
-| `11.2` | Table 11.2-A (domains parked) + Dev Project–linked priority stack |
+| `11.2` | Table 11.2-A (domains parked) + Task-linked priority stack |
 | `12.0` | Table 12.check, then commit checklist |
 
 <a id="output-contracts-phases-311"></a>
@@ -197,10 +197,10 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 
 | Field | Review month | Planning month | Source |
 |-------|--------------|----------------|--------|
-| Projects Done / In Progress / Not Started | | | Dev Projects |
-| Shipped vs stalled | | | Dev Projects + Weekly Log |
+| Projects Done / In Progress / Not Started | | | Tasks |
+| Shipped vs stalled | | | Tasks + Weekly Log |
 | Deep work trajectory | | | Weekly Meeting Log |
-| Quarterly on-track? | | | Quarterly Outcomes |
+| Quarterly on-track? | | | Quarter Tracker page |
 | Planning month Dev Projects (`🌙 Month`) | | | Phase 11b selection |
 
 **Table 3.2-A — Idea scrub** *(step `3.2`, one Type per turn)*
@@ -354,7 +354,7 @@ Then pull the rest of the data via MCP tools in parallel:
 2. **Monthly Plan Log DB** (`344f40c2-487b-806d`): prior entry titled `Monthly Plan for [Review Month YYYY]` for **month-over-month comparison** (when reviewing May, baseline is `Monthly Plan for May 2026`). Also check whether `Monthly Plan for [Planning Month YYYY]` already exists (skip duplicate create in Phase 12 if present).
 3. **Quarterly Meeting Log DB** (`344f40c2-487b-80ed`): entry for **planning quarter** (Pre-Phase 0 gate) — completeness already verified before Phase 0; Phase 1c reviews progress
 4. **Notion Workouts DB** (`127f40c2-487b-80ba`): **review month** workout log
-5. **Dev Projects DB** (`341f40c2-487b-80ac`): all projects assigned to current quarter, full status sweep
+5. **Tasks DB** (`341f40c2-487b-80ac`): all projects assigned to current quarter, full status sweep
 6. **Quarter Tracker page** (`121f40c2-487b-802e`): current quarter's per-domain sections (theme / no-list / KPIs) for Phase 1c review + Phase 9 KPI update (replaces retired Quarterly Outcomes DB)
 7. **Values DB** (`342f40c2-487b-80c5`): current health statuses for all 6 categories
 8. **Pipedrive**: sales pipeline velocity for **review month** (deals created, won, lost), CS pipeline snapshot
@@ -471,7 +471,7 @@ Store ratings in session state (`monthly_life_health`) for Phase 12 commit.
 
 **Purpose:** Confirm the current quarter has a committed strategic frame before setting **planning month** goals. Monthly goals must ladder up to quarterly themes — not float independently.
 
-**Data sources:** Quarterly Meeting Log (`344f40c2-487b-80ed`), Quarter Tracker page + its per-domain sections (`121f40c2-487b-802e`), Dev Projects with 🍁 Quarter = current quarter. (Quarterly Outcomes DB retired.)
+**Data sources:** Quarterly Meeting Log (`344f40c2-487b-80ed`), Quarter Tracker page + its per-domain sections (`121f40c2-487b-802e`), Tasks with 🍁 Quarter = current quarter. (Quarterly Outcomes DB retired 2026-07-11.)
 
 <a id="quarterly-plan-completeness-gate"></a>
 ### Quarterly plan completeness gate
@@ -480,7 +480,7 @@ Store ratings in session state (`monthly_life_health`) for Phase 12 commit.
 
 1. Use **planning quarter** from Pre-Phase 0 (calendar quarter containing planning month). Do **not** use Quarter Tracker `Current` alone — it may still say Q2 when planning July (Q3).
 2. Query Quarterly Meeting Log for the committed entry (`Session Complete` = Complete) linked to planning quarter.
-3. Pull all three Quarterly Outcomes pages (CL, TG, Personal) for planning quarter. Themes must exist (already verified at Pre-Phase 0; re-check if Aaron resumed mid-session).
+3. Check the Quarter Tracker page's three domain sections (CL, TG, Personal) for planning quarter. Themes must exist (already verified at Pre-Phase 0; re-check if Aaron resumed mid-session).
 4. If Pre-Phase 0 was bypassed via Aaron override only, treat as maintenance month — skip deep quarterly progress review.
 5. If themes or log are missing despite reaching 1.3: **STOP** — escalate to full quarterly plan (should not happen if Pre-Phase 0 ran).
 
@@ -489,8 +489,8 @@ Store ratings in session state (`monthly_life_health`) for Phase 12 commit.
 
 Whether or not the full quarterly session happened, review what's committed **only after the gate passes**:
 
-1. **Themes:** One-line recap per domain (CL / TG / Personal) from Quarterly Outcomes pages.
-2. **Project pace:** Dev Projects assigned to current quarter — Done vs In Progress vs Not Started vs at-risk (Due Date passed or In Progress 30+ days with no sub-item movement).
+1. **Themes:** One-line recap per domain (CL / TG / Personal) from the Quarter Tracker page's domain sections.
+2. **Project pace:** Tasks assigned to current quarter — Done vs In Progress vs Not Started vs at-risk (Due Date passed or In Progress 30+ days with no sub-item movement).
 3. **Goal trajectory (month granularity):** Using the [Goals — Milestones](https://notion.so/39bf40c2487b810d905fdb9585ceddf9) view + Goals `Progress`/`Behind Projects` rollups, check each active Goal. If a goal has `Behind Projects` > 0 or its projects keep getting deferred month-over-month, **either** prioritize its projects into this planning month (Phase 11b / weekly sprint) **or** flag it to escalate to the next quarterly for a re-prioritize-or-adjust decision. Don't let a goal drift silently across months.
 4. **Behind → shift:** any `Behind` project surfaced here gets one call — reslot (`Date`), cut/pause, or fund (Priority + pull into the month). Reference the [Roadmap — Timeline](https://notion.so/39bf40c2487b8188bc05d953ac5d8802).
 5. **KPI pace preview:** Which KPI rows have targets? Any already >50% behind expected pace for the month we're in? (Full actuals update happens in Phase 9.)
@@ -562,33 +562,33 @@ If no 3-week streaks: skip silently (~0 min).
 
 **Purpose:** Project completion progress against quarterly targets, not individual task triage.
 
-1. Pull all Dev Projects assigned to the current quarter. How many are Done vs. In Progress vs. Not Started?
+1. Pull all Tasks assigned to the current quarter. How many are Done vs. In Progress vs. Not Started?
 2. What shipped in **review month** vs. what stalled? Which projects had "This Week" set but didn't move?
 3. Dev hours spent vs. budgeted (from capacity math, Time Punches `Category = CL Dev` + `TG Dev` for deep work minutes). Plot weekly Deep Work Minutes from Weekly Meeting Log to show intra-month trajectory.
 4. **Quarterly progress check**: Are we on track to complete the quarter's assigned projects? If not, which ones are at risk and why?
 5. Non-TG dev: did personal and CL projects get attention, or consumed by ops?
 6. Compare Projects Completed, Projects In Progress against previous Monthly Plan Log entry -- flag if >20% change in either direction.
-7. Confirm **planning month** Dev Project candidates align with Phase 1c quarterly themes — final `🌙 Month` links happen in **Phase 11b** (not free-text goals). *(Association view: [Tasks by Month](https://notion.so/39bf40c2487b81afadbfd9bbd086567e).)*
+7. Confirm **planning month** Task candidates align with Phase 1c quarterly themes — final `🌙 Month` links happen in **Phase 11b** (not free-text goals). *(Association view: [Tasks by Month](https://notion.so/39bf40c2487b81afadbfd9bbd086567e).)*
 
-**Outputs:** Dev Projects status updates. Candidate list for Phase 11b month linking. Todoist tasks if needed.
+**Outputs:** Tasks status updates. Candidate list for Phase 11b month linking. Todoist tasks if needed.
 
-<a id="phase-3b-idea-roadmap-scrub-8-min"></a>
-## Phase 3b: Idea Roadmap Scrub (~8 min)
+<a id="phase-3b-idea-projects-scrub-8-min"></a>
+## Phase 3b: Idea Projects Scrub (~8 min)
 
-**Purpose:** Sweep the upstream **Status = Idea** backlog for each roadmap domain (Turbo Gear, Chrome Lot, Systems, Workshop, Admin). Promote ideas worth queuing, archive stale ones, hold the rest. Prevents the Idea status from becoming a graveyard and feeds the next quarterly plan with a curated candidate list.
+**Purpose:** Sweep the upstream **Status = Idea** backlog for each domain (Turbo Gear, Chrome Lot, Systems, Workshop, Admin) in the Projects DB. Promote ideas worth queuing, archive stale ones, hold the rest. Prevents the Idea status from becoming a graveyard and feeds the next quarterly plan with a curated candidate list.
 
 **Data source:** Projects DB (`394f40c2-487b-815f`). For each **Domain** in turn — Turbo Gear, Chrome Lot, Systems, Workshop, Admin — query with `Status = Idea`, sort by created time ascending (oldest first). (Deep work = CL/TG/Systems; Workshop = capped QoL; Admin = life/legal.) *(Browsing view: [Projects — Idea Hopper](https://notion.so/39bf40c2487b8127b058eb200ac243d3); active initiatives: [Projects — Active](https://notion.so/39bf40c2487b815e8e1cf4915f8212ef).)*
 
 <a id="procedure-run-once-per-domain-in-this-order-tg-cl-personal"></a>
 ### Procedure (run once per Domain, in this order: TG → CL → Personal)
 
-1. Query Roadmap with `Domain = <current>` AND `Status = Idea`. Pull the title, created time, Date, 🎯 Value relation.
+1. Query Projects with `Domain = <current>` AND `Status = Idea`. Pull the title, created time, Date, 🎯 Value relation.
 2. **AI pre-assessment** for each idea (silent — present results in step 3):
-   - **Overlap:** Does this duplicate or directly relate to an existing Roadmap item (any Status) or active Dev Project / Quarterly Outcome?
+   - **Overlap:** Does this duplicate or directly relate to an existing Project (any Status) or active Task?
    - **Difficulty:** XS / S / M / L / XL based on title + any sub-items
    - **Delegation potential:** Could a team member execute this? (CL → Lexie/Tristen/Ran; TG → Pyakz/markwillcraft; Personal → likely no)
    - **Values alignment:** Which of the 6 categories does this serve? Flag if it doesn't clearly serve any.
-   - **Recommendation:** Roadmap (→ Roadmapped) / Archive (→ Paused) / Delegate / Hold
+   - **Recommendation:** Promote (→ Roadmapped) / Archive (→ Paused) / Delegate / Hold
 3. Present the list to Aaron with recommendations:
 
    ```
@@ -600,7 +600,7 @@ If no 3-week streaks: skip silently (~0 min).
    2. ...
    ```
 4. Decide one idea at a time (use AskQuestion). For each:
-   - **Roadmap:** Update Status `Idea → Roadmapped`. Optionally set 🍁 Target Quarter (see Phase 9). Use **▶ Start** when entering execution window (→ In progress + Dev Project).
+   - **Promote:** Update Status `Idea → Roadmapped`. Optionally set 🍁 Target Quarter (see Phase 9). Use **▶ Start** when entering execution window (→ In progress + Task).
    - **Delegate:** Route to the appropriate system (Work Notion CL Tasks for CL ops, Todoist for personal handoffs, Pipedrive activity for customer-facing). Then set Roadmap Status = **Paused** with explicit approval.
    - **Archive:** Status = **Paused** (or **Done** if achieved) — explicit approval required.
    - **Hold:** Leave as Idea for next month's scrub.
@@ -615,7 +615,7 @@ If no 3-week streaks: skip silently (~0 min).
 - If the same idea has been **Held for 3+ consecutive monthly scrubs**, force Roadmap-or-Park this round.
 - Do not Roadmap an idea that overlaps an active Dev Project — link or Park as duplicate.
 
-**Outputs:** Roadmap status updates (Idea → Roadmapped / Paused). Delegated tasks in target systems. Hold notes for next month and quarterly candidate pool.
+**Outputs:** Projects status updates (Idea → Roadmapped / Paused). Delegated tasks in target systems. Hold notes for next month and quarterly candidate pool.
 
 <a id="phase-3c-turbo-gear-backlog-audit-6-min-step-33"></a>
 ## Phase 3c: Turbo Gear Backlog Audit (~6 min) — step `3.3`
@@ -708,7 +708,7 @@ Cross-reference Hubstaff time data with activity totals per team member (Aaron, 
 
 **Purpose:** Deep cleanup that weekly micro-scrubs can't do. Scoped to the personal-side domains (**Systems / Workshop / Admin**) — TG and CL projects are covered in Phase 3 and the weekly plan. Projects **kept active** for planning month should receive `🌙 Month` in Phase 11b (or here if already certain).
 
-1. Pull Dev Projects with Type ∈ {Systems, Workshop, Admin} (`341f40c2-487b-80ac`). Note the block each feeds: Systems → deep work; Workshop → capped ~3 hr; Admin → standing/life.
+1. Pull Tasks with Domain ∈ {Systems, Workshop, Admin} (`341f40c2-487b-80ac`). Note the block each feeds: Systems → deep work; Workshop → capped ~3 hr; Admin → standing/life.
 2. Flag stalled projects: "In progress" for 30+ days with no sub-step completion
 3. Backlog review: present top backlog items (Status=Not started), bring 1-2 up to active
 4. Archive truly dead projects (with approval)
@@ -716,7 +716,7 @@ Cross-reference Hubstaff time data with activity totals per team member (Aaron, 
 6. Ensure every active project has actionable sub-steps
 7. Life admin catch-up: any personal projects that keep getting deferred (house, finances, health, etc.)?
 
-**Outputs:** Dev Projects status updates (archive, activate, reprioritize). Todoist tasks for newly activated work.
+**Outputs:** Tasks status updates (archive, activate, reprioritize). Todoist tasks for newly activated work.
 
 <a id="phase-6-financial-review-10-min"></a>
 ## Phase 6: Financial Review (~10 min)
@@ -800,7 +800,7 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
 <a id="phase-9-quarterly-kpi-update-5-min"></a>
 ## Phase 9: Quarterly KPI Update (~5 min)
 
-**Purpose:** Monthly touchpoint for quarterly tracking. Update KPI actuals on each Quarterly Outcomes page.
+**Purpose:** Monthly touchpoint for quarterly tracking. Update KPI actuals on the Quarter Tracker page.
 
 **Data sources per KPI:**
 - CL Photo/Social Revenue: Knack `object_18` invoices, aggregate by month
@@ -823,7 +823,7 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
    - Flag any KPI significantly behind pace (<50% of target by the end of month 2, for example)
 6. If any area is off-track, discuss with Aaron: adjust target, accelerate effort, or accept the miss?
 
-**Outputs:** Updated KPI actuals on Quarterly Outcomes pages (manual Notion edits). Todoist tasks for setting missing targets. Flagged areas for intervention.
+**Outputs:** Updated KPI actuals on the Quarter Tracker page (manual Notion edits). Todoist tasks for setting missing targets. Flagged areas for intervention.
 
 <a id="phase-10-trip-planning-with-bus-5-min"></a>
 ## Phase 10: Trip Planning with Bus (~5 min)
@@ -852,16 +852,16 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
 
 **Outputs:** Calendar blocks. Todoist handoff tasks. Teams notification if needed.
 
-<a id="phase-11b-planning-month-dev-projects-5-min"></a>
-## Phase 11b: Planning Month Dev Projects (~5 min)
+<a id="phase-11b-planning-month-tasks-5-min"></a>
+## Phase 11b: Planning Month Tasks (~5 min)
 
-**Purpose:** Link **specific Dev Projects** to the **planning month** via `🌙 Month` (mirrors quarterly `🍁 Quarter`). Weekly plan reads these relations — not Priority Stack text.
+**Purpose:** Link **specific Tasks** to the **planning month** via `🌙 Month` (mirrors quarterly `🍁 Quarter`). Weekly plan reads these relations — not Priority Stack text.
 
 **Required every monthly plan.** Store in session state (`monthly_dev_project_ids`, `monthly_domains_parked`) for Phase 12.
 
-1. Pull open Dev Projects (current quarter, Status ≠ Done) grouped by Type. Present lettered multi-select — **max 5 total** across all domains (Personal + CL + TG combined).
+1. Pull open Tasks (current quarter, Status ≠ Done) grouped by Domain. Present lettered multi-select — **max 5 total** across all domains (Personal + CL + TG combined).
 2. On confirm (Notion approval): set `🌙 Month` → **planning month** on each selected project **and all open sub-items** under it (`scripts/sync-dev-projects-month.mjs --include-descendants`). Clear `🌙 Month` from projects removed from this month's plate (do not clear `🍁 Quarter`). Quarter-only work stays quarter-linked, not month-linked.
-3. Create missing Dev Project records before linking.
+3. Create missing Task records before linking.
 4. **Table 11.2-B — Domains parked** *(multi-select — reply with letters)*
 
 | | Option |
@@ -903,7 +903,7 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
    - **Planning context (REQUIRED):**
      - `Domains Parked` (multi_select) — from Phase 11b (`monthly_domains_parked`)
      - `Priority Stack` (rich_text) — **optional snapshot** auto-generated from linked Dev Project titles (not authoritative)
-     - **`🌙 Month` on Dev Projects** — authoritative; written in Phase 11b via Notion API
+     - **`🌙 Month` on Tasks** — authoritative; written in Phase 11b via Notion API
    - `Starved Values` — derived from life-health selects (categories rated Unhealthy)
    - Key Wins, Key Misses, Action Items (Action Items commit **planning month** priorities)
    Compare against last month's entry to show trend direction.
@@ -963,7 +963,7 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
    ## Planning commitments
    (Numbered list — same items as Action Items on the Monthly Plan Log)
 
-   ## Planning month Dev Projects
+   ## Planning month Tasks
    (Linked via `🌙 Month` — list titles + Notion URLs from Phase 11b)
 
    ## Domains parked
@@ -1001,17 +1001,17 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
 - **Phase 1c:** Quarterly alignment notes; escalation to full quarterly plan if gate failed.
 - **Phase 1d:** Health Intervention Notes drafted when 3+ week unhealthy streaks fire; pauses Phases 2–11 until resolved.
 - **Phase 2:** Fitness targets; optional Todoist recurring updates; body-comp for Phase 12 Monthly Log.
-- **Phase 3:** Dev Projects updates; dev goals; Todoist if needed.
-- **Phase 3b:** Idea Roadmap Scrub across TG / CL / Personal — Idea→Not started promotions (cap 3/Type), delegations, archives; held items annotated with hold count for next month.
+- **Phase 3:** Tasks updates; dev goals; Todoist if needed.
+- **Phase 3b:** Idea Projects Scrub across TG / CL / Personal — Idea→Roadmapped promotions (cap 3/Domain), delegations, archives; held items annotated with hold count for next month.
 - **Phase 4:** Sales goals; pipeline cleanup Todoist; delegation adjustments.
-- **Phase 5:** Personal Dev Projects audit outcomes; Todoist for new work.
+- **Phase 5:** Personal Tasks audit outcomes; Todoist for new work.
 - **Phase 6:** Financial Todoist and observation notes.
 - **Phase 7:** CS observations; delegation; data-hygiene Todoist.
 - **Phase 8:** 1:1/hiring Todoist; updated `context/people/index.md`.
 - **Phase 8b:** `monthly_cl_health` and `monthly_tg_health` captured for Phase 12.
-- **Phase 9:** Manual KPI updates on Quarterly Outcomes; Todoist for empty targets; flags.
+- **Phase 9:** Manual KPI updates on Quarter Tracker page; Todoist for empty targets; flags.
 - **Phase 10–11:** Calendar events; Todoist prep and handoff tasks; Teams optional.
-- **Phase 11b:** `🌙 Month` links on selected Dev Projects + Domains Parked captured (session state).
+- **Phase 11b:** `🌙 Month` links on selected Tasks + Domains Parked captured (session state).
 - **Phase 12:** New Monthly Plan Log entry (review month) with full KPI rollup + planning context fields + life/work health selects + Health Intervention Notes; Team Activity Details append; **planning month Months page plan log**; context file updates.
 
 <a id="failure-modes-and-graceful-degradation"></a>

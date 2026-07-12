@@ -54,7 +54,7 @@ Daily morning/evening Cursor reviews were retired. The PD ↔ Todoist loop is re
 1. Center (wellness screening, values pulse, capacity adjustment)
 1a. Monthly Plan Review (align week with committed monthly Action Items + KPIs)
 2. Last Week Review (habit scorecard, project review)
-3. Project Selection (One Thing Framework — pick 1-3 Dev Projects, set This Week). Deep-work block = Chrome Lot + Turbo Gear + Systems. Then set a **Workshop time intention** (`Workshop Hours Intended`, cap ~3 hr, 0 = skip) and pick the Workshop item(s) for it (**2.2-W**), scheduled as a **separate Workshop block**; plus a **separate Admin block** (life/legal incl. custody) outside the deep-work block; Todoist mirrors as needed.
+3. Project Selection (One Thing Framework — pick 1-3 Tasks, set This Week). Deep-work block = Chrome Lot + Turbo Gear + Systems. Then set a **Workshop time intention** (`Workshop Hours Intended`, cap ~3 hr, 0 = skip) and pick the Workshop item(s) for it (**2.2-W**), scheduled as a **separate Workshop block**; plus a **separate Admin block** (life/legal incl. custody) outside the deep-work block; Todoist mirrors as needed.
 4. CS Management (check-in cadence + delegation; late invoice review)
 5. Sales Management (Aaron's pipeline; team sales oversight)
 6. People Management (photographer review; staff 1:1s + Hubstaff)
@@ -85,13 +85,13 @@ Forward-looking: **plan current month**, **review prior month** (early June → 
 1c. Quarterly Plan Checkpoint (**hard gate** — stop monthly plan if Q plan not committed; run quarterly plan first)
 2. Fitness Review (consistency trends, body comp + recovery MoM for **review month**)
 3. Dev Work Review & Goals (quarter progress; set 2–3 goals for **planning month**)
-3b. Idea Roadmap Scrub (TG → CL → Personal; promote ≤3/type)
+3b. Idea Projects Scrub (TG → CL → Personal; promote ≤3/domain)
 4. Sales Progress & Goals (**review month** retro; **planning month** targets)
-5. Personal Project Tracker Audit (Dev Projects Type=Personal, stalled, archive dead)
+5. Personal Project Tracker Audit (Tasks Domain=Personal, stalled, archive dead)
 6. Financial Review (personal budget, CL revenue/AR for **review month**)
 7. CS Health Monthly Review (churn trends, invoice aging, workload balance)
 8. People & Operations Trends (photographer trends, Hubstaff trends, 1:1 consistency, hiring)
-9. Quarterly KPI Update (current-quarter Quarterly Outcomes, update KPI actuals for **review month**)
+9. Quarterly KPI Update (current quarter on the Quarter Tracker page, update KPI actuals for **review month**)
 10. Trip Planning with Bus (**planning month** — calendar + Todoist)
 11. Personal Time Off (2 days off in **planning month**, coverage coordination)
 12. Commit (Monthly Log for **review month**; Action Items for **planning month**; Pipedrive append)
@@ -117,13 +117,13 @@ Forward-looking: **plan current month**, **review prior month** (early June → 
 
 - **Part A — Look Back (~25 min)**: 1) Wide narrative retrospective, 2) Values re-examination with Picture of Success edits, 3) Numeric retrospective (dual-level trend tables)
 - **Part B — Look Around (~15 min)**: 4) People & relationships, 5) External environment scan, 6) Capacity & time reality (Hubstaff vs. intent)
-- **Part C — Look Forward Strategically (~35 min)**: pre-step creates future Quarter Tracker records, then per-domain blocks: 7) Personal (values recap → theme → roadmap → no-list), 8) Chrome Lot (department read → theme → roadmap → no-list), 9) Turbo Gear (department read → theme → roadmap → no-list)
+- **Part C — Look Forward Strategically (~35 min)**: pre-step creates future Quarter Tracker records, then per-domain blocks: 7) Personal (values recap → theme → projects → no-list), 8) Chrome Lot (department read → theme → projects → no-list), 9) Turbo Gear (department read → theme → projects → no-list)
 - **Part D — Plan Tactically (~15 min)**: 10) Commit projects to this quarter with cross-domain capacity check + Due Dates, 11) Per-domain KPI targets + instrumentation gate (no phantom targets)
 - **Part E — System & Commit (~15 min)**: 12) System & cadence calibration (name the intervention for any collapsed cadence), 13) Calendar stake-in-ground (weekly meeting + monthly plans + mid-quarter checkpoint), 14) Commit & log (Quarterly Meeting Log entry, team Pipedrive detail append, context file updates)
 
 #### Mid-Quarter Checkpoint (week 6, ~15 min)
 
-Lightweight "are we on track with the three domain themes?" review. Pulls current-quarter Dev Projects with Due Date, checks what slipped or stalled, confirms Q[next+1] plan date is still on calendar. Not a replacement for monthly plan — just a theme check.
+Lightweight "are we on track with the three domain themes?" review. Pulls current-quarter Tasks with Due Date, checks what slipped or stalled, confirms Q[next+1] plan date is still on calendar. Not a replacement for monthly plan — just a theme check.
 
 ---
 
