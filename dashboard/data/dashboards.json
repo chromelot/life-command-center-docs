@@ -41,22 +41,17 @@
         },
         {
           "type": "progressgroup",
-          "title": "Calories & Protein",
-          "span": 1,
+          "title": "Nutrition",
+          "span": 2,
           "nudgeAfterHour": 20,
+          "foodLog": true,
           "items": [
-            { "metric": "nutrition.calories", "field": "current", "target": "goal.calorie_target", "label": "Calories", "detail": "nutrition", "detailTitle": "Food log", "nudge": "calories", "directionText": "text.weight_goal_direction" },
-            { "metric": "nutrition.protein_g", "field": "current", "targetValue": 150, "label": "Protein", "detail": "nutrition", "detailTitle": "Food log", "nudge": "protein" }
-          ]
-        },
-        {
-          "type": "statlist",
-          "title": "Macros",
-          "span": 1,
-          "items": [
-            { "metric": "nutrition.protein_g", "field": "current", "label": "Protein", "detail": "nutrition", "detailTitle": "Food log" },
-            { "metric": "nutrition.carbs_g", "field": "current", "label": "Carbs", "detail": "nutrition", "detailTitle": "Food log" },
-            { "metric": "nutrition.fat_g", "field": "current", "label": "Fat", "detail": "nutrition", "detailTitle": "Food log" }
+            { "metric": "nutrition.calories", "field": "current", "target": "goal.calorie_target", "label": "Calories", "nudge": "calories", "directionText": "text.weight_goal_direction" },
+            { "metric": "nutrition.protein_g", "field": "current", "targetValue": 150, "label": "Protein", "nudge": "protein" }
+          ],
+          "footer": [
+            { "metric": "nutrition.carbs_g", "label": "Carbs", "format": "grams" },
+            { "metric": "nutrition.fat_g", "label": "Fat", "format": "grams" }
           ]
         },
         { "type": "section", "title": "Fitness" },
