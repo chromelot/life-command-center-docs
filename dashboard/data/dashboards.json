@@ -25,8 +25,8 @@
           ]
         },
         { "type": "section", "title": "Fitness" },
-        { "type": "goal", "metric": "life.strength_sessions", "field": "current", "target": 1, "weekTargetMetric": "goal.strength_target", "label": "Strength" },
-        { "type": "goal", "metric": "life.cardio_sessions", "field": "current", "target": 1, "weekTargetMetric": "goal.cardio_target", "label": "Cardio" },
+        { "type": "goal", "metric": "life.strength_sessions", "field": "current", "target": 1, "weekTargetMetric": "goal.strength_target", "label": "Strength", "detail": "workouts", "detailFilter": { "type": ["Pull", "Push", "Legs", "Deadlift", "Full Body"] } },
+        { "type": "goal", "metric": "life.cardio_sessions", "field": "current", "target": 1, "weekTargetMetric": "goal.cardio_target", "label": "Cardio", "detail": "workouts", "detailFilter": { "type": ["Cardio"] } },
         { "type": "stat", "metric": "personal.steps", "field": "current", "label": "Steps", "showTrend": false },
         { "type": "section", "title": "Nutrition" },
         {
@@ -34,8 +34,8 @@
           "title": "Calories & Protein",
           "span": 2,
           "items": [
-            { "metric": "nutrition.calories", "field": "current", "target": "goal.calorie_target", "label": "Calories" },
-            { "metric": "nutrition.protein_g", "field": "current", "targetValue": 150, "label": "Protein" }
+            { "metric": "nutrition.calories", "field": "current", "target": "goal.calorie_target", "label": "Calories", "detail": "nutrition", "detailTitle": "Food log" },
+            { "metric": "nutrition.protein_g", "field": "current", "targetValue": 150, "label": "Protein", "detail": "nutrition", "detailTitle": "Food log" }
           ]
         },
         {
@@ -43,28 +43,28 @@
           "title": "Macros",
           "span": 2,
           "items": [
-            { "metric": "nutrition.protein_g", "field": "current", "label": "Protein" },
-            { "metric": "nutrition.carbs_g", "field": "current", "label": "Carbs" },
-            { "metric": "nutrition.fat_g", "field": "current", "label": "Fat" }
+            { "metric": "nutrition.protein_g", "field": "current", "label": "Protein", "detail": "nutrition", "detailTitle": "Food log" },
+            { "metric": "nutrition.carbs_g", "field": "current", "label": "Carbs", "detail": "nutrition", "detailTitle": "Food log" },
+            { "metric": "nutrition.fat_g", "field": "current", "label": "Fat", "detail": "nutrition", "detailTitle": "Food log" }
           ]
         },
         { "type": "section", "title": "Development work" },
-        { "type": "stat", "metric": "dev.cl_dev_min", "field": "current", "label": "Chrome Lot", "showTrend": false },
-        { "type": "stat", "metric": "dev.tg_dev_min", "field": "current", "label": "Turbo Gear", "showTrend": false },
-        { "type": "stat", "metric": "dev.systems_min", "field": "current", "label": "Systems", "showTrend": false },
-        { "type": "goal", "metric": "dev.total_dev_min", "field": "current", "target": 120, "weekTarget": 600, "label": "Total Dev" },
+        { "type": "stat", "metric": "dev.cl_dev_min", "field": "current", "label": "Chrome Lot", "showTrend": false, "detail": "timepunches", "detailFilter": { "category": ["CL Dev"] } },
+        { "type": "stat", "metric": "dev.tg_dev_min", "field": "current", "label": "Turbo Gear", "showTrend": false, "detail": "timepunches", "detailFilter": { "category": ["TG Dev"] } },
+        { "type": "stat", "metric": "dev.systems_min", "field": "current", "label": "Systems", "showTrend": false, "detail": "timepunches", "detailFilter": { "category": ["Systems"] } },
+        { "type": "goal", "metric": "dev.total_dev_min", "field": "current", "target": 120, "weekTarget": 600, "label": "Total Dev", "detail": "timepunches", "detailFilter": { "category": ["CL Dev", "TG Dev", "Systems"] }, "detailTitle": "Dev time log" },
         { "type": "section", "title": "Ops" },
-        { "type": "stat", "metric": "ops.todoist_done", "field": "current", "label": "Todoist Done", "showTrend": false },
-        { "type": "stat", "metric": "dev.ops_min", "field": "current", "label": "Ops Time", "showTrend": false },
-        { "type": "stat", "metric": "dev.field_min", "field": "current", "label": "Field Time", "showTrend": false },
-        { "type": "goal", "metric": "dev.total_ops_work_min", "field": "current", "target": 120, "weekTarget": 600, "label": "Total Ops Work" },
+        { "type": "stat", "metric": "ops.todoist_done", "field": "current", "label": "Todoist Done", "showTrend": false, "detail": "todoist" },
+        { "type": "stat", "metric": "dev.ops_min", "field": "current", "label": "Ops Time", "showTrend": false, "detail": "timepunches", "detailFilter": { "category": ["Ops"] } },
+        { "type": "stat", "metric": "dev.field_min", "field": "current", "label": "Field Time", "showTrend": false, "detail": "timepunches", "detailFilter": { "category": ["Field"] } },
+        { "type": "goal", "metric": "dev.total_ops_work_min", "field": "current", "target": 120, "weekTarget": 600, "label": "Total Ops Work", "detail": "timepunches", "detailFilter": { "category": ["Ops", "Field"] }, "detailTitle": "Ops time log" },
         { "type": "section", "title": "Workshop & extras" },
         {
           "type": "group",
           "metrics": [
-            { "metric": "dev.workshop_min", "field": "current", "label": "Workshop", "showTrend": false },
-            { "metric": "life.small_talk", "field": "current", "label": "Small Talk", "showTrend": false },
-            { "metric": "dev.reading_min", "field": "current", "label": "Reading", "showTrend": false }
+            { "metric": "dev.workshop_min", "field": "current", "label": "Workshop", "showTrend": false, "detail": "timepunches", "detailFilter": { "category": ["Workshop"] } },
+            { "metric": "life.small_talk", "field": "current", "label": "Small Talk", "showTrend": false, "detail": "smalltalk" },
+            { "metric": "dev.reading_min", "field": "current", "label": "Reading", "showTrend": false, "detail": "timepunches", "detailFilter": { "category": ["Reading"] } }
           ]
         }
       ]
@@ -94,8 +94,8 @@
           "title": "Workouts vs weekly goal",
           "span": 2,
           "items": [
-            { "metric": "life.strength_sessions", "field": "week", "target": "goal.strength_target", "label": "Strength" },
-            { "metric": "life.cardio_sessions", "field": "week", "target": "goal.cardio_target", "label": "Cardio" }
+            { "metric": "life.strength_sessions", "field": "week", "target": "goal.strength_target", "label": "Strength", "detail": "workouts", "detailFilter": { "type": ["Pull", "Push", "Legs", "Deadlift", "Full Body"] } },
+            { "metric": "life.cardio_sessions", "field": "week", "target": "goal.cardio_target", "label": "Cardio", "detail": "workouts", "detailFilter": { "type": ["Cardio"] } }
           ]
         },
         {
@@ -115,7 +115,7 @@
           "title": "Social vs weekly goal",
           "span": 2,
           "items": [
-            { "metric": "life.small_talk", "field": "week", "target": "goal.social_target", "label": "Small talk / sarges" }
+            { "metric": "life.small_talk", "field": "week", "target": "goal.social_target", "label": "Small talk / sarges", "detail": "smalltalk" }
           ]
         },
         { "type": "section", "title": "Nutrition — daily average" },
@@ -124,8 +124,8 @@
           "title": "Avg / day vs target",
           "span": 2,
           "items": [
-            { "metric": "nutrition.calories", "field": "weekAvg", "target": "goal.calorie_target", "label": "Calories" },
-            { "metric": "nutrition.protein_g", "field": "weekAvg", "targetValue": 150, "label": "Protein" }
+            { "metric": "nutrition.calories", "field": "weekAvg", "target": "goal.calorie_target", "label": "Calories", "detail": "nutrition", "detailTitle": "Food log (this week)" },
+            { "metric": "nutrition.protein_g", "field": "weekAvg", "targetValue": 150, "label": "Protein", "detail": "nutrition", "detailTitle": "Food log (this week)" }
           ]
         },
         {
@@ -133,9 +133,9 @@
           "title": "Avg macros / day",
           "span": 2,
           "items": [
-            { "metric": "nutrition.protein_g", "field": "weekAvg", "label": "Protein" },
-            { "metric": "nutrition.carbs_g", "field": "weekAvg", "label": "Carbs" },
-            { "metric": "nutrition.fat_g", "field": "weekAvg", "label": "Fat" }
+            { "metric": "nutrition.protein_g", "field": "weekAvg", "label": "Protein", "detail": "nutrition", "detailTitle": "Food log (this week)" },
+            { "metric": "nutrition.carbs_g", "field": "weekAvg", "label": "Carbs", "detail": "nutrition", "detailTitle": "Food log (this week)" },
+            { "metric": "nutrition.fat_g", "field": "weekAvg", "label": "Fat", "detail": "nutrition", "detailTitle": "Food log (this week)" }
           ]
         },
         { "type": "section", "title": "Development work" },
@@ -144,8 +144,8 @@
           "title": "Dev & ops time vs weekly goal",
           "span": 2,
           "items": [
-            { "metric": "dev.total_dev_min", "field": "week", "targetValue": 600, "label": "Total Dev" },
-            { "metric": "dev.total_ops_work_min", "field": "week", "targetValue": 600, "label": "Total Ops Work" }
+            { "metric": "dev.total_dev_min", "field": "week", "targetValue": 600, "label": "Total Dev", "detail": "timepunches", "detailFilter": { "category": ["CL Dev", "TG Dev", "Systems"] }, "detailTitle": "Dev time log (this week)" },
+            { "metric": "dev.total_ops_work_min", "field": "week", "targetValue": 600, "label": "Total Ops Work", "detail": "timepunches", "detailFilter": { "category": ["Ops", "Field"] }, "detailTitle": "Ops time log (this week)" }
           ]
         },
         {
@@ -153,9 +153,9 @@
           "title": "Dev breakdown (this week)",
           "span": 2,
           "items": [
-            { "metric": "dev.cl_dev_min", "field": "week", "label": "Chrome Lot" },
-            { "metric": "dev.tg_dev_min", "field": "week", "label": "Turbo Gear" },
-            { "metric": "dev.systems_min", "field": "week", "label": "Systems" }
+            { "metric": "dev.cl_dev_min", "field": "week", "label": "Chrome Lot", "detail": "timepunches", "detailFilter": { "category": ["CL Dev"] } },
+            { "metric": "dev.tg_dev_min", "field": "week", "label": "Turbo Gear", "detail": "timepunches", "detailFilter": { "category": ["TG Dev"] } },
+            { "metric": "dev.systems_min", "field": "week", "label": "Systems", "detail": "timepunches", "detailFilter": { "category": ["Systems"] } }
           ]
         },
         { "type": "section", "title": "Ops" },
@@ -164,9 +164,9 @@
           "title": "Ops (this week)",
           "span": 2,
           "items": [
-            { "metric": "ops.todoist_done", "field": "week", "label": "Todoist done" },
-            { "metric": "dev.ops_min", "field": "week", "label": "Ops time" },
-            { "metric": "dev.field_min", "field": "week", "label": "Field time" }
+            { "metric": "ops.todoist_done", "field": "week", "label": "Todoist done", "detail": "todoist" },
+            { "metric": "dev.ops_min", "field": "week", "label": "Ops time", "detail": "timepunches", "detailFilter": { "category": ["Ops"] } },
+            { "metric": "dev.field_min", "field": "week", "label": "Field time", "detail": "timepunches", "detailFilter": { "category": ["Field"] } }
           ]
         },
         { "type": "section", "title": "Workshop & extras" },
@@ -175,8 +175,8 @@
           "title": "This week",
           "span": 2,
           "items": [
-            { "metric": "dev.workshop_min", "field": "week", "label": "Workshop" },
-            { "metric": "dev.reading_min", "field": "week", "label": "Reading" }
+            { "metric": "dev.workshop_min", "field": "week", "label": "Workshop", "detail": "timepunches", "detailFilter": { "category": ["Workshop"] } },
+            { "metric": "dev.reading_min", "field": "week", "label": "Reading", "detail": "timepunches", "detailFilter": { "category": ["Reading"] } }
           ]
         },
         { "type": "section", "title": "Adjustments & experiments this week" },
