@@ -1078,6 +1078,15 @@ Workshop (QoL/hobby) is time-boxed so tinkering never crowds out deep work. Set 
 3. **Cap guard:** if the intention exceeds ~3 hr, confirm it's a deliberate trade against deep work before accepting. If 0, no Workshop items go on the slate this week.
 4. Selected Workshop items are included in the **2.2-D** `This Week` sync (they carry Domain = Workshop). Write `Workshop Hours Intended` (number) + `Workshop Focus` (item names + one-line intention) to the Weekly Meeting Log at **Phase 4 commit**.
 
+#### H — Systems & Workshop health *(step `2.2-H` — quick, every week)*
+
+Rounds out the life-category ratings so **all** categories are trended (their `* Score` fields feed the annual/monthly/quarterly trend review). One rating per turn, five-level scale:
+
+1. **Systems:** quick check — are your systems (automations, LCC, home/dev infra) running well? Any breakage or friction? Recommend 0–1 concrete change (→ a Systems Task/Project if warranted). **Rate `Systems Health`.**
+2. **Workshop:** given this week's Workshop intention/actual, **rate `Workshop Health`** (is the hobby/QoL tinkering in a good place — neither crowded out nor crowding out deep work?).
+
+Write `Systems Health` + `Workshop Health` (select) to the Weekly Meeting Log at Phase 4 commit; the `Systems Score` / `Workshop Score` formulas populate automatically for trending.
+
 ---
 
 **Table 2.check — Final This Week slate** *(required before Phase 4)*
@@ -1111,6 +1120,7 @@ This list must **exactly match** the Notion Tasks view filtered to `This Week = 
 | CL/TG `This Week` sync | 2.1-S |
 | Personal `This Week` sync | 2.2-D |
 | `Workshop Hours Intended`, `Workshop Focus` | 2.2-W |
+| `Systems Health`, `Workshop Health` | 2.2-H |
 | **Final slate = Notion view** | **2.check** |
 
 **Do not proceed to Phase 4 until `2.check` passes.**
