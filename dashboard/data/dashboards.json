@@ -52,8 +52,8 @@
           ]
         },
         { "type": "section", "title": "Fitness" },
-        { "type": "goal", "metric": "life.strength_sessions", "field": "current", "target": 1, "weekTargetMetric": "goal.strength_target", "label": "Strength", "labelPrefix": "Strength - ", "labelTextKey": "text.planned_strength", "plannedTextKey": "text.planned_workout", "openPlanForm": true, "showWhen": { "anyPositive": ["life.planned_strength_set", "life.strength_sessions"] } },
-        { "type": "goal", "metric": "life.cardio_min", "field": "current", "target": 1, "label": "Cardio", "labelPrefix": "Cardio - ", "labelTextKey": "text.planned_cardio", "openPlanForm": true, "showWhen": { "anyPositive": ["life.planned_cardio_set", "life.cardio_sessions", "life.cardio_min"] } },
+        { "type": "goal", "metric": "life.strength_sessions", "field": "current", "target": 1, "weekTargetMetric": "goal.strength_target", "label": "Strength", "labelPrefix": "Strength - ", "labelTextKey": "text.planned_strength", "plannedTextKey": "text.planned_workout", "complete": { "kind": "strength" }, "showWhen": { "anyPositive": ["life.planned_strength_set", "life.strength_sessions"] } },
+        { "type": "goal", "metric": "life.cardio_min", "field": "current", "target": 1, "label": "Cardio", "labelPrefix": "Cardio - ", "labelTextKey": "text.planned_cardio", "complete": { "kind": "cardio" }, "showWhen": { "anyPositive": ["life.planned_cardio_set", "life.cardio_sessions", "life.cardio_min"] } },
         { "type": "goal", "metric": "personal.steps", "field": "current", "target": 10000, "label": "Steps" },
         { "type": "section", "title": "Development work" },
         { "type": "stat", "metric": "dev.cl_dev_min", "field": "current", "label": "Chrome Lot", "showTrend": false, "detailTitle": "Chrome Lot dev", "detailPage": true, "detailSections": [ { "detail": "timepunches", "field": "current", "label": "Time logged", "filter": { "category": ["CL Dev"] } }, { "detail": "devtasks", "label": "Chrome Lot tasks this week", "allRows": true, "filter": { "domain": ["Chrome Lot"] }, "hierarchical": true } ] },
