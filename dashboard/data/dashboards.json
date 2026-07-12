@@ -301,9 +301,12 @@
         },
         {
           "type": "todoisttoday",
+          "span": 2
+        },
+        {
+          "type": "errandstoday",
           "span": 2,
-          "title": "Todoist",
-          "scope": "personal"
+          "title": "Errands"
         },
         {
           "type": "section",
