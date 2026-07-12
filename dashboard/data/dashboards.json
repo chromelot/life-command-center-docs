@@ -9,24 +9,56 @@
       "id": "personal-day",
       "group": "Personal",
       "title": "Personal — Today",
-      "icon": "\u2600\ufe0f",
+      "icon": "☀️",
       "subtitle": "How today is going, at a glance.",
       "widgets": [
-        { "type": "dayprogress", "title": "Day", "span": 4, "wake": "06:00", "bed": "22:30" },
-        { "type": "section", "title": "Morning & nutrition" },
+        {
+          "type": "dayprogress",
+          "title": "Day",
+          "span": 4,
+          "wake": "06:00",
+          "bed": "22:30"
+        },
+        {
+          "type": "section",
+          "title": "Morning & nutrition"
+        },
         {
           "type": "checklist",
           "title": "Morning stack",
           "span": 2,
           "items": [
-            { "metric": "life.supplements_done", "label": "Supplements", "habit": "supplements" },
-            { "metric": "life.weigh_in_done", "label": "Weigh in", "habit": "weigh-in", "needs": "weight", "detailMetric": "personal.weight_lbs" },
-            { "metric": "life.morning_journal_done", "label": "Morning journal", "habit": "morning-journal", "confirm": "Mark Morning journal as done? Use this if you journaled on paper — otherwise it completes when you create the Notion journal." },
+            {
+              "metric": "life.supplements_done",
+              "label": "Supplements",
+              "habit": "supplements"
+            },
+            {
+              "metric": "life.weigh_in_done",
+              "label": "Weigh in",
+              "habit": "weigh-in",
+              "needs": "weight",
+              "detailMetric": "personal.weight_lbs"
+            },
+            {
+              "metric": "life.morning_journal_done",
+              "label": "Morning journal",
+              "habit": "morning-journal",
+              "confirm": "Mark Morning journal as done? Use this if you journaled on paper — otherwise it completes when you create the Notion journal."
+            },
             {
               "metric": "life.spirit_time_done",
               "label": "Spirit time",
               "habit": "spirit-time",
-              "openTimeLog": { "filterCategory": "Spirit", "timerCategory": "Spirit", "habitOnLog": "spirit-time", "preset": { "category": "Spirit", "name": "Spirit" } }
+              "openTimeLog": {
+                "filterCategory": "Spirit",
+                "timerCategory": "Spirit",
+                "habitOnLog": "spirit-time",
+                "preset": {
+                  "category": "Spirit",
+                  "name": "Spirit"
+                }
+              }
             },
             {
               "metric": "life.plan_workout_done",
@@ -43,37 +75,372 @@
           "nudgeAfterHour": 20,
           "foodLog": true,
           "items": [
-            { "metric": "nutrition.calories", "field": "current", "target": "goal.calorie_target", "label": "Calories", "nudge": "calories", "directionText": "text.weight_goal_direction" },
-            { "metric": "nutrition.protein_g", "field": "current", "targetValue": 150, "label": "Protein", "nudge": "protein" }
+            {
+              "metric": "nutrition.calories",
+              "field": "current",
+              "target": "goal.calorie_target",
+              "label": "Calories",
+              "nudge": "calories",
+              "directionText": "text.weight_goal_direction"
+            },
+            {
+              "metric": "nutrition.protein_g",
+              "field": "current",
+              "targetValue": 150,
+              "label": "Protein",
+              "nudge": "protein"
+            }
           ],
           "footer": [
-            { "metric": "nutrition.carbs_g", "label": "Carbs", "format": "grams" },
-            { "metric": "nutrition.fat_g", "label": "Fat", "format": "grams" }
+            {
+              "metric": "nutrition.carbs_g",
+              "label": "Carbs",
+              "format": "grams"
+            },
+            {
+              "metric": "nutrition.fat_g",
+              "label": "Fat",
+              "format": "grams"
+            }
           ]
         },
-        { "type": "section", "title": "Fitness" },
-        { "type": "goal", "metric": "life.strength_sessions", "field": "current", "target": 1, "weekTargetMetric": "goal.strength_target", "label": "Strength", "labelPrefix": "Strength - ", "labelTextKey": "text.planned_strength", "plannedTextKey": "text.planned_workout", "complete": { "kind": "strength" }, "showWhen": { "anyPositive": ["life.planned_strength_set", "life.strength_sessions"] } },
-        { "type": "goal", "metric": "life.cardio_min", "field": "current", "target": 1, "label": "Cardio", "labelPrefix": "Cardio - ", "labelTextKey": "text.planned_cardio", "complete": { "kind": "cardio" }, "showWhen": { "anyPositive": ["life.planned_cardio_set", "life.cardio_sessions", "life.cardio_min"] } },
-        { "type": "goal", "metric": "personal.steps", "field": "current", "target": 10000, "label": "Steps" },
-        { "type": "section", "title": "Development work" },
-        { "type": "stat", "metric": "dev.cl_dev_min", "field": "current", "label": "Chrome Lot", "showTrend": false, "detailTitle": "Chrome Lot dev", "detailPage": true, "detailSections": [ { "detail": "timepunches", "field": "current", "label": "Time logged", "filter": { "category": ["CL Dev"] } }, { "detail": "devtasks", "label": "Chrome Lot tasks this week", "allRows": true, "filter": { "domain": ["Chrome Lot"] }, "hierarchical": true } ] },
-        { "type": "stat", "metric": "dev.tg_dev_min", "field": "current", "label": "Turbo Gear", "showTrend": false, "detailTitle": "Turbo Gear dev", "detailPage": true, "detailSections": [ { "detail": "timepunches", "field": "current", "label": "Time logged", "filter": { "category": ["TG Dev"] } }, { "detail": "devtasks", "label": "Turbo Gear tasks this week", "allRows": true, "filter": { "domain": ["Turbo Gear"] }, "hierarchical": true } ] },
-        { "type": "stat", "metric": "dev.systems_min", "field": "current", "label": "Systems", "showTrend": false, "detailTitle": "Systems dev", "detailPage": true, "detailSections": [ { "detail": "timepunches", "field": "current", "label": "Time logged", "filter": { "category": ["Systems"] } }, { "detail": "devtasks", "label": "Systems tasks this week", "allRows": true, "filter": { "domain": ["Systems"] }, "hierarchical": true } ] },
-        { "type": "goal", "metric": "dev.total_dev_min", "field": "current", "target": 120, "weekTarget": 600, "label": "Total Dev", "detailTitle": "Dev work", "detailPage": true, "detailSections": [ { "detail": "timepunches", "field": "current", "label": "Time logged", "filter": { "category": ["CL Dev", "TG Dev", "Systems"] } }, { "detail": "devtasks", "label": "Dev tasks this week", "allRows": true, "filter": { "domain": ["Chrome Lot", "Turbo Gear", "Systems"] }, "hierarchical": true } ] },
-        { "type": "section", "title": "Tasks" },
-        { "type": "todoisttoday", "span": 2, "title": "Todoist — Today" },
-        { "type": "section", "title": "Ops", "collapsible": true, "collapseWeekend": true },
-        { "type": "stat", "metric": "dev.ops_min", "field": "current", "label": "Ops Time", "showTrend": false, "detail": "timepunches", "detailFilter": { "category": ["Ops"] } },
-        { "type": "stat", "metric": "dev.field_min", "field": "current", "label": "Field Time", "showTrend": false, "detail": "timepunches", "detailFilter": { "category": ["Field"] } },
-        { "type": "goal", "metric": "dev.total_ops_work_min", "field": "current", "target": 120, "weekTarget": 600, "weekendNoGoal": true, "label": "Total Ops Work", "detail": "timepunches", "detailFilter": { "category": ["Ops", "Field"] }, "detailTitle": "Ops time log" },
-        { "type": "section", "title": "Workshop & extras" },
+        {
+          "type": "section",
+          "title": "Fitness"
+        },
+        {
+          "type": "goal",
+          "metric": "life.strength_sessions",
+          "field": "current",
+          "target": 1,
+          "weekTargetMetric": "goal.strength_target",
+          "label": "Strength",
+          "labelPrefix": "Strength - ",
+          "labelTextKey": "text.planned_strength",
+          "plannedTextKey": "text.planned_workout",
+          "complete": {
+            "kind": "strength"
+          },
+          "showWhen": {
+            "anyPositive": [
+              "life.planned_strength_set",
+              "life.strength_sessions"
+            ]
+          }
+        },
+        {
+          "type": "goal",
+          "metric": "life.cardio_min",
+          "field": "current",
+          "target": 1,
+          "label": "Cardio",
+          "labelPrefix": "Cardio - ",
+          "labelTextKey": "text.planned_cardio",
+          "complete": {
+            "kind": "cardio"
+          },
+          "showWhen": {
+            "anyPositive": [
+              "life.planned_cardio_set",
+              "life.cardio_sessions",
+              "life.cardio_min"
+            ]
+          }
+        },
+        {
+          "type": "goal",
+          "metric": "personal.steps",
+          "field": "current",
+          "target": 10000,
+          "label": "Steps"
+        },
+        {
+          "type": "section",
+          "title": "Development work"
+        },
+        {
+          "type": "stat",
+          "metric": "dev.cl_dev_min",
+          "field": "current",
+          "label": "Chrome Lot",
+          "showTrend": false,
+          "detailTitle": "Chrome Lot dev",
+          "detailPage": true,
+          "detailSections": [
+            {
+              "detail": "timepunches",
+              "field": "current",
+              "label": "Time logged",
+              "filter": {
+                "category": [
+                  "CL Dev"
+                ]
+              }
+            },
+            {
+              "detail": "devtasks",
+              "label": "Chrome Lot tasks this week",
+              "allRows": true,
+              "filter": {
+                "domain": [
+                  "Chrome Lot"
+                ]
+              },
+              "hierarchical": true
+            }
+          ],
+          "timeGoalMin": 300
+        },
+        {
+          "type": "stat",
+          "metric": "dev.tg_dev_min",
+          "field": "current",
+          "label": "Turbo Gear",
+          "showTrend": false,
+          "detailTitle": "Turbo Gear dev",
+          "detailPage": true,
+          "detailSections": [
+            {
+              "detail": "timepunches",
+              "field": "current",
+              "label": "Time logged",
+              "filter": {
+                "category": [
+                  "TG Dev"
+                ]
+              }
+            },
+            {
+              "detail": "devtasks",
+              "label": "Turbo Gear tasks this week",
+              "allRows": true,
+              "filter": {
+                "domain": [
+                  "Turbo Gear"
+                ]
+              },
+              "hierarchical": true
+            }
+          ],
+          "timeGoalMin": 300
+        },
+        {
+          "type": "stat",
+          "metric": "dev.systems_min",
+          "field": "current",
+          "label": "Systems",
+          "showTrend": false,
+          "detailTitle": "Systems dev",
+          "detailPage": true,
+          "detailSections": [
+            {
+              "detail": "timepunches",
+              "field": "current",
+              "label": "Time logged",
+              "filter": {
+                "category": [
+                  "Systems"
+                ]
+              }
+            },
+            {
+              "detail": "devtasks",
+              "label": "Systems tasks this week",
+              "allRows": true,
+              "filter": {
+                "domain": [
+                  "Systems"
+                ]
+              },
+              "hierarchical": true
+            }
+          ],
+          "timeGoalMin": 180
+        },
+        {
+          "type": "goal",
+          "metric": "dev.total_dev_min",
+          "field": "current",
+          "target": 120,
+          "weekTarget": 600,
+          "label": "Total Dev",
+          "detailTitle": "Dev work",
+          "detailPage": true,
+          "detailSections": [
+            {
+              "detail": "timepunches",
+              "field": "current",
+              "label": "Time logged",
+              "filter": {
+                "category": [
+                  "CL Dev",
+                  "TG Dev",
+                  "Systems"
+                ]
+              }
+            },
+            {
+              "detail": "devtasks",
+              "label": "Dev tasks this week",
+              "allRows": true,
+              "filter": {
+                "domain": [
+                  "Chrome Lot",
+                  "Turbo Gear",
+                  "Systems"
+                ]
+              },
+              "hierarchical": true
+            }
+          ],
+          "timeGoalMin": 600
+        },
+        {
+          "type": "section",
+          "title": "Tasks"
+        },
+        {
+          "type": "todoisttoday",
+          "span": 2,
+          "title": "Todoist — Today"
+        },
+        {
+          "type": "section",
+          "title": "Ops",
+          "collapsible": true,
+          "collapseWeekend": true
+        },
+        {
+          "type": "stat",
+          "metric": "dev.ops_min",
+          "field": "current",
+          "label": "Ops Time",
+          "showTrend": false,
+          "detail": "timepunches",
+          "detailFilter": {
+            "category": [
+              "Ops"
+            ]
+          }
+        },
+        {
+          "type": "stat",
+          "metric": "dev.field_min",
+          "field": "current",
+          "label": "Field Time",
+          "showTrend": false,
+          "detail": "timepunches",
+          "detailFilter": {
+            "category": [
+              "Field"
+            ]
+          }
+        },
+        {
+          "type": "goal",
+          "metric": "dev.total_ops_work_min",
+          "field": "current",
+          "target": 120,
+          "weekTarget": 600,
+          "weekendNoGoal": true,
+          "label": "Total Ops Work",
+          "detail": "timepunches",
+          "detailFilter": {
+            "category": [
+              "Ops",
+              "Field"
+            ]
+          },
+          "detailTitle": "Ops time log"
+        },
+        {
+          "type": "section",
+          "title": "Workshop & extras"
+        },
         {
           "type": "group",
           "metrics": [
-            { "metric": "dev.workshop_min", "field": "current", "label": "Workshop", "showTrend": false, "detailTitle": "Workshop", "detailPage": true, "detailSections": [ { "detail": "timepunches", "field": "current", "label": "Time logged", "filter": { "category": ["Workshop"] } }, { "detail": "devtasks", "label": "Workshop tasks this week", "allRows": true, "filter": { "domain": ["Workshop"] }, "hierarchical": true } ] },
-            { "metric": "dev.admin_min", "field": "current", "label": "Admin", "showTrend": false, "detailTitle": "Admin", "detailPage": true, "detailSections": [ { "detail": "timepunches", "field": "current", "label": "Time logged", "filter": { "category": ["Admin"] } }, { "detail": "devtasks", "label": "Admin tasks this week", "allRows": true, "filter": { "domain": ["Admin"] }, "hierarchical": true } ] },
-            { "metric": "life.small_talk", "field": "current", "label": "Small Talk", "showTrend": false, "detail": "smalltalk" },
-            { "metric": "dev.reading_min", "field": "current", "label": "Reading", "showTrend": false, "detail": "timepunches", "detailFilter": { "category": ["Reading"] } }
+            {
+              "metric": "dev.workshop_min",
+              "field": "current",
+              "label": "Workshop",
+              "showTrend": false,
+              "detailTitle": "Workshop",
+              "detailPage": true,
+              "detailSections": [
+                {
+                  "detail": "timepunches",
+                  "field": "current",
+                  "label": "Time logged",
+                  "filter": {
+                    "category": [
+                      "Workshop"
+                    ]
+                  }
+                },
+                {
+                  "detail": "devtasks",
+                  "label": "Workshop tasks this week",
+                  "allRows": true,
+                  "filter": {
+                    "domain": [
+                      "Workshop"
+                    ]
+                  },
+                  "hierarchical": true
+                }
+              ]
+            },
+            {
+              "metric": "dev.admin_min",
+              "field": "current",
+              "label": "Admin",
+              "showTrend": false,
+              "detailTitle": "Admin",
+              "detailPage": true,
+              "detailSections": [
+                {
+                  "detail": "timepunches",
+                  "field": "current",
+                  "label": "Time logged",
+                  "filter": {
+                    "category": [
+                      "Admin"
+                    ]
+                  }
+                },
+                {
+                  "detail": "devtasks",
+                  "label": "Admin tasks this week",
+                  "allRows": true,
+                  "filter": {
+                    "domain": [
+                      "Admin"
+                    ]
+                  },
+                  "hierarchical": true
+                }
+              ]
+            },
+            {
+              "metric": "life.small_talk",
+              "field": "current",
+              "label": "Small Talk",
+              "showTrend": false,
+              "detail": "smalltalk"
+            },
+            {
+              "metric": "dev.reading_min",
+              "field": "current",
+              "label": "Reading",
+              "showTrend": false,
+              "detail": "timepunches",
+              "detailFilter": {
+                "category": [
+                  "Reading"
+                ]
+              }
+            }
           ]
         }
       ]
@@ -82,30 +449,89 @@
       "id": "personal-week",
       "group": "Personal",
       "title": "Personal — This Week",
-      "icon": "\ud83c\udfaf",
+      "icon": "🎯",
       "subtitle": "This week's scorecard (starts Sunday) — where I'm on track and where to push. Same data as Today, pivoted to the week.",
       "widgets": [
-        { "type": "monthprogress", "span": 4 },
-        { "type": "section", "title": "Morning — days done this week" },
+        {
+          "type": "monthprogress",
+          "span": 4
+        },
+        {
+          "type": "section",
+          "title": "Morning — days done this week"
+        },
         {
           "type": "progressgroup",
           "title": "Morning stack (goal 6 days)",
           "span": 2,
           "items": [
-            { "metric": "life.supplements_done", "field": "week", "targetValue": 6, "format": "integer", "label": "Supplements" },
-            { "metric": "life.weigh_in_done", "field": "week", "targetValue": 6, "format": "integer", "label": "Weigh in" },
-            { "metric": "life.morning_journal_done", "field": "week", "targetValue": 6, "format": "integer", "label": "Morning journal" },
-            { "metric": "life.spirit_time_done", "field": "week", "targetValue": 6, "format": "integer", "label": "Spirit time" }
+            {
+              "metric": "life.supplements_done",
+              "field": "week",
+              "targetValue": 6,
+              "format": "integer",
+              "label": "Supplements"
+            },
+            {
+              "metric": "life.weigh_in_done",
+              "field": "week",
+              "targetValue": 6,
+              "format": "integer",
+              "label": "Weigh in"
+            },
+            {
+              "metric": "life.morning_journal_done",
+              "field": "week",
+              "targetValue": 6,
+              "format": "integer",
+              "label": "Morning journal"
+            },
+            {
+              "metric": "life.spirit_time_done",
+              "field": "week",
+              "targetValue": 6,
+              "format": "integer",
+              "label": "Spirit time"
+            }
           ]
         },
-        { "type": "section", "title": "Fitness" },
+        {
+          "type": "section",
+          "title": "Fitness"
+        },
         {
           "type": "progressgroup",
           "title": "Workouts vs weekly goal",
           "span": 2,
           "items": [
-            { "metric": "life.strength_sessions", "field": "week", "target": "goal.strength_target", "label": "Strength", "detail": "workouts", "detailFilter": { "type": ["Pull", "Push", "Legs", "Deadlift", "Full Body"] } },
-            { "metric": "life.cardio_sessions", "field": "week", "target": "goal.cardio_target", "label": "Cardio", "detail": "workouts", "detailFilter": { "type": ["Cardio"] } }
+            {
+              "metric": "life.strength_sessions",
+              "field": "week",
+              "target": "goal.strength_target",
+              "label": "Strength",
+              "detail": "workouts",
+              "detailFilter": {
+                "type": [
+                  "Pull",
+                  "Push",
+                  "Legs",
+                  "Deadlift",
+                  "Full Body"
+                ]
+              }
+            },
+            {
+              "metric": "life.cardio_sessions",
+              "field": "week",
+              "target": "goal.cardio_target",
+              "label": "Cardio",
+              "detail": "workouts",
+              "detailFilter": {
+                "type": [
+                  "Cardio"
+                ]
+              }
+            }
           ]
         },
         {
@@ -113,7 +539,13 @@
           "title": "10k step days",
           "span": 2,
           "items": [
-            { "metric": "personal.steps_10k", "field": "week", "targetValue": 7, "format": "integer", "label": "Days ≥ 10k steps" }
+            {
+              "metric": "personal.steps_10k",
+              "field": "week",
+              "targetValue": 7,
+              "format": "integer",
+              "label": "Days ≥ 10k steps"
+            }
           ]
         },
         {
@@ -121,29 +553,72 @@
           "title": "Weekly averages",
           "span": 2,
           "items": [
-            { "metric": "personal.steps", "field": "weekAvg", "label": "Steps / day" },
-            { "metric": "personal.sleep_hours", "field": "weekAvg", "label": "Sleep / night", "minCount": 3 },
-            { "metric": "personal.weight_lbs", "field": "weekAvg", "label": "Weight (avg)" },
-            { "metric": "personal.body_fat_pct", "field": "weekAvg", "label": "Body fat (avg)" }
+            {
+              "metric": "personal.steps",
+              "field": "weekAvg",
+              "label": "Steps / day"
+            },
+            {
+              "metric": "personal.sleep_hours",
+              "field": "weekAvg",
+              "label": "Sleep / night",
+              "minCount": 3
+            },
+            {
+              "metric": "personal.weight_lbs",
+              "field": "weekAvg",
+              "label": "Weight (avg)"
+            },
+            {
+              "metric": "personal.body_fat_pct",
+              "field": "weekAvg",
+              "label": "Body fat (avg)"
+            }
           ]
         },
-        { "type": "section", "title": "Social" },
+        {
+          "type": "section",
+          "title": "Social"
+        },
         {
           "type": "progressgroup",
           "title": "Social vs weekly goal",
           "span": 2,
           "items": [
-            { "metric": "life.small_talk", "field": "week", "target": "goal.social_target", "label": "Small talk / sarges", "detail": "smalltalk" }
+            {
+              "metric": "life.small_talk",
+              "field": "week",
+              "target": "goal.social_target",
+              "label": "Small talk / sarges",
+              "detail": "smalltalk"
+            }
           ]
         },
-        { "type": "section", "title": "Nutrition — daily average" },
+        {
+          "type": "section",
+          "title": "Nutrition — daily average"
+        },
         {
           "type": "progressgroup",
           "title": "Avg / day vs target",
           "span": 2,
           "items": [
-            { "metric": "nutrition.calories", "field": "weekAvg", "target": "goal.calorie_target", "label": "Calories", "detail": "nutrition", "detailTitle": "Food log (this week)" },
-            { "metric": "nutrition.protein_g", "field": "weekAvg", "targetValue": 150, "label": "Protein", "detail": "nutrition", "detailTitle": "Food log (this week)" }
+            {
+              "metric": "nutrition.calories",
+              "field": "weekAvg",
+              "target": "goal.calorie_target",
+              "label": "Calories",
+              "detail": "nutrition",
+              "detailTitle": "Food log (this week)"
+            },
+            {
+              "metric": "nutrition.protein_g",
+              "field": "weekAvg",
+              "targetValue": 150,
+              "label": "Protein",
+              "detail": "nutrition",
+              "detailTitle": "Food log (this week)"
+            }
           ]
         },
         {
@@ -151,19 +626,67 @@
           "title": "Avg macros / day",
           "span": 2,
           "items": [
-            { "metric": "nutrition.protein_g", "field": "weekAvg", "label": "Protein", "detail": "nutrition", "detailTitle": "Food log (this week)" },
-            { "metric": "nutrition.carbs_g", "field": "weekAvg", "label": "Carbs", "detail": "nutrition", "detailTitle": "Food log (this week)" },
-            { "metric": "nutrition.fat_g", "field": "weekAvg", "label": "Fat", "detail": "nutrition", "detailTitle": "Food log (this week)" }
+            {
+              "metric": "nutrition.protein_g",
+              "field": "weekAvg",
+              "label": "Protein",
+              "detail": "nutrition",
+              "detailTitle": "Food log (this week)"
+            },
+            {
+              "metric": "nutrition.carbs_g",
+              "field": "weekAvg",
+              "label": "Carbs",
+              "detail": "nutrition",
+              "detailTitle": "Food log (this week)"
+            },
+            {
+              "metric": "nutrition.fat_g",
+              "field": "weekAvg",
+              "label": "Fat",
+              "detail": "nutrition",
+              "detailTitle": "Food log (this week)"
+            }
           ]
         },
-        { "type": "section", "title": "Development work" },
+        {
+          "type": "section",
+          "title": "Development work"
+        },
         {
           "type": "progressgroup",
           "title": "Dev & ops time vs weekly goal",
           "span": 2,
           "items": [
-            { "metric": "dev.total_dev_min", "field": "week", "targetValue": 600, "label": "Total Dev", "detail": "timepunches", "detailFilter": { "category": ["CL Dev", "TG Dev", "Systems"] }, "detailTitle": "Dev time log (this week)" },
-            { "metric": "dev.total_ops_work_min", "field": "week", "targetValue": 600, "label": "Total Ops Work", "detail": "timepunches", "detailFilter": { "category": ["Ops", "Field"] }, "detailTitle": "Ops time log (this week)" }
+            {
+              "metric": "dev.total_dev_min",
+              "field": "week",
+              "targetValue": 600,
+              "label": "Total Dev",
+              "detail": "timepunches",
+              "detailFilter": {
+                "category": [
+                  "CL Dev",
+                  "TG Dev",
+                  "Systems"
+                ]
+              },
+              "detailTitle": "Dev time log (this week)"
+            },
+            {
+              "metric": "dev.total_ops_work_min",
+              "field": "week",
+              "targetValue": 600,
+              "label": "Total Ops Work",
+              "detail": "timepunches",
+              "detailFilter": {
+                "category": [
+                  "Ops",
+                  "Field"
+                ]
+              },
+              "detailTitle": "Ops time log (this week)"
+            }
           ]
         },
         {
@@ -171,81 +694,351 @@
           "title": "Dev breakdown (this week)",
           "span": 2,
           "items": [
-            { "metric": "dev.cl_dev_min", "field": "week", "label": "Chrome Lot", "detailTitle": "Chrome Lot dev", "detailPage": true, "detailSections": [ { "detail": "timepunches", "field": "week", "label": "Time logged", "filter": { "category": ["CL Dev"] } }, { "detail": "devtasks", "label": "Chrome Lot tasks this week", "allRows": true, "filter": { "domain": ["Chrome Lot"] }, "hierarchical": true } ] },
-            { "metric": "dev.tg_dev_min", "field": "week", "label": "Turbo Gear", "detailTitle": "Turbo Gear dev", "detailPage": true, "detailSections": [ { "detail": "timepunches", "field": "week", "label": "Time logged", "filter": { "category": ["TG Dev"] } }, { "detail": "devtasks", "label": "Turbo Gear tasks this week", "allRows": true, "filter": { "domain": ["Turbo Gear"] }, "hierarchical": true } ] },
-            { "metric": "dev.systems_min", "field": "week", "label": "Systems", "detailTitle": "Systems dev", "detailPage": true, "detailSections": [ { "detail": "timepunches", "field": "week", "label": "Time logged", "filter": { "category": ["Systems"] } }, { "detail": "devtasks", "label": "Systems tasks this week", "allRows": true, "filter": { "domain": ["Systems"] }, "hierarchical": true } ] },
-            { "metric": "dev.admin_min", "field": "week", "label": "Admin", "detailTitle": "Admin dev", "detailPage": true, "detailSections": [ { "detail": "timepunches", "field": "week", "label": "Time logged", "filter": { "category": ["Admin"] } }, { "detail": "devtasks", "label": "Admin tasks this week", "allRows": true, "filter": { "domain": ["Admin"] }, "hierarchical": true } ] }
+            {
+              "metric": "dev.cl_dev_min",
+              "field": "week",
+              "label": "Chrome Lot",
+              "detailTitle": "Chrome Lot dev",
+              "detailPage": true,
+              "detailSections": [
+                {
+                  "detail": "timepunches",
+                  "field": "week",
+                  "label": "Time logged",
+                  "filter": {
+                    "category": [
+                      "CL Dev"
+                    ]
+                  }
+                },
+                {
+                  "detail": "devtasks",
+                  "label": "Chrome Lot tasks this week",
+                  "allRows": true,
+                  "filter": {
+                    "domain": [
+                      "Chrome Lot"
+                    ]
+                  },
+                  "hierarchical": true
+                }
+              ]
+            },
+            {
+              "metric": "dev.tg_dev_min",
+              "field": "week",
+              "label": "Turbo Gear",
+              "detailTitle": "Turbo Gear dev",
+              "detailPage": true,
+              "detailSections": [
+                {
+                  "detail": "timepunches",
+                  "field": "week",
+                  "label": "Time logged",
+                  "filter": {
+                    "category": [
+                      "TG Dev"
+                    ]
+                  }
+                },
+                {
+                  "detail": "devtasks",
+                  "label": "Turbo Gear tasks this week",
+                  "allRows": true,
+                  "filter": {
+                    "domain": [
+                      "Turbo Gear"
+                    ]
+                  },
+                  "hierarchical": true
+                }
+              ]
+            },
+            {
+              "metric": "dev.systems_min",
+              "field": "week",
+              "label": "Systems",
+              "detailTitle": "Systems dev",
+              "detailPage": true,
+              "detailSections": [
+                {
+                  "detail": "timepunches",
+                  "field": "week",
+                  "label": "Time logged",
+                  "filter": {
+                    "category": [
+                      "Systems"
+                    ]
+                  }
+                },
+                {
+                  "detail": "devtasks",
+                  "label": "Systems tasks this week",
+                  "allRows": true,
+                  "filter": {
+                    "domain": [
+                      "Systems"
+                    ]
+                  },
+                  "hierarchical": true
+                }
+              ]
+            },
+            {
+              "metric": "dev.admin_min",
+              "field": "week",
+              "label": "Admin",
+              "detailTitle": "Admin dev",
+              "detailPage": true,
+              "detailSections": [
+                {
+                  "detail": "timepunches",
+                  "field": "week",
+                  "label": "Time logged",
+                  "filter": {
+                    "category": [
+                      "Admin"
+                    ]
+                  }
+                },
+                {
+                  "detail": "devtasks",
+                  "label": "Admin tasks this week",
+                  "allRows": true,
+                  "filter": {
+                    "domain": [
+                      "Admin"
+                    ]
+                  },
+                  "hierarchical": true
+                }
+              ]
+            }
           ]
         },
-        { "type": "section", "title": "Ops" },
+        {
+          "type": "section",
+          "title": "Ops"
+        },
         {
           "type": "statlist",
           "title": "Ops (this week)",
           "span": 2,
           "items": [
-            { "metric": "ops.todoist_done", "field": "week", "label": "Todoist done", "detail": "todoist" },
-            { "metric": "dev.ops_min", "field": "week", "label": "Ops time", "detail": "timepunches", "detailFilter": { "category": ["Ops"] } },
-            { "metric": "dev.field_min", "field": "week", "label": "Field time", "detail": "timepunches", "detailFilter": { "category": ["Field"] } }
+            {
+              "metric": "ops.todoist_done",
+              "field": "week",
+              "label": "Todoist done",
+              "detail": "todoist"
+            },
+            {
+              "metric": "dev.ops_min",
+              "field": "week",
+              "label": "Ops time",
+              "detail": "timepunches",
+              "detailFilter": {
+                "category": [
+                  "Ops"
+                ]
+              }
+            },
+            {
+              "metric": "dev.field_min",
+              "field": "week",
+              "label": "Field time",
+              "detail": "timepunches",
+              "detailFilter": {
+                "category": [
+                  "Field"
+                ]
+              }
+            }
           ]
         },
-        { "type": "section", "title": "Workshop & extras" },
+        {
+          "type": "section",
+          "title": "Workshop & extras"
+        },
         {
           "type": "statlist",
           "title": "This week",
           "span": 2,
           "items": [
-            { "metric": "dev.workshop_min", "field": "week", "label": "Workshop", "detail": "timepunches", "detailFilter": { "category": ["Workshop"] } },
-            { "metric": "dev.reading_min", "field": "week", "label": "Reading", "detail": "timepunches", "detailFilter": { "category": ["Reading"] } }
+            {
+              "metric": "dev.workshop_min",
+              "field": "week",
+              "label": "Workshop",
+              "detail": "timepunches",
+              "detailFilter": {
+                "category": [
+                  "Workshop"
+                ]
+              }
+            },
+            {
+              "metric": "dev.reading_min",
+              "field": "week",
+              "label": "Reading",
+              "detail": "timepunches",
+              "detailFilter": {
+                "category": [
+                  "Reading"
+                ]
+              }
+            }
           ]
         },
-        { "type": "section", "title": "Adjustments & experiments this week" },
-        { "type": "note", "text": "Qualitative focus only — the numeric targets live in the widgets above. These are the behavioral changes / experiments I'm making this week.", "span": 4 },
-        { "type": "text", "title": "Week theme", "text_key": "text.week_intentions", "span": 4 },
-        { "type": "text", "title": "Fitness", "text_key": "text.fitness_intentions", "span": 2 },
-        { "type": "text", "title": "Sleep / schedule", "text_key": "text.sleep_intentions", "span": 2 },
-        { "type": "text", "title": "Mind / spirit", "text_key": "text.mind_intentions", "span": 2 },
-        { "type": "text", "title": "Social", "text_key": "text.social_intentions", "span": 2 },
-        { "type": "text", "title": "Parenting", "text_key": "text.parenting_intentions", "span": 2 }
+        {
+          "type": "section",
+          "title": "Adjustments & experiments this week"
+        },
+        {
+          "type": "note",
+          "text": "Qualitative focus only — the numeric targets live in the widgets above. These are the behavioral changes / experiments I'm making this week.",
+          "span": 4
+        },
+        {
+          "type": "text",
+          "title": "Week theme",
+          "text_key": "text.week_intentions",
+          "span": 4
+        },
+        {
+          "type": "text",
+          "title": "Fitness",
+          "text_key": "text.fitness_intentions",
+          "span": 2
+        },
+        {
+          "type": "text",
+          "title": "Sleep / schedule",
+          "text_key": "text.sleep_intentions",
+          "span": 2
+        },
+        {
+          "type": "text",
+          "title": "Mind / spirit",
+          "text_key": "text.mind_intentions",
+          "span": 2
+        },
+        {
+          "type": "text",
+          "title": "Social",
+          "text_key": "text.social_intentions",
+          "span": 2
+        },
+        {
+          "type": "text",
+          "title": "Parenting",
+          "text_key": "text.parenting_intentions",
+          "span": 2
+        }
       ]
     },
     {
       "id": "personal-month",
       "group": "Personal",
       "title": "Personal — Trends",
-      "icon": "\ud83d\udcc8",
+      "icon": "📈",
       "subtitle": "Weekly trends over the last ~12 weeks. Click a week on any chart to see what you did.",
       "widgets": [
-        { "type": "section", "title": "Dev throughput / week" },
+        {
+          "type": "section",
+          "title": "Dev throughput / week"
+        },
         {
           "type": "weektrend",
           "title": "Completed tasks per week",
           "weeks": 12,
           "span": 4,
           "series": [
-            { "metric": "dev.projects_done", "label": "Notion dev tasks", "color": "#4f8cff", "detail": "projects_done" },
-            { "metric": "ops.todoist_done", "label": "Todoist tasks", "color": "#39d98a", "detail": "todoist" }
+            {
+              "metric": "dev.projects_done",
+              "label": "Notion dev tasks",
+              "color": "#4f8cff",
+              "detail": "projects_done"
+            },
+            {
+              "metric": "ops.todoist_done",
+              "label": "Todoist tasks",
+              "color": "#39d98a",
+              "detail": "todoist"
+            }
           ]
         },
-        { "type": "section", "title": "Time / week" },
+        {
+          "type": "section",
+          "title": "Time / week"
+        },
         {
           "type": "weektrend",
           "title": "Dev & ops minutes per week",
           "weeks": 12,
           "span": 4,
           "series": [
-            { "metric": "dev.total_dev_min", "label": "Total Dev", "color": "#4f8cff", "detail": "timepunches", "detailFilter": { "category": ["CL Dev", "TG Dev", "Systems"] } },
-            { "metric": "dev.total_ops_work_min", "label": "Total Ops Work", "color": "#f6c453", "detail": "timepunches", "detailFilter": { "category": ["Ops", "Field"] } }
+            {
+              "metric": "dev.total_dev_min",
+              "label": "Total Dev",
+              "color": "#4f8cff",
+              "detail": "timepunches",
+              "detailFilter": {
+                "category": [
+                  "CL Dev",
+                  "TG Dev",
+                  "Systems"
+                ]
+              }
+            },
+            {
+              "metric": "dev.total_ops_work_min",
+              "label": "Total Ops Work",
+              "color": "#f6c453",
+              "detail": "timepunches",
+              "detailFilter": {
+                "category": [
+                  "Ops",
+                  "Field"
+                ]
+              }
+            }
           ]
         },
-        { "type": "section", "title": "Fitness & social / week" },
+        {
+          "type": "section",
+          "title": "Fitness & social / week"
+        },
         {
           "type": "weektrend",
           "title": "Workouts per week",
           "weeks": 12,
           "span": 2,
           "series": [
-            { "metric": "life.strength_sessions", "label": "Strength", "color": "#4f8cff", "detail": "workouts", "detailFilter": { "type": ["Pull", "Push", "Legs", "Deadlift", "Full Body"] } },
-            { "metric": "life.cardio_sessions", "label": "Cardio", "color": "#39d98a", "detail": "workouts", "detailFilter": { "type": ["Cardio"] } }
+            {
+              "metric": "life.strength_sessions",
+              "label": "Strength",
+              "color": "#4f8cff",
+              "detail": "workouts",
+              "detailFilter": {
+                "type": [
+                  "Pull",
+                  "Push",
+                  "Legs",
+                  "Deadlift",
+                  "Full Body"
+                ]
+              }
+            },
+            {
+              "metric": "life.cardio_sessions",
+              "label": "Cardio",
+              "color": "#39d98a",
+              "detail": "workouts",
+              "detailFilter": {
+                "type": [
+                  "Cardio"
+                ]
+              }
+            }
           ]
         },
         {
@@ -254,23 +1047,43 @@
           "weeks": 12,
           "span": 2,
           "series": [
-            { "metric": "life.small_talk", "label": "Small talk", "color": "#b57bff", "detail": "smalltalk" }
+            {
+              "metric": "life.small_talk",
+              "label": "Small talk",
+              "color": "#b57bff",
+              "detail": "smalltalk"
+            }
           ]
         },
-        { "type": "section", "title": "Body" },
+        {
+          "type": "section",
+          "title": "Body"
+        },
         {
           "type": "weektrend",
           "title": "Weight (weekly avg)",
           "weeks": 12,
           "span": 2,
-          "series": [{ "metric": "personal.weight_lbs", "label": "Weight (lb)", "color": "#f6c453" }]
+          "series": [
+            {
+              "metric": "personal.weight_lbs",
+              "label": "Weight (lb)",
+              "color": "#f6c453"
+            }
+          ]
         },
         {
           "type": "weektrend",
           "title": "Sleep (avg hrs / night)",
           "weeks": 12,
           "span": 2,
-          "series": [{ "metric": "personal.sleep_hours", "label": "Sleep (h)", "color": "#4f8cff" }]
+          "series": [
+            {
+              "metric": "personal.sleep_hours",
+              "label": "Sleep (h)",
+              "color": "#4f8cff"
+            }
+          ]
         }
       ]
     },
@@ -278,21 +1091,56 @@
       "id": "health-trends",
       "group": "Health",
       "title": "Health — Deep Dive",
-      "icon": "\ud83e\ude7a",
+      "icon": "🩺",
       "subtitle": "Deeper dive into health trends. Set the window with the Range dropdown (top-right): past 7 / 30 / 60 / 90 days, 6 months, or a year. Every widget re-summarizes over that window. Click a chart point or summary tile for the underlying records.",
-      "rangeSelect": { "options": [7, 30, 60, 90, 180, 365], "default": 30 },
+      "rangeSelect": {
+        "options": [
+          7,
+          30,
+          60,
+          90,
+          180,
+          365
+        ],
+        "default": 30
+      },
       "widgets": [
-        { "type": "section", "title": "Body composition" },
+        {
+          "type": "section",
+          "title": "Body composition"
+        },
         {
           "type": "rangesummary",
           "title": "Averages over the window",
           "span": 4,
           "items": [
-            { "metric": "personal.weight_lbs", "label": "Weight", "mode": "avg", "showRange": true },
-            { "metric": "personal.body_fat_pct", "label": "Body fat", "mode": "avg", "showRange": true },
-            { "metric": "personal.lean_mass_lbs", "label": "Lean mass", "mode": "avg" },
-            { "metric": "personal.muscle_mass_lbs", "label": "Muscle mass", "mode": "avg" },
-            { "metric": "personal.bmi", "label": "BMI", "mode": "avg" }
+            {
+              "metric": "personal.weight_lbs",
+              "label": "Weight",
+              "mode": "avg",
+              "showRange": true
+            },
+            {
+              "metric": "personal.body_fat_pct",
+              "label": "Body fat",
+              "mode": "avg",
+              "showRange": true
+            },
+            {
+              "metric": "personal.lean_mass_lbs",
+              "label": "Lean mass",
+              "mode": "avg"
+            },
+            {
+              "metric": "personal.muscle_mass_lbs",
+              "label": "Muscle mass",
+              "mode": "avg"
+            },
+            {
+              "metric": "personal.bmi",
+              "label": "BMI",
+              "mode": "avg"
+            }
           ]
         },
         {
@@ -300,28 +1148,86 @@
           "title": "Weight & mass",
           "span": 2,
           "series": [
-            { "metric": "personal.weight_lbs", "label": "Weight", "color": "#f6c453" },
-            { "metric": "personal.lean_mass_lbs", "label": "Lean", "color": "#39d98a" },
-            { "metric": "personal.muscle_mass_lbs", "label": "Muscle", "color": "#4f8cff" }
+            {
+              "metric": "personal.weight_lbs",
+              "label": "Weight",
+              "color": "#f6c453"
+            },
+            {
+              "metric": "personal.lean_mass_lbs",
+              "label": "Lean",
+              "color": "#39d98a"
+            },
+            {
+              "metric": "personal.muscle_mass_lbs",
+              "label": "Muscle",
+              "color": "#4f8cff"
+            }
           ]
         },
         {
           "type": "rangetrend",
           "title": "Body fat %",
           "span": 2,
-          "series": [{ "metric": "personal.body_fat_pct", "label": "Body fat %", "color": "#b57bff" }]
+          "series": [
+            {
+              "metric": "personal.body_fat_pct",
+              "label": "Body fat %",
+              "color": "#b57bff"
+            }
+          ]
         },
-        { "type": "section", "title": "Fitness & activity" },
+        {
+          "type": "section",
+          "title": "Fitness & activity"
+        },
         {
           "type": "rangesummary",
           "title": "Fitness over the window",
           "span": 4,
           "items": [
-            { "metric": "life.strength_sessions", "label": "Strength", "mode": "total", "detail": "workouts", "detailFilter": { "type": ["Pull", "Push", "Legs", "Deadlift", "Full Body"] } },
-            { "metric": "life.cardio_sessions", "label": "Cardio", "mode": "total", "detail": "workouts", "detailFilter": { "type": ["Cardio"] } },
-            { "metric": "personal.workout_active_min", "label": "Active min/day", "mode": "avg" },
-            { "metric": "personal.steps", "label": "Steps/day", "mode": "avg", "showRange": true },
-            { "metric": "personal.workout_calories", "label": "Workout cal/day", "mode": "avg" }
+            {
+              "metric": "life.strength_sessions",
+              "label": "Strength",
+              "mode": "total",
+              "detail": "workouts",
+              "detailFilter": {
+                "type": [
+                  "Pull",
+                  "Push",
+                  "Legs",
+                  "Deadlift",
+                  "Full Body"
+                ]
+              }
+            },
+            {
+              "metric": "life.cardio_sessions",
+              "label": "Cardio",
+              "mode": "total",
+              "detail": "workouts",
+              "detailFilter": {
+                "type": [
+                  "Cardio"
+                ]
+              }
+            },
+            {
+              "metric": "personal.workout_active_min",
+              "label": "Active min/day",
+              "mode": "avg"
+            },
+            {
+              "metric": "personal.steps",
+              "label": "Steps/day",
+              "mode": "avg",
+              "showRange": true
+            },
+            {
+              "metric": "personal.workout_calories",
+              "label": "Workout cal/day",
+              "mode": "avg"
+            }
           ]
         },
         {
@@ -329,75 +1235,203 @@
           "title": "Workouts",
           "span": 2,
           "series": [
-            { "metric": "life.strength_sessions", "label": "Strength", "color": "#4f8cff", "detail": "workouts", "detailFilter": { "type": ["Pull", "Push", "Legs", "Deadlift", "Full Body"] } },
-            { "metric": "life.cardio_sessions", "label": "Cardio", "color": "#39d98a", "detail": "workouts", "detailFilter": { "type": ["Cardio"] } }
+            {
+              "metric": "life.strength_sessions",
+              "label": "Strength",
+              "color": "#4f8cff",
+              "detail": "workouts",
+              "detailFilter": {
+                "type": [
+                  "Pull",
+                  "Push",
+                  "Legs",
+                  "Deadlift",
+                  "Full Body"
+                ]
+              }
+            },
+            {
+              "metric": "life.cardio_sessions",
+              "label": "Cardio",
+              "color": "#39d98a",
+              "detail": "workouts",
+              "detailFilter": {
+                "type": [
+                  "Cardio"
+                ]
+              }
+            }
           ]
         },
         {
           "type": "rangetrend",
           "title": "Steps / day",
           "span": 2,
-          "series": [{ "metric": "personal.steps", "label": "Steps", "color": "#39d98a" }]
+          "series": [
+            {
+              "metric": "personal.steps",
+              "label": "Steps",
+              "color": "#39d98a"
+            }
+          ]
         },
-        { "type": "section", "title": "Sleep & recovery" },
+        {
+          "type": "section",
+          "title": "Sleep & recovery"
+        },
         {
           "type": "rangesummary",
           "title": "Sleep & recovery over the window",
           "span": 4,
           "items": [
-            { "metric": "personal.sleep_hours", "label": "Sleep", "mode": "avg", "showRange": true },
-            { "metric": "personal.deep_sleep_min", "label": "Deep sleep", "mode": "avg" },
-            { "metric": "personal.rem_sleep_min", "label": "REM sleep", "mode": "avg" },
-            { "metric": "personal.resting_hr", "label": "Resting HR", "mode": "avg", "showRange": true },
-            { "metric": "personal.spo2_pct", "label": "SpO2", "mode": "avg" }
+            {
+              "metric": "personal.sleep_hours",
+              "label": "Sleep",
+              "mode": "avg",
+              "showRange": true
+            },
+            {
+              "metric": "personal.deep_sleep_min",
+              "label": "Deep sleep",
+              "mode": "avg"
+            },
+            {
+              "metric": "personal.rem_sleep_min",
+              "label": "REM sleep",
+              "mode": "avg"
+            },
+            {
+              "metric": "personal.resting_hr",
+              "label": "Resting HR",
+              "mode": "avg",
+              "showRange": true
+            },
+            {
+              "metric": "personal.spo2_pct",
+              "label": "SpO2",
+              "mode": "avg"
+            }
           ]
         },
         {
           "type": "rangetrend",
           "title": "Sleep hours / night",
           "span": 2,
-          "series": [{ "metric": "personal.sleep_hours", "label": "Sleep (h)", "color": "#4f8cff" }]
+          "series": [
+            {
+              "metric": "personal.sleep_hours",
+              "label": "Sleep (h)",
+              "color": "#4f8cff"
+            }
+          ]
         },
         {
           "type": "rangetrend",
           "title": "Resting heart rate",
           "span": 2,
-          "series": [{ "metric": "personal.resting_hr", "label": "Resting HR", "color": "#ff6b6b" }]
+          "series": [
+            {
+              "metric": "personal.resting_hr",
+              "label": "Resting HR",
+              "color": "#ff6b6b"
+            }
+          ]
         },
-        { "type": "section", "title": "Nutrition" },
+        {
+          "type": "section",
+          "title": "Nutrition"
+        },
         {
           "type": "rangesummary",
           "title": "Daily average intake over the window",
           "span": 4,
           "items": [
-            { "metric": "nutrition.calories", "label": "Calories", "mode": "avg", "detail": "nutrition" },
-            { "metric": "nutrition.protein_g", "label": "Protein", "mode": "avg", "detail": "nutrition" },
-            { "metric": "nutrition.carbs_g", "label": "Carbs", "mode": "avg", "detail": "nutrition" },
-            { "metric": "nutrition.fat_g", "label": "Fat", "mode": "avg", "detail": "nutrition" }
+            {
+              "metric": "nutrition.calories",
+              "label": "Calories",
+              "mode": "avg",
+              "detail": "nutrition"
+            },
+            {
+              "metric": "nutrition.protein_g",
+              "label": "Protein",
+              "mode": "avg",
+              "detail": "nutrition"
+            },
+            {
+              "metric": "nutrition.carbs_g",
+              "label": "Carbs",
+              "mode": "avg",
+              "detail": "nutrition"
+            },
+            {
+              "metric": "nutrition.fat_g",
+              "label": "Fat",
+              "mode": "avg",
+              "detail": "nutrition"
+            }
           ]
         },
         {
           "type": "rangetrend",
           "title": "Calories / day",
           "span": 2,
-          "series": [{ "metric": "nutrition.calories", "label": "Calories", "color": "#f6c453", "bucketMode": "perday", "detail": "nutrition" }]
+          "series": [
+            {
+              "metric": "nutrition.calories",
+              "label": "Calories",
+              "color": "#f6c453",
+              "bucketMode": "perday",
+              "detail": "nutrition"
+            }
+          ]
         },
         {
           "type": "rangetrend",
           "title": "Protein / day",
           "span": 2,
-          "series": [{ "metric": "nutrition.protein_g", "label": "Protein (g)", "color": "#39d98a", "bucketMode": "perday", "detail": "nutrition" }]
+          "series": [
+            {
+              "metric": "nutrition.protein_g",
+              "label": "Protein (g)",
+              "color": "#39d98a",
+              "bucketMode": "perday",
+              "detail": "nutrition"
+            }
+          ]
         },
-        { "type": "section", "title": "Skin condition" },
-        { "type": "note", "text": "Extent (zones involved / extent score) is the stable clinical outcome — lower is better. Redness is noisy severity (varies with debridement). Source: weekly tracking-shot measurements. See context/self/skin-tracking.md.", "span": 4 },
+        {
+          "type": "section",
+          "title": "Skin condition"
+        },
+        {
+          "type": "note",
+          "text": "Extent (zones involved / extent score) is the stable clinical outcome — lower is better. Redness is noisy severity (varies with debridement). Source: weekly tracking-shot measurements. See context/self/skin-tracking.md.",
+          "span": 4
+        },
         {
           "type": "rangesummary",
           "title": "Latest skin reading",
           "span": 2,
           "items": [
-            { "metric": "skin.zones_involved", "label": "Zones involved", "mode": "latest", "detail": "skin" },
-            { "metric": "skin.extent_score", "label": "Extent score", "mode": "latest", "detail": "skin" },
-            { "metric": "skin.redness", "label": "Redness", "mode": "latest", "detail": "skin" }
+            {
+              "metric": "skin.zones_involved",
+              "label": "Zones involved",
+              "mode": "latest",
+              "detail": "skin"
+            },
+            {
+              "metric": "skin.extent_score",
+              "label": "Extent score",
+              "mode": "latest",
+              "detail": "skin"
+            },
+            {
+              "metric": "skin.redness",
+              "label": "Redness",
+              "mode": "latest",
+              "detail": "skin"
+            }
           ]
         },
         {
@@ -405,11 +1439,24 @@
           "title": "Skin extent trend (lower = better)",
           "span": 2,
           "series": [
-            { "metric": "skin.zones_involved", "label": "Zones", "color": "#b57bff", "detail": "skin" },
-            { "metric": "skin.extent_score", "label": "Extent", "color": "#ff6b6b", "detail": "skin" }
+            {
+              "metric": "skin.zones_involved",
+              "label": "Zones",
+              "color": "#b57bff",
+              "detail": "skin"
+            },
+            {
+              "metric": "skin.extent_score",
+              "label": "Extent",
+              "color": "#ff6b6b",
+              "detail": "skin"
+            }
           ]
         },
-        { "type": "section", "title": "Care & appointments" },
+        {
+          "type": "section",
+          "title": "Care & appointments"
+        },
         {
           "type": "duecard",
           "label": "Dentist checkup",
@@ -425,8 +1472,18 @@
           "title": "Sessions logged in the window",
           "span": 2,
           "items": [
-            { "metric": "care.whitening_sessions", "label": "Teeth whitening", "mode": "total", "detail": "whitening" },
-            { "metric": "care.dental_visits", "label": "Dental visits", "mode": "total", "detail": "dental" }
+            {
+              "metric": "care.whitening_sessions",
+              "label": "Teeth whitening",
+              "mode": "total",
+              "detail": "whitening"
+            },
+            {
+              "metric": "care.dental_visits",
+              "label": "Dental visits",
+              "mode": "total",
+              "detail": "dental"
+            }
           ]
         },
         {
@@ -434,98 +1491,288 @@
           "title": "Teeth whitening sessions",
           "span": 2,
           "chart": "bar",
-          "series": [{ "metric": "care.whitening_sessions", "label": "Whitening", "color": "#5bd1d7", "detail": "whitening" }]
+          "series": [
+            {
+              "metric": "care.whitening_sessions",
+              "label": "Whitening",
+              "color": "#5bd1d7",
+              "detail": "whitening"
+            }
+          ]
         },
-        { "type": "note", "text": "Dentist visits + teeth whitening are logged in Notion (Dental Visits Log / Teeth Whitening Log). The dentist card turns amber within 30 days of the 6-month due date and red when overdue — book the next cleaning when it does.", "span": 2 }
+        {
+          "type": "note",
+          "text": "Dentist visits + teeth whitening are logged in Notion (Dental Visits Log / Teeth Whitening Log). The dentist card turns amber within 30 days of the 6-month due date and red when overdue — book the next cleaning when it does.",
+          "span": 2
+        }
       ]
     },
     {
       "id": "work-day",
       "group": "Work",
       "title": "Chrome Lot — Today",
-      "icon": "\ud83d\ude97",
+      "icon": "🚗",
       "subtitle": "Today's schedule and team status. Pick a day to look back.",
       "widgets": [
-        { "type": "section", "title": "Schedule" },
-        { "type": "stat", "metric": "work.jobs_done", "field": "current", "label": "Jobs", "detail": "jobs" },
-        { "type": "stat", "metric": "work.cars_shot", "field": "current", "label": "Cars shot", "detail": "jobs" },
-        { "type": "stat", "metric": "work.callins_total", "field": "current", "label": "Call-ins", "detail": "callins" },
-        { "type": "stat", "metric": "work.timeoff_total", "field": "current", "label": "Time off", "detail": "timeoff" },
-        { "type": "note", "text": "Jobs = dealership appointments; cars = vehicles actually shot. Click a tile for the underlying records.", "span": 4 }
+        {
+          "type": "section",
+          "title": "Schedule"
+        },
+        {
+          "type": "stat",
+          "metric": "work.jobs_done",
+          "field": "current",
+          "label": "Jobs",
+          "detail": "jobs"
+        },
+        {
+          "type": "stat",
+          "metric": "work.cars_shot",
+          "field": "current",
+          "label": "Cars shot",
+          "detail": "jobs"
+        },
+        {
+          "type": "stat",
+          "metric": "work.callins_total",
+          "field": "current",
+          "label": "Call-ins",
+          "detail": "callins"
+        },
+        {
+          "type": "stat",
+          "metric": "work.timeoff_total",
+          "field": "current",
+          "label": "Time off",
+          "detail": "timeoff"
+        },
+        {
+          "type": "note",
+          "text": "Jobs = dealership appointments; cars = vehicles actually shot. Click a tile for the underlying records.",
+          "span": 4
+        }
       ]
     },
     {
       "id": "work-week",
       "group": "Work",
       "title": "Chrome Lot — This Week",
-      "icon": "\ud83d\ude97",
-      "subtitle": "Throughput and team status for the week (Sun\u2013Sat).",
+      "icon": "🚗",
+      "subtitle": "Throughput and team status for the week (Sun–Sat).",
       "widgets": [
-        { "type": "section", "title": "Throughput" },
-        { "type": "stat", "metric": "work.jobs_done", "field": "week", "label": "Jobs (week)", "detail": "jobs" },
-        { "type": "stat", "metric": "work.cars_shot", "field": "week", "label": "Cars shot (week)", "detail": "jobs" },
-        { "type": "stat", "metric": "work.jobs_done", "field": "weekAvg", "label": "Avg jobs/day", "showTrend": false },
-        { "type": "stat", "metric": "work.cars_shot", "field": "weekAvg", "label": "Avg cars/day", "showTrend": false },
-        { "type": "note", "text": "Avg jobs/day and avg cars/day gauge how busy the schedule ran this week (weekdays only shooting).", "span": 4 },
-        { "type": "section", "title": "Team" },
-        { "type": "stat", "metric": "work.callins_total", "field": "week", "label": "Call-ins (week)", "detail": "callins" },
-        { "type": "stat", "metric": "work.timeoff_total", "field": "week", "label": "Time-off events (week)", "detail": "timeoff" },
-        { "type": "stat", "metric": "dev.projects_done", "field": "week", "label": "Dev projects done", "detail": "projects_done" },
-        { "type": "stat", "metric": "dev.total_dev_min", "field": "week", "label": "Dev time", "detail": "timepunches", "detailFilter": { "category": ["CL Dev", "TG Dev", "Systems"] } }
+        {
+          "type": "section",
+          "title": "Throughput"
+        },
+        {
+          "type": "stat",
+          "metric": "work.jobs_done",
+          "field": "week",
+          "label": "Jobs (week)",
+          "detail": "jobs"
+        },
+        {
+          "type": "stat",
+          "metric": "work.cars_shot",
+          "field": "week",
+          "label": "Cars shot (week)",
+          "detail": "jobs"
+        },
+        {
+          "type": "stat",
+          "metric": "work.jobs_done",
+          "field": "weekAvg",
+          "label": "Avg jobs/day",
+          "showTrend": false
+        },
+        {
+          "type": "stat",
+          "metric": "work.cars_shot",
+          "field": "weekAvg",
+          "label": "Avg cars/day",
+          "showTrend": false
+        },
+        {
+          "type": "note",
+          "text": "Avg jobs/day and avg cars/day gauge how busy the schedule ran this week (weekdays only shooting).",
+          "span": 4
+        },
+        {
+          "type": "section",
+          "title": "Team"
+        },
+        {
+          "type": "stat",
+          "metric": "work.callins_total",
+          "field": "week",
+          "label": "Call-ins (week)",
+          "detail": "callins"
+        },
+        {
+          "type": "stat",
+          "metric": "work.timeoff_total",
+          "field": "week",
+          "label": "Time-off events (week)",
+          "detail": "timeoff"
+        },
+        {
+          "type": "stat",
+          "metric": "dev.projects_done",
+          "field": "week",
+          "label": "Dev projects done",
+          "detail": "projects_done"
+        },
+        {
+          "type": "stat",
+          "metric": "dev.total_dev_min",
+          "field": "week",
+          "label": "Dev time",
+          "detail": "timepunches",
+          "detailFilter": {
+            "category": [
+              "CL Dev",
+              "TG Dev",
+              "Systems"
+            ]
+          }
+        }
       ]
     },
     {
       "id": "work-month",
       "group": "Work",
       "title": "Chrome Lot — Trends",
-      "icon": "\ud83d\udcc8",
+      "icon": "📈",
       "subtitle": "Weekly trends over ~12 weeks. Click a week on any chart to see the underlying records.",
       "widgets": [
-        { "type": "section", "title": "Throughput / week" },
+        {
+          "type": "section",
+          "title": "Throughput / week"
+        },
         {
           "type": "weektrend",
           "title": "Jobs & cars shot per week",
           "weeks": 12,
           "span": 4,
           "series": [
-            { "metric": "work.jobs_done", "label": "Jobs", "color": "#4f8cff", "detail": "jobs" },
-            { "metric": "work.cars_shot", "label": "Cars shot", "color": "#39d98a", "detail": "jobs" }
+            {
+              "metric": "work.jobs_done",
+              "label": "Jobs",
+              "color": "#4f8cff",
+              "detail": "jobs"
+            },
+            {
+              "metric": "work.cars_shot",
+              "label": "Cars shot",
+              "color": "#39d98a",
+              "detail": "jobs"
+            }
           ]
         },
-        { "type": "section", "title": "Call-ins by photographer / week" },
-        { "type": "grouptrend", "title": "Call-in frequency", "detail": "callins", "groupBy": "employee", "weeks": 12, "span": 4 },
-        { "type": "section", "title": "Time off by photographer / week" },
-        { "type": "grouptrend", "title": "Time-off frequency", "detail": "timeoff", "groupBy": "employee", "weeks": 12, "span": 4 }
+        {
+          "type": "section",
+          "title": "Call-ins by photographer / week"
+        },
+        {
+          "type": "grouptrend",
+          "title": "Call-in frequency",
+          "detail": "callins",
+          "groupBy": "employee",
+          "weeks": 12,
+          "span": 4
+        },
+        {
+          "type": "section",
+          "title": "Time off by photographer / week"
+        },
+        {
+          "type": "grouptrend",
+          "title": "Time-off frequency",
+          "detail": "timeoff",
+          "groupBy": "employee",
+          "weeks": 12,
+          "span": 4
+        }
       ]
     },
     {
       "id": "work-banking",
       "group": "Work",
       "title": "Chrome Lot — Banking",
-      "icon": "\ud83c\udfe6",
+      "icon": "🏦",
       "subtitle": "Business cash & spend from connected bank accounts. QuickBooks stays the system of record for P&L.",
-      "rangeSelect": { "options": [30, 60, 90, 180, 365], "default": 30 },
+      "rangeSelect": {
+        "options": [
+          30,
+          60,
+          90,
+          180,
+          365
+        ],
+        "default": 30
+      },
       "widgets": [
-        { "type": "section", "title": "Cash position" },
-        { "type": "stat", "metric": "finance.biz_cash", "label": "Business cash", "span": 2, "field": "current", "detail": "finance_accounts_biz" },
-        { "type": "stat", "metric": "finance.biz_liabilities", "label": "Liabilities", "span": 1 },
-        { "type": "stat", "metric": "finance.biz_net", "label": "Net cash", "span": 1 },
+        {
+          "type": "section",
+          "title": "Cash position"
+        },
+        {
+          "type": "stat",
+          "metric": "finance.biz_cash",
+          "label": "Business cash",
+          "span": 2,
+          "field": "current",
+          "detail": "finance_accounts_biz"
+        },
+        {
+          "type": "stat",
+          "metric": "finance.biz_liabilities",
+          "label": "Liabilities",
+          "span": 1
+        },
+        {
+          "type": "stat",
+          "metric": "finance.biz_net",
+          "label": "Net cash",
+          "span": 1
+        },
         {
           "type": "rangetrend",
           "title": "Business cash",
           "span": 4,
-          "series": [{ "metric": "finance.biz_cash", "label": "Business cash", "color": "#4f8cff" }]
+          "series": [
+            {
+              "metric": "finance.biz_cash",
+              "label": "Business cash",
+              "color": "#4f8cff"
+            }
+          ]
         },
-        { "type": "section", "title": "Cash flow" },
+        {
+          "type": "section",
+          "title": "Cash flow"
+        },
         {
           "type": "group",
           "title": "This month",
           "span": 4,
           "metrics": [
-            { "metric": "finance.biz_spend_mtd", "label": "Spend MTD" },
-            { "metric": "finance.biz_income_mtd", "label": "Income MTD" },
-            { "metric": "finance.biz_net_cashflow_mtd", "label": "Net flow MTD" },
-            { "metric": "finance.biz_account_count", "label": "Accounts" }
+            {
+              "metric": "finance.biz_spend_mtd",
+              "label": "Spend MTD"
+            },
+            {
+              "metric": "finance.biz_income_mtd",
+              "label": "Income MTD"
+            },
+            {
+              "metric": "finance.biz_net_cashflow_mtd",
+              "label": "Net flow MTD"
+            },
+            {
+              "metric": "finance.biz_account_count",
+              "label": "Accounts"
+            }
           ]
         },
         {
@@ -533,8 +1780,17 @@
           "title": "Spend vs income over the window",
           "span": 4,
           "items": [
-            { "metric": "finance.biz_spend_daily", "label": "Total spend", "mode": "total", "detail": "finance_spend_biz" },
-            { "metric": "finance.biz_income_daily", "label": "Total income", "mode": "total" }
+            {
+              "metric": "finance.biz_spend_daily",
+              "label": "Total spend",
+              "mode": "total",
+              "detail": "finance_spend_biz"
+            },
+            {
+              "metric": "finance.biz_income_daily",
+              "label": "Total income",
+              "mode": "total"
+            }
           ]
         },
         {
@@ -543,37 +1799,108 @@
           "chart": "bar",
           "span": 4,
           "series": [
-            { "metric": "finance.biz_spend_daily", "label": "Spend", "color": "#ff6b6b", "detail": "finance_spend_biz" },
-            { "metric": "finance.biz_income_daily", "label": "Income", "color": "#39d98a" }
+            {
+              "metric": "finance.biz_spend_daily",
+              "label": "Spend",
+              "color": "#ff6b6b",
+              "detail": "finance_spend_biz"
+            },
+            {
+              "metric": "finance.biz_income_daily",
+              "label": "Income",
+              "color": "#39d98a"
+            }
           ]
         },
-        { "type": "section", "title": "Accounts & transactions" },
-        { "type": "table", "detail": "finance_accounts_biz", "title": "Business accounts", "allRows": true, "span": 2, "emptyText": "No business accounts classified yet. Tag Chase business accounts in dashboard/config/finance-accounts.json." },
-        { "type": "table", "detail": "finance_transactions_biz", "title": "Business transactions (window)", "window": true, "span": 2, "limit": 40, "emptyText": "No business transactions in this window." },
-        { "type": "note", "span": 4, "text": "Chase business accounts feed this board via SimpleFIN, classified in dashboard/config/finance-accounts.json. QuickBooks remains the system of record for P&L, categorization, and quarterly estimates (separate pipe — see context/work/finances/index.md)." }
+        {
+          "type": "section",
+          "title": "Accounts & transactions"
+        },
+        {
+          "type": "table",
+          "detail": "finance_accounts_biz",
+          "title": "Business accounts",
+          "allRows": true,
+          "span": 2,
+          "emptyText": "No business accounts classified yet. Tag Chase business accounts in dashboard/config/finance-accounts.json."
+        },
+        {
+          "type": "table",
+          "detail": "finance_transactions_biz",
+          "title": "Business transactions (window)",
+          "window": true,
+          "span": 2,
+          "limit": 40,
+          "emptyText": "No business transactions in this window."
+        },
+        {
+          "type": "note",
+          "span": 4,
+          "text": "Chase business accounts feed this board via SimpleFIN, classified in dashboard/config/finance-accounts.json. QuickBooks remains the system of record for P&L, categorization, and quarterly estimates (separate pipe — see context/work/finances/index.md)."
+        }
       ]
     },
     {
       "id": "finance-overview",
       "group": "Finance",
       "title": "Finance — Overview",
-      "icon": "\ud83d\udcb0",
-      "subtitle": "Personal net worth, balances, and trend. Business banking lives under Chrome Lot \u203a Banking.",
-      "rangeSelect": { "options": [30, 90, 180, 365], "default": 90 },
+      "icon": "💰",
+      "subtitle": "Personal net worth, balances, and trend. Business banking lives under Chrome Lot › Banking.",
+      "rangeSelect": {
+        "options": [
+          30,
+          90,
+          180,
+          365
+        ],
+        "default": 90
+      },
       "widgets": [
-        { "type": "section", "title": "Net worth" },
-        { "type": "stat", "metric": "finance.net_worth", "label": "Net worth", "span": 2, "field": "current", "detail": "finance_accounts" },
-        { "type": "stat", "metric": "finance.liabilities", "label": "Liabilities", "span": 1 },
-        { "type": "stat", "metric": "finance.account_count", "label": "Accounts", "span": 1 },
+        {
+          "type": "section",
+          "title": "Net worth"
+        },
+        {
+          "type": "stat",
+          "metric": "finance.net_worth",
+          "label": "Net worth",
+          "span": 2,
+          "field": "current",
+          "detail": "finance_accounts"
+        },
+        {
+          "type": "stat",
+          "metric": "finance.liabilities",
+          "label": "Liabilities",
+          "span": 1
+        },
+        {
+          "type": "stat",
+          "metric": "finance.account_count",
+          "label": "Accounts",
+          "span": 1
+        },
         {
           "type": "group",
           "title": "Balances",
           "span": 4,
           "metrics": [
-            { "metric": "finance.liquid_cash", "label": "Liquid cash" },
-            { "metric": "finance.investments", "label": "Investments" },
-            { "metric": "finance.assets", "label": "Assets" },
-            { "metric": "finance.liabilities", "label": "Liabilities" }
+            {
+              "metric": "finance.liquid_cash",
+              "label": "Liquid cash"
+            },
+            {
+              "metric": "finance.investments",
+              "label": "Investments"
+            },
+            {
+              "metric": "finance.assets",
+              "label": "Assets"
+            },
+            {
+              "metric": "finance.liabilities",
+              "label": "Liabilities"
+            }
           ]
         },
         {
@@ -581,44 +1908,106 @@
           "title": "Net worth, cash & investments",
           "span": 4,
           "series": [
-            { "metric": "finance.net_worth", "label": "Net worth", "color": "#39d98a" },
-            { "metric": "finance.liquid_cash", "label": "Liquid cash", "color": "#4f8cff" },
-            { "metric": "finance.investments", "label": "Investments", "color": "#b57bff" }
+            {
+              "metric": "finance.net_worth",
+              "label": "Net worth",
+              "color": "#39d98a"
+            },
+            {
+              "metric": "finance.liquid_cash",
+              "label": "Liquid cash",
+              "color": "#4f8cff"
+            },
+            {
+              "metric": "finance.investments",
+              "label": "Investments",
+              "color": "#b57bff"
+            }
           ]
         },
-        { "type": "section", "title": "Accounts" },
-        { "type": "table", "detail": "finance_accounts", "title": "Personal accounts", "allRows": true, "span": 4, "emptyText": "No personal accounts yet — connect institutions in SimpleFIN, then rebuild." },
-        { "type": "note", "span": 4, "text": "Net-worth / cash trend is reconstructed from current balances + transaction history (exact for cash & credit; investment market drift between trades is approximate). Accounts are split personal vs business in dashboard/config/finance-accounts.json." }
+        {
+          "type": "section",
+          "title": "Accounts"
+        },
+        {
+          "type": "table",
+          "detail": "finance_accounts",
+          "title": "Personal accounts",
+          "allRows": true,
+          "span": 4,
+          "emptyText": "No personal accounts yet — connect institutions in SimpleFIN, then rebuild."
+        },
+        {
+          "type": "note",
+          "span": 4,
+          "text": "Net-worth / cash trend is reconstructed from current balances + transaction history (exact for cash & credit; investment market drift between trades is approximate). Accounts are split personal vs business in dashboard/config/finance-accounts.json."
+        }
       ]
     },
     {
       "id": "finance-spending",
       "group": "Finance",
       "title": "Finance — Spending",
-      "icon": "\ud83e\uddfe",
+      "icon": "🧾",
       "subtitle": "Personal cash flow, categories, and recurring charges over the selected window.",
-      "rangeSelect": { "options": [30, 60, 90, 180, 365], "default": 30 },
+      "rangeSelect": {
+        "options": [
+          30,
+          60,
+          90,
+          180,
+          365
+        ],
+        "default": 30
+      },
       "widgets": [
-        { "type": "section", "title": "This month" },
+        {
+          "type": "section",
+          "title": "This month"
+        },
         {
           "type": "group",
           "title": "Month to date",
           "span": 4,
           "metrics": [
-            { "metric": "finance.spend_mtd", "label": "Spend MTD" },
-            { "metric": "finance.income_mtd", "label": "Income MTD" },
-            { "metric": "finance.net_cashflow_mtd", "label": "Net cash flow" },
-            { "metric": "finance.recurring_count", "label": "Recurring" }
+            {
+              "metric": "finance.spend_mtd",
+              "label": "Spend MTD"
+            },
+            {
+              "metric": "finance.income_mtd",
+              "label": "Income MTD"
+            },
+            {
+              "metric": "finance.net_cashflow_mtd",
+              "label": "Net cash flow"
+            },
+            {
+              "metric": "finance.recurring_count",
+              "label": "Recurring"
+            }
           ]
         },
-        { "type": "section", "title": "Over the selected window" },
+        {
+          "type": "section",
+          "title": "Over the selected window"
+        },
         {
           "type": "rangesummary",
           "title": "Spend vs income",
           "span": 4,
           "items": [
-            { "metric": "finance.spend_daily", "label": "Total spend", "mode": "total", "detail": "finance_spend" },
-            { "metric": "finance.income_daily", "label": "Total income", "mode": "total" }
+            {
+              "metric": "finance.spend_daily",
+              "label": "Total spend",
+              "mode": "total",
+              "detail": "finance_spend"
+            },
+            {
+              "metric": "finance.income_daily",
+              "label": "Total income",
+              "mode": "total"
+            }
           ]
         },
         {
@@ -627,42 +2016,126 @@
           "chart": "bar",
           "span": 4,
           "series": [
-            { "metric": "finance.spend_daily", "label": "Spend", "color": "#ff6b6b", "detail": "finance_spend" },
-            { "metric": "finance.income_daily", "label": "Income", "color": "#39d98a" }
+            {
+              "metric": "finance.spend_daily",
+              "label": "Spend",
+              "color": "#ff6b6b",
+              "detail": "finance_spend"
+            },
+            {
+              "metric": "finance.income_daily",
+              "label": "Income",
+              "color": "#39d98a"
+            }
           ]
         },
-        { "type": "section", "title": "By category" },
-        { "type": "grouptrend", "title": "Spending by category / week", "detail": "finance_spend", "groupBy": "category", "valueField": "amount", "weeks": 12, "span": 4 },
-        { "type": "section", "title": "Recurring & transactions" },
-        { "type": "table", "detail": "finance_recurring", "title": "Recurring merchants", "allRows": true, "span": 2, "emptyText": "No recurring charges detected yet (needs 2+ months of history)." },
-        { "type": "table", "detail": "finance_transactions", "title": "Transactions (window)", "window": true, "span": 2, "limit": 40, "emptyText": "No transactions in this window." }
+        {
+          "type": "section",
+          "title": "By category"
+        },
+        {
+          "type": "grouptrend",
+          "title": "Spending by category / week",
+          "detail": "finance_spend",
+          "groupBy": "category",
+          "valueField": "amount",
+          "weeks": 12,
+          "span": 4
+        },
+        {
+          "type": "section",
+          "title": "Recurring & transactions"
+        },
+        {
+          "type": "table",
+          "detail": "finance_recurring",
+          "title": "Recurring merchants",
+          "allRows": true,
+          "span": 2,
+          "emptyText": "No recurring charges detected yet (needs 2+ months of history)."
+        },
+        {
+          "type": "table",
+          "detail": "finance_transactions",
+          "title": "Transactions (window)",
+          "window": true,
+          "span": 2,
+          "limit": 40,
+          "emptyText": "No transactions in this window."
+        }
       ]
     },
     {
       "id": "finance-investments",
       "group": "Finance",
       "title": "Finance — Investments",
-      "icon": "\ud83d\udcc8",
+      "icon": "📈",
       "subtitle": "Personal brokerage / retirement holdings, where SimpleFIN returns them.",
       "widgets": [
-        { "type": "section", "title": "Portfolio" },
-        { "type": "stat", "metric": "finance.holdings_value", "label": "Portfolio value", "span": 2, "field": "current", "detail": "finance_holdings" },
-        { "type": "stat", "metric": "finance.holdings_gain", "label": "Unrealized gain", "span": 1 },
-        { "type": "stat", "metric": "finance.holdings_gain_pct", "label": "Gain %", "span": 1 },
+        {
+          "type": "section",
+          "title": "Portfolio"
+        },
+        {
+          "type": "stat",
+          "metric": "finance.holdings_value",
+          "label": "Portfolio value",
+          "span": 2,
+          "field": "current",
+          "detail": "finance_holdings"
+        },
+        {
+          "type": "stat",
+          "metric": "finance.holdings_gain",
+          "label": "Unrealized gain",
+          "span": 1
+        },
+        {
+          "type": "stat",
+          "metric": "finance.holdings_gain_pct",
+          "label": "Gain %",
+          "span": 1
+        },
         {
           "type": "group",
           "title": "Basis",
           "span": 4,
           "metrics": [
-            { "metric": "finance.holdings_value", "label": "Market value" },
-            { "metric": "finance.holdings_cost", "label": "Cost basis" },
-            { "metric": "finance.holdings_gain", "label": "Unrealized gain" },
-            { "metric": "finance.investments", "label": "Investment balance" }
+            {
+              "metric": "finance.holdings_value",
+              "label": "Market value"
+            },
+            {
+              "metric": "finance.holdings_cost",
+              "label": "Cost basis"
+            },
+            {
+              "metric": "finance.holdings_gain",
+              "label": "Unrealized gain"
+            },
+            {
+              "metric": "finance.investments",
+              "label": "Investment balance"
+            }
           ]
         },
-        { "type": "section", "title": "Holdings" },
-        { "type": "table", "detail": "finance_holdings", "title": "Holdings", "allRows": true, "span": 4, "emptyText": "No holdings returned yet. SimpleFIN exposes brokerage holdings for some institutions only." },
-        { "type": "note", "span": 4, "text": "Investment data is second-class in SimpleFIN — balances are reliable; per-lot holdings and cost basis vary by brokerage. For full portfolio analytics, add a broker CSV import later." }
+        {
+          "type": "section",
+          "title": "Holdings"
+        },
+        {
+          "type": "table",
+          "detail": "finance_holdings",
+          "title": "Holdings",
+          "allRows": true,
+          "span": 4,
+          "emptyText": "No holdings returned yet. SimpleFIN exposes brokerage holdings for some institutions only."
+        },
+        {
+          "type": "note",
+          "span": 4,
+          "text": "Investment data is second-class in SimpleFIN — balances are reliable; per-lot holdings and cost basis vary by brokerage. For full portfolio analytics, add a broker CSV import later."
+        }
       ]
     }
   ]
