@@ -265,6 +265,7 @@
           "weekTarget": 600,
           "label": "Total Dev",
           "detailTitle": "Dev work",
+          "devtaskView": "completed",
           "detailPage": true,
           "detailSections": [
             {
@@ -281,7 +282,7 @@
             },
             {
               "detail": "devtasks",
-              "label": "Dev tasks this week",
+              "label": "Dev tasks completed",
               "allRows": true,
               "filter": {
                 "domain": [
@@ -326,14 +327,16 @@
           "weekTarget": 600,
           "weekendNoGoal": true,
           "label": "Total Ops Work",
+          "detailTitle": "Total Ops Work",
+          "detailPage": true,
+          "pageKind": "opswork",
           "detail": "timepunches",
           "detailFilter": {
             "category": [
               "Ops",
               "Field"
             ]
-          },
-          "detailTitle": "Ops time log"
+          }
         },
         {
           "type": "section",
@@ -651,21 +654,45 @@
               "field": "week",
               "targetValue": 600,
               "label": "Total Dev",
-              "detail": "timepunches",
-              "detailFilter": {
-                "category": [
-                  "CL Dev",
-                  "TG Dev",
-                  "Systems"
-                ]
-              },
-              "detailTitle": "Dev time log (this week)"
+              "devtaskView": "completed",
+              "detailPage": true,
+              "detailTitle": "Total Dev",
+              "detailSections": [
+                {
+                  "detail": "timepunches",
+                  "field": "week",
+                  "label": "Time logged",
+                  "filter": {
+                    "category": [
+                      "CL Dev",
+                      "TG Dev",
+                      "Systems"
+                    ]
+                  }
+                },
+                {
+                  "detail": "devtasks",
+                  "label": "Dev tasks completed",
+                  "allRows": true,
+                  "filter": {
+                    "domain": [
+                      "Chrome Lot",
+                      "Turbo Gear",
+                      "Systems"
+                    ]
+                  },
+                  "hierarchical": true
+                }
+              ],
+              "timeGoalMin": 600
             },
             {
               "metric": "dev.total_ops_work_min",
               "field": "week",
               "targetValue": 600,
               "label": "Total Ops Work",
+              "detailPage": true,
+              "pageKind": "opswork",
               "detail": "timepunches",
               "detailFilter": {
                 "category": [
@@ -673,7 +700,7 @@
                   "Field"
                 ]
               },
-              "detailTitle": "Ops time log (this week)"
+              "detailTitle": "Total Ops Work"
             }
           ]
         },
