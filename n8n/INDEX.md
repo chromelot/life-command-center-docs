@@ -19,7 +19,7 @@
 | Roadmap ▶ Start → Dev Project | [`webhooks/roadmap-promote/roadmap-promote.md`](webhooks/roadmap-promote/roadmap-promote.md) |
 | Roadmap ⏸ Pause | [`webhooks/roadmap-pause/roadmap-pause.md`](webhooks/roadmap-pause/roadmap-pause.md) |
 | Dev Project 📋 Todoist mirror | [`webhooks/dev-project-todoist-mirror/dev-project-todoist-mirror.md`](webhooks/dev-project-todoist-mirror/dev-project-todoist-mirror.md) |
-| Dev ↔ Roadmap sync (name/icon/link) | [`sync/dev-roadmap-sync/dev-roadmap-sync.md`](sync/dev-roadmap-sync/dev-roadmap-sync.md) |
+| ~~Dev ↔ Roadmap sync (name/icon/link)~~ | **RETIRED 2026-07-11** — Tasks no longer require a Project (standalone TG backlog); auto-link/name-sync removed. Promote/Pause + `Projects.Completion` rollup remain. |
 | Tracker Matcher (period links) | [`sync/tracker-matcher/tracker-matcher-sync.md`](sync/tracker-matcher/tracker-matcher-sync.md) |
 | Week Tracker Sunday create | [`sync/week-tracker/week-tracker-create.md`](sync/week-tracker/week-tracker-create.md) |
 | Month/Quarter/Year rollover | [`sync/period-tracker/period-tracker-create.md`](sync/period-tracker/period-tracker-create.md) |
