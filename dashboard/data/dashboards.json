@@ -25,29 +25,19 @@
           ]
         },
         { "type": "section", "title": "Fitness" },
-        { "type": "goal", "metric": "life.strength_sessions", "field": "current", "target": 1, "label": "Strength" },
-        { "type": "goal", "metric": "life.cardio_sessions", "field": "current", "target": 1, "label": "Cardio" },
+        { "type": "goal", "metric": "life.strength_sessions", "field": "current", "target": 1, "weekTargetMetric": "goal.strength_target", "label": "Strength" },
+        { "type": "goal", "metric": "life.cardio_sessions", "field": "current", "target": 1, "weekTargetMetric": "goal.cardio_target", "label": "Cardio" },
         { "type": "stat", "metric": "personal.steps", "field": "current", "label": "Steps", "showTrend": false },
         { "type": "section", "title": "Development work" },
-        {
-          "type": "group",
-          "metrics": [
-            { "metric": "dev.total_dev_min", "field": "current", "label": "Total Dev", "showTrend": false },
-            { "metric": "dev.cl_dev_min", "field": "current", "label": "Chrome Lot", "showTrend": false },
-            { "metric": "dev.tg_dev_min", "field": "current", "label": "Turbo Gear", "showTrend": false },
-            { "metric": "dev.systems_min", "field": "current", "label": "Systems", "showTrend": false }
-          ]
-        },
+        { "type": "stat", "metric": "dev.cl_dev_min", "field": "current", "label": "Chrome Lot", "showTrend": false },
+        { "type": "stat", "metric": "dev.tg_dev_min", "field": "current", "label": "Turbo Gear", "showTrend": false },
+        { "type": "stat", "metric": "dev.systems_min", "field": "current", "label": "Systems", "showTrend": false },
+        { "type": "goal", "metric": "dev.total_dev_min", "field": "current", "target": 120, "weekTarget": 600, "label": "Total Dev" },
         { "type": "section", "title": "Ops" },
-        {
-          "type": "group",
-          "metrics": [
-            { "metric": "ops.todoist_done", "field": "current", "label": "Todoist Done", "showTrend": false },
-            { "metric": "dev.ops_min", "field": "current", "label": "Ops Time", "showTrend": false },
-            { "metric": "dev.field_min", "field": "current", "label": "Field Time", "showTrend": false },
-            { "metric": "dev.total_work_min", "field": "current", "label": "Total Work", "showTrend": false }
-          ]
-        },
+        { "type": "stat", "metric": "ops.todoist_done", "field": "current", "label": "Todoist Done", "showTrend": false },
+        { "type": "stat", "metric": "dev.ops_min", "field": "current", "label": "Ops Time", "showTrend": false },
+        { "type": "stat", "metric": "dev.field_min", "field": "current", "label": "Field Time", "showTrend": false },
+        { "type": "goal", "metric": "dev.total_ops_work_min", "field": "current", "target": 120, "weekTarget": 600, "label": "Total Ops Work" },
         { "type": "section", "title": "Workshop & extras" },
         {
           "type": "group",
