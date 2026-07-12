@@ -306,21 +306,16 @@
           "scope": "personal"
         },
         {
-          "type": "pipedrivetoday",
-          "span": 2,
-          "title": "Pipedrive"
-        },
-        {
           "type": "opstoday",
           "span": 1,
           "metric": "dev.ops_min",
           "title": "Ops"
         },
         {
-          "type": "fieldtoday",
+          "type": "pipedrivetoday",
           "span": 1,
           "metric": "dev.field_min",
-          "title": "Field"
+          "title": "Pipedrive"
         },
         {
           "type": "goal",
