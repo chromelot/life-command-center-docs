@@ -172,8 +172,20 @@ Then **filter results client-side** by `marked_as_done_time` within the target d
 
 - `field_1591` (object_2 / Customers) holds the **Pipedrive Deal ID** for cross-reference between Knack and Pipedrive.
 
+## Dashboard "Field" surface (LCC Dashboard)
+
+The [LCC Dashboard](lcc-dashboard.md) exposes Aaron's Pipedrive to-do list as the **Field** widget/page — his open activities (today + overdue) to knock out from the dashboard (mark done, push to tomorrow, open the deal).
+
+- **Backend:** `dashboard/web/functions/api/pipedrive.js` (Cloudflare Pages Function, behind session auth). Actions: `list` (open activities for the user due ≤ today + a best-effort completed-today count), `tasks` (cheap reconcile), `complete` (`PUT /activities/{id} {done:1}`), `reschedule` (`PUT … {due_date}`). Direct Pipedrive v1 API with `?api_token=`.
+- **Front:** `FieldToday` widget (`fieldtoday` type) shows open-count + a progress wheel; click opens `PipedrivePage` (Overdue + Today sections). Live via `pipedriveStore.js` (60s poll + focus + optimistic complete/reschedule) — mirrors the Todoist store.
+- **Cloudflare Pages env vars (runtime, set in the Pages dashboard):**
+  - `PIPEDRIVE_TOKEN` (required) — a Pipedrive API token (same value as `PIPEDRIVE_ADMIN_TOKEN`). Without it the endpoint returns 501 and the widget shows a calm "Open to manage" state.
+  - `PIPEDRIVE_USER_ID` (optional, default `18865844` = Aaron) — scopes "assigned to me".
+  - `PIPEDRIVE_COMPANY` (optional, default `chromelot`) — builds deal deep-links `https://<company>.pipedrive.com/deal/<id>`.
+
 ## See also
 
+- [lcc-dashboard.md](lcc-dashboard.md) — dashboard architecture (the Field/Pipedrive surface)
 - [mcp-servers.md](mcp-servers.md#pipedrive--chrome-lot-crm) — MCP entry
 - [knack-fields.md](knack-fields.md) — Knack object/field references for the customer-side cross-references
 - [../work/chrome-lot/customer-service.md](../work/chrome-lot/customer-service.md) — CS workflow that uses Pipeline 6
