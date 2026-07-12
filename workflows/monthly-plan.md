@@ -366,6 +366,8 @@ Then pull the rest of the data via MCP tools in parallel:
 
 **Purpose:** Spot intra-month trajectories and month-over-month drift in mental health and energy.
 
+**Life-category health trend:** pull the Weekly Meeting Log per-category **`* Score`** fields (1–5) for the review month's weeks and show each category's average + direction — surfaces which life categories are drifting before Phase 1b Identity check.
+
 Present wellness metrics using the **dual-level trend format**:
 
 **Intra-month trajectory** -- plot the ~4 Weekly Meeting Log entries in chronological order:

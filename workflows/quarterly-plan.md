@@ -366,6 +366,8 @@ Pick the **2-3 metrics that matter most for Q[next]** and name them explicitly. 
 <a id="phase-3b-monthly-health-trend-review-8-min"></a>
 ### Phase 3b: Monthly Health Trend Review (~8 min)
 
+**Life-category Score trend:** pull the Weekly Meeting Log per-category **`* Score`** fields (1–5) across the quarter's ~13 weeks and show each category's average + direction — the quarter-level view of sustained life-health trends (feeds the sustained-unhealthy gate).
+
 Pull the **3 Monthly Plan Log entries** from the outgoing quarter (chronological). Build domain-health and life-context tables:
 
 ```
