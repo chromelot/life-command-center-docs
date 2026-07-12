@@ -1174,27 +1174,27 @@
       "title": "Plan — Year",
       "icon": "📆",
       "periodMode": "year",
-      "subtitle": "Annual goals and year-scale project timeline. Full year-plan integration coming next.",
+      "subtitle": "Annual plan — year progress, goals by value, and scheduled project timeline.",
       "widgets": [
         {
-          "type": "note",
-          "text": "Year board is a lightweight template for now. Annual plan workflow populates Goals + rough project buckets — drill down via week/month for execution.",
+          "type": "yearprogress",
           "span": 4
         },
         {
           "type": "section",
-          "title": "Goals"
+          "title": "Goals by value"
         },
         {
-          "type": "goalcards"
+          "type": "goalsbyvalue",
+          "title": "2026 goals"
         },
         {
           "type": "section",
-          "title": "Projects this year"
+          "title": "Scheduled projects"
         },
         {
-          "type": "planprojects",
-          "title": "Year project queue"
+          "type": "yearroadmap",
+          "title": "Year timeline"
         }
       ]
     },
