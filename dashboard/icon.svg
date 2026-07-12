@@ -1,38 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <defs>
-    <mask id="lccNodeHoles">
-      <rect width="512" height="512" fill="#fff"/>
-      <circle cx="256" cy="66" r="18" fill="#000"/>
-      <circle cx="70" cy="256" r="18" fill="#000"/>
-      <circle cx="442" cy="256" r="18" fill="#000"/>
-      <circle cx="256" cy="446" r="18" fill="#000"/>
-    </mask>
-  </defs>
-  <g mask="url(#lccNodeHoles)" stroke-linecap="round">
-    <g stroke="#2f4bf5" stroke-width="11" fill="none">
-      <line x1="256" y1="66" x2="70" y2="256"/>
-      <line x1="256" y1="66" x2="442" y2="256"/>
-      <line x1="256" y1="446" x2="70" y2="256"/>
-      <line x1="256" y1="446" x2="442" y2="256"/>
-      <line x1="256" y1="66" x2="300" y2="300"/>
-      <line x1="256" y1="446" x2="300" y2="300"/>
-      <line x1="70" y1="256" x2="300" y2="300"/>
-      <line x1="442" y1="256" x2="300" y2="300"/>
-    </g>
-    <g stroke="#ffffff" stroke-width="18" fill="none">
-      <line x1="256" y1="66" x2="226" y2="230"/>
-      <line x1="256" y1="446" x2="226" y2="230"/>
-      <line x1="70" y1="256" x2="226" y2="230"/>
-      <line x1="226" y1="230" x2="442" y2="256"/>
-      <line x1="226" y1="230" x2="300" y2="300"/>
-    </g>
-    <g fill="#2f4bf5">
-      <circle cx="256" cy="66" r="34"/>
-      <circle cx="70" cy="256" r="34"/>
-      <circle cx="442" cy="256" r="34"/>
-      <circle cx="256" cy="446" r="34"/>
-      <circle cx="226" cy="230" r="34"/>
-      <circle cx="300" cy="300" r="28"/>
-    </g>
+  <rect width="512" height="512" rx="96" fill="#0f1420"/>
+  <g fill="none" stroke="#ffffff" stroke-linecap="round">
+    <path d="M117 360 A160 160 0 1 1 414 252" stroke-width="48"/>
+    <line x1="238" y1="316" x2="348" y2="168" stroke-width="36"/>
+    <line x1="333" y1="372" x2="365" y2="410" stroke-width="30"/>
   </g>
 </svg>
