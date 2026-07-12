@@ -276,8 +276,7 @@ Pull data in parallel:
 2. **Quarter Tracker** (`121f40c2-487b-802e`): Find outgoing quarter (Current=Previous or most recent) and current/new quarter. Also check whether future quarter records exist (Q[next+1], Q[next+2], Q[next+3]).
 3. **Outgoing Quarter Tracker page**: the prior quarter's per-domain plan sections (theme / no-list / KPIs) written on its page (the retired Quarterly Outcomes DB's role)
 4. **Projects** (`394f40c2-487b-815f`) + **Tasks** (`341f40c2-487b-80ac`): initiatives by Domain across quarter assignments (current, future, unassigned). Material for per-domain roadmap work. *(Browsing views: [Projects by Quarter](https://notion.so/39bf40c2487b816f9d31cfa7e2dec05f), [Projects — Active](https://notion.so/39bf40c2487b815e8e1cf4915f8212ef), [Goals](https://notion.so/39bf40c2487b813dbffbec3adaa277de).)*
-5. **CL Departments** (`341f40c2-487b-80cc`): All departments with health, priority, and full page content (Pictures of Success)
-6. **TG Departments** (`341f40c2-487b-80c9`): Same -- health, priority, and full page content
+5. **Departments** (`39bf40c2-487b-816d-97a3-f6f870b3b6e1`): unified dept health — filter `Domain = Chrome Lot` / `Turbo Gear`; pull Health, Priority, KPI/Target, `🥅 Goal`, `🚀 Fix Projects`, and Picture-of-Success page content
 7. **Quarterly Meeting Log** (`344f40c2-487b-80ed`): Last 2 entries (outgoing quarter AND the one before it) for quarter-over-quarter trend comparison
 8. **Weekly Meeting Log** (`322f40c2-487b-81bd`): All entries from the outgoing quarter for habit KPI averages
 9. **Monthly Plan Log** (`344f40c2-487b-806d`): All entries from the outgoing quarter (typically 3) for intra-quarter month-over-month trajectory analysis. Body-comp fields (Weight Avg / Body Fat Avg / Lean Mass Avg + Deltas) feed Phase 3's Personal Habits trajectory.
@@ -489,13 +488,13 @@ Use the Project Assessment Rules at the top of this file. Every live project end
 <a id="phase-8-chrome-lot-strategic-forward-look-12-min"></a>
 ### Phase 8: Chrome Lot Strategic Forward-Look (~12 min)
 
-**8A: CL Department Deep Read (4 min).** Pull CL Departments (`341f40c2-487b-80cc`) and display each department's full Picture of Success page content. For each:
+**8A: CL Department Deep Read (4 min).** Pull the **Departments** DB (`39bf40c2-487b-816d-97a3-f6f870b3b6e1`, filter `Domain = Chrome Lot`) and display each department's Picture of Success page content. For each — this is the **KPI-driven re-assessment**:
 
-- Current Health (Healthy / Unhealthy / NA)
-- Current Priority
-- Is the Picture still right? Has the reality of the department moved past what's written?
+- Pull the dept's **KPI vs Target** (from the dashboard / Pipedrive / Knack) and set **Health** (Healthy / Unhealthy / Critical / Stalled) + **Last Assessed**.
+- Confirm/refresh Priority and the Picture of Success if reality moved.
+- **Fix loop** — for every non-Healthy dept: either confirm its linked **`🚀 Fix Projects`** are on track (via the goal-trajectory review) or **create a fix-Project now** (Domain = Chrome Lot) linked to the dept + a **`🥅 Goal`** ("Get [Dept] to Healthy by [date]"). Never leave a Critical/Stalled dept without an owner-project.
 
-Edit department pages via `personal_notion_update_page` if Pictures need to change. Update Health / Priority if they've moved.
+Edit dept pages via `personal_notion_update_page`.
 
 **8B: CL Theme (2 min).** Via AskQuestion, name the CL theme for Q[next] in one sentence. Examples:
 - "Rebuild team Pipedrive cadence and resolve the two Unhealthy departments."
@@ -511,7 +510,7 @@ Written as a callout at the top of the **Chrome Lot** section on the Quarter Tra
 <a id="phase-9-turbo-gear-strategic-forward-look-12-min"></a>
 ### Phase 9: Turbo Gear Strategic Forward-Look (~12 min)
 
-**9A: TG Department Deep Read (4 min).** Pull TG Departments (`341f40c2-487b-80c9`). Same as 8A -- display Pictures of Success, diagnose Health and Priority, edit if reality has moved.
+**9A: TG Department Deep Read (4 min).** Pull the **Departments** DB (filter `Domain = Turbo Gear`). Same as 8A — KPI vs Target → set Health + Last Assessed, and spawn/verify `🚀 Fix Projects` (linked to a `🥅 Goal`) for every non-Healthy dept.
 
 **9B: TG Theme (2 min).** Via AskQuestion, name the TG theme for Q[next] in one sentence. Examples:
 - "Land the first three external demos."

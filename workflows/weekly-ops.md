@@ -671,7 +671,7 @@ If **zero** customers HJD > 10: single row `No HJD flags` and continue.
 | Health | Priority | Change? | Reason |
 |--------|----------|---------|--------|
 
-If **Health** or **Priority** changes: lettered confirm → **`personal_notion_update_page`** on CL Departments (`341f40c2-487b-80cc-976e-c0e86b79e3fa`) with approval. If unchanged: confirm and advance.
+If **Health** or **Priority** changes: lettered confirm → **`personal_notion_update_page`** on the **Departments** DB (`39bf40c2-487b-816d-97a3-f6f870b3b6e1`, `Domain = Chrome Lot`) with approval. If unchanged: confirm and advance.
 
 **Advance:** `2.3`
 

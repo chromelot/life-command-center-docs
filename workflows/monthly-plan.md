@@ -789,7 +789,7 @@ Data sources: Knack Invoices (`object_18`) for CL revenue/AR. QuickBooks for P&L
 
 1. **Chrome Lot brief:** Summarize review-month signals from Phases 4 (sales), 6 (financial), and 7 (CS health) — revenue trend, churn, invoice aging, pipeline velocity.
 2. **Turbo Gear brief:** Summarize from Phases 3 and 5 — dev velocity, features shipped, demos, deep work minutes.
-3. Optional reference: surface CL Departments (`341f40c2-487b-80cc`) and TG Departments (`341f40c2-487b-80c9`) Health statuses as context — domain rating is the two business-level selects, not per-sub-department re-rating (quarterly deep read unchanged).
+3. **Department drift check (light — not a full re-rating).** Pull the **Departments** DB (`39bf40c2-487b-816d-97a3-f6f870b3b6e1`) Health by `Domain`. Surface: any dept that **slipped** since last month, and any **Critical/Stalled** dept whose `🚀 Fix Projects` are behind (goal-trajectory `Behind Projects`). If so, pull that fix-Project's tasks into the planning month / bump Priority. Domain rating stays the two business-level selects; full KPI re-rating is the **quarterly** deep read (8A/9A).
 4. One `AskQuestion`: **Chrome Lot — Healthy or Unhealthy?**
 5. One `AskQuestion`: **Turbo Gear — Healthy or Unhealthy?**
 
