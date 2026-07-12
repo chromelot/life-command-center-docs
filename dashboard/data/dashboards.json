@@ -36,6 +36,23 @@
                   { "key": "notes", "label": "Notes on the experience", "type": "textarea", "placeholder": "How it felt, anything notable…" }
                 ]
               }
+            },
+            {
+              "metric": "life.plan_workout_done",
+              "label": "Plan workout",
+              "habit": "plan-workout",
+              "needs": "form",
+              "form": {
+                "title": "Plan today's workout",
+                "fields": [
+                  { "key": "plan", "label": "Plan", "type": "select", "required": true, "placeholder": "Pick one", "options": ["Strength", "Long cardio", "Skip today"] },
+                  { "key": "strength_type", "label": "Strength type (if Strength)", "type": "select", "placeholder": "Push / Pull / …", "options": ["Push", "Pull", "Legs", "Deadlift", "Full Body"] },
+                  { "key": "lifts", "label": "Main lifts, comma-separated (if Strength)", "type": "text", "placeholder": "OHP, Incline bench, Deadlift" },
+                  { "key": "short_cardio", "label": "Finisher cardio (optional)", "type": "text", "placeholder": "Jump rope 10 min" },
+                  { "key": "cardio_activity", "label": "Activity (if Long cardio)", "type": "text", "placeholder": "Vest walk" },
+                  { "key": "cardio_minutes", "label": "Minutes (if Long cardio)", "type": "number", "min": 5, "max": 180, "placeholder": "45" }
+                ]
+              }
             }
           ]
         },
@@ -55,8 +72,8 @@
           ]
         },
         { "type": "section", "title": "Fitness" },
-        { "type": "goal", "metric": "life.strength_sessions", "field": "current", "target": 1, "weekTargetMetric": "goal.strength_target", "label": "Strength", "detail": "workouts", "detailFilter": { "type": ["Pull", "Push", "Legs", "Deadlift", "Full Body"] } },
-        { "type": "goal", "metric": "life.cardio_sessions", "field": "current", "target": 1, "weekTargetMetric": "goal.cardio_target", "label": "Cardio", "detail": "workouts", "detailFilter": { "type": ["Cardio"] } },
+        { "type": "goal", "metric": "life.strength_sessions", "field": "current", "target": 1, "weekTargetMetric": "goal.strength_target", "label": "Strength", "labelTextKey": "text.planned_strength", "plannedTextKey": "text.planned_workout", "showWhen": { "anyPositive": ["life.planned_strength_set", "life.strength_sessions"] }, "detail": "workouts", "detailFilter": { "type": ["Pull", "Push", "Legs", "Deadlift", "Full Body"] } },
+        { "type": "goal", "metric": "life.cardio_sessions", "field": "current", "target": 1, "weekTargetMetric": "goal.cardio_target", "label": "Cardio", "labelTextKey": "text.planned_cardio", "plannedTextKey": "text.planned_cardio", "showWhen": { "anyPositive": ["life.planned_cardio_set", "life.cardio_sessions"] }, "detail": "workouts", "detailFilter": { "type": ["Cardio"] } },
         { "type": "goal", "metric": "personal.steps", "field": "current", "target": 10000, "label": "Steps" },
         { "type": "section", "title": "Development work" },
         { "type": "stat", "metric": "dev.cl_dev_min", "field": "current", "label": "Chrome Lot", "showTrend": false, "detailTitle": "Chrome Lot dev", "detailPage": true, "detailSections": [ { "detail": "timepunches", "field": "current", "label": "Time logged", "filter": { "category": ["CL Dev"] } }, { "detail": "devtasks", "label": "Chrome Lot tasks this week", "allRows": true, "filter": { "domain": ["Chrome Lot"] }, "hierarchical": true } ] },
