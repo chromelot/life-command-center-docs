@@ -256,37 +256,62 @@
       ]
     },
     {
-      "id": "weekly-work",
+      "id": "work-day",
+      "group": "Work",
+      "title": "Chrome Lot — Today",
+      "icon": "\ud83d\ude97",
+      "subtitle": "Today's schedule and team status. Pick a day to look back.",
+      "widgets": [
+        { "type": "section", "title": "Schedule" },
+        { "type": "stat", "metric": "work.jobs_done", "field": "current", "label": "Jobs", "detail": "jobs" },
+        { "type": "stat", "metric": "work.cars_shot", "field": "current", "label": "Cars shot", "detail": "jobs" },
+        { "type": "stat", "metric": "work.callins_total", "field": "current", "label": "Call-ins", "detail": "callins" },
+        { "type": "stat", "metric": "work.timeoff_total", "field": "current", "label": "Time off", "detail": "timeoff" },
+        { "type": "note", "text": "Jobs = dealership appointments; cars = vehicles actually shot. Click a tile for the underlying records.", "span": 4 }
+      ]
+    },
+    {
+      "id": "work-week",
       "group": "Work",
       "title": "Chrome Lot — This Week",
       "icon": "\ud83d\ude97",
-      "subtitle": "Operational + dev throughput. Today vs this week vs trend.",
+      "subtitle": "Throughput and team status for the week (Sun\u2013Sat).",
       "widgets": [
-        { "type": "section", "title": "Today" },
+        { "type": "section", "title": "Throughput" },
+        { "type": "stat", "metric": "work.jobs_done", "field": "week", "label": "Jobs (week)", "detail": "jobs" },
+        { "type": "stat", "metric": "work.cars_shot", "field": "week", "label": "Cars shot (week)", "detail": "jobs" },
+        { "type": "stat", "metric": "work.jobs_done", "field": "weekAvg", "label": "Avg jobs/day", "showTrend": false },
+        { "type": "stat", "metric": "work.cars_shot", "field": "weekAvg", "label": "Avg cars/day", "showTrend": false },
+        { "type": "note", "text": "Avg jobs/day and avg cars/day gauge how busy the schedule ran this week (weekdays only shooting).", "span": 4 },
+        { "type": "section", "title": "Team" },
+        { "type": "stat", "metric": "work.callins_total", "field": "week", "label": "Call-ins (week)", "detail": "callins" },
+        { "type": "stat", "metric": "work.timeoff_total", "field": "week", "label": "Time-off events (week)", "detail": "timeoff" },
+        { "type": "stat", "metric": "dev.projects_done", "field": "week", "label": "Dev projects done", "detail": "projects_done" },
+        { "type": "stat", "metric": "dev.total_dev_min", "field": "week", "label": "Dev time", "detail": "timepunches", "detailFilter": { "category": ["CL Dev", "TG Dev", "Systems"] } }
+      ]
+    },
+    {
+      "id": "work-month",
+      "group": "Work",
+      "title": "Chrome Lot — Trends",
+      "icon": "\ud83d\udcc8",
+      "subtitle": "Weekly trends over ~12 weeks. Click a week on any chart to see the underlying records.",
+      "widgets": [
+        { "type": "section", "title": "Throughput / week" },
         {
-          "type": "group",
-          "metrics": [
-            { "metric": "work.cars_shot", "field": "current", "label": "Cars Shot (today)", "showTrend": true },
-            { "metric": "work.cars_shot", "field": "week", "label": "Cars Shot (this wk)", "showTrend": true },
-            { "metric": "dev.projects_done", "field": "week", "label": "Projects Done (wk)", "showTrend": true },
-            { "metric": "dev.projects_in_progress", "field": "current", "showTrend": false }
+          "type": "weektrend",
+          "title": "Jobs & cars shot per week",
+          "weeks": 12,
+          "span": 4,
+          "series": [
+            { "metric": "work.jobs_done", "label": "Jobs", "color": "#4f8cff", "detail": "jobs" },
+            { "metric": "work.cars_shot", "label": "Cars shot", "color": "#39d98a", "detail": "jobs" }
           ]
         },
-        { "type": "section", "title": "Dev + ops time this week" },
-        {
-          "type": "group",
-          "metrics": [
-            { "metric": "dev.total_dev_min", "field": "week", "showTrend": true },
-            { "metric": "dev.cl_dev_min", "field": "week", "showTrend": true },
-            { "metric": "dev.tg_dev_min", "field": "week", "showTrend": true },
-            { "metric": "dev.ops_min", "field": "week", "showTrend": true }
-          ]
-        },
-        { "type": "section", "title": "Trends" },
-        { "type": "trend", "metric": "work.cars_shot", "range": 28, "chart": "bar", "span": 2 },
-        { "type": "trend", "metric": "dev.total_dev_min", "range": 28, "chart": "bar", "span": 2 },
-        { "type": "trend", "metric": "trend.energy_rating", "range": 56, "chart": "line", "span": 2 },
-        { "type": "trend", "metric": "trend.mood_valence", "range": 56, "chart": "line", "span": 2 }
+        { "type": "section", "title": "Call-ins by photographer / week" },
+        { "type": "grouptrend", "title": "Call-in frequency", "detail": "callins", "groupBy": "employee", "weeks": 12, "span": 4 },
+        { "type": "section", "title": "Time off by photographer / week" },
+        { "type": "grouptrend", "title": "Time-off frequency", "detail": "timeoff", "groupBy": "employee", "weeks": 12, "span": 4 }
       ]
     },
     {
