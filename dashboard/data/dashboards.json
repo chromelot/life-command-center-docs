@@ -50,15 +50,7 @@
               "metric": "life.spirit_time_done",
               "label": "Spirit time",
               "habit": "spirit-time",
-              "openTimeLog": {
-                "filterCategory": "Spirit",
-                "timerCategory": "Spirit",
-                "habitOnLog": "spirit-time",
-                "preset": {
-                  "category": "Spirit",
-                  "name": "Spirit"
-                }
-              }
+              "openSpiritPage": true
             },
             {
               "metric": "life.plan_workout_done",
