@@ -1156,13 +1156,20 @@ This list must **exactly match** the Notion Tasks view filtered to `This Week = 
 12. **Execute remaining:** Create any Todoist/Calendar/Notion items not yet committed during earlier phases.
 13. **Log to Notion:** Finalize the Weekly Meeting Log entry (`322f40c2-487b-81bd`) with key decisions, action items, and plan summary. Set `Status = Done`, `Session Complete = Complete`.
 14. **Personal Time Blocks (`4.tb` — REQUIRED after scheduling, before 4b):**
-    - Read `context/systems/time-blocks.md` + `context/skills/plan-weekly-schedule/SKILL.md` + `config/time-blocks.json`.
-    - Run `node scripts/weekly-time-blocks.mjs --ledger <path>` — dry-run → `output/weekly-time-blocks-{planning_monday}.md`.
-    - **If blocks already exist** (adjust mode in dry-run): note *"Time blocks already set for this week"* — offer **A** targeted adjustments · **B** full regenerate (`--force`) · **C** skip.
-    - **Present exactly Table 4.tb-A** (proposed blocks by day) + **Table 4.tb-B** (conflicts) + Bus/Personal schedule from dry-run. One table per turn.
-    - Aaron confirms or requests lettered tweaks. Re-run dry-run after edits; persistent template changes → `config/time-blocks.json`.
-    - Aaron approves → `node scripts/weekly-time-blocks.mjs --ledger <path> --apply` (or `--apply --force` to replace existing week).
-    - `advance --step 4.tb` → proceed to `4b`.
+
+    **Delegate to subskill** — execute [`context/skills/plan-weekly-schedule/SKILL.md`](../plan-weekly-schedule/SKILL.md) **end-to-end** (Gates 0–4). Do not inline a shortened version. Weekly plan provides ledger context only:
+
+    ```
+    node scripts/weekly-time-blocks.mjs --ledger <path>
+    ```
+
+    Subskill gates (mandatory):
+    1. **PWS-0** — declare Bus/custody state; ask if unknown
+    2. **PWS-1** — confirm remote/in-person + locations for meetings; resolve piano/pickup conflicts → `config/schedule-overrides-{week_sunday}.json`
+    3. Dry-run → present PWS-B / PWS-C / PWS-H
+    4. Aaron approves → `--bus-confirmed --events-confirmed --apply` (or skip **C**)
+
+    `advance --step 4.tb` → proceed to `4b`.
 
 **Table 4.tb-A — Proposed time blocks (planning week Mon–Fri)**
 
