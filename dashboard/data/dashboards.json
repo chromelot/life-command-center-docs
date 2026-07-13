@@ -103,7 +103,7 @@
               "format": "grams"
             }
           ],
-          "extra": [
+          "footerEnd": [
             {
               "metric": "personal.steps",
               "field": "current",
