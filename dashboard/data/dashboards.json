@@ -318,11 +318,6 @@
           "collapseWeekend": true
         },
         {
-          "type": "scheduletoday",
-          "span": 1,
-          "title": "Schedule"
-        },
-        {
           "type": "opstoday",
           "span": 1,
           "metric": "dev.ops_min",
@@ -1697,11 +1692,9 @@
           "title": "Schedule"
         },
         {
-          "type": "stat",
-          "metric": "work.jobs_done",
-          "field": "current",
-          "label": "Jobs",
-          "detail": "jobs"
+          "type": "scheduletoday",
+          "span": 2,
+          "title": "Planned cars"
         },
         {
           "type": "stat",
@@ -1726,7 +1719,7 @@
         },
         {
           "type": "note",
-          "text": "Jobs = dealership appointments; cars = vehicles actually shot. Click a tile for the underlying records.",
+          "text": "Planned cars = estimated vehicles on today's Knack schedule; cars shot = actual count logged. Tap Planned cars for the photographer breakdown.",
           "span": 4
         }
       ]
