@@ -44,7 +44,7 @@
               "metric": "life.morning_journal_done",
               "label": "Morning journal",
               "habit": "morning-journal",
-              "confirm": "Mark Morning journal as done? Use this if you journaled on paper — otherwise it completes when you create the Notion journal."
+              "openJournal": "morning"
             },
             {
               "metric": "life.spirit_time_done",
