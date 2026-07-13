@@ -89,7 +89,7 @@ Spec files: `n8n/conventions.md`, `n8n/bots/cl-bot/teams-bot.md`, `n8n/sync/pd-t
 | Triggers | Cursor rule | Skill / procedure | Core context |
 |---|---|---|---|
 | "weekly plan", "weekly meeting", "Monday review", "sprint planning" | `.cursor/rules/weekly-meeting.mdc` | `context/skills/weekly-planning/SKILL.md` | systems/cadences.md, systems/capacity-rules.md, systems/notion-databases.md, systems/time-blocks.md, self/values.md, people/index.md |
-| "plan weekly schedule", "weekly schedule", "time blocks", "schedule my week", "refactor time blocks" | `.cursor/rules/plan-weekly-schedule.mdc` | `context/skills/plan-weekly-schedule/SKILL.md` | systems/time-blocks.md, config/time-blocks.json, self/current-priorities.md, family/matthew.md |
+| "plan weekly schedule", "weekly schedule", "time blocks", "schedule my week", "refactor time blocks" | `.cursor/rules/plan-weekly-schedule.mdc` | `context/skills/plan-weekly-schedule/SKILL.md` | config/bus-schedule.json, family/bus-schedule.md, systems/time-blocks.md, config/time-blocks.json, family/matthew.md |
 | "weekly ops", "ops review", "CL ops meeting", "operations meeting" | `.cursor/rules/weekly-ops.mdc` | `context/skills/weekly-ops/SKILL.md` | systems/cadences.md, systems/pipedrive.md, systems/knack-fields.md, work/chrome-lot/, people/index.md |
 | "monthly plan", "monthly review" | `.cursor/rules/monthly-plan.mdc` | `context/skills/monthly-plan/SKILL.md` | systems/cadences.md, systems/notion-databases.md, self/values.md, people/index.md, work/chrome-lot/, work/turbo-gear/ |
 | "quarterly plan", "strategy review" | `.cursor/rules/strategy-review.mdc` | `context/skills/quarterly-plan/SKILL.md` | self/values.md, work/chrome-lot/, work/turbo-gear/, self/, people/index.md |
@@ -169,7 +169,7 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 ## Health / staleness
 
 <!-- AUTO:HEALTH_REPORT -->
-⚠ **13 issue(s)** across 99 context files.
+⚠ **13 issue(s)** across 100 context files.
 
 ### missing-frontmatter (11)
 - `context/skills/annual-plan/SKILL.md` — no-frontmatter
@@ -198,7 +198,7 @@ Full audit: `node scripts/audit-context.mjs`
 ## Last generated
 
 <!-- AUTO:LAST_GENERATED -->
-**2026-07-13 12:04:16** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
+**2026-07-13 12:06:55** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
 <!-- /AUTO:LAST_GENERATED -->
 
 ## See also
