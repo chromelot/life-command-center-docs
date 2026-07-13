@@ -307,7 +307,8 @@
         },
         {
           "type": "section",
-          "title": "Tasks"
+          "title": "Tasks",
+          "collapseWhenDone": true
         },
         {
           "type": "todoisttoday",
