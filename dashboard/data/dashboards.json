@@ -308,6 +308,11 @@
           "span": 2
         },
         {
+          "type": "todoistnoduedate",
+          "span": 2,
+          "title": "No due date"
+        },
+        {
           "type": "errandstoday",
           "span": 2,
           "title": "Errands"
