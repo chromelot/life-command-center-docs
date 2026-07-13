@@ -137,7 +137,7 @@ Process Street's remote MCP (~105 tools, workflow authoring) requires **OAuth lo
 - **Three calendars**:
   - **Work**: default / `aaron@chromelot.com` — business meetings, client calls
   - **Personal**: `hoegenauera@gmail.com` — personal appointments, social, medical
-  - **Time Blocks**: `10283d615faeb91862fc0ccd8f3ac216c7299a58f2196185e912be8f3e3cbe83@group.calendar.google.com` — recurring daily structure (Morning Routine, Business Development, Lift, Plano Work, Field Work, Free Time)
+  - **Time Blocks**: `10283d615faeb91862fc0ccd8f3ac216c7299a58f2196185e912be8f3e3cbe83@group.calendar.google.com` — daily structure goals (movement-first: lift before work, deep work, ops, wind-down 9 PM). One-time overrides per week; recurring series is the fallback template.
 - **Always pull all three calendars** when checking schedule. Merge and label `[Work]` / `[Personal]` / `[Time Block]`.
 - **Before creating any event**: search both calendars for existing events at the same time or with similar subject. If a match exists, confirm with Aaron whether to modify the existing event or skip. Never create duplicates.
 
