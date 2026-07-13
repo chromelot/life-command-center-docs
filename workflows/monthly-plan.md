@@ -490,7 +490,7 @@ Whether or not the full quarterly session happened, review what's committed **on
 
 1. **Themes:** One-line recap per domain (CL / TG / Personal) from the Quarter Tracker page's domain sections.
 2. **Project pace:** Tasks assigned to current quarter — Done vs In Progress vs Not Started vs at-risk (Due Date passed or In Progress 30+ days with no sub-item movement).
-3. **Goal trajectory (month granularity):** Using the [Goals — Milestones](https://notion.so/39bf40c2487b810d905fdb9585ceddf9) view + Goals `Progress`/`Behind Projects` rollups, check each active Goal. If a goal has `Behind Projects` > 0 or its projects keep getting deferred month-over-month, **either** prioritize its projects into this planning month (Phase 11b / weekly sprint) **or** flag it to escalate to the next quarterly for a re-prioritize-or-adjust decision. Don't let a goal drift silently across months.
+3. **Goal trajectory (month granularity):** Using the [Goals — Milestones](https://notion.so/39bf40c2487b810d905fdb9585ceddf9) view + Goals `Progress`/`Behind Projects` rollups, check each active Goal. If a goal has `Behind Projects` > 0 or its projects keep getting deferred month-over-month, **either** prioritize its projects into this planning month (Phase 11b / weekly sprint) **or** flag it to escalate to the next quarterly for a re-prioritize-or-adjust decision. Don't let a goal drift silently across months. **Also check the goal's Targets** — habit adherence (are the cadence commitments being met this month?) and output attainment (is the number moving toward target, or away?). A goal failing its targets needs the same prioritize-or-adjust call as a Behind project, even when its projects look fine. See `horizon-roadmap.md` → Goal composition.
 4. **Behind → shift:** any `Behind` project surfaced here gets one call — reslot (`Date`), cut/pause, or fund (Priority + pull into the month). Reference the [Roadmap — Timeline](https://notion.so/39bf40c2487b8188bc05d953ac5d8802).
 5. **KPI pace preview:** Which KPI rows have targets? Any already >50% behind expected pace for the month we're in? (Full actuals update happens in Phase 9.)
 6. **Alignment check:** Flag if proposed **planning month** priorities (surfaced in Phases 3–4) don't serve the quarterly theme — force a reconcile before committing.
@@ -821,8 +821,9 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
    - Update the correct Month 1/2/3 cell (requires manual Notion edit -- MCP can't write table cells)
    - Flag any KPI significantly behind pace (<50% of target by the end of month 2, for example)
 6. If any area is off-track, discuss with Aaron: adjust target, accelerate effort, or accept the miss?
+7. **Goal Targets:** update each active goal's **output-target** current value (from the same data sources) and note **habit-target** adherence for the review month, so the goal dashboard's KPI wheels + trajectory reflect real attainment. A goal failing its targets gets the Phase 1c prioritize-or-adjust call.
 
-**Outputs:** Updated KPI actuals on the Quarter Tracker page (manual Notion edits). Todoist tasks for setting missing targets. Flagged areas for intervention.
+**Outputs:** Updated KPI actuals on the Quarter Tracker page (manual Notion edits). Updated goal output-target currents + habit adherence noted. Todoist tasks for setting missing targets. Flagged areas for intervention.
 
 <a id="phase-10-trip-planning-with-bus-5-min"></a>
 ## Phase 10: Trip Planning with Bus (~5 min)

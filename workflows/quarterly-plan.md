@@ -237,6 +237,7 @@ When reviewing or planning projects in any phase:
 Roadmap planning is **goal-driven**. Using the [Goals — Milestones](https://notion.so/39bf40c2487b810d905fdb9585ceddf9) + [Projects by Goal](https://notion.so/39bf40c2487b8120be53c40f6730fb45) views (and the Goals `Progress` + `Behind Projects` rollups), walk each active Goal:
 
 - **On track?** Signal = `Behind Projects` > 0, or `Target Date` approaching with low `Progress`.
+- **Targets too, not just projects.** Review each goal's **habit targets** (adherence across the quarter) and **output targets** (current vs target — trending *toward or away*). A goal can look fine on projects while failing the number or the habit — treat a lagging output/habit exactly like a Behind project (re-prioritize or adjust). See `horizon-roadmap.md` → Goal composition.
 - **If off track — make ONE conscious decision** (lettered table, per goal): **(A) Re-prioritize** — pull the lagging project(s) into the next month/sprint, bump Priority, or re-date earlier; or **(B) Adjust the goal** — move `Target Date`, cut scope (Success Metric), or drop it. This keeps goals **challenging but achievable per the active plan** — never let a goal silently miss. Record the decision on the Goal + the Quarterly Meeting Log.
 
 <a id="behind-structured-shift"></a>
@@ -560,6 +561,8 @@ For each domain (Personal, CL, TG), write its section on the **Q[next] Quarter T
    - **Personal**: project completion rate, habit consistency goals, social interaction frequency
    - **CL**: revenue, customer count, churn, invoice aging, CS visit frequency, team Pipedrive activity
    - **TG**: features shipped, demos given, external customer conversations, deep work minutes
+
+**Per-goal Targets.** Beyond domain KPIs, set/refresh each active goal's **habit + output Targets** — the goal's own instrumentation (e.g. "gym 4×/wk", "deadlift ≥ 500", "MRR ≥ $40k", "body fat ≤ 12%"). These feed the goal dashboard's KPI wheels and the trajectory chart. Apply the same instrumentation gate below to them: a target with no data source is dropped or gets an instrumenting project. See `horizon-roadmap.md` → Goal composition.
 
 **Instrumentation gate.** For every KPI, confirm the data source exists. If instrumentation is missing (e.g., "CL Revenue" has no data source today), either (a) add a project to instrument it this quarter, or (b) drop the KPI. **No phantom targets.**
 
