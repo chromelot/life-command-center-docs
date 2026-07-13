@@ -148,9 +148,12 @@
           "field": "current",
           "target": 1,
           "compact": true,
+          "weekTargetMetric": "goal.cardio_target",
+          "weekDisplayMetric": "life.cardio_sessions",
           "label": "Cardio",
           "labelPrefix": "Cardio - ",
           "labelTextKey": "text.planned_cardio",
+          "plannedTextKey": "text.planned_cardio",
           "pageKind": "cardio",
           "showWhen": {
             "anyPositive": [
