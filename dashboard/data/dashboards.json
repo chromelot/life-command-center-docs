@@ -359,7 +359,6 @@
         },
         {
           "type": "goal",
-          "span": 2,
           "metric": "dev.total_ops_work_min",
           "field": "current",
           "target": 120,
