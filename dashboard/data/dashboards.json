@@ -44,14 +44,7 @@
               "metric": "life.morning_journal_done",
               "label": "Morning journal",
               "habit": "morning-journal",
-              "openJournal": "morning",
-              "subLinks": [
-                {
-                  "label": "Meditation",
-                  "openSpiritPage": true,
-                  "spiritTab": "timer"
-                }
-              ]
+              "openJournal": "morning"
             },
             {
               "metric": "life.spirit_time_done",
