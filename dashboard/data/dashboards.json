@@ -308,6 +308,11 @@
           "span": 2
         },
         {
+          "type": "todoistinbox",
+          "span": 2,
+          "title": "Inbox"
+        },
+        {
           "type": "todoistnoduedate",
           "span": 2,
           "title": "No due date"
