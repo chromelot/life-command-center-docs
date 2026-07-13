@@ -55,7 +55,6 @@ Inventory of every MCP server configured in this workspace, plus how to choose b
 | Gym Work | `6fMXQmM8PrwWFqfc` | Workout tracking |
 | Office | `6VpxxqrxF655M5QQ` | Personal desk/admin work, health tracking mirrors |
 | Errands | `6VmM476xRh7pPjHj` | Personal errands (not PD mirror destination) |
-| Personal Time | `6gxrCWWqxx9VFjrw` | Protected personal blocks |
 | Evening | `6VrPwCwfr5QmcwX2` | Evening routine |
 | Pending Aaron | `6g3hXfFffjP8RxVH` | Waiting on Aaron |
 | Shopping List | `6W36wRPXj8qC2RCc` | **EXCLUDED from planning workflows** |
