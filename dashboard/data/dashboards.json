@@ -2335,6 +2335,173 @@
           "text": "Investment data is second-class in SimpleFIN — balances are reliable; per-lot holdings and cost basis vary by brokerage. For full portfolio analytics, add a broker CSV import later."
         }
       ]
+    },
+    {
+      "id": "finance-tech",
+      "group": "Finance",
+      "title": "Finance — Tech Spend",
+      "icon": "💻",
+      "subtitle": "Software & dev-tool spend from bank transactions plus Cursor token usage.",
+      "rangeSelect": {
+        "options": [30, 60, 90, 180, 365],
+        "default": 30
+      },
+      "widgets": [
+        {
+          "type": "section",
+          "title": "This month"
+        },
+        {
+          "type": "group",
+          "title": "Month to date",
+          "span": 4,
+          "metrics": [
+            {
+              "metric": "finance.tech_spend_mtd",
+              "label": "Tech spend MTD"
+            },
+            {
+              "metric": "finance.cursor_spend_mtd",
+              "label": "Cursor spend MTD"
+            },
+            {
+              "metric": "finance.cursor_tokens_mtd",
+              "label": "Cursor tokens MTD"
+            },
+            {
+              "metric": "finance.tech_vendor_count",
+              "label": "Vendors"
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "title": "Over the window"
+        },
+        {
+          "type": "rangesummary",
+          "title": "Window totals",
+          "span": 4,
+          "items": [
+            {
+              "metric": "finance.tech_spend_daily",
+              "label": "Total tech spend",
+              "mode": "total",
+              "detail": "tech_spend"
+            },
+            {
+              "metric": "finance.cursor_spend_daily",
+              "label": "Cursor API spend",
+              "mode": "total",
+              "detail": "cursor_usage"
+            },
+            {
+              "metric": "finance.tech_bank_spend_daily",
+              "label": "Bank (tech vendors)",
+              "mode": "total"
+            },
+            {
+              "metric": "finance.cursor_tokens_daily",
+              "label": "Cursor tokens",
+              "mode": "total"
+            }
+          ]
+        },
+        {
+          "type": "rangetrend",
+          "title": "Tech spend",
+          "chart": "bar",
+          "span": 4,
+          "series": [
+            {
+              "metric": "finance.tech_spend_daily",
+              "label": "Total tech",
+              "color": "#b57bff",
+              "detail": "tech_spend"
+            },
+            {
+              "metric": "finance.cursor_spend_daily",
+              "label": "Cursor API",
+              "color": "#4f8cff",
+              "detail": "cursor_usage"
+            },
+            {
+              "metric": "finance.tech_bank_spend_daily",
+              "label": "Bank (tech vendors)",
+              "color": "#ff6b6b"
+            }
+          ]
+        },
+        {
+          "type": "rangetrend",
+          "title": "Cursor tokens",
+          "chart": "bar",
+          "span": 4,
+          "series": [
+            {
+              "metric": "finance.cursor_tokens_daily",
+              "label": "Tokens",
+              "color": "#39d98a",
+              "detail": "cursor_usage"
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "title": "By vendor & model"
+        },
+        {
+          "type": "grouptrend",
+          "title": "Spend by vendor / week",
+          "detail": "tech_spend",
+          "groupBy": "vendor",
+          "valueField": "amount",
+          "weeks": 12,
+          "span": 2
+        },
+        {
+          "type": "grouptrend",
+          "title": "Cursor spend by model / week",
+          "detail": "cursor_usage",
+          "groupBy": "model",
+          "valueField": "amount",
+          "weeks": 12,
+          "span": 2
+        },
+        {
+          "type": "section",
+          "title": "Recurring & detail"
+        },
+        {
+          "type": "table",
+          "detail": "tech_recurring",
+          "title": "Recurring tech vendors",
+          "allRows": true,
+          "span": 2,
+          "emptyText": "No recurring tech charges yet (needs 2+ months of history)."
+        },
+        {
+          "type": "table",
+          "detail": "tech_spend",
+          "title": "All tech spend (window)",
+          "window": true,
+          "span": 2,
+          "limit": 40,
+          "emptyText": "No tech spend in this window."
+        },
+        {
+          "type": "table",
+          "detail": "cursor_usage",
+          "title": "Cursor usage events (window)",
+          "window": true,
+          "span": 4,
+          "limit": 50,
+          "emptyText": "No Cursor usage events — set CURSOR_SESSION_TOKEN to enable live data."
+        },
+        {
+          "type": "note",
+          "span": 4,
+          "text": "Cursor token usage uses the unofficial dashboard API with your WorkosCursorSessionToken cookie (not the Cloud Agents API key). Copy it from DevTools → Application → Cookies → cursor.com while logged in, then set GitHub secret CURSOR_SESSION_TOKEN or n8n/.secrets.local / secrets/cursor-session.json on lcc-hub. Token expires periodically — refresh when Cursor metrics go empty. Bank tech spend is matched via dashboard/config/tech-vendors.json."
+        }
+      ]
     }
-  ]
-}
