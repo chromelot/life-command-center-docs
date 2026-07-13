@@ -1148,18 +1148,19 @@ This list must **exactly match** the Notion Tasks view filtered to `This Week = 
 12. **Execute remaining:** Create any Todoist/Calendar/Notion items not yet committed during earlier phases.
 13. **Log to Notion:** Finalize the Weekly Meeting Log entry (`322f40c2-487b-81bd`) with key decisions, action items, and plan summary. Set `Status = Done`, `Session Complete = Complete`.
 14. **Personal Time Blocks (`4.tb` — REQUIRED after scheduling, before 4b):**
-    - Read `context/systems/time-blocks.md` + `config/time-blocks.json` for templates, colors, and principles.
-    - Run `node scripts/weekly-time-blocks.mjs --ledger <path>` — dry-run writes `output/weekly-time-blocks-{planning_monday}.md`. Script reads **Personal** (Bus/camp) + **Work** (CL meetings) and proposes Mon–Fri one-time blocks on the Time Blocks calendar.
-    - **Present exactly Table 4.tb-A** (proposed blocks by day) + **Table 4.tb-B** (calendar conflicts / adjustments). One table per turn.
-    - Aaron confirms or requests lettered tweaks (more dev Tue, skip Plano Fri, etc.). Re-run dry-run after edits; persistent template changes → `config/time-blocks.json`.
-    - Aaron approves production write → `node scripts/weekly-time-blocks.mjs --ledger <path> --apply` (deletes this week's Time Block **instances** only; creates new one-time events with color by type).
+    - Read `context/systems/time-blocks.md` + `context/skills/week-plan/SKILL.md` + `config/time-blocks.json`.
+    - Run `node scripts/weekly-time-blocks.mjs --ledger <path>` — dry-run → `output/weekly-time-blocks-{planning_monday}.md`.
+    - **If blocks already exist** (adjust mode in dry-run): note *"Time blocks already set for this week"* — offer **A** targeted adjustments · **B** full regenerate (`--force`) · **C** skip.
+    - **Present exactly Table 4.tb-A** (proposed blocks by day) + **Table 4.tb-B** (conflicts) + Bus/Personal schedule from dry-run. One table per turn.
+    - Aaron confirms or requests lettered tweaks. Re-run dry-run after edits; persistent template changes → `config/time-blocks.json`.
+    - Aaron approves → `node scripts/weekly-time-blocks.mjs --ledger <path> --apply` (or `--apply --force` to replace existing week).
     - `advance --step 4.tb` → proceed to `4b`.
 
 **Table 4.tb-A — Proposed time blocks (planning week Mon–Fri)**
 
 | Day | Time | Block | Type (color) |
 |-----|------|-------|--------------|
-| Mon M/D | HH:MM–HH:MM | summary | gym / at_home / plano_field / social_parenting / wind_down |
+| Mon M/D | HH:MM–HH:MM | summary | Gym / Home / Office / Field / Bus / Wind-down |
 | … | | | |
 
 *Source: `output/weekly-time-blocks-{week}.md` from dry-run script — present verbatim, grouped by day.*
@@ -1201,7 +1202,7 @@ This list must **exactly match** the Notion Tasks view filtered to `This Week = 
 - **Phase 1:** Life review (values, mind, fitness, sleep, social, parenting, personal enjoyment) + targets on Weekly Meeting Log.
 - **Phase 2:** Development review + next-week dev plan.
 - **Phase 4:** Full Weekly Meeting Log finalized + all FIELD CHECKs; Values DB sync (with approval).
-- **Phase 4.tb:** Personal Time Blocks calendar — one-time Mon–Fri structure events (gym / at-home / plano-field / social-parenting colors); integrated with Personal + Work calendars.
+- **Phase 4.tb** — Personal Time Blocks calendar — one-time Mon–Fri structure events; adjust-if-exists or full regenerate with approval. Skill → `context/skills/week-plan/SKILL.md`.
 - **Phase 4b:** Planning week record (from 0a) gets domain-by-domain plan summary + linked Google Doc in `Plan Records/weekly/`.
 
 <a id="failure-modes-and-graceful-degradation"></a>

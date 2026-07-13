@@ -44,6 +44,7 @@ Full schedule and tier ownership: [`cadences.md`](cadences.md). Agent intent rou
 | Workflow | Tier | Cadence | Duration | Phases | Gates | Triggers |
 |---|---|---|---|---|---|---|
 | weekly plan | Tier 2 (Cursor) | Weekly (~Fridays) | ~40 min (life + dev) | 1 life + 2 dev + commit | Monthly plan (review month) must exist | "weekly plan", "weekly meeting", "Monday review", "sprint planning" |
+| week plan | Tier 2 (Cursor) | On demand | — | — | — | "week plan", "plan my week", "time blocks", "schedule my week", "refactor time blocks" |
 | weekly ops | Tier 2 (Cursor) | Weekly (separate session) | ~40 min | ops + CS + sales + people + commit | Same planning week as weekly plan | "weekly ops", "ops review", "CL ops meeting", "operations meeting" |
 | monthly plan | Tier 2 (Cursor) | Monthly (first week) | 83 min | 14 | Quarterly plan must be committed | "monthly plan", "monthly review" |
 | quarterly plan | Tier 2 (Cursor) | Quarterly (week 1) + mid-quarter week 6 | 90–120 min / 15 min checkpoint | 5-part, 14 phases | None (top-level strategic gate) | "quarterly plan", "strategy review" |
@@ -88,6 +89,7 @@ Spec files: `n8n/conventions.md`, `n8n/bots/cl-bot/teams-bot.md`, `n8n/sync/pd-t
 | Triggers | Cursor rule | Skill / procedure | Core context |
 |---|---|---|---|
 | "weekly plan", "weekly meeting", "Monday review", "sprint planning" | `.cursor/rules/weekly-meeting.mdc` | `context/skills/weekly-planning/SKILL.md` | systems/cadences.md, systems/capacity-rules.md, systems/notion-databases.md, systems/time-blocks.md, self/values.md, people/index.md |
+| "week plan", "plan my week", "time blocks", "schedule my week", "refactor time blocks" | `.cursor/rules/week-plan.mdc` | `context/skills/week-plan/SKILL.md` | systems/time-blocks.md, config/time-blocks.json, self/current-priorities.md, family/matthew.md |
 | "weekly ops", "ops review", "CL ops meeting", "operations meeting" | `.cursor/rules/weekly-ops.mdc` | `context/skills/weekly-ops/SKILL.md` | systems/cadences.md, systems/pipedrive.md, systems/knack-fields.md, work/chrome-lot/, people/index.md |
 | "monthly plan", "monthly review" | `.cursor/rules/monthly-plan.mdc` | `context/skills/monthly-plan/SKILL.md` | systems/cadences.md, systems/notion-databases.md, self/values.md, people/index.md, work/chrome-lot/, work/turbo-gear/ |
 | "quarterly plan", "strategy review" | `.cursor/rules/strategy-review.mdc` | `context/skills/quarterly-plan/SKILL.md` | self/values.md, work/chrome-lot/, work/turbo-gear/, self/, people/index.md |
@@ -167,7 +169,7 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 ## Health / staleness
 
 <!-- AUTO:HEALTH_REPORT -->
-⚠ **13 issue(s)** across 98 context files.
+⚠ **13 issue(s)** across 99 context files.
 
 ### missing-frontmatter (11)
 - `context/skills/annual-plan/SKILL.md` — no-frontmatter
@@ -196,7 +198,7 @@ Full audit: `node scripts/audit-context.mjs`
 ## Last generated
 
 <!-- AUTO:LAST_GENERATED -->
-**2026-07-13 11:46:20** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
+**2026-07-13 11:55:55** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
 <!-- /AUTO:LAST_GENERATED -->
 
 ## See also
