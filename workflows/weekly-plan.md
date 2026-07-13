@@ -66,6 +66,7 @@ Load via the router. Read these before starting:
 - **Dev state (canonical):** **Tasks** DB (`341f40c2-487b-80ac`) — Phase 2 reads the tracker first; meeting logs record what was planned and accomplished. `This Week` is set only from Aaron's explicit selection each session.
 - `context/people/index.md` — delegation matrix, 1:1 tracking
 - `context/work/turbo-gear/overview.md` — TG strategic sequence (for Phase 2.4 project selection)
+- `context/systems/time-blocks.md` + `config/time-blocks.json` — weekly schedule template, color legend, step `4.tb` (Personal Time Blocks calendar)
 
 <a id="execution-protocol-mandatory-read-contextworkflow-executionmd-contextsystemsworkflow-output-contractsmd"></a>
 ## Execution Protocol (mandatory — read `context/workflow-execution.md` + `context/systems/workflow-output-contracts.md`)
@@ -742,7 +743,7 @@ Sync Notion, then **print preview:** `--section social` — present verbatim; Aa
 <a id="16-parenting-review-rate-intentions-4-min"></a>
 ### 1.6 Parenting — Review · Rate · Intentions (~4 min)
 
-**Data sources:** Prior week's `Parenting Intentions`, prior Weekly Meeting Log parenting notes. **Do not** report legal custody schedule (2-2-5-5 is case context only — see `context/family/custody/`, not weekly planning). **Matthew days** for the upcoming week: read **Personal Time Blocks** calendar (`10283d615…@group.calendar.google.com`) — look for `Bus` / `Parent Time` blocks (stable week-to-week; exceptions like camp are Aaron's narrative).
+**Data sources:** Prior week's `Parenting Intentions`, prior Weekly Meeting Log parenting notes. **Do not** report legal custody schedule (2-2-5-5 is case context only — see `context/family/custody/`, not weekly planning). **Matthew days** for the upcoming week: read **Personal** calendar (`hoegenauera@gmail.com`) — camp reservations, school events, outings, medical. Time Blocks calendar shows structure goals only; real bookings live on Personal. → `context/family/matthew.md`
 
 **Present exactly these tables in order** (health and intentions separate turns):
 
@@ -1146,10 +1147,37 @@ This list must **exactly match** the Notion Tasks view filtered to `This Week = 
 11. **Body comp already persisted.** Withings written in Phase 0 (`--days 28`). Don't re-run here.
 12. **Execute remaining:** Create any Todoist/Calendar/Notion items not yet committed during earlier phases.
 13. **Log to Notion:** Finalize the Weekly Meeting Log entry (`322f40c2-487b-81bd`) with key decisions, action items, and plan summary. Set `Status = Done`, `Session Complete = Complete`.
-14. **Week Tracker summary (4b — REQUIRED):**
+14. **Personal Time Blocks (`4.tb` — REQUIRED after scheduling, before 4b):**
+    - Read `context/systems/time-blocks.md` + `config/time-blocks.json` for templates, colors, and principles.
+    - Run `node scripts/weekly-time-blocks.mjs --ledger <path>` — dry-run writes `output/weekly-time-blocks-{planning_monday}.md`. Script reads **Personal** (Bus/camp) + **Work** (CL meetings) and proposes Mon–Fri one-time blocks on the Time Blocks calendar.
+    - **Present exactly Table 4.tb-A** (proposed blocks by day) + **Table 4.tb-B** (calendar conflicts / adjustments). One table per turn.
+    - Aaron confirms or requests lettered tweaks (more dev Tue, skip Plano Fri, etc.). Re-run dry-run after edits; persistent template changes → `config/time-blocks.json`.
+    - Aaron approves production write → `node scripts/weekly-time-blocks.mjs --ledger <path> --apply` (deletes this week's Time Block **instances** only; creates new one-time events with color by type).
+    - `advance --step 4.tb` → proceed to `4b`.
+
+**Table 4.tb-A — Proposed time blocks (planning week Mon–Fri)**
+
+| Day | Time | Block | Type (color) |
+|-----|------|-------|--------------|
+| Mon M/D | HH:MM–HH:MM | summary | gym / at_home / plano_field / social_parenting / wind_down |
+| … | | | |
+
+*Source: `output/weekly-time-blocks-{week}.md` from dry-run script — present verbatim, grouped by day.*
+
+**Table 4.tb-B — Calendar integration (conflicts & adjustments)**
+
+| Source calendar | Event | Overlap / conflict | Adjustment |
+|-----------------|-------|-------------------|------------|
+| Personal | e.g. Minecraft camp Jul 20–24 | all-day camp | switched to `camp_all_day` template |
+| Work | e.g. client call Tue 2 PM | overlaps deep work | carved ops block earlier |
+| — | none | — | default template |
+
+*Source: script conflict section + agent notes from Phase 1.5/1.6 social/parenting pre-commits and Work calendar pull.*
+
+15. **Week Tracker summary (4b — REQUIRED):**
     - Planning week was confirmed at **0a** (`planning_week_page_id` on ledger). Optional gate — `node scripts/weekly-plan-section-preview.mjs --ledger <path> --all` (full print preview).
     - After Aaron confirms, run `node scripts/weekly-plan-week-summary.mjs --ledger <path>` (uses ledger planning week — no end-of-session week picker). This (1) renders a **print PDF** via Playwright (also saves `output/weekly-plan-print-{week}.html` + `.pdf`), (2) uploads PDF to `Plan Records/weekly/`, (3) sets **`Plan Doc URL`** on the planning week record, (4) appends/replaces the **Weekly Plan** section on that Notion page. Aaron approves production writes.
-15. **Update context files** if anything changed.
+16. **Update context files** if anything changed.
 
 <a id="cross-cutting-rules"></a>
 ## Cross-Cutting Rules
@@ -1173,6 +1201,7 @@ This list must **exactly match** the Notion Tasks view filtered to `This Week = 
 - **Phase 1:** Life review (values, mind, fitness, sleep, social, parenting, personal enjoyment) + targets on Weekly Meeting Log.
 - **Phase 2:** Development review + next-week dev plan.
 - **Phase 4:** Full Weekly Meeting Log finalized + all FIELD CHECKs; Values DB sync (with approval).
+- **Phase 4.tb:** Personal Time Blocks calendar — one-time Mon–Fri structure events (gym / at-home / plano-field / social-parenting colors); integrated with Personal + Work calendars.
 - **Phase 4b:** Planning week record (from 0a) gets domain-by-domain plan summary + linked Google Doc in `Plan Records/weekly/`.
 
 <a id="failure-modes-and-graceful-degradation"></a>
