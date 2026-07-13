@@ -15,6 +15,7 @@
 | Inbox Guardian (email filter) | [`inbox-guardian/inbox-guardian.md`](inbox-guardian/inbox-guardian.md) |
 | Toggl 2 → Notion time sync | [`sync/toggl-notion/toggl-notion-sync.md`](sync/toggl-notion/toggl-notion-sync.md) |
 | Toggl 2 overrun watch (>4h auto-stop) | [`sync/toggl-overrun/toggl-overrun-watch.md`](sync/toggl-overrun/toggl-overrun-watch.md) |
+| Cursor session cookie watchdog (Tech Spend) | [`sync/cursor-session/cursor-session-watchdog.md`](sync/cursor-session/cursor-session-watchdog.md) |
 | Notion Start Timer → Toggl 2 | [`webhooks/toggl-start/toggl-start-code.mjs`](webhooks/toggl-start/toggl-start-code.mjs) |
 | Roadmap Promote (▶ Start → Task) | [`webhooks/roadmap-promote/roadmap-promote.md`](webhooks/roadmap-promote/roadmap-promote.md) |
 | Roadmap ⏸ Pause | [`webhooks/roadmap-pause/roadmap-pause.md`](webhooks/roadmap-pause/roadmap-pause.md) |
