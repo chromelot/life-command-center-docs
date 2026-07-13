@@ -313,6 +313,24 @@
           "title": "No due date"
         },
         {
+          "type": "todoistminioncatch",
+          "catch": "late",
+          "span": 2,
+          "title": "Minion late tasks"
+        },
+        {
+          "type": "todoistminioncatch",
+          "catch": "unassigned",
+          "span": 2,
+          "title": "Unassigned minion tasks"
+        },
+        {
+          "type": "todoistminioncatch",
+          "catch": "clnoduedate",
+          "span": 2,
+          "title": "Minion no due date"
+        },
+        {
           "type": "errandstoday",
           "span": 2,
           "title": "Errands"
