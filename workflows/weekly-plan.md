@@ -1148,7 +1148,7 @@ This list must **exactly match** the Notion Tasks view filtered to `This Week = 
 12. **Execute remaining:** Create any Todoist/Calendar/Notion items not yet committed during earlier phases.
 13. **Log to Notion:** Finalize the Weekly Meeting Log entry (`322f40c2-487b-81bd`) with key decisions, action items, and plan summary. Set `Status = Done`, `Session Complete = Complete`.
 14. **Personal Time Blocks (`4.tb` — REQUIRED after scheduling, before 4b):**
-    - Read `context/systems/time-blocks.md` + `context/skills/week-plan/SKILL.md` + `config/time-blocks.json`.
+    - Read `context/systems/time-blocks.md` + `context/skills/plan-weekly-schedule/SKILL.md` + `config/time-blocks.json`.
     - Run `node scripts/weekly-time-blocks.mjs --ledger <path>` — dry-run → `output/weekly-time-blocks-{planning_monday}.md`.
     - **If blocks already exist** (adjust mode in dry-run): note *"Time blocks already set for this week"* — offer **A** targeted adjustments · **B** full regenerate (`--force`) · **C** skip.
     - **Present exactly Table 4.tb-A** (proposed blocks by day) + **Table 4.tb-B** (conflicts) + Bus/Personal schedule from dry-run. One table per turn.
@@ -1202,7 +1202,7 @@ This list must **exactly match** the Notion Tasks view filtered to `This Week = 
 - **Phase 1:** Life review (values, mind, fitness, sleep, social, parenting, personal enjoyment) + targets on Weekly Meeting Log.
 - **Phase 2:** Development review + next-week dev plan.
 - **Phase 4:** Full Weekly Meeting Log finalized + all FIELD CHECKs; Values DB sync (with approval).
-- **Phase 4.tb** — Personal Time Blocks calendar — one-time Mon–Fri structure events; adjust-if-exists or full regenerate with approval. Skill → `context/skills/week-plan/SKILL.md`.
+- **Phase 4.tb** — Personal Time Blocks calendar — one-time Mon–Fri structure events; adjust-if-exists or full regenerate with approval. Skill → `context/skills/plan-weekly-schedule/SKILL.md`.
 - **Phase 4b:** Planning week record (from 0a) gets domain-by-domain plan summary + linked Google Doc in `Plan Records/weekly/`.
 
 <a id="failure-modes-and-graceful-degradation"></a>

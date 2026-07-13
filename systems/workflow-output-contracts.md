@@ -121,7 +121,7 @@ Monthly/quarterly: contracts in each `SKILL.md` **Present exactly** map + phase 
 - **2.1-F (plan close-out):** Turn 1 = accomplished · Turn 2 = still open + mark-Done letters · Turn 3 = carryover A/B · then **2.1-G/H** = project adds. All three Task types in one flow.
 - **2.1-S / 2.2:** Sync covers CL/TG/Personal in one `--selected` pass. **2.2** = Todoist mirror check for selected Personal items (carryover selection is in 2.1-F).
 - **2.check:** One bulleted tree (CL/TG + Personal) must **exactly match** Notion `This Week` filtered view before Phase 4.
-- **4.tb:** After Phase 4 scheduling commits, before 4b — `weekly-time-blocks.mjs --ledger` dry-run → Tables **4.tb-A** + **4.tb-B** + Bus schedule; adjust-if-exists or `--force`. Spec → `context/skills/week-plan/SKILL.md`.
+- **4.tb:** After Phase 4 scheduling commits, before 4b — `weekly-time-blocks.mjs --ledger` dry-run → Tables **4.tb-A** + **4.tb-B** + Bus schedule; adjust-if-exists or `--force`. Spec → `context/skills/plan-weekly-schedule/SKILL.md`.
 - **4b:** `weekly-plan-week-summary.mjs --ledger` → writes to **planning week** from step 0a (print PDF + `Plan Records/weekly/` + `Plan Doc URL` + Notion `Weekly Plan` section). **Mid-session:** `weekly-plan-section-preview.mjs --section <slug>` before advancing; optional `--all` before 4b.
 - **2.2-A/C:** Planning month Personal Tasks (`🌙 Month`) — no free-text monthly priorities.
 - **Monthly plan 11b:** Link up to 5 root Tasks + open sub-items to planning month (`scripts/sync-dev-projects-month.mjs --include-descendants`). Priority Stack text deprecated.
