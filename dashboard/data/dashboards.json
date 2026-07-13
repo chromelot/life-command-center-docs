@@ -318,6 +318,11 @@
           "collapseWeekend": true
         },
         {
+          "type": "scheduletoday",
+          "span": 1,
+          "title": "Schedule"
+        },
+        {
           "type": "opstoday",
           "span": 1,
           "metric": "dev.ops_min",
