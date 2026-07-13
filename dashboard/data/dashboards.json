@@ -44,7 +44,14 @@
               "metric": "life.morning_journal_done",
               "label": "Morning journal",
               "habit": "morning-journal",
-              "openJournal": "morning"
+              "openJournal": "morning",
+              "subLinks": [
+                {
+                  "label": "Meditation",
+                  "openSpiritPage": true,
+                  "spiritTab": "timer"
+                }
+              ]
             },
             {
               "metric": "life.spirit_time_done",
@@ -64,6 +71,7 @@
           "type": "progressgroup",
           "title": "Nutrition",
           "span": 1,
+          "compact": true,
           "nudgeAfterHour": 20,
           "foodLog": true,
           "items": [
@@ -94,6 +102,14 @@
               "label": "Fat",
               "format": "grams"
             }
+          ],
+          "extra": [
+            {
+              "metric": "personal.steps",
+              "field": "current",
+              "label": "Steps",
+              "targetValue": 10000
+            }
           ]
         },
         {
@@ -103,13 +119,14 @@
         },
         {
           "type": "section",
-          "title": "Fitness"
+          "title": "Training"
         },
         {
           "type": "goal",
           "metric": "life.strength_sessions",
           "field": "current",
           "target": 1,
+          "compact": true,
           "weekTargetMetric": "goal.strength_target",
           "label": "Strength",
           "labelPrefix": "Strength - ",
@@ -130,6 +147,7 @@
           "metric": "life.cardio_min",
           "field": "current",
           "target": 1,
+          "compact": true,
           "label": "Cardio",
           "labelPrefix": "Cardio - ",
           "labelTextKey": "text.planned_cardio",
@@ -141,13 +159,6 @@
               "life.cardio_min"
             ]
           }
-        },
-        {
-          "type": "goal",
-          "metric": "personal.steps",
-          "field": "current",
-          "target": 10000,
-          "label": "Steps"
         },
         {
           "type": "section",
