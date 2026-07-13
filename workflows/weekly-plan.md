@@ -877,6 +877,14 @@ Sync Notion, then **print preview:** `--section enjoyment` — present verbatim;
 
 *Present Tier 1 first in 2.1-D narrative; Tier 2 for full work-week picture.*
 
+**Table 2.1-B² — Activity summaries** *(what shipped during logged time)*
+
+*Source: `weekly-dev-review` § Table 2.1-B² — auto-generated on each Time Punch from GitHub commits + Cursor cloud agents in that window. Only punches with detected activity have text; use when narrating what shipped in 2.1-D / 2.1-F.*
+
+| Date | Category | Min | Title | Summary |
+|------|----------|-----|-------|---------|
+| | | | | |
+
 **Table 2.1-C — What was accomplished** *(legacy ID — content now presented as **2.1-F Turn 1**; keep field writes here)*
 
 **From plan** — *same tree as **2.1-A** across **Chrome Lot · Turbo Gear · Systems · Workshop · Admin**. Do **not** flatten to a table. Mark finished items with ~~strikethrough~~ (Status = Done). Open items stay plain.*
