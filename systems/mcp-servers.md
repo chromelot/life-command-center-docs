@@ -13,6 +13,7 @@ Inventory of every MCP server configured in this workspace, plus how to choose b
 | Read or update a Notion work-side DB (CL Tasks, CL Projects, TG Features, Team) | `notion` |
 | Look up or create a Pipedrive deal/activity/contact | `pipedrive` |
 | Read Knack customer/photographer/job records | `knack` |
+| Read Knack assets / equipment records | `knack-assets` |
 | Get or send a Gmail message; read/write Calendar; read/write Drive | `google` |
 | Send SMS or check Quo call transcripts | `quo` |
 | Run a Process Street workflow check, manage runs/tasks | `processstreet` (API-key MCP) |
@@ -151,6 +152,21 @@ Process Street's remote MCP (~105 tools, workflow authoring) requires **OAuth lo
 - **App ID**: `5d1621582487c7000af3055e`
 - **Role**: Customers, jobs, photographers, invoices. Being replaced by Turbo Gear.
 - **Field reference**: → [knack-fields.md](knack-fields.md)
+
+### knack-assets — Chrome Lot asset / equipment tracking
+
+- **Path**: `mcp/knack-assets/` in workspace (local Node MCP)
+- **App ID**: `635ad2b6b2c0fc0021463e07`
+- **Credentials**: `secrets/knack-assets.env` (see `mcp/knack-assets/knack-assets.env.example`)
+- **Tools**: `knack_assets_status`, `knack_assets_list_objects`, `knack_assets_get_fields`, `knack_assets_get_records`, `knack_assets_get_all_records`, `knack_assets_search_records`, `knack_assets_get_record`, `knack_assets_create_record`, `knack_assets_update_record`, `knack_assets_delete_record`, `knack_assets_get_view_records`, `knack_assets_create_view_record`, `knack_assets_update_view_record`, `knack_assets_delete_view_record`, `knack_assets_raw_request`
+- **Setup**: `cd mcp/knack-assets && npm install && npm test` → register in `.cursor/mcp.json` → reload MCP
+
+### knack-hiring — Chrome Lot hiring pipeline
+
+- **Path**: `mcp/knack-hiring/` in workspace (local Node MCP; shares `mcp/knack-lib/`)
+- **App ID**: `62a5c6a56f0bab001e15a42c`
+- **Tools**: same 15-tool surface as `knack-assets` with `knack_hiring_*` prefix (status, CRUD, search, view CRUD, raw_request)
+- **Setup**: `cd mcp/knack-hiring && npm install && npm test` → reload MCP
 
 ### teams — Microsoft Teams + CL Bot
 
