@@ -291,7 +291,7 @@ Located in `scripts/` in the workspace. Use these BEFORE MCP calls when a workfl
 | Google Sheets | Read/write cell ranges | Append rows, update values | — |
 | Notion (both) | Query DB, get page, get block children | Create/update page, append blocks, archive | Block-level mutation is paginated |
 | Hubstaff | Hours, activity, time entries, projects, members | None (read-only) | — |
-| Airtable | Payable Employees roster, schema, fuzzy name/email lookup | Create/update rows, add fields | PII redacted on read; Admin base only by default |
+| Airtable | Payable Employees roster, schema, fuzzy name/email lookup | Create/update rows, add fields | PII redacted on read; Cloud fallback: `scripts/airtable-lookup.mjs` |
 
 ## See also
 
