@@ -42,9 +42,11 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 
 Load via the router:
 
-- `context/people/index.md` — master directory and delegation matrix. Find the person's entry; note their systems, last check-in date, and standing 1:1 topics.
+- `airtable_lookup_employee` — canonical platform IDs (Todoist, Pipedrive, Hubstaff, Knack AM, email) for the named person. Schema → `context/systems/airtable-roster.md`.
+- `context/people/index.md` — editorial notes, delegation matrix, last check-in date, standing 1:1 topics.
 - `context/systems/notion-databases.md` — for any Notion DB IDs needed (CL Tasks, etc.)
-- `context/systems/pipedrive.md` — for Pipedrive user IDs if pulling activity by owner
+
+Use Airtable IDs from the lookup for Todoist/Pipedrive pulls — not stale IDs from markdown.
 
 <a id="identify-the-person"></a>
 ## Identify the Person

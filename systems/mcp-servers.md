@@ -26,7 +26,7 @@ Inventory of every MCP server configured in this workspace, plus how to choose b
 | List/read Paperform forms, submissions, products, webhooks, Papersign | `paperform` |
 | Read / write Turbo Gear MongoDB | `mongodb` |
 | Look up GitHub PRs / commits | `github` |
-| Pull Airtable data | `airtable` |
+| Pull Airtable roster / employee lookup / platform IDs | `airtable` |
 
 ## Servers
 
@@ -251,9 +251,15 @@ Process Street's remote MCP (~105 tools, workflow authoring) requires **OAuth lo
 - **Repos active in workspace**: `turbo-gear`, `turbo-gear-api`, `turbo-gear-workspace` (under `torchcommercialmedia` org)
 - **Use for**: PR review, commit history, contractor activity tracking
 
-### airtable — secondary structured data
+### airtable — Chrome Lot roster (Payable Employees)
 
-- (Listed in workspace MCP config; not currently a primary daily driver. Reach for it only when Aaron explicitly references Airtable.)
+- **Base / table**: Admin `appv05uQhbcO6LAnO` / Payable Employees `tblU2vrGDcFTPXey9`
+- **Token**: `AIRTABLE_API_TOKEN` in `n8n/.secrets.local` (or `secrets/airtable.env` via `AIRTABLE_ENV_FILE`)
+- **Schema**: [`context/systems/airtable-roster.md`](airtable-roster.md)
+- **Default first call**: `airtable_lookup_employee` when Aaron mentions a teammate and you need Todoist / Pipedrive / Hubstaff / AAD / Knack IDs
+- **Tools**: `airtable_status`, `airtable_roster_schema`, `airtable_lookup_employee`, `airtable_list_records`, `airtable_get_record`, `airtable_create_record`, `airtable_update_record`, `airtable_create_field`
+- **PII**: SSN, DL, mailing address, pay-event links redacted on read — see roster doc
+- **Writes**: agents may add rows, update fields, and add columns when helpful; confirm with Aaron before changing bot permission checkboxes (`Sales & CS Manager`, `Photographer Manager`)
 
 ## Data pull scripts (deterministic, not MCPs)
 
@@ -285,6 +291,7 @@ Located in `scripts/` in the workspace. Use these BEFORE MCP calls when a workfl
 | Google Sheets | Read/write cell ranges | Append rows, update values | — |
 | Notion (both) | Query DB, get page, get block children | Create/update page, append blocks, archive | Block-level mutation is paginated |
 | Hubstaff | Hours, activity, time entries, projects, members | None (read-only) | — |
+| Airtable | Payable Employees roster, schema, fuzzy name/email lookup | Create/update rows, add fields | PII redacted on read; Admin base only by default |
 
 ## See also
 
