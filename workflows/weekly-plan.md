@@ -35,7 +35,8 @@ tags: [skill, weekly-planning, procedure]
 - [Phase 2: Development (domain-first, ~18 min)](#phase-2-development-domain-first-18-min)
   - [Per-domain loop — run `2.TG` → `2.SY` → `2.CL`](#per-domain-loop-run-2tg-2sy-2cl)
   - [`2.H` — Dev health review (one turn, after all three domains)](#2h-dev-health-review-one-turn-after-all-three-domains)
-  - [2.2 Systems / Workshop / Admin Review (~7 min)](#22-systems-workshop-admin-review-7-min)
+  - [`2.WA` — Workshop + Admin (lighter tail)](#2wa-workshop-admin-lighter-tail)
+  - [`2.sync` — Commit the combined slate (run once)](#2sync-commit-the-combined-slate-run-once)
 - [Phase 4: Commit (~5 min)](#phase-4-commit-5-min)
 - [Cross-Cutting Rules](#cross-cutting-rules)
 - [Outputs](#outputs)
@@ -48,7 +49,7 @@ tags: [skill, weekly-planning, procedure]
 <a id="trigger"></a>
 ## Trigger
 
-This skill activates when Aaron says "weekly plan", "weekly meeting", "plan this week", "sprint planning", or "Monday review". Target duration: ~45 minutes (Phase 1 life ~28 min · Phase 2.1 Dev Review ~8 min · Phase 2.2 Personal Projects ~7 min · Phase 4 commit ~5 min). **CL operations** run in **Weekly Ops** — `context/skills/weekly-ops/SKILL.md`.
+This skill activates when Aaron says "weekly plan", "weekly meeting", "plan this week", "sprint planning", or "Monday review". Target duration: ~50 minutes (Phase 1 life ~28 min · Phase 2 dev domain-first ~18 min · Phase 4 commit ~5 min). **CL operations** run in **Weekly Ops** — `context/skills/weekly-ops/SKILL.md`.
 
 <a id="inputs"></a>
 ## Inputs
@@ -61,7 +62,7 @@ Load via the router. Read these before starting:
 - `context/systems/knack-fields.md` — Customer + Photographer field references
 - `context/systems/hubstaff.md` — member IDs, weekly-report tool
 - `context/systems/health-data.md` — MCP architecture, expected fields
-- `context/self/values.md` — six categories and current Health statuses (Phase 1.1 context; per-domain ratings in Phase 1 + 2.2)
+- `context/self/values.md` — six categories and current Health statuses (Phase 1.1 context; per-domain ratings in Phase 1 + 2.H/2.WA-H)
 - `context/self/eros.md` — primary fuel doctrine (Phase 1.5 fuel check)
 - `context/self/social.md` — sarges, Small Talk targets, isolation signals (Phase 1.5)
 - **Dev state (canonical):** **Tasks** DB (`341f40c2-487b-80ac`) — Phase 2 reads the tracker first; meeting logs record what was planned and accomplished. `This Week` is set only from Aaron's explicit selection each session.
@@ -104,7 +105,7 @@ Load via the router. Read these before starting:
     | `1.5` | `social` | After fuel check + social Notion sync |
     | `1.6` | `parenting` | |
     | `1.7` | `enjoyment` | |
-    | `2.1` (after sync + **2.1-S** confirmed) | `development` | Includes CL/TG + personal dev tree when on log |
+    | `2.sync` (after the combined slate sweep + **Table 2.S** confirmed) | `development` | Includes CL/TG/Systems + Workshop/Admin dev tree when on log |
 
     Optional before **4b** write: `--all` for full seven-domain preview.
 12. **Phase gates:** `node scripts/workflow-progress.mjs gate --workflow weekly-plan --phase <1|2>` before Phase 2 (work) or Phase 4 (commit)
@@ -125,9 +126,9 @@ Each phase ends with an inline **FIELD CHECK** listing its required Weekly Meeti
 
 **Dev tracker hygiene (every Phase 2 session):**
 1. **Tracker first** — monthly incomplete lists come from Tasks (Notion), not log prose.
-2. **Selection sync** — after each Phase 2 sub-step (2.1 then 2.2), run `scripts/sync-dev-projects-this-week.mjs` with the cumulative selected page IDs: set `This Week = true` on selected only; **`This Week = false` on every other open Task** (domain-scoped within that phase, then combined pass at 2.check). That script also **provisions Toggl 2 tasks for the slate and deletes mirrored tasks** for anything no longer on `This Week` (keeps Focus uncluttered). Present the finalized bulleted slate; it must match the Notion `This Week` filter exactly.
+2. **Selection accumulates, sync once** — each domain's `.3` (and `2.WA`) records selected Task IDs into `notes.dev_slate_ids`; run `scripts/sync-dev-projects-this-week.mjs` **once at `2.sync`** with the full cumulative set: set `📅 Week Tracker` = planning week on selected only; **clear it on every other open Task** (full-DB sweep). That script also **provisions Toggl 2 tasks for the slate and deletes mirrored tasks** for anything no longer on the slate (keeps Focus uncluttered). Present the finalized bulleted slate (Table 2.S); it must match the Notion `This Week` filter exactly. **Never** run the sync mid-loop with a single domain's IDs.
 3. **Missing records** — work Aaron describes that is not in Tasks → create a record (with approval) before toggling `This Week`.
-4. **Personal mirrors** — Phase 2.2 creates Todoist tasks for selected Personal items (case-by-case approval); verify last week's mirrors via Todoist MCP.
+4. **Workshop/Admin mirrors** — Phase 2.WA creates Todoist mirrors for selected Workshop/Admin items (case-by-case approval); verify last week's mirrors via Todoist MCP.
 
 **Gate rules:**
 - Before **Phase 2 (Work)**: Phase 1 FIELD CHECK (`1.check`) must pass.
@@ -149,7 +150,7 @@ The weekly plan assumes a committed monthly frame. Do not start Phase 0 until th
    - **Pause** this workflow. Run `context/skills/monthly-plan/SKILL.md` end-to-end (or resume an in-progress ledger).
    - After monthly plan Phase 12 commits (`Session Complete` = Complete), **resume** weekly plan from Phase 0 below.
    - Do **not** offer to skip or proceed weekly-only — a **completed** monthly plan is a hard prerequisite.
-4. **If entry exists and Session Complete = Complete:** Hold for Phase 2.1. Continue to **Phase 0a** (confirm weeks), then Phase 0.
+4. **If entry exists and Session Complete = Complete:** Hold for Phase 2 dev review. Continue to **Phase 0a** (confirm weeks), then Phase 0.
 
 <a id="phase-0a-confirm-review-planning-weeks-1-min"></a>
 ## Phase 0a: Confirm Review + Planning Weeks (~1 min)
@@ -161,7 +162,7 @@ The weekly plan assumes a committed monthly frame. Do not start Phase 0 until th
 | **Friday / Saturday** | Current calendar week (still in) | **Next** Week Tracker row | **Pre-turnover** — review week is still `Is Current Week` |
 | **Sunday / Monday** | Prior Week Tracker row | Current week (entering) | **Post-turnover** — auto-defer already ran |
 
-**Turnover = the `WeekDefer` automation (Sun ~3 AM CT).** At the week flip it moves every open Task still linked to the ending week onto the new current week (`scripts/defer-week-tasks.mjs`; Done tasks stay put as history). This drives the pre/post-turnover branch in Phase 2.1-F carryover:
+**Turnover = the `WeekDefer` automation (Sun ~3 AM CT).** At the week flip it moves every open Task still linked to the ending week onto the new current week (`scripts/defer-week-tasks.mjs`; Done tasks stay put as history). This drives the pre/post-turnover branch in each dev domain's `.3` carryover (Table 2.{D}-Carry):
 
 - **Pre-turnover (Fri/Sat)** — the review week is still current. Auto-defer has **not** run yet, so at carryover ask Aaron which open review-week Tasks he **might still finish** (leave linked to the current/review week — WeekDefer will sweep any that stay open Sunday) vs **defer now** (link to the planning/next week). Tasks legitimately live on two weeks during this window; that's expected.
 - **Post-turnover (Sun/Mon)** — WeekDefer already moved every unfinished Task to the current (= planning) week. **Do not** ask "what are you still trying to finish" — treat the carried slate as already deferred; only prune and add.
@@ -245,7 +246,7 @@ node scripts/weekly-dev-review.mjs --ledger <path>
 ```
 Output: `output/weekly-dev-review-YYYY-MM-DD.md` — **canonical Phase 2 source** (prior week plan, dev time by day, monthly incomplete by domain, personal carryover).
 
-Also run `weekly-habit-summary.mjs` (logged/unlogged accomplishments). Todoist MCP in Phase 2.2 for Personal mirror completion check. Ops pulls → **Weekly Ops** `scripts/weekly-ops-pull.mjs`.
+Also run `weekly-habit-summary.mjs` (logged/unlogged accomplishments). Todoist MCP in Phase 2.WA for Workshop/Admin mirror completion check. Ops pulls → **Weekly Ops** `scripts/weekly-ops-pull.mjs`.
 4. **Habit source DBs** (past 7 days — habit summary script is canonical; MCP only if script missing):
    - Workouts (`127f40c2-487b-80ba`): query all, count by Type
    - Small Talk (`121f40c2-487b-802d`): query all, count entries
@@ -291,7 +292,7 @@ DATA INTEGRITY CHECK
 <a id="phase-1-life-review-28-min"></a>
 ## Phase 1: Life Review (~28 min)
 
-**Purpose:** Values context first, then mind → fitness → sleep → social → parenting → personal enjoyment — one domain at a time (review → rate health where applicable → set intentions). Mind includes wellness screening. Work health rates in Phase 2.2.
+**Purpose:** Values context first, then mind → fitness → sleep → social → parenting → personal enjoyment — one domain at a time (review → rate health where applicable → set intentions). Mind includes wellness screening. Work health rates in Phase 2.H.
 
 > **Intentions vs targets — keep them separate (do not restate numbers).** Every recurring **numeric goal** lives in a **structured target field** that drives the dashboard widgets: `Strength Target`, `Cardio Target` (fitness) · `Sleep Target Hours`, `Target Wake Time` (sleep) · `Calorie Target`, `Weight Goal Direction` (nutrition) · `Social Target` (social small-talk/sarges) · `Workshop Hours Intended` (workshop). The `*Intentions` rich_text fields (`Mind/Fitness/Sleep/Social/Parenting Intentions`, `Week Intentions`) capture **only qualitative changes** for the week — behavioral shifts, experiments, focus themes, one-off adjustments. **Never** write "5 strength workouts" or "3–5 sarges" into an intention field; that number goes in its target field. If a domain has no qualitative change this week, **leave its intention blank** (better empty than restating a target). This keeps the weekly printout + dashboard clean and non-redundant.
 
@@ -299,7 +300,7 @@ DATA INTEGRITY CHECK
 
 **Print / Week Tracker domain order (Phase 4b):** Sleep and Schedule → Spirituality & Mind → Fitness → Social → Parenting → Personal Enjoyment → Development Work. Each domain renders as **three parts**: *What happened last week* · **Targets for next week** (the structured numbers — Strength/Cardio, Sleep hours + wake time, Calories + direction, Social target, Workshop hours — rendered as a compact line/badges) · *Intentions for next week* (**qualitative only** — behavioral changes / experiments; **omit the line entirely when blank**, don't pad with restated targets). Five-level health badge when rated; **trend arrow** (↑ / ↓ / −) vs the **prior week's** same-domain rating. This keeps the printout's intentions section clean and meaningful (targets are shown once, as numbers, not repeated as prose).
 
-**Health rating scale** *(all Phase 1 domain ratings + Phase 2.1 dev health — one letter per turn)*
+**Health rating scale** *(all Phase 1 domain ratings + Phase 2.H dev health — one letter per turn)*
 
 | | Rating |
 |---|--------|
@@ -939,79 +940,85 @@ Then Aaron rates (five-level A–E health scale):
 
 ---
 
-<a id="22-systems-workshop-admin-review-7-min"></a>
-### 2.2 Systems / Workshop / Admin Review (~7 min)
+<a id="2wa-workshop-admin-lighter-tail"></a>
+### `2.WA` — Workshop + Admin (lighter tail)
 
-*Carryover and week selection run in **2.1-F** (all domains). Phase 2.2 = Todoist mirror check + block scheduling for the non-CL/TG domains + any gaps not covered in 2.1-F/G.*
+*Systems is now a first-class **dev** domain (handled in `2.SY`). This step covers only the two **non-dev** blocks — Workshop (QoL/hobby) and Admin (personal-life/legal) — which sit in their own blocks, never the deep-work block, and don't count as dev. One ledger step (`2.WA`); present the sub-tables below across turns, then advance.*
 
 **Domain → block mapping (single-axis labels, see `capacity-rules.md`):**
-- **Systems** = deep work — joins the **One Thing / deep-work block** alongside Chrome Lot + Turbo Gear. Counts toward the dev goal.
 - **Workshop** = QoL/hobby (home automation, Plex, dashboards) — schedule a **separate Workshop block, capped ~3 hr/wk**. Never in the deep-work block. Does not count as dev.
 - **Admin** = personal-life/legal (custody, will, house) — schedule a **separate Admin block, outside the deep-work block**. Not dev.
 
 **Required:** the plan must place a distinct **Admin block** and a distinct **Workshop block** outside the deep-work block. If Workshop candidates exceed the ~3 hr cap, defer the remainder — do not let tinkering crowd out deep work.
 
-#### A — Context + last week
+#### `2.WA-A` — Planning-month Workshop / Admin + last week
 
-**Table 2.2-A — Planning month Systems / Workshop / Admin Tasks**
+**Table 2.WA-A — Planning month Workshop / Admin Tasks**
 
-Present `weekly-dev-review` § **Planning month** for the non-CL/TG domains (`🌙 Month` → planning month), **grouped by domain: Systems / Workshop / Admin**. Full parent → sub-bullet tree. **No free-text priority themes** — monthly plan links records in Phase 11b / Phase 5. Flag which block each root feeds (Systems → deep work; Workshop → capped block; Admin → admin block).
+Present `weekly-dev-review` § **Planning month — Workshop / Admin** (`🌙 Month` → planning month), **grouped by domain: Workshop / Admin**. Full parent → sub-bullet tree. Flag which block each root feeds (Workshop → capped block; Admin → admin block).
 
-**Table 2.2-B — Last week personal plan**
+**Table 2.WA-B — Last week Workshop / Admin plan**
 
-**Bulleted tree only** — same nesting as **2.2-A** / **2.1-C**. Do **not** flatten to a table. One parent block per root; indent children. Append mirror + outcome on each line.
+**Bulleted tree only** — one parent block per root; indent children. Append mirror + outcome on each line.
 
 ```
-**Systems**
+**Workshop**
 - **Parent** — Status · mirror: none / open / completed · done: ✓ / ✗
   - **Child** — Status · mirror: … · done: …
-**Workshop**
-- …
 **Admin**
 - …
 ```
 
-Source: prior `Dev Projects Intended` field (Systems/Workshop/Admin) + prior-week `This Week` carryover for those domains + **Todoist MCP** (tasks due/completed last week). Confirm completions with Aaron.
+Source: prior `Dev Projects Intended` (Workshop/Admin) + prior-week `This Week` carryover for those domains + **Todoist MCP** (tasks due/completed last week). Confirm completions with Aaron.
 
-#### B — Plan for next week
-
-**Table 2.2-C — Planning month adds** *(only if 2.2-B needs items not on carryover)*
-
-Same source as **2.2-A** — letter rows to add to `This Week` that aren’t already on the plate from **2.1-F** carryover (Personal domain).
-
-**Table 2.2-D — Selection** *(multi-select — reply with letters, or **A** = all / **B** = none)*
-
-Present as a **lettered bulleted tree** (same nesting as **2.2-A**). Letter each **root**; children inherit parent selection unless Aaron splits them explicitly.
-
-After selection — **run immediately** (approval before Notion writes):
-
-Execute `node scripts/sync-dev-projects-this-week.mjs --selected=<all CL/TG IDs from 2.1-S plus selected Personal IDs>`:
-
-1. `This Week = true` on selected Personal Tasks only.
-2. `This Week = false` on **every other open** Personal Task.
-3. Re-run with **combined** CL/TG + Personal selected IDs so the full slate is authoritative (one sync pass).
-4. **Toggl tasks** — same script chains `sync-dev-projects-toggl-tasks.mjs`: create/assign Focus tasks for selected items; **delete** off-slate mirrors (and clear `Toggl Task ID`).
-5. For each selected item: propose **Todoist mirror** (due date + project) — **case-by-case approval** before create.
-
-#### W — Workshop time intention *(step `2.2-W` — REQUIRED every week)*
+#### `2.WA-W` — Workshop time intention *(REQUIRED every week)*
 
 Workshop (QoL/hobby) is time-boxed so tinkering never crowds out deep work. Set the budget **and** aim it at specific item(s).
 
 1. **Retrospective:** show **last week's Workshop actual** (Week Tracker `Workshop` rollup / `weekly-dev-review` § non-dev logged Workshop minutes) vs the prior week's **`Workshop Hours Intended`**. One line: `Workshop last week: actual Xh vs intended Yh`.
-2. **Table 2.2-W — Workshop plan** — present open **Domain = Workshop** items (lettered tree from 2.2-A Workshop group). Aaron replies with:
+2. **Table 2.WA-W — Workshop plan** — present open **Domain = Workshop** items (lettered tree from `2.WA-A` Workshop group). Aaron replies with:
    - **hours** for `Workshop Hours Intended` (cap **~3 hr**; **0 = skip Workshop this week**), and
    - **letter(s)** for the item(s) that time goes to.
 3. **Cap guard:** if the intention exceeds ~3 hr, confirm it's a deliberate trade against deep work before accepting. If 0, no Workshop items go on the slate this week.
-4. Selected Workshop items are included in the **2.2-D** `This Week` sync (they carry Domain = Workshop). Write `Workshop Hours Intended` (number) + `Workshop Focus` (item names + one-line intention) to the Weekly Meeting Log at **Phase 4 commit**.
+4. **Append** selected Workshop + Admin Task IDs to the cumulative slate (`notes.dev_slate_ids`) — they're synced with everything else at `2.sync`. Write `Workshop Hours Intended` (number) + `Workshop Focus` (item names + one-line intention) to the Weekly Meeting Log at commit.
 
-#### H — Systems & Workshop health *(step `2.2-H` — quick, every week)*
+#### `2.WA-H` — Systems & Workshop health *(quick, every week)*
 
 Rounds out the life-category ratings so **all** categories are trended (their `* Score` fields feed the annual/monthly/quarterly trend review). One rating per turn, five-level scale:
 
-1. **Systems:** quick check — are your systems (automations, LCC, home/dev infra) running well? Any breakage or friction? Recommend 0–1 concrete change (→ a Systems Task/Project if warranted). **Rate `Systems Health`.**
+1. **Systems:** quick check — are your systems (automations, LCC, home/dev infra) running well? Any breakage or friction? Recommend 0–1 concrete change (→ a Systems Task/Project if warranted). **Rate `Systems Health`.** *(This is the standalone life-category `Systems Health` select for trending — distinct from the overall dev `Work Health` rated in `2.H`.)*
 2. **Workshop:** given this week's Workshop intention/actual, **rate `Workshop Health`** (is the hobby/QoL tinkering in a good place — neither crowded out nor crowding out deep work?).
 
 Write `Systems Health` + `Workshop Health` (select) to the Weekly Meeting Log at Phase 4 commit; the `Systems Score` / `Workshop Score` formulas populate automatically for trending.
+
+#### `2.WA-mirror` — Todoist mirrors
+
+For each selected **Workshop / Admin** item, propose a **Todoist mirror** (due date + project) — **case-by-case approval** before create. Verify last week's mirrors via Todoist MCP.
+
+`advance --step 2.WA` → `2.sync`.
+
+---
+
+<a id="2sync-commit-the-combined-slate-run-once"></a>
+### `2.sync` — Commit the combined slate (run once)
+
+**Now** run the single sweep with the full accumulated set from every `.3` + `2.WA` (approval before Notion writes):
+
+`node scripts/sync-dev-projects-this-week.mjs --selected=<all cumulative Task IDs>`
+
+1. **Link** `📅 Week Tracker` = **planning week** on every selected Task.
+2. **Clear** `📅 Week Tracker` on **every other open** Task (full open-DB sweep → back to backlog), and on any **Done** rows still linked (stale bulk-close artifacts).
+3. **Toggl tasks** — same script chains `sync-dev-projects-toggl-tasks.mjs`: create/assign Focus tasks for the slate; **delete** off-slate mirrors (and clear `Toggl Task ID`).
+
+*Pre-turnover: "keep finishing" items keep their current-week link untouched — this sweep only manages the **planning-week** slate.*
+
+→ Write `Deep Work Minutes` (sum of the three domains' review-week actual dev minutes from each `2.{D}-B`), `Dev Projects Intended` (slate snapshot), `Dev Priority Context` (incl. the TG backlog health line).
+
+Sync Notion, then **print preview:** `node scripts/weekly-plan-section-preview.mjs --ledger <path> --section development` — present verbatim; Aaron confirms.
+
+**Present Table 2.S — This Week slate** — sync-script output, all domains (Chrome Lot / Turbo Gear / Systems / Workshop / Admin). Aaron executes from the [This Week — Dev Slate](https://notion.so/39bf40c2487b81d2a7acf44e0706775f) view (Start Timer · Logged Minutes This Week · TWC). Aaron confirms before `2.check`.
+
+`advance --step 2.sync` → `2.check`.
 
 ---
 
@@ -1038,15 +1045,16 @@ This list must **exactly match** the Notion Tasks view filtered to `This Week = 
 
 | Field | Step |
 |-------|------|
-| `Deep Work Minutes`, `Accomplishments`, counts | 2.1-C |
-| `Dev Review`, `Work Health`, `Dev Week Rating`, `Dev Intentions Met` | 2.1-D |
-| `Dev Adjustments` | 2.1-E *(A/B only; Aaron-supplied)* |
-| `Dev Projects Intended` | 2.1 sync (after F/G/H) |
-| `Dev Priority Context` | 2.1-G |
-| CL/TG `This Week` sync | 2.1-S |
-| Personal `This Week` sync | 2.2-D |
-| `Workshop Hours Intended`, `Workshop Focus` | 2.2-W |
-| `Systems Health`, `Workshop Health` | 2.2-H |
+| `Deep Work Minutes`, `Accomplishments`, counts | 2.{D}.1 / 2.sync |
+| `Turbo Gear Hours Intended` | 2.TG.2 |
+| `Systems Hours Intended` | 2.SY.2 |
+| `Chrome Lot Hours Intended` | 2.CL.2 |
+| `Dev Review`, `Work Health`, `Dev Week Rating`, `Dev Intentions Met` | 2.H |
+| `Dev Adjustments` | 2.H-adj *(A/B only; Aaron-supplied)* |
+| `Dev Projects Intended`, `Dev Priority Context` | 2.sync |
+| `This Week` slate synced (all domains) | 2.sync |
+| `Workshop Hours Intended`, `Workshop Focus` | 2.WA-W |
+| `Systems Health`, `Workshop Health` | 2.WA-H |
 | **Final slate = Notion view** | **2.check** |
 
 **Do not proceed to Phase 4 until `2.check` passes.**
@@ -1062,11 +1070,11 @@ This list must **exactly match** the Notion Tasks view filtered to `This Week = 
 4. **Store project KPIs on Weekly Meeting Log:** Write `Projects Completed` (count of projects marked Done this week) and `Projects In Progress` (count of projects with This Week checked for the new week).
 5. **Verify all FIELD CHECKs (REQUIRED):** Re-run Phase 1 (`1.check`) and Phase 2 (`2.check`). Confirm nothing is blank without N/A + reason. (Activity KPIs + Team Activity Details → **Weekly Ops** commit.)
 6. **Write / confirm `Week Intentions` (REQUIRED):** 1–3 sentence week theme capturing the overarching focus for the planning week. Agent proposes from session context; Aaron confirms or edits → write to Weekly Meeting Log. `node scripts/weekly-plan-log-check.mjs commit --ledger <path>` must pass before `workflow-notion-log complete`.
-7. **Record life health ratings (REQUIRED):** Verify weekly-rated selects are set — `Mind Health` (→ `Spirituality Health` in Phase 4), `Fitness Health` (1.3), `Sleep Health` (1.4), `Social Health` (1.5), `Parenting Health` (1.6), `Enjoyment Health` (1.7), `Work Health` (2.2). Values: **Very Unhealthy → Very Healthy** (five-level scale). Admin is not rated in weekly plan.
+7. **Record life health ratings (REQUIRED):** Verify weekly-rated selects are set — `Mind Health` (→ `Spirituality Health` in Phase 4), `Fitness Health` (1.3), `Sleep Health` (1.4), `Social Health` (1.5), `Parenting Health` (1.6), `Enjoyment Health` (1.7), `Work Health` (2.H). Values: **Very Unhealthy → Very Healthy** (five-level scale). Admin is not rated in weekly plan.
 8. **Update Values DB Health (with approval):** For each category where this week's rating differs from current Values DB Health, update via `personal_notion_update_page` on the category page in Values DB (`342f40c2-487b-80c5`). Include **Personal Enjoyment** when added to Values DB.
 9. **Record Starved Values:** Derive from weekly health ratings — set `Starved Values` multi_select to every **rated** category marked **Unhealthy or Very Unhealthy** (A or B: Spirituality, Fitness, Work, Social, Parenting, Personal Enjoyment). Admin excluded from weekly rating.
-10. **Confirm accomplishment fields (REQUIRED):** Verify Phase 2.2 wrote `Logged/Unlogged/Total Accomplishments Count`, `Focused Output Hours Estimate`, and `Accomplishments`. Backfill from habit summary if missing.
-10b. **Write Workshop intention (REQUIRED):** From Phase 2.2-W, write `Workshop Hours Intended` (number, 0 allowed) + `Workshop Focus` (rich_text — selected item(s) + one-line intention) to the Weekly Meeting Log. `weekly-plan-log-check` commit gate requires `Workshop Hours Intended`.
+10. **Confirm accomplishment fields (REQUIRED):** Verify Phase 2 (`2.sync`) wrote `Logged/Unlogged/Total Accomplishments Count`, `Focused Output Hours Estimate`, and `Accomplishments`. Backfill from habit summary if missing.
+10b. **Write Workshop intention (REQUIRED):** From Phase 2.WA-W, write `Workshop Hours Intended` (number, 0 allowed) + `Workshop Focus` (rich_text — selected item(s) + one-line intention) to the Weekly Meeting Log. `weekly-plan-log-check` commit gate requires `Workshop Hours Intended`.
 11. **Body comp already persisted.** Withings written in Phase 0 (`--days 28`). Don't re-run here.
 12. **Execute remaining:** Create any Todoist/Calendar/Notion items not yet committed during earlier phases.
 13. **Log to Notion:** Finalize the Weekly Meeting Log entry (`322f40c2-487b-81bd`) with key decisions, action items, and plan summary. Set `Status = Done`, `Session Complete = Complete`.
@@ -1113,7 +1121,7 @@ This list must **exactly match** the Notion Tasks view filtered to `This Week = 
 <a id="cross-cutting-rules"></a>
 ## Cross-Cutting Rules
 
-- **Table contract per phase.** Phase 1 = life domains → `1.check`. Phase 2 = `2.1` Dev Review (CL/TG) → `2.2` Personal Projects → `2.check`. CL ops → **Weekly Ops** skill.
+- **Table contract per phase.** Phase 1 = life domains → `1.check`. Phase 2 = domain-first loop `2.TG` → `2.SY` → `2.CL` (each `.1` review · `.2` time goal · `.3` select) → `2.H` dev health → `2.WA` Workshop/Admin → `2.sync` → `2.check`. CL ops → **Weekly Ops** skill.
 - **FIELD CHECK gates.** Run `1.check` before Phase 2 development; `2.check` after development; verify all in Phase 4 commit.
 - **Route every item into a bucket.** Each surfaced item is Automated (n8n), Delegated (team 1:1s), or a Scheduled slice (calendar + Todoist mirror).
 - **Capacity is non-negotiable.** If total planned work exceeds available hours minus 10-15% buffer, the system pushes back. Something must move.
