@@ -33,7 +33,8 @@ tags: [skill, weekly-planning, procedure]
   - [1.6 Parenting — Review · Rate · Intentions (~4 min)](#16-parenting-review-rate-intentions-4-min)
   - [1.7 Personal Enjoyment (~2 min)](#17-personal-enjoyment-2-min)
 - [Phase 2: Development (domain-first, ~18 min)](#phase-2-development-domain-first-18-min)
-  - [2.1 Dev Review (~8 min)](#21-dev-review-8-min)
+  - [Per-domain loop — run `2.TG` → `2.SY` → `2.CL`](#per-domain-loop-run-2tg-2sy-2cl)
+  - [`2.H` — Dev health review (one turn, after all three domains)](#2h-dev-health-review-one-turn-after-all-three-domains)
   - [2.2 Systems / Workshop / Admin Review (~7 min)](#22-systems-workshop-admin-review-7-min)
 - [Phase 4: Commit (~5 min)](#phase-4-commit-5-min)
 - [Cross-Cutting Rules](#cross-cutting-rules)
@@ -844,84 +845,83 @@ Sync Notion, then **print preview:** `--section enjoyment` — present verbatim;
 
 ---
 
-<a id="21-dev-review-8-min"></a>
-### 2.1 Dev Review (~8 min)
+<a id="per-domain-loop-run-2tg-2sy-2cl"></a>
+### Per-domain loop — run `2.TG` → `2.SY` → `2.CL`
 
-#### A — Last week review (one table group per turn)
+The three dev domains share one shape. `{D}` = the domain: **Turbo Gear** (`2.TG`) · **Systems** (`2.SY`) · **Chrome Lot** (`2.CL`). Deep work = all three. Run three turns per domain, then `advance --step 2.{code}`.
 
-**Table 2.1-A — Queued dev work (week under review)**
+#### `.1` — Review last week (one turn)
 
-*The queue row is the main payload — CL/TG Tasks with `This Week` checked during the week being reviewed (Mon–Sun before this session). That tracker is canonical; the log snapshot is a cross-check only.*
+**Table 2.{D}-A — {D} accomplishments & carryover**
 
-| Field | Value | Source |
-|-------|-------|--------|
-| Work health (dev efforts) | | Prior Weekly Log `Work Health` |
-| Adjustments trying | | Prior `Dev Adjustments` |
-| **Queued dev work** | Parents + sub-items, grouped by domain (CL, TG, Personal) | **Primary:** `weekly-dev-review` § Review week — queued dev work (all types). **Cross-check:** prior log `Dev Projects Intended` when populated |
+Bulleted tree (parents → sub-items) of that domain's review-week queued Tasks — `weekly-dev-review` § *Review week — queued dev work* → **{D}** group. ~~Strikethrough~~ finished (Status = Done); open items plain. Weave in the domain's rows from `weekly-dev-review` § *Table 2.1-B² — Activity summaries* (what actually shipped). Note any **detected unlogged** wins for this domain from `weekly-habits` sweep (Aaron flags: count as shipped y/n).
 
-**Table 2.1-B — Time logged** *(two tiers — dev first, then all logged)*
+→ Contributes to `Accomplishments`, accomplishment counts, `Focused Output Hours Estimate`, `Dev Review` (written cumulatively; finalize at `2.sync`).
 
-*Source: Time Punches (`Total Time` formula). **Reading** → Phase **1.2** Mind (TABLE 1.2-B-spirit), not here.*
+**Table 2.{D}-B — {D} time logged (review week)**
 
-**Tier 1 — Dev time** *(CL Dev + TG Dev + Admin; excludes Ops/Field)*
+*Source: `weekly-dev-review` § Table 2.1-B — this domain's category column (Turbo Gear → **TG Dev**; Systems → **Systems**; Chrome Lot → **CL Dev**). `Total Time` formula.*
 
-| Day | CL Dev | TG Dev | Admin | Dev total |
-|-----|--------|--------|-------|-----------|
-| | | | | |
-| **Total** | | | | |
+| Day | {D} min |
+|-----|---------|
+| … each day | |
+| **Total** | |
 
-→ Write `Deep Work Minutes` = **dev total** (CL Dev + TG Dev + Admin only).
+Last week's **actual** dev minutes for the domain — anchors the time goal in `.2`, and the three domains' totals sum into `Deep Work Minutes` at `2.sync`.
 
-**Tier 2 — All logged time** *(dev + Ops + Field)*
+#### `.2` — Weekly time goal (one turn) — REQUIRED
 
-| Day | Dev | Ops | Field | All logged |
-|-----|-----|-----|-------|------------|
-| | | | | |
-| **Total** | | | | |
+**Table 2.{D}-G — {D} weekly time goal**
 
-*Present Tier 1 first in 2.1-D narrative; Tier 2 for full work-week picture.*
+| Last week actual (h) | This week goal (h) | → Notion field |
+|----------------------|--------------------|----------------|
+| 2.{D}-B total ÷ 60 | Aaron sets | **`Turbo Gear Hours Intended`** / **`Systems Hours Intended`** / **`Chrome Lot Hours Intended`** |
 
-**Table 2.1-B² — Activity summaries** *(what shipped during logged time)*
+Agent shows last week's actual + a one-line capacity note (energy/capacity flags from Phase 1.2, upcoming calendar); Aaron gives the **hours** he wants to spend in this domain this week. Write the number to the Weekly Meeting Log field at commit.
 
-*Source: `weekly-dev-review` § Table 2.1-B² — auto-generated on each Time Punch from GitHub commits + Cursor cloud agents in that window. Only punches with detected activity have text; use when narrating what shipped in 2.1-D / 2.1-F.*
+> **Dashboard wiring (automatic):** the three `* Hours Intended` numbers dual-write to D1 and feed the daily dashboard's **Development → "Dev time — week vs goal"** tiles — `goal.tg_dev_target_min` / `goal.systems_target_min` / `goal.cl_dev_target_min` (minutes = hours × 60) plus the **Total Dev** goal (`goal.dev_total_target_min`). Each week's goals appear on the day board once the log syncs to D1 (next snapshot rebuild). Nothing extra to do here — just set the number.
 
-| Date | Category | Min | Title | Summary |
-|------|----------|-----|-------|---------|
-| | | | | |
+#### `.3` — Select work (one or more turns) — the strategy layer
 
-**Table 2.1-C — What was accomplished** *(legacy ID — content now presented as **2.1-F Turn 1**; keep field writes here)*
+Present, for this domain, from `weekly-dev-review` § **Domain goals & projects — {D}**:
 
-**From plan** — *same tree as **2.1-A** across **Chrome Lot · Turbo Gear · Systems · Workshop · Admin**. Do **not** flatten to a table. Mark finished items with ~~strikethrough~~ (Status = Done). Open items stay plain.*
+**Table 2.{D}-Goals — Active Goals + milestones** *(lettered)*
 
-```
-**Chrome Lot**
-- **Parent** — Status
-  - Sub-item — Status
-**Turbo Gear**
-- ...
-```
+Each active Goal (`Status` = In progress / Not started) with progress % + target date, and its **open milestones** (Projects linked via `🥅 Goals`, Status not Done/Paused) nested beneath with completion %. Letter each **milestone** as a selectable pick.
 
-**Off-queue logged** *(optional — only if `weekly-habits` § Tasks completed shows real wins with `This Week` checked; never infer from `last_edited` alone)*
+**Table 2.{D}-Proj — Standalone Projects** *(lettered)*
 
-**Detected unlogged** *(from `weekly-habits` sweep — includes **Media stack / Audiobookshelf cluster** for ABS/NAS/Plex incident work often shipped via Cursor without a Task; Aaron flags count + hours)*
+Open standalone Projects (`🥅 Goals` empty, Status Roadmapped / In progress) with completion %. Letter each.
 
-| Highlight | Count as shipped? |
-|-----------|-------------------|
-| | Aaron: yes / no |
+**Table 2.{D}-Carry — Open carryover Tasks** *(this domain, from 2.{D}-A)* — branch on turnover state (Phase 0a):
 
-→ Write `Accomplishments`, `Logged/Unlogged/Total Accomplishments Count`, `Focused Output Hours Estimate`, `Dev Review`.
+- **Pre-turnover (Fri/Sat — review week still current):** **A** = keep finishing this week (leave on current week; WeekDefer sweeps it Sunday) · **B** = defer now onto the planning-week slate (reply letters). *"Keep finishing" items are simply not added to the slate — leave their `📅 Week Tracker` on the current week.*
+- **Post-turnover (Sun/Mon — auto-defer already ran):** **A** = continue all remaining open items · **B** = prune (reply letters to drop → clears `📅 Week Tracker`, back to backlog).
 
-#### B — Plan for next week (one table per turn)
+Before/while presenting, mark any items Aaron names as **Done** now (`Status → Done`) and re-fetch. Archive **empty Task records** (no `Name`) — do not present.
 
-**Table 2.1-D — Dev health review** *(agent summarizes; Aaron rates)*
+**(Turbo Gear only) Table 2.TG-Backlog — TG orphan-task backlog** *(capacity-gated)*
 
-Agent presents a short narrative — **no recommendations, no task list** (selection is **2.1-G**). Cover:
+`node scripts/scan-tg-backlog.mjs` — un-queued TG **standalone Tasks** (bugs / small features / optimizations with **no Project**), grouped by Priority (High → Medium → Low → Unset), oldest-first, with a health line. This is **bottom-up** (orphan Tasks), distinct from the top-down Goals/Projects above. Surface only enough to fill the remaining TG hours from `2.TG-G` — cap **~3–5**, High/Medium first. Flag any **High aging past ~14d** as "must address." Record the backlog health line in `Dev Priority Context`. *(Browsing view: [Turbo Gear Backlog](https://notion.so/39bf40c2487b81f9a232d2ba0f1ab8e6).)*
 
-1. **Output** — accomplishments vs queued dev work (2.1-C counts + queue tree).
-2. **Time** — dev minutes logged (2.1-B) vs realistic capacity.
-3. **Goal progress** — review week vs **planning month** Tasks (`weekly-dev-review` § Planning month — CL/TG/Personal trees via `🌙 Month`): what moved, what’s stuck, parked domains noted.
+**Reply:** letters of the milestones / standalone Projects / backlog / carryover items to **commit this week**.
 
-Then Aaron rates:
+**On selection — approval before any write:**
+
+1. For each selected **milestone / standalone Project** **not yet promoted** (Status Roadmapped, no linked `Task`): promote → `node scripts/promote-roadmap-to-dev-project.mjs --page=<projectId>` (or ▶ Start). Creates its Task tree, Status → In progress. For already-promoted picks, take their **open Task IDs**.
+2. For carryover keep/defer + TG-backlog picks: collect the **Task IDs** directly.
+3. **Append** every resulting Task ID to the cumulative slate — record in ledger `notes.dev_slate_ids`. **Do NOT** run `sync-dev-projects-this-week.mjs` yet — the single sweep happens at `2.sync`.
+
+`advance --step 2.{code}` → next domain (or `2.H` after `2.CL`).
+
+<a id="2h-dev-health-review-one-turn-after-all-three-domains"></a>
+### `2.H` — Dev health review (one turn, after all three domains)
+
+**Table 2.H — Dev health** *(agent summarizes across TG + Systems + CL; Aaron rates once — no task list, selection is already done)*
+
+Cover briefly: **(1) Output** — accomplishments vs queued work across the three domains (from each `.1-A`); **(2) Time** — total dev minutes logged (sum of the three `.1-B` totals) vs realistic capacity and vs the goals just set in `.2`; **(3) Goal progress** — what moved on the domains' Goals/milestones this review week (`Progress` / `Completion` %), what's stuck. **Agent does not recommend** — narrative only.
+
+Then Aaron rates (five-level A–E health scale):
 
 | | Rating |
 |---|--------|
@@ -931,100 +931,11 @@ Then Aaron rates:
 | **D** | Healthy |
 | **E** | Very Healthy |
 
-→ Write `Work Health`, `Dev Week Rating`, `Dev Intentions Met`, and fold the summary into `Dev Review`.
+→ Write `Work Health`, `Dev Week Rating`, `Dev Intentions Met`, fold the summary into `Dev Review`. Optional forward theme (qualitative, 0–2 bullets) → `Dev Intentions`.
 
-**Table 2.1-E — Adjustments** *(only if 2.1-D = A or B)*
+**Table 2.H-adj — Adjustments** *(only if `Work Health` = A or B; skip when C+)* — ask what adjustments Aaron commits to; capture his words only → `Dev Adjustments`.
 
-**Skip entirely when C or better.** When A or B: ask Aaron what adjustments he wants to commit to for the next period. **Agent does not recommend adjustments** — capture his words only.
-
-→ Write `Dev Adjustments` (Aaron’s commitments, or leave empty when C+).
-
-**Planning next week — four turns (do not combine)**
-
-**Table 2.1-F — Review week close-out** *(all Task types: Chrome Lot · Turbo Gear · Personal)*
-
-*Personal Tasks log as **Admin** time in Time Punches. Present all three types together — not CL/TG only.*
-
-**Turn 1 — What was accomplished** *(was 2.1-C content; now first in F)*
-
-Same tree as review-week queue (`weekly-dev-review` § Review week — queued dev work). Group **Chrome Lot → Turbo Gear → Systems → Workshop → Admin** (deep work = CL/TG/Systems; Workshop capped; Admin standing). **Always show sub-items** (full parent → child nesting). ~~Strikethrough~~ on Done. *Skip off-queue agent/infra tuning during the session unless Aaron flags it.*
-
-→ Fold into `Accomplishments`, accomplishment counts, `Focused Output Hours Estimate`.
-
-**Turn 2 — What's still open**
-
-Re-present **only open items** from the same tree (full parent → sub nesting; letter each root). Cross-check prior log `Dev Projects Intended` when Week Tracker link is empty.
-
-| | |
-|---|---|
-| **Reply** | Letters of items to **mark Done** now (or **none**) |
-
-Per-item Notion `Status → Done` only after Aaron names the letter(s). Re-fetch tree before Turn 3.
-
-**Turn 3 — Carryover decision** *(branch on turnover state from Phase 0a)*
-
-**Pre-turnover (Fri/Sat — review week still current):** split open review-week items into finish-this-week vs defer.
-
-| | |
-|---|---|
-| **A** | Keep finishing this week — item stays linked to the **current/review** week (WeekDefer sweeps it to the new week Sunday if still open) |
-| **B** | Defer now to the **planning/next** week — reply with letters to move onto the planning-week slate |
-
-*"Keep finishing" items are simply not added to the planning-week slate; leave their `📅 Week Tracker` on the current week. The Sun 3 AM WeekDefer moves whatever is still open forward automatically.*
-
-**Post-turnover (Sun/Mon — auto-defer already ran):** every unfinished Task is already on the current (= planning) week. Do **not** ask about finishing.
-
-| | |
-|---|---|
-| **A** | Continue all **remaining** open items on this week's plate |
-| **B** | Prune some — reply with letters to **drop** from the plate (clears `📅 Week Tracker`, i.e. back to backlog) |
-
-Dropped/pruned items: week relation cleared at sync (approval). Carried items stay selected for sync.
-
-**Turn 4 — Table 2.1-G — Add from Projects?**
-
-| | |
-|---|---|
-| **A** | Yes — show current-quarter open items (**2.1-H**) |
-| **B** | No — carryover only |
-
-**Table 2.1-H — Project adds** *(only if 2.1-G = Yes)*
-
-Source: `weekly-dev-review` § **Planning month — {domain}** (`🌙 Month` → planning month). Skip **parked** domains. Exclude items already on carryover. Letter each row.
-
-**Empty Task records** (no `Name` title): archive in Notion when detected — do not present.
-
-**Table 2.1-J — Turbo Gear backlog (Pass 2 — bottom-up)** *(after Projects/Tasks are committed above; TG dev block only)*
-
-Passes 2.1-F→H are **top-down** (Projects + their Tasks). This is **bottom-up**: the standalone TG backlog (bugs / small features / optimizations with **no Project**). Run `node scripts/scan-tg-backlog.mjs` — it lists un-queued TG orphan roots **grouped by Priority (High → Medium → Low → Unset), oldest-first**, with a health line (counts + oldest-High age). *(Aaron's browsing view: [Turbo Gear Backlog](https://notion.so/39bf40c2487b81f9a232d2ba0f1ab8e6).)*
-
-Present **capacity-gated**: after Pass-1 TG commitments, estimate the **TG-dev hours left** in the sprint and surface only enough backlog to fill it — default cap **~3–5 items**, High/Medium first (Low only if capacity clearly allows). Letter each surfaced row. Flag any **High aging past ~14d** as "must address."
-
-| | |
-|---|---|
-| **A** | None this week — backlog stays as-is |
-| **(letters)** | Add selected orphan tasks to the sprint |
-
-Selected orphan IDs join the **Sync** `--selected` set below (they get `📅 Week Tracker` = planning week like any pick). If a High item is aging and repeatedly skipped, treat it like a 3×-deferred task (delegation/convert-to-Project or cut). Record the backlog health line in `Dev Priority Context`.
-
-**Sync** *(after F + G/H + J confirmed — **run immediately**, approval before Notion writes)*
-
-Execute `node scripts/sync-dev-projects-this-week.mjs --selected=<comma-separated page IDs>`:
-
-1. **Link** `📅 Week Tracker` = **planning week** on carryover + roadmap/project picks (2.1-H) + TG backlog picks (2.1-J).
-2. **Clear** `📅 Week Tracker` on **every other open** CL/TG Task (full open-database sweep for CL/TG types → back to backlog).
-3. Clear `📅 Week Tracker` on any **Done** records still linked to the planning week (stale bulk-close artifacts).
-4. **Toggl tasks** — same script chains `sync-dev-projects-toggl-tasks.mjs`: create/assign tasks for selected items; **delete** mirrored Toggl tasks (and clear `Toggl Task ID` on Tasks) for anything not on the slate.
-
-*Pre-turnover: "keep finishing" items keep their current-week link untouched — the sync only manages the **planning-week** slate. The slate view = Tasks whose `📅 Week Tracker` = current week (`Is Current Week` rollup).*
-
-→ Write `Dev Projects Intended` (snapshot), `Dev Priority Context`.
-
-**Present Table 2.1-S — This Week slate** *(CL + TG + Personal; must match the `Is Current Week` / planning-week filter exactly)* — Aaron executes this slate from the [This Week — Dev Slate](https://notion.so/39bf40c2487b81d2a7acf44e0706775f) view (Start Timer · Logged Minutes This Week · TWC).
-
-Output of sync script — all domains. Aaron confirms before **2.2** (Todoist mirrors only if Personal items selected).
-
-Sync Notion (`Dev Projects Intended`, `Dev Intentions`, `Work Health`, etc.), then **print preview:** `--section development` — present verbatim; Aaron confirms before **2.2** (re-run after **2.2** if personal dev slate changes the print tree materially).
+`advance --step 2.H` → `2.WA`.
 
 ---
 
