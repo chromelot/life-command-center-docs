@@ -32,7 +32,7 @@ tags: [skill, weekly-planning, procedure]
   - [1.5 Social — Review · Rate · Intentions (~5 min)](#15-social-review-rate-intentions-5-min)
   - [1.6 Parenting — Review · Rate · Intentions (~4 min)](#16-parenting-review-rate-intentions-4-min)
   - [1.7 Personal Enjoyment (~2 min)](#17-personal-enjoyment-2-min)
-- [Phase 2: Development (~15 min)](#phase-2-development-15-min)
+- [Phase 2: Development (domain-first, ~18 min)](#phase-2-development-domain-first-18-min)
   - [2.1 Dev Review (~8 min)](#21-dev-review-8-min)
   - [2.2 Systems / Workshop / Admin Review (~7 min)](#22-systems-workshop-admin-review-7-min)
 - [Phase 4: Commit (~5 min)](#phase-4-commit-5-min)
@@ -827,16 +827,20 @@ Sync Notion, then **print preview:** `--section enjoyment` — present verbatim;
 
 **Do not proceed to Phase 2 (Work) until Table 1.check passes.**
 
-<a id="phase-2-development-15-min"></a>
-## Phase 2: Development (~15 min)
+<a id="phase-2-development-domain-first-18-min"></a>
+## Phase 2: Development (domain-first, ~18 min)
 
-**Purpose:** Review last week's dev work (CL + Turbo Gear) and personal projects separately; plan next week from the **monthly Tasks tracker**.
+**Purpose:** Review and plan dev work **one domain at a time** — **Turbo Gear → Systems → Chrome Lot** — surfacing the **strategy layer** (active **Goals** + their **milestones**, and **standalone Projects**), not just the Task tracker. For each dev domain: *review last week → set a weekly time goal → select the Goals / milestones / projects to get done this week.* Then a lighter **Workshop + Admin** tail, one **overall dev-health** rating, and a **single combined slate sync**.
 
-**Domains:** Phase **2.1** = Chrome Lot + Turbo Gear dev work. Phase **2.2** = Personal projects (Todoist mirrors). Habits and errands stay in Phase 1 — not here.
+**Step codes (ledger order):** `2.TG` Turbo Gear → `2.SY` Systems → `2.CL` Chrome Lot → `2.H` dev health → `2.WA` Workshop + Admin → `2.sync` commit slate → `2.check`. Each dev-domain ledger step spans three turns: **`.1` Review · `.2` Time goal · `.3` Select work** (advance the ledger once, after `.3`).
 
-**Source files:** `output/weekly-dev-review-*.md`, `output/weekly-habits-*.md`.
+**Source files:** `output/weekly-dev-review-*.md` — now includes, per dev domain, a **`## Domain goals & projects — {domain}`** block (active Goals + their milestones + standalone Projects) alongside the existing review-week queue / time / carryover sections — plus `output/weekly-habits-*.md` and `node scripts/scan-tg-backlog.mjs` (TG orphan backlog).
 
-**Presentation format:** Group by domain; nest sub-items under parents with indented sub-bullets.
+**Layer model — read `context/systems/horizon-roadmap.md`.** **Goal** = finish-line outcome (the *why*). **Milestone** = a Projects row linked to a Goal (`🥅 Goals` set) — a stop on that goal's trail. **Standalone project** = a Projects row with no Goal. **Task** = the execution unit — the *only* layer that carries `📅 Week Tracker` (the weekly slate), Toggl, and time. **Selecting a milestone / standalone project for the week means promoting it to its Task tree and putting those Tasks on This Week** (`node scripts/promote-roadmap-to-dev-project.mjs --page=<projectId>` or the ▶ Start webhook); if it already has an open Task tree, just queue those Tasks.
+
+**Selection accumulates across domains — sync ONCE.** Each `.3` records the resulting **Task IDs** into a running slate (ledger `notes.dev_slate_ids`). The actual `📅 Week Tracker` write happens **only** at `2.sync`, with the cumulative set — because `sync-dev-projects-this-week.mjs` **clears** the week relation on every open Task *not* passed in `--selected` (full-DB sweep). **Never** run the sync mid-loop with a single domain's IDs (it would clobber the other domains' picks).
+
+**Presentation:** group by domain; nest sub-items under parents; letter each selectable root.
 
 ---
 
