@@ -585,7 +585,7 @@ If no 3-week streaks: skip silently (~0 min).
 2. **AI pre-assessment** for each idea (silent — present results in step 3):
    - **Overlap:** Does this duplicate or directly relate to an existing Project (any Status) or active Task?
    - **Difficulty:** XS / S / M / L / XL based on title + any sub-items
-   - **Delegation potential:** Could a team member execute this? (CL → Lexie/Tristen/Ran; TG → Pyakz/markwillcraft; Personal → likely no)
+   - **Delegation potential:** Could a team member execute this? (CL → Lexie/Tristen/Ran; TG → auto-fix / cloud agents — Aaron is sole dev, no contractors; Personal → likely no)
    - **Values alignment:** Which of the 6 categories does this serve? Flag if it doesn't clearly serve any.
    - **Recommendation:** Promote (→ Roadmapped) / Archive (→ Paused) / Delegate / Hold
 3. Present the list to Aaron with recommendations:
