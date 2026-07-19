@@ -27,6 +27,7 @@ Inventory of every MCP server configured in this workspace, plus how to choose b
 | Read / write Turbo Gear MongoDB | `mongodb` |
 | Look up GitHub PRs / commits | `github` |
 | Pull Airtable roster / employee lookup / platform IDs | `airtable` |
+| Control Elegoo Neptune 4 Pro (status, G-code, print jobs) | `neptune-printer` (lcc-hub LAN only) |
 
 ## Servers
 
@@ -241,6 +242,18 @@ Process Street's remote MCP (~105 tools, workflow authoring) requires **OAuth lo
 - **Smoke test**: `cd mcp/paperform && node test-paperform.mjs`
 - **Production writes** (delete submission, update form, webhooks, etc.): require explicit Aaron approval in Cursor sessions
 
+### neptune-printer — Elegoo Neptune 4 Pro (Moonraker / Klipper)
+
+- **Location**: `mcp/neptune-printer/` in workspace (local Node MCP)
+- **Registered as**: `neptune-printer` in `.cursor/mcp.json`
+- **Auth**: `secrets/neptune.env` via `NEPTUNE_ENV_FILE` — `MOONRAKER_URL` (default `http://192.168.1.84`, port 80 proxy)
+- **Host constraint**: **lcc-hub LAN only** — cloud agents cannot reach `192.168.1.x`
+- **Tools**: `neptune_status`, `neptune_query_objects`, `neptune_list_files`, `neptune_gcode_script`, `neptune_upload_gcode`, `neptune_start_print`, `neptune_pause_print`, `neptune_resume_print`, `neptune_cancel_print`, `neptune_emergency_stop`, `neptune_restart_klipper`, `neptune_firmware_restart`, `neptune_restart_moonraker`, `neptune_server_info`
+- **Slicing**: `node scripts/neptune-slice.mjs model.stl` (OrcaSlicer CLI)
+- **Setup docs**: `mcp/neptune-printer/README.md`, `context/systems/neptune-4-pro.md`
+- **Smoke test**: `cd mcp/neptune-printer && npm test`
+- **Print/control writes**: require explicit Aaron approval in Cursor sessions
+
 ### mongodb — Turbo Gear primary database
 
 - **Role**: TG application data
@@ -292,6 +305,7 @@ Located in `scripts/` in the workspace. Use these BEFORE MCP calls when a workfl
 | Notion (both) | Query DB, get page, get block children | Create/update page, append blocks, archive | Block-level mutation is paginated |
 | Hubstaff | Hours, activity, time entries, projects, members | None (read-only) | — |
 | Airtable | Payable Employees roster, schema, fuzzy name/email lookup | Create/update rows, add fields | PII redacted on read; Cloud fallback: `scripts/airtable-lookup.mjs` |
+| Neptune printer | Status, temps, file list, object query | G-code, upload, start/pause/cancel print, E-stop, restarts | **lcc-hub LAN only** — cloud agents cannot reach `192.168.1.x`; print/control writes need Aaron approval |
 
 ## See also
 
