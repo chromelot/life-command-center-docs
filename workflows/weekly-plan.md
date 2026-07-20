@@ -108,6 +108,12 @@ Load via the router. Read these before starting:
     | `2.sync` (after the combined slate sweep + **Table 2.S** confirmed) | `development` | Includes CL/TG/Systems + Workshop/Admin dev tree when on log |
 
     Optional before **4b** write: `--all` for full seven-domain preview.
+
+    **Habit-compliance charts + mood review (auto-rendered).** For `spirituality`, `fitness`, and `development` (and `--all`), the preview now also pulls the **review-week** per-day (Sun→Sat) habit grids and — for `spirituality` — the **journal mood review**, via `scripts/lib/weekly-habit-charts.mjs`. These are the same charts that render in the Phase 4b printout, so the preview shows exactly what Aaron will flip through:
+    - **Spirituality & Mind** — *Morning routine* (morning journal · spirit time · supplements) + *Mood — journal review* (per-day Mood Score 1–5 strip, score distribution, valence, and insight bullets pulled from reading the week's flagged entries + the log's `Journal Feelings Summary`).
+    - **Fitness** — *Training* (strength · cardio days) + *Nutrition* (food logged · protein ≥ target).
+    - **Development Work** — *Deep work & shutdown* (dev time min/day · ops time min/day · dev-shutdown days).
+    Cells: green ✓ / a number when >1 / logged minutes for time metrics ("any time logged is a win") / `—` when nothing. Charts are additive — if a data source is unavailable the chart degrades to `—` and the rest of the summary still renders.
 12. **Phase gates:** `node scripts/workflow-progress.mjs gate --workflow weekly-plan --phase <1|2>` before Phase 2 (work) or Phase 4 (commit)
 13. **Tangents:** fix/interrupt, then resume ledger `current_step` — do not skip ahead
 
@@ -1116,6 +1122,7 @@ This list must **exactly match** the Notion Tasks view filtered to `This Week = 
 15. **Week Tracker summary (4b — REQUIRED):**
     - Planning week was confirmed at **0a** (`planning_week_page_id` on ledger). Optional gate — `node scripts/weekly-plan-section-preview.mjs --ledger <path> --all` (full print preview).
     - After Aaron confirms, run `node scripts/weekly-plan-week-summary.mjs --ledger <path>` (uses ledger planning week — no end-of-session week picker). This (1) renders a **print PDF** via Playwright (also saves `output/weekly-plan-print-{week}.html` + `.pdf`), (2) uploads PDF to `Plan Records/weekly/`, (3) sets **`Plan Doc URL`** on the planning week record, (4) appends/replaces the **Weekly Plan** section on that Notion page. Aaron approves production writes.
+    - The summary automatically embeds the **habit-compliance charts** (Sun→Sat grids per domain) and the **mood — journal review** block in each domain's *last-week results* — resolved from the log's `Review Week` relation (fallback: `week_of`) via `scripts/lib/weekly-habit-charts.mjs`. Both the print PDF (colored grid) and the Notion page (markdown tables) get them. Nothing extra to run.
 16. **Update context files** if anything changed.
 
 <a id="cross-cutting-rules"></a>
