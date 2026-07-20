@@ -47,6 +47,8 @@
 ---
 
 
+> **🚫 STORAGE IS ZPT/D1 — NOT NOTION.** Planning now runs in the **Zero Pit Stop app** (in-app quarterly wizard); the system of record is **Cloudflare D1 `meeting_logs`** (`qlog_<period_id>`) — see `context/systems/weekly-plan-app.md` + `.cursor/rules/zpt-d1-sor.mdc`. **Every Notion write-step in this SKILL is RETIRED — do not execute it** (no Quarterly Meeting Log DB writes, no `personal_notion_*`, no Values/Goals/Projects Notion updates — Goals & Projects are D1). This file survives **only** as the reference for the *review/data-pull logic and question flow*; capture results in the ZPT app (dual-writes to D1). **If you're about to touch Notion, stop — you're following stale instructions.**
+
 <a id="trigger"></a>
 ## Trigger
 

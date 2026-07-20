@@ -8,6 +8,8 @@ tags: [meta, workflow, execution]
 
 # Workflow Execution Protocol
 
+> **🚫 Planning storage is ZPT/D1 — not Notion.** Where this protocol (or the `workflow-notion-log.mjs` step) says to create/sync a **Notion** meeting-log, the real system of record is the **D1 `meeting_logs`** record written by the ZPT planning wizard (and dual-written by the Cursor scripts). Do not create or update Notion planning databases. See `context/systems/weekly-plan-app.md` + `.cursor/rules/zpt-d1-sor.mdc`.
+
 Canonical rules for **all Tier 2 Cursor workflows**. Skills define *what* to present (output contracts); this file defines *how* to execute so output is **consistent week to week** and sections are **never skipped**.
 
 ## Core problem
