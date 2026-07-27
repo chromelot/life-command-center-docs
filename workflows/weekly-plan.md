@@ -250,7 +250,7 @@ Output: `output/weekly-dev-review-YYYY-MM-DD.md` — **canonical Phase 2 source*
 
 Also run `weekly-habit-summary.mjs` (logged/unlogged accomplishments). Todoist MCP in Phase 2.WA for Workshop/Admin mirror completion check. Ops pulls → **Weekly Ops** `scripts/weekly-ops-pull.mjs`.
 4. **Habit source DBs** (past 7 days — habit summary script is canonical; MCP only if script missing):
-   - Workouts (`127f40c2-487b-80ba`): query all, count by Type
+   - Workouts: **D1** `workouts` domain (via `weekly-habit-summary.mjs` — not Notion)
    - Small Talk (`121f40c2-487b-802d`): query all, count entries
    - Spirit — **Time Punches** `Category = Spirit` (or `weekly-habit-summary` § Spirit; retired Spirit DB is historical only)
    - **Time Punches** (`394f40c2-487b-8168`): query by **Category** — CL Dev, TG Dev, Ops, Field, Admin, Reading — sum **Total Time** (formula: `properties["Total Time"].formula.number`)
@@ -492,7 +492,7 @@ Append mind row to `Intentions Review` on the Weekly Meeting Log. Sync Notion, t
 | Resting HR Avg (bpm) | | | `Resting HR Avg` *(not tracked — omit from integrity checks)* |
 | HRV Avg (ms) | | | `HRV Avg` *(not tracked — omit from integrity checks)* |
 
-**Table 1.3-C — Fitness daily** *(from `daily-health-sections.mjs` FITNESS section — **Workouts DB** `127f40c2-487b-80ba`; **Supplements** from same script / `weekly-habits-*.md` TABLE 1.3-C-supp)*
+**Table 1.3-C — Fitness daily** *(from `daily-health-sections.mjs` FITNESS section — **D1 `workouts`**; **Supplements** from same script / `weekly-habits-*.md` TABLE 1.3-C-supp)*
 
 Copy **TABLE 1.3-B-supp** and **TABLE 1.3-C-supp** verbatim from `weekly-habits-*.md` § Supplements (Day Tracker) before or with Table 1.3-C.
 

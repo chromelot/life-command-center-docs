@@ -351,7 +351,7 @@ Then pull the rest of the data via MCP tools in parallel:
 1. **Weekly Meeting Log DB** (`322f40c2-487b-81bd`): (a) all entries from **review month** (PHQ-2, GAD-2, energy scores, structured KPI fields) for intra-month trajectory; (b) **last 6 entries by Meeting Date** (may span month boundaries) for life-health streak detection in Phase 1d.
 2. **Monthly Plan Log DB** (`344f40c2-487b-806d`): prior entry titled `Monthly Plan for [Review Month YYYY]` for **month-over-month comparison** (when reviewing May, baseline is `Monthly Plan for May 2026`). Also check whether `Monthly Plan for [Planning Month YYYY]` already exists (skip duplicate create in Phase 12 if present).
 3. **Quarterly Meeting Log DB** (`344f40c2-487b-80ed`): entry for **planning quarter** (Pre-Phase 0 gate) — completeness already verified before Phase 0; Phase 1c reviews progress
-4. **Notion Workouts DB** (`127f40c2-487b-80ba`): **review month** workout log
+4. **D1 `workouts`**: **review month** workout log (`listRecordsByDateRange` or `weekly-habit-summary.mjs`)
 5. **Tasks DB** (`341f40c2-487b-80ac`): all projects assigned to current quarter, full status sweep
 6. **Quarter Tracker page** (`121f40c2-487b-802e`): current quarter's per-domain sections (theme / no-list / KPIs) for Phase 1c review + Phase 9 KPI update (replaces retired Quarterly Outcomes DB)
 7. **Values DB** (`342f40c2-487b-80c5`): current health statuses for all 6 categories
