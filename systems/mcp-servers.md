@@ -29,6 +29,7 @@ Inventory of every MCP server configured in this workspace, plus how to choose b
 | Pull Airtable roster / employee lookup / platform IDs | `airtable` |
 | Control Elegoo Neptune 4 Pro (status, G-code, print jobs) | `neptune-printer` (lcc-hub LAN only) |
 | Create / read FigJam flowcharts (shapes, connectors) | `TalkToFigma` (lcc-hub + Figma Desktop open) |
+| Custody calendar / Matthew OFW events / co-parent messages (read-only) | `ofw` |
 
 ## Servers
 
@@ -254,6 +255,17 @@ Process Street's remote MCP (~105 tools, workflow authoring) requires **OAuth lo
 - **Setup docs**: `mcp/neptune-printer/README.md`, `context/systems/neptune-4-pro.md`
 - **Smoke test**: `cd mcp/neptune-printer && npm test`
 - **Print/control writes**: require explicit Aaron approval in Cursor sessions
+
+### ofw — OurFamilyWizard (read-only)
+
+- **Location**: `mcp/ofw/` wrapper → npm `ofw-mcp` (third-party, [chrischall/ofw-mcp](https://github.com/chrischall/ofw-mcp))
+- **Registered as**: `ofw` in `.cursor/mcp.json`
+- **Auth**: `secrets/ofw.env` via `OFW_ENV_FILE` — `OFW_USERNAME`, `OFW_PASSWORD`
+- **Write mode**: `OFW_WRITE_MODE=none` (read-only). OFW is court-of-record — never enable writes without per-action Aaron approval.
+- **Key tools**: `ofw_list_events`, `ofw_get_profile`, `ofw_list_messages` (cache-backed)
+- **Custody cache**: `node scripts/sync-ofw-custody.mjs` → `output/ofw-custody.json` (for scripts / Cloud Agents without MCP)
+- **Setup docs**: `mcp/ofw/README.md`, `context/systems/ofw-custody.md`
+- **Scheduled sync**: lcc-hub task `OFWCustodySync` (daily 6 AM CT) — `scripts/lcc-hub/register-ofw-custody-sync.ps1`
 
 ### mongodb — Turbo Gear primary database
 
