@@ -169,7 +169,7 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 ## Health / staleness
 
 <!-- AUTO:HEALTH_REPORT -->
-⚠ **15 issue(s)** across 133 context files.
+⚠ **15 issue(s)** across 134 context files.
 
 ### missing-frontmatter (13)
 - `context/skills/annual-plan/SKILL.md` — no-frontmatter
@@ -200,7 +200,7 @@ Full audit: `node scripts/audit-context.mjs`
 ## Last generated
 
 <!-- AUTO:LAST_GENERATED -->
-**2026-08-03 23:00:06** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
+**2026-08-03 23:06:57** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
 <!-- /AUTO:LAST_GENERATED -->
 
 ## See also
