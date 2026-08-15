@@ -200,7 +200,7 @@ Full audit: `node scripts/audit-context.mjs`
 ## Last generated
 
 <!-- AUTO:LAST_GENERATED -->
-**2026-08-15 01:34:58** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
+**2026-08-15 01:37:08** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
 <!-- /AUTO:LAST_GENERATED -->
 
 ## See also
