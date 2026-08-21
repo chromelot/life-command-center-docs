@@ -2,7 +2,7 @@
 
 Human-readable docs mirrored from the private workspace. **Edit in GitHub:** [`life-command-center`](https://github.com/chromelot/life-command-center) — this site rebuilds on push.
 
-Last built: 2026-08-21T03:24:46.095Z
+Last built: 2026-08-21T03:39:41.017Z
 
 ## Start here
 
