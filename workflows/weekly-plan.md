@@ -340,6 +340,28 @@ Create the **new week's** Weekly Meeting Log entry (Name = `Week of [next Monday
 | Parenting | `Parenting Health` | from Values DB | same rule | | from Values DB | |
 | Personal Enjoyment | `Enjoyment Health` | from Values DB | same rule | | from Values DB | |
 
+**Table 1.1-G — Life goal KPIs (REQUIRED every week)**
+
+Phase 2 reviews goal progress for the **dev** domains (Turbo Gear / Systems / Chrome Lot) in Table
+`2.{D}-Goals`. This is the same check for the **life** domains — **Personal, Admin, Workshop** — which
+otherwise have no weekly review and only surface at the monthly/quarterly layer. Since these goals
+carry **weekly** KPIs, a monthly-only check finds out about four missed weeks after the fact.
+
+Source: each goal's `habit_targets` (D1 `goal_inspiration`, `gi_<goalId>`) — `metricKey`, `target`,
+`period`. Actuals come from the numbers already pulled this session (e.g. `life.spirit_min` = Spirit
+Minutes in Table 1.2-B); **do not re-query.**
+
+| Goal | Value | KPI | Target | Last week actual | On track? |
+|------|-------|-----|--------|------------------|-----------|
+| one row per active Personal / Admin / Workshop goal with a `habit_targets` entry | linked `value_id` | `name` (`metricKey`) | `target` `unit`/`period` | from this session's pulls | ✓ / ~ / ✗ |
+
+Goals with no `habit_targets` entry are listed with `—` in the KPI columns; flag any that have gone
+**two consecutive quarters without a measurable target** for the next quarterly plan (Phase D sets
+targets; this step only reads them).
+
+**Agent does not recommend here** — narrative only. Any behavioral response belongs in the owning
+domain's intentions step (1.2 Mind for Spirituality, 1.5 Social, 1.3 Fitness).
+
 <a id="12-mind-review-mood-rate-intentions-6-min"></a>
 ### 1.2 Mind — Review · Mood · Rate · Intentions (~6 min)
 
