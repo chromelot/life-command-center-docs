@@ -33,7 +33,7 @@ tags: [skill, weekly-planning, procedure]
   - [1.6 Parenting — Review · Rate · Intentions (~4 min)](#16-parenting-review-rate-intentions-4-min)
   - [1.7 Personal Enjoyment (~2 min)](#17-personal-enjoyment-2-min)
 - [Phase 2: Development (domain-first, ~18 min)](#phase-2-development-domain-first-18-min)
-  - [Per-domain loop — run `2.TG` → `2.SY` → `2.CL`](#per-domain-loop-run-2tg-2sy-2cl)
+  - [Per-domain loop — run `2.TG` → `2.CL` → `2.SY`](#per-domain-loop-run-2tg-2cl-2sy)
   - [`2.H` — Dev health review (one turn, after all three domains)](#2h-dev-health-review-one-turn-after-all-three-domains)
   - [`2.WA` — Workshop + Admin (lighter tail)](#2wa-workshop-admin-lighter-tail)
   - [`2.sync` — Commit the combined slate (run once)](#2sync-commit-the-combined-slate-run-once)
@@ -342,7 +342,7 @@ Create the **new week's** Weekly Meeting Log entry (Name = `Week of [next Monday
 
 **Table 1.1-G — Life goal KPIs (REQUIRED every week)**
 
-Phase 2 reviews goal progress for the **dev** domains (Turbo Gear / Systems / Chrome Lot) in Table
+Phase 2 reviews goal progress for the **dev** domains (Turbo Gear / Chrome Lot / Systems) in Table
 `2.{D}-Goals`. This is the same check for the **life** domains — **Personal, Admin, Workshop** — which
 otherwise have no weekly review and only surface at the monthly/quarterly layer. Since these goals
 carry **weekly** KPIs, a monthly-only check finds out about four missed weeks after the fact.
@@ -856,9 +856,9 @@ Sync Notion, then **print preview:** `--section enjoyment` — present verbatim;
 <a id="phase-2-development-domain-first-18-min"></a>
 ## Phase 2: Development (domain-first, ~18 min)
 
-**Purpose:** Review and plan dev work **one domain at a time** — **Turbo Gear → Systems → Chrome Lot** — surfacing the **strategy layer** (active **Goals** + their **milestones**, and **standalone Projects**), not just the Task tracker. For each dev domain: *review last week → set a weekly time goal → select the Goals / milestones / projects to get done this week.* Then a lighter **Workshop + Admin** tail, one **overall dev-health** rating, and a **single combined slate sync**.
+**Purpose:** Review and plan dev work **one domain at a time** — **Turbo Gear → Chrome Lot → Systems** — surfacing the **strategy layer** (active **Goals** + their **milestones**, and **standalone Projects**), not just the Task tracker. For each dev domain: *review last week → set a weekly time goal → select the Goals / milestones / projects to get done this week.* Then a lighter **Workshop + Admin** tail, one **overall dev-health** rating, and a **single combined slate sync**.
 
-**Step codes (ledger order):** `2.TG` Turbo Gear → `2.SY` Systems → `2.CL` Chrome Lot → `2.H` dev health → `2.WA` Workshop + Admin → `2.sync` commit slate → `2.check`. Each dev-domain ledger step spans three turns: **`.1` Review · `.2` Time goal · `.3` Select work** (advance the ledger once, after `.3`).
+**Step codes (ledger order):** `2.TG` Turbo Gear → `2.CL` Chrome Lot → `2.SY` Systems → `2.H` dev health → `2.WA` Workshop + Admin → `2.sync` commit slate → `2.check`. Each dev-domain ledger step spans three turns: **`.1` Review · `.2` Time goal · `.3` Select work** (advance the ledger once, after `.3`).
 
 **Source files:** `output/weekly-dev-review-*.md` — now includes, per dev domain, a **`## Domain goals & projects — {domain}`** block (active Goals + their milestones + standalone Projects) alongside the existing review-week queue / time / carryover sections — plus `output/weekly-habits-*.md` and `node scripts/scan-tg-backlog.mjs` (TG orphan backlog).
 
@@ -870,10 +870,10 @@ Sync Notion, then **print preview:** `--section enjoyment` — present verbatim;
 
 ---
 
-<a id="per-domain-loop-run-2tg-2sy-2cl"></a>
-### Per-domain loop — run `2.TG` → `2.SY` → `2.CL`
+<a id="per-domain-loop-run-2tg-2cl-2sy"></a>
+### Per-domain loop — run `2.TG` → `2.CL` → `2.SY`
 
-The three dev domains share one shape. `{D}` = the domain: **Turbo Gear** (`2.TG`) · **Systems** (`2.SY`) · **Chrome Lot** (`2.CL`). Deep work = all three. Run three turns per domain, then `advance --step 2.{code}`.
+The three dev domains share one shape. `{D}` = the domain: **Turbo Gear** (`2.TG`) · **Chrome Lot** (`2.CL`) · **Systems** (`2.SY`). Deep work = all three. Run three turns per domain, then `advance --step 2.{code}`.
 
 #### `.1` — Review last week (one turn)
 
@@ -1145,7 +1145,7 @@ This list must **exactly match** the Notion Tasks view filtered to `This Week = 
 <a id="cross-cutting-rules"></a>
 ## Cross-Cutting Rules
 
-- **Table contract per phase.** Phase 1 = life domains → `1.check`. Phase 2 = domain-first loop `2.TG` → `2.SY` → `2.CL` (each `.1` review · `.2` time goal · `.3` select) → `2.H` dev health → `2.WA` Workshop/Admin → `2.sync` → `2.check`. CL ops → **Weekly Ops** skill.
+- **Table contract per phase.** Phase 1 = life domains → `1.check`. Phase 2 = domain-first loop `2.TG` → `2.CL` → `2.SY` (each `.1` review · `.2` time goal · `.3` select) → `2.H` dev health → `2.WA` Workshop/Admin → `2.sync` → `2.check`. CL ops → **Weekly Ops** skill.
 - **FIELD CHECK gates.** Run `1.check` before Phase 2 development; `2.check` after development; verify all in Phase 4 commit.
 - **Route every item into a bucket.** Each surfaced item is Automated (n8n), Delegated (team 1:1s), or a Scheduled slice (calendar + Todoist mirror).
 - **Capacity is non-negotiable.** If total planned work exceeds available hours minus 10-15% buffer, the system pushes back. Something must move.
