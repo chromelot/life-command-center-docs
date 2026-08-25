@@ -33,13 +33,11 @@ Every user-facing sub-step should define:
 
 `context/skills/weekly-planning/SKILL.md` — each Phase 1.x / 2.x block lists **Present:** tables with full markdown table definitions. That level of specificity is the target for all cadence workflows.
 
-### Weekly ops reference
+### Weekly ops reference (legacy)
 
-`context/skills/weekly-ops/SKILL.md` — same pattern; ledger steps `1.1`–`1.3`, then `2.1`, `2.4`, `6.2`, `7.1`, `2.2`–`2.3`, `4.1`–`4.2`, `3.1`–`3.2`, `6.1` map to named tables (aligned to Tasks under **Create, and Audit Weekly Ops Plan**). Phase 1.3 = daily ops records + ops priority; Phase 2 = Hiring; Phase 3 = Photographer Management; Phase 4 = Social Media; Phase 5 = 1:1; Phase 6 = CS; Phase 7 = Finance (4.2 = QuickBooks placeholder); Phase 8 = Sales; Phase 9 = Post Production; department Health/Priority confirmed in each domain phase (no separate health phase).
+> **Retired 2026-08-25.** Chrome Lot operations run via **ZPT Attention Queue** (`#/queue`) and D1 `queue_visits` — not the weekly-ops Cursor workflow. Historical ledger tables lived in `context/skills/weekly-ops/SKILL.md` (deleted).
 
 ## Section completion checklist (before every `advance`)
-
-Agent must verify internally; show FIELD CHECK tables explicitly at `N.check` steps:
 
 - [ ] Phase banner matches ledger `current_step`
 - [ ] Only in-scope tables for this step were presented (no extra sections)

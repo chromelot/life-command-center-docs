@@ -51,7 +51,7 @@ tags: [skill, weekly-planning, procedure]
 <a id="trigger"></a>
 ## Trigger
 
-This skill activates when Aaron says "weekly plan", "weekly meeting", "plan this week", "sprint planning", or "Monday review". Target duration: ~50 minutes (Phase 1 life ~28 min · Phase 2 dev domain-first ~18 min · Phase 4 commit ~5 min). **CL operations** run in **Weekly Ops** — `context/skills/weekly-ops/SKILL.md`.
+This skill activates when Aaron says "weekly plan", "weekly meeting", "plan this week", "sprint planning", or "Monday review". Target duration: ~50 minutes (Phase 1 life ~28 min · Phase 2 dev domain-first ~18 min · Phase 4 commit ~5 min). **CL operations** run in the **ZPT Attention Queue** (`#/queue`) — see `context/systems/attention-queue.md`. Not a separate weekly-ops session.
 
 <a id="inputs"></a>
 ## Inputs
@@ -248,7 +248,7 @@ node scripts/weekly-dev-review.mjs --ledger <path>
 ```
 Output: `output/weekly-dev-review-YYYY-MM-DD.md` — **canonical Phase 2 source** (prior week plan, dev time by day, monthly incomplete by domain, personal carryover).
 
-Also run `weekly-habit-summary.mjs` (logged/unlogged accomplishments). Todoist MCP in Phase 2.WA for Workshop/Admin mirror completion check. Ops pulls → **Weekly Ops** `scripts/weekly-ops-pull.mjs`.
+Also run `weekly-habit-summary.mjs` (logged/unlogged accomplishments). Todoist MCP in Phase 2.WA for Workshop/Admin mirror completion check. Ops context → **Attention Queue** `#/queue` in ZPT (not weekly-ops-pull).
 4. **Habit source DBs** (past 7 days — habit summary script is canonical; MCP only if script missing):
    - Workouts: **D1** `workouts` domain (via `weekly-habit-summary.mjs` — not Notion)
    - Small Talk (`121f40c2-487b-802d`): query all, count entries
@@ -1193,5 +1193,5 @@ This list must **exactly match** the Notion Tasks view filtered to `This Week = 
 - `../../systems/health-data.md`
 - `../../self/values.md`, `../../self/current-priorities.md`
 - `../../people/index.md`
-- `../weekly-ops/SKILL.md` — CL operations (separate session)
+- `../../systems/attention-queue.md` — CL operations (daily queue surface)
 - `../../work/turbo-gear/overview.md`
