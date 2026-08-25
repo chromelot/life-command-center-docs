@@ -36,7 +36,7 @@ Daily morning/evening Cursor reviews were retired. The PD ↔ Todoist loop is re
 | Day / Time | Workflow | What |
 |---|---|---|
 | Sunday 8 PM | Weekly Metrics | Aggregate Todoist completions, Pipedrive velocity, calendar analysis, rescheduling rate to Google Sheets |
-| Daily | 1:1 Reminder Check | Compare people directory last-checkin dates against frequency, create Todoist task if overdue (max 1/day) |
+| Daily | 1:1 Reminder Check | Reads Airtable roster `Management Status` + `Last 1:1` + interval override; creates Todoist task if overdue (max 1/day). Spec: [`n8n/specs/one-on-one-reminders.md`](../../n8n/specs/one-on-one-reminders.md) |
 | Tue 8 AM CT | Weekly Hours Report | Posts to team channel via CL Bot (lives inside the `Teams Bot` n8n workflow) |
 
 ### Tier 2 (Cursor)
@@ -44,7 +44,7 @@ Daily morning/evening Cursor reviews were retired. The PD ↔ Todoist loop is re
 | Workflow | Duration | Trigger |
 |---|---|---|
 | Weekly Plan | ~40 min | "weekly plan", "weekly meeting", "Monday review", "sprint planning" |
-| Weekly Ops | ~50 min | "weekly ops", "ops review", "CL ops meeting", "operations meeting" |
+| Attention Queue (ops) | ~20 min / item | Open `#/queue` in ZPT — ranked departments + people; replaces retired weekly-ops workflow. See [`attention-queue.md`](attention-queue.md). |
 
 #### Weekly Plan — Pre-Phase 0 gate + 9-phase workflow
 
@@ -61,7 +61,7 @@ Daily morning/evening Cursor reviews were retired. The PD ↔ Todoist loop is re
 7. Personal Life & Social (Bus, social, dating, compulsion scan)
 8. Commit (summary, capacity check, execute, log to Weekly Meeting Log)
 
-> **Actual cadence (2026-06-02):** Aaron runs weekly ops consistently, usually **Fridays** (sometimes later), not Monday. Backlog is tracked **in domain sections** during Weekly Ops (behind CS in Phase 2, stale sales + overdue Pipedrive in Phase 3, late 1:1s in Phase 8) — not via a central currency check.
+> **Ops cadence (2026-08-25):** Chrome Lot operations run through the **ZPT Attention Queue** (`#/queue`) — one entity at a time, ~20 minutes. The legacy weekly-ops Cursor workflow is retired. Milestone trail: [`work/chrome-lot/work-ops-roadmap.md`](../../work/chrome-lot/work-ops-roadmap.md).
 
 ---
 

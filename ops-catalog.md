@@ -45,7 +45,7 @@ Full schedule and tier ownership: [`cadences.md`](cadences.md). Agent intent rou
 |---|---|---|---|---|---|---|
 | weekly plan | Tier 2 (Cursor) | Weekly (~Fridays) | ~40 min (life + dev) | 1 life + 2 dev + commit | Monthly plan (review month) must exist | "weekly plan", "weekly meeting", "Monday review", "sprint planning" |
 | plan weekly schedule | Tier 2 (Cursor) | On demand | — | — | — | "plan weekly schedule", "weekly schedule", "time blocks", "schedule my week", "refactor time blocks" |
-| weekly ops | Tier 2 (Cursor) | Weekly (separate session) | ~40 min | ops + CS + sales + people + commit | Same planning week as weekly plan | "weekly ops", "ops review", "CL ops meeting", "operations meeting" |
+| what should I work on ops | Tier 2 (Cursor) | On demand | — | — | — | "what should I work on ops", "attention queue", "ops queue", "department review" |
 | monthly plan | Tier 2 (Cursor) | Monthly (first week) | 83 min | 14 | Quarterly plan must be committed | "monthly plan", "monthly review" |
 | quarterly plan | Tier 2 (Cursor) | Quarterly (week 1) + mid-quarter week 6 | 90–120 min / 15 min checkpoint | 5-part, 14 phases | None (top-level strategic gate) | "quarterly plan", "strategy review" |
 | annual plan | Tier 2 (Cursor) | On demand | — | — | — | "annual plan", "year kickoff", "plan this year" |
@@ -90,7 +90,7 @@ Spec files: `n8n/conventions.md`, `n8n/bots/cl-bot/teams-bot.md`, `n8n/sync/pd-t
 |---|---|---|---|
 | "weekly plan", "weekly meeting", "Monday review", "sprint planning" | `.cursor/rules/weekly-meeting.mdc` | `context/skills/weekly-planning/SKILL.md` | systems/cadences.md, systems/capacity-rules.md, systems/notion-databases.md, systems/time-blocks.md, self/values.md, people/index.md |
 | "plan weekly schedule", "weekly schedule", "time blocks", "schedule my week", "refactor time blocks" | `.cursor/rules/plan-weekly-schedule.mdc` | `context/skills/plan-weekly-schedule/SKILL.md` | config/bus-schedule.json, family/bus-schedule.md, systems/time-blocks.md, config/time-blocks.json, family/matthew.md |
-| "weekly ops", "ops review", "CL ops meeting", "operations meeting" | `.cursor/rules/weekly-ops.mdc` | `context/skills/weekly-ops/SKILL.md` | systems/cadences.md, systems/pipedrive.md, systems/knack-fields.md, work/chrome-lot/, people/index.md |
+| "what should I work on ops", "attention queue", "ops queue", "department review" | `—` | `context/—/SKILL.md` | systems/attention-queue.md, work/chrome-lot/work-ops-roadmap.md |
 | "monthly plan", "monthly review" | `.cursor/rules/monthly-plan.mdc` | `context/skills/monthly-plan/SKILL.md` | systems/cadences.md, systems/notion-databases.md, self/values.md, people/index.md, work/chrome-lot/, work/turbo-gear/ |
 | "quarterly plan", "strategy review" | `.cursor/rules/strategy-review.mdc` | `context/skills/quarterly-plan/SKILL.md` | self/values.md, work/chrome-lot/, work/turbo-gear/, self/, people/index.md |
 | "annual plan", "year kickoff", "plan this year" | `.cursor/rules/annual-plan.mdc` | `context/skills/annual-plan/SKILL.md` | self/values.md, systems/notion-databases.md (Goals/Projects/Year Tracker), work/chrome-lot/, work/turbo-gear/ |
@@ -98,6 +98,10 @@ Spec files: `n8n/conventions.md`, `n8n/bots/cl-bot/teams-bot.md`, `n8n/sync/pd-t
 | "team sync", "roster diff", "people sync", "audit roster" | `.cursor/rules/team-sync.mdc` | `(inline in rule)` | systems/airtable-roster.md, people/index.md, cast.md |
 | "pd cleanup", "pipedrive cleanup", "deal cleanup", "crm cleanup" | `.cursor/rules/pd-cleanup.mdc` | `context/skills/pd-cleanup/SKILL.md` | systems/pipedrive.md, systems/knack-fields.md, work/chrome-lot/customer-service.md |
 | Custody-related file edits | `.cursor/rules/custody-modification.mdc` | `(inline in rule)` | family/custody/ |
+
+### Mismatches
+- ⚠ Missing skill: /home/runner/work/life-command-center/life-command-center/context/—/SKILL.md (rule —)
+- ⚠ Missing rule file: —
 <!-- /AUTO:TIER2_WORKFLOWS -->
 
 ---
@@ -169,7 +173,7 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 ## Health / staleness
 
 <!-- AUTO:HEALTH_REPORT -->
-⚠ **16 issue(s)** across 151 context files.
+⚠ **18 issue(s)** across 151 context files.
 
 ### missing-frontmatter (14)
 - `context/skills/annual-plan/SKILL.md` — no-frontmatter
@@ -187,8 +191,10 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 - `context/work/turbo-gear/knack-tg-env-setup.md` — no-frontmatter
 - `context/workflow-execution.md` — no-frontmatter
 
-### broken-see-also (1)
+### broken-see-also (3)
 - `context/systems/audiobook-pipeline.md` — ../../output/audiobook-handoff-2026-05-05.md
+- `context/work/chrome-lot/social-media.md` — ../../skills/weekly-ops/SKILL.md
+- `context/work/chrome-lot/work-management.md` — ../../skills/weekly-ops/SKILL.md
 
 ### stale (1)
 - `context/systems/operations-catalog.md` — 80d old (threshold 30d)
@@ -201,7 +207,7 @@ Full audit: `node scripts/audit-context.mjs`
 ## Last generated
 
 <!-- AUTO:LAST_GENERATED -->
-**2026-08-25 16:09:47** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
+**2026-08-25 16:19:33** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
 <!-- /AUTO:LAST_GENERATED -->
 
 ## See also
