@@ -57,6 +57,15 @@ Nav: Work sidebar → **Attention queue** / **Departments** (after Chrome Lot �
 
 **Person visit loop (v1.1):** `Record visit` on a person PATCHes Airtable `Last 1:1` to the visit date (CT) before writing `queue_visits`. Ranking uses Airtable — without this step the person stays at the top.
 
+**Airtable write guard.** Airtable `Payable Employees` is the personnel system of record, so the UI never writes it as a side effect of browsing:
+
+- Changing **Management Status** in the review modal or on `#/person/<id>` only stages the change locally.
+- The review modal requires a second click (**Confirm — write to Airtable**) that lists the exact field changes first.
+- `#/person/<id>` shows an **unsaved writes** panel with a field-level diff plus **Save to Airtable** / **Discard**.
+- Department health still writes straight to D1 — that store is ours and reversible.
+
+Agents are held to a stricter bar: **per-edit authorization from Aaron before any Airtable write** (`.cursor/rules/workspace.mdc`, `airtable-roster.md`).
+
 ## Adding a feed (v2+)
 
 1. Add interval table (if new entity type) to `attention-intervals.js`.
