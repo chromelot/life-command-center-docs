@@ -172,7 +172,7 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 ## Health / staleness
 
 <!-- AUTO:HEALTH_REPORT -->
-⚠ **18 issue(s)** across 152 context files.
+⚠ **18 issue(s)** across 153 context files.
 
 ### missing-frontmatter (14)
 - `context/skills/annual-plan/SKILL.md` — no-frontmatter
@@ -196,7 +196,7 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 - `context/work/chrome-lot/work-management.md` — ../../skills/weekly-ops/SKILL.md
 
 ### stale (1)
-- `context/systems/operations-catalog.md` — 80d old (threshold 30d)
+- `context/systems/operations-catalog.md` — 81d old (threshold 30d)
 
 Full audit: `node scripts/audit-context.mjs`
 <!-- /AUTO:HEALTH_REPORT -->
@@ -206,7 +206,7 @@ Full audit: `node scripts/audit-context.mjs`
 ## Last generated
 
 <!-- AUTO:LAST_GENERATED -->
-**2026-08-25 18:21:54** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
+**2026-08-25 20:41:10** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
 <!-- /AUTO:LAST_GENERATED -->
 
 ## See also
