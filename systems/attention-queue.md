@@ -50,8 +50,32 @@ Airtable optional override: `1:1 Interval Override` (days).
 |---|---|
 | `#/queue` | Ranked attention queue |
 | `#/departments` | All departments |
-| `#/department/<id>` | Department detail + visit history |
+| `#/departments` | Department widget grid — health, workflows behind, goals behind, review due |
+| `#/department/<id>` | Department detail widget grid + collapsible configuration |
 | `#/person/<airtableRecId>` | Person roster fields + visit history |
+
+## Department dashboard (2026-08-25)
+
+`#/departments` and `#/department/<id>` render **widget grids** using the same CSS grid as the day/week boards.
+
+- Layout comes from `dashboard/web/src/departmentBoards.js` — a shared default plus per-department overrides keyed by department id, so each department can get a bespoke page.
+- Widget types are registered in `components/dept/DeptWidgetRenderer.jsx`; add a case there, then reference the type in a board.
+- All data arrives from **one call**, `GET /api/department-overview` (optional `?id=`), which joins department rows with review cadence, Process Street run health, and linked goals. Feeds degrade independently and surface in a `feedErrors` banner.
+
+### Process Street workflow health
+
+`functions/lib/process-street.js` reads the PS public API (`PROCESSSTREET_API_KEY`, set on Cloudflare Pages). PS tasks in this account carry no due dates, so **"behind" is derived**:
+
+| Rule | Default |
+|---|---|
+| Stalled — no task completed and no run update in N days | 14 days |
+| Aging — run open longer than N days | 45 days |
+
+Runs join to departments by `process_street_workflows[].template_id`. Ids are resolved from workflow names by `scripts/map-ps-workflows.mjs` — **run it after adding a workflow to a department**, or that workflow's health stays invisible.
+
+### People live inside a department
+
+The `people` feed is marked `explicitOnly` in `attention-queue.js`: it never appears in the unfiltered queue, only via `?entityType=person`. Personnel is managed in the **Personnel Management** department, whose `direct_reports` list (Airtable record ids, stored in D1) decides who shows up. An empty list means no one — the full roster is deliberately not the default.
 
 Nav: Work sidebar → **Attention queue** / **Departments** (after Chrome Lot — Today).
 
