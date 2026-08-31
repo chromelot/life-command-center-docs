@@ -196,7 +196,7 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 - `context/work/chrome-lot/work-management.md` — ../../skills/weekly-ops/SKILL.md
 
 ### stale (1)
-- `context/systems/operations-catalog.md` — 85d old (threshold 30d)
+- `context/systems/operations-catalog.md` — 86d old (threshold 30d)
 
 Full audit: `node scripts/audit-context.mjs`
 <!-- /AUTO:HEALTH_REPORT -->
@@ -206,7 +206,7 @@ Full audit: `node scripts/audit-context.mjs`
 ## Last generated
 
 <!-- AUTO:LAST_GENERATED -->
-**2026-08-30 14:44:15** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
+**2026-08-30 20:39:42** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
 <!-- /AUTO:LAST_GENERATED -->
 
 ## See also
