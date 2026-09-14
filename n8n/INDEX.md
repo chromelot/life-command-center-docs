@@ -19,6 +19,7 @@
 | Notion Start Timer → Toggl 2 | [`webhooks/toggl-start/toggl-start-code.mjs`](webhooks/toggl-start/toggl-start-code.mjs) |
 | Roadmap Promote (▶ Start → Task) | [`webhooks/roadmap-promote/roadmap-promote.md`](webhooks/roadmap-promote/roadmap-promote.md) |
 | Roadmap ⏸ Pause | [`webhooks/roadmap-pause/roadmap-pause.md`](webhooks/roadmap-pause/roadmap-pause.md) |
+| Flic → silicone cream (hands) | [`webhooks/flic-skin-silicone/flic-skin-silicone.md`](webhooks/flic-skin-silicone/flic-skin-silicone.md) |
 | Task 📋 Todoist mirror | [`webhooks/dev-project-todoist-mirror/dev-project-todoist-mirror.md`](webhooks/dev-project-todoist-mirror/dev-project-todoist-mirror.md) |
 | ~~Dev ↔ Roadmap sync (name/icon/link)~~ | **RETIRED 2026-07-11** — Tasks no longer require a Project (standalone TG backlog); auto-link/name-sync removed. Promote/Pause + `Projects.Completion` rollup remain. |
 | Tracker Matcher (period links) | [`sync/tracker-matcher/tracker-matcher-sync.md`](sync/tracker-matcher/tracker-matcher-sync.md) |
