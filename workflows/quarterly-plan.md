@@ -470,7 +470,7 @@ Each domain block follows the same shape: context recap → name a theme → wal
 
 **7B: Personal Theme (2 min).** Via AskQuestion, name the Personal theme for Q[next] in one sentence. Examples:
 - "Close out the legal/admin backlog so dev capacity is free in Q4."
-- "Rebuild Spirituality after it got starved last quarter."
+- "Rebuild Spirituality after it slipped below floor last quarter."
 - "Protect family time through the custody modification."
 
 This sentence gets written as a callout at the top of the **Personal** section on the Quarter Tracker page in Phase 11.

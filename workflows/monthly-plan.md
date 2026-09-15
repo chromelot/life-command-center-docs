@@ -175,7 +175,7 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 | `1.1` | Table 1.1-A (wellness trajectory), then Table 1.1-B (life health trajectory) — one table per turn |
 | `1.2` | Table 1.2-A (one Values category per turn) |
 | `1.3` | Table 1.3-A (quarterly gate) |
-| `1.4` | Table 1.4-A (sustained unhealthy) or skip with N/A |
+| `1.4` | Table 1.4-A (sustained below-floor) or skip with N/A |
 | `1.check` | Table 1.check |
 | `2.1` | Table 2.1-A (body comp + watch MoM) |
 | `3.1` | Table 3.1-A (dev goals + quarterly progress) |
