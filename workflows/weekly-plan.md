@@ -36,6 +36,7 @@ tags: [skill, weekly-planning, procedure]
   - [Per-domain loop — run `2.TG` → `2.CL` → `2.SY`](#per-domain-loop-run-2tg-2cl-2sy)
   - [`2.H` — Dev health review (one turn, after all three domains)](#2h-dev-health-review-one-turn-after-all-three-domains)
   - [`2.WA` — Workshop + Admin (lighter tail)](#2wa-workshop-admin-lighter-tail)
+  - [`2.R` — Repair & Debt *(REQUIRED — runs once, before slate sync)*](#2r-repair-and-debt-required-runs-once-before-slate-sync)
   - [`2.sync` — Commit the combined slate (run once)](#2sync-commit-the-combined-slate-run-once)
 - [Phase 4: Commit (~5 min)](#phase-4-commit-5-min)
 - [Cross-Cutting Rules](#cross-cutting-rules)
@@ -107,7 +108,9 @@ Load via the router. Read these before starting:
     | `1.5` | `social` | After fuel check + social Notion sync |
     | `1.6` | `parenting` | |
     | `1.7` | `enjoyment` | |
-    | `2.sync` (after the combined slate sweep + **Table 2.S** confirmed) | `development` | Includes CL/TG/Systems + Workshop/Admin dev tree when on log |
+    | `2.WA` (after Workshop/Admin) | `development` | Includes CL/TG/Systems + Workshop/Admin dev tree when on log |
+    | `2.R` (after Repair & Debt, before sync) | — | Board only; no section preview |
+    | `2.sync` (after the combined slate sweep + **Table 2.S** confirmed) | `development` | Includes debt picks from 2.R.3 |
 
     Optional before **4b** write: `--all` for full seven-domain preview.
 12. **Phase gates:** `node scripts/workflow-progress.mjs gate --workflow weekly-plan --phase <1|2>` before Phase 2 (work) or Phase 4 (commit)
@@ -300,19 +303,20 @@ DATA INTEGRITY CHECK
 
 **Phase 1 order (session):** `1.0` → `1.1` Values → `1.2` Mind (incl. wellness) → `1.3` Fitness → `1.4` Sleep and Schedule → `1.5` Social → `1.6` Parenting → `1.7` Personal enjoyment → `1.check`
 
-**Print / Week Tracker domain order (Phase 4b):** Sleep and Schedule → Spirituality & Mind → Fitness → Social → Parenting → Personal Enjoyment → Development Work. Each domain renders as **three parts**: *What happened last week* · **Targets for next week** (the structured numbers — Strength/Cardio, Sleep hours + wake time, Calories + direction, Social target, Workshop hours — rendered as a compact line/badges) · *Intentions for next week* (**qualitative only** — behavioral changes / experiments; **omit the line entirely when blank**, don't pad with restated targets). Five-level health badge when rated; **trend arrow** (↑ / ↓ / −) vs the **prior week's** same-domain rating. This keeps the printout's intentions section clean and meaningful (targets are shown once, as numbers, not repeated as prose).
+**Print / Week Tracker domain order (Phase 4b):** Sleep and Schedule → Spirituality & Mind → Fitness → Social → Parenting → Personal Enjoyment → Development Work. Each domain renders as **three parts**: *What happened last week* · **Targets for next week** (the structured numbers — Strength/Cardio, Sleep hours + wake time, Calories + direction, Social target, Workshop hours — rendered as a compact line/badges) · *Intentions for next week* (**qualitative only** — behavioral changes / experiments; **omit the line entirely when blank**, don't pad with restated targets). Four-value status badge when rated (**Below floor** / **At floor** / **Healthy** / **Not assessed**); **trend arrow** (↑ / ↓ / −) vs the **prior week's** same-domain rating (numeric score 1–3; `null` when not assessed). This keeps the printout's intentions section clean and meaningful (targets are shown once, as numbers, not repeated as prose).
 
-**Health rating scale** *(all Phase 1 domain ratings + Phase 2.H dev health — one letter per turn)*
+**Domain status scale** *(all Phase 1 domain ratings + Phase 2.H dev health — one status per turn)*
 
-| | Rating |
-|---|--------|
-| **A** | Very Unhealthy |
-| **B** | Unhealthy |
-| **C** | Okay |
-| **D** | Healthy |
-| **E** | Very Healthy |
+| Status | Meaning |
+|--------|---------|
+| **Below floor** | Missed the written floor — clearable on a bad day, but missed this review week |
+| **At floor** | Running without excelling. **A pass.** |
+| **Healthy** | Hitting target |
+| **Not assessed** | New domain or not reviewed this week |
 
-**Gates:** Starved Values + behavioral adjustments (1.4-G) trigger when rating is **A or B** (Unhealthy or worse). Okay and above: no starve, no behavioral-adjustment table for that domain.
+**Rate sub-step shape (every rated domain):** review data → show **Floor · Target · this week's actual** (from the domain register + session pulls) → Aaron picks status → intentions. The status is a lookup against written bars, not a mood letter.
+
+**Gates:** Behavioral adjustments (`1.4-G`, `2.H-adj`, `1.check`) trigger when status = **Below floor**. At floor and above: no behavioral-adjustment table for that domain.
 
 <a id="10-create-weekly-log-entry"></a>
 ### 1.0 Create Weekly Log Entry
@@ -465,11 +469,11 @@ When escalation is **false**, leave PHQ-2/GAD-2 blank on the log (monthly plan c
 
 **Capacity note** (if `Mood Valence` ≤ −0.3 OR `Mood Negative %` ≥ 60% OR `Energy` ≤ 4): state reduced work capacity — recorded in Phase 2.4 `Dev Capacity Note`.
 
-**Table 1.2-G — Mind health** *(Aaron confirms; write with approval)*
+**Table 1.2-G — Mind health** *(after Floor · Target · actual; Aaron confirms; write with approval)*
 
-| Rating | Evidence (mood + spirit + journal) | → Notion field |
-|--------|-----------------------------------|----------------|
-| A–E (health scale) | cite valence, negative %, spirit min | `Mind Health` |
+| Floor | Target | This week actual | Status | Evidence | → Notion field |
+|-------|--------|------------------|--------|----------|----------------|
+| from domain register | from domain register | session pulls | Below floor / At floor / Healthy / Not assessed | cite valence, negative %, spirit min | `Mind Health` |
 
 **Table 1.2-H — Mind intentions (upcoming week)** *(Aaron approves before Notion write)*
 
@@ -538,11 +542,11 @@ Copy **TABLE 1.3-B-supp** and **TABLE 1.3-C-supp** verbatim from `weekly-habits-
 |-----------|-----------|
 | | |
 
-**Table 1.3-E — Fitness health**
+**Table 1.3-E — Fitness health** *(after Floor · Target · actual)*
 
-| Rating | → Notion field |
-|--------|----------------|
-| A–E (health scale) | `Fitness Health` |
+| Floor | Target | This week actual | Status | → Notion field |
+|-------|--------|------------------|--------|----------------|
+| from domain register | from domain register | session pulls | four-value scale | `Fitness Health` |
 
 **Table 1.3-F — Fitness intentions (upcoming week)**
 
@@ -647,11 +651,11 @@ Sync Notion, then **print preview:** `--section fitness` — present verbatim; A
 |-----------|-----------|
 | | |
 
-**Table 1.4-E — Sleep health**
+**Table 1.4-E — Sleep health** *(after Floor · Target · actual)*
 
-| Rating | → Notion field |
-|--------|----------------|
-| A–E (health scale) | `Sleep Health` |
+| Floor | Target | This week actual | Status | → Notion field |
+|-------|--------|------------------|--------|----------------|
+| from domain register | from domain register | session pulls | four-value scale | `Sleep Health` |
 
 **Table 1.4-F — Sleep and schedule intentions (upcoming week)**
 
@@ -659,13 +663,13 @@ Sync Notion, then **print preview:** `--section fitness` — present verbatim; A
 |--------------------------------|-----------------------------------|------------------|------------------|-------------------|
 | | | | | `Sleep Intentions`, `Schedule Intentions`, `Sleep Target Hours`, `Target Wake Time` |
 
-**Table 1.4-G — Behavioral adjustments** *(required when **this step's** domain = A or B — concrete commitments; **skip table** (write "—") when C or better)*
+**Table 1.4-G — Behavioral adjustments** *(required when **this step's** status = **Below floor** — concrete commitments; **skip table** (write "—") when At floor or better)*
 
 | Adjustment | Reason |
 |------------|--------|
 | | |
 
-→ Write `Behavioral Adjustments` (append domain-labeled bullets; cumulative across A/B domains this session). **C+ domains: no adjustments needed.**
+→ Write `Behavioral Adjustments` (append domain-labeled bullets; cumulative across Below-floor domains this session). **At floor and above: no adjustments needed.**
 
 Sync Notion, then **print preview:** `--section sleep-schedule` — present verbatim; Aaron confirms → advance.
 
@@ -733,11 +737,11 @@ Sync Notion, then **print preview:** `--section sleep-schedule` — present verb
 
 Two weeks running **Contaminated/Divided** (when accessible) → flag in `Social Review`; route to [eros.md](../../self/eros.md) daily container.
 
-**Table 1.5-F — Social health**
+**Table 1.5-F — Social health** *(after Floor · Target · actual)*
 
-| Rating | → Notion field |
-|--------|----------------|
-| A–E (health scale) | `Social Health` |
+| Floor | Target | This week actual | Status | → Notion field |
+|-------|--------|------------------|--------|----------------|
+| from domain register | from domain register | session pulls | four-value scale | `Social Health` |
 
 **Table 1.5-G — Social intentions (upcoming week)**
 
@@ -793,11 +797,11 @@ Sync Notion, then **print preview:** `--section social` — present verbatim; Aa
 |-----------|-----------|
 | | |
 
-**Table 1.6-D — Parenting health**
+**Table 1.6-D — Parenting health** *(after Floor · Target · actual)*
 
-| Rating | → Notion field |
-|--------|----------------|
-| A–E (health scale) | `Parenting Health` |
+| Floor | Target | This week actual | Status | → Notion field |
+|-------|--------|------------------|--------|----------------|
+| from domain register | from domain register | session pulls | four-value scale | `Parenting Health` |
 
 **Table 1.6-E — Parenting intentions (upcoming week)**
 
@@ -827,11 +831,11 @@ Sync Notion, then **print preview:** `--section parenting` — present verbatim;
 |-------------------------|--------------|
 | what fun to plan or protect | yes / no / propose block |
 
-**Table 1.7-C — Enjoyment health**
+**Table 1.7-C — Enjoyment health** *(after Floor · Target · actual)*
 
-| Rating | → Notion field |
-|--------|----------------|
-| A–E (health scale) | `Enjoyment Health` |
+| Floor | Target | This week actual | Status | → Notion field |
+|-------|--------|------------------|--------|----------------|
+| from domain register | from domain register | session pulls | four-value scale | `Enjoyment Health` |
 
 → Write `Personal Enjoyment` (rich_text — last week + forward intention). Propose Personal Time Blocks calendar events with approval.
 
@@ -846,7 +850,7 @@ Sync Notion, then **print preview:** `--section enjoyment` — present verbatim;
 | 1.2 | `Intentions Review` (mind row), `Mind Health`, `Mind Intentions`, `Mood Valence`, `Mood Negative %`, `Journal Feelings Summary`, `Mood Distress Flag`, `Energy Rating`, `Screening Escalation`; PHQ/GAD only if `Screening Escalation` = true |
 | 1.3–1.4 | `Fitness/Sleep Health`, `Fitness/Sleep Intentions`, `Schedule Intentions`, `Schedule Review`, `Strength Target`, `Cardio Target`, `Calorie Target`, `Weight Goal Direction`, `Calorie Rationale`, `Sleep Target Hours`, `Target Wake Time`, `Behavioral Adjustments` |
 | 1.5 | `Small Talk Count`, `Social Events Count`, `Social Review` (incl. **fuel rating**), `Social Intentions Met`, `Social Health`, `Social Priority`, `Social Target` (number), `Social Intentions` (qualitative, optional) |
-| `1.4` (A or B) | `Behavioral Adjustments` — **required for that domain**; skip when C or better |
+| `1.4` (Below floor) | `Behavioral Adjustments` — **required for that domain**; skip when At floor or better |
 | `1.5` | Fuel **Stage 1 + 2** + **recovery intentions** (1.5-E-b when triggered) in `Social Review` |
 | 1.6 | `Parenting Health`, `Parenting Intentions` |
 | 1.7 | `Personal Enjoyment`, `Enjoyment Health` |
@@ -858,7 +862,7 @@ Sync Notion, then **print preview:** `--section enjoyment` — present verbatim;
 
 **Purpose:** Review and plan dev work **one domain at a time** — **Turbo Gear → Chrome Lot → Systems** — surfacing the **strategy layer** (active **Goals** + their **milestones**, and **standalone Projects**), not just the Task tracker. For each dev domain: *review last week → set a weekly time goal → select the Goals / milestones / projects to get done this week.* Then a lighter **Workshop + Admin** tail, one **overall dev-health** rating, and a **single combined slate sync**.
 
-**Step codes (ledger order):** `2.TG` Turbo Gear → `2.CL` Chrome Lot → `2.SY` Systems → `2.H` dev health → `2.WA` Workshop + Admin → `2.sync` commit slate → `2.check`. Each dev-domain ledger step spans three turns: **`.1` Review · `.2` Time goal · `.3` Select work** (advance the ledger once, after `.3`).
+**Step codes (ledger order):** `2.TG` Turbo Gear → `2.CL` Chrome Lot → `2.SY` Systems → `2.H` dev health → `2.WA` Workshop + Admin → `2.R` Repair & Debt → `2.sync` commit slate → `2.check`. Each dev-domain ledger step spans three turns: **`.1` Review · `.2` Time goal · `.3` Select work** (advance the ledger once, after `.3`).
 
 **Source files:** `output/weekly-dev-review-*.md` — now includes, per dev domain, a **`## Domain goals & projects — {domain}`** block (active Goals + their milestones + standalone Projects) alongside the existing review-week queue / time / carryover sections — plus `output/weekly-habits-*.md` and `node scripts/scan-tg-backlog.mjs` (TG orphan backlog).
 
@@ -946,19 +950,15 @@ Before/while presenting, mark any items Aaron names as **Done** now (`Status →
 
 Cover briefly: **(1) Output** — accomplishments vs queued work across the three domains (from each `.1-A`); **(2) Time** — total dev minutes logged (sum of the three `.1-B` totals) vs realistic capacity and vs the goals just set in `.2`; **(3) Goal progress** — what moved on the domains' Goals/milestones this review week (`Progress` / `Completion` %), what's stuck. **Agent does not recommend** — narrative only.
 
-Then Aaron rates (five-level A–E health scale):
+Then show **Floor · Target · this week's actual** for Work, and Aaron picks one status (four-value scale):
 
-| | Rating |
-|---|--------|
-| **A** | Very Unhealthy |
-| **B** | Unhealthy |
-| **C** | Okay |
-| **D** | Healthy |
-| **E** | Very Healthy |
+| Floor | Target | This week actual | Status | → Notion field |
+|-------|--------|------------------|--------|----------------|
+| from domain register | from domain register | session pulls | Below floor / At floor / Healthy / Not assessed | `Work Health`, `Dev Week Rating`, `Dev Intentions Met` |
 
-→ Write `Work Health`, `Dev Week Rating`, `Dev Intentions Met`, fold the summary into `Dev Review`. Optional forward theme (qualitative, 0–2 bullets) → `Dev Intentions`.
+Fold the summary into `Dev Review`. Optional forward theme (qualitative, 0–2 bullets) → `Dev Intentions`.
 
-**Table 2.H-adj — Adjustments** *(only if `Work Health` = A or B; skip when C+)* — ask what adjustments Aaron commits to; capture his words only → `Dev Adjustments`.
+**Table 2.H-adj — Adjustments** *(only if `Work Health` = Below floor; skip when At floor or better)* — ask what adjustments Aaron commits to; capture his words only → `Dev Adjustments`.
 
 `advance --step 2.H` → `2.WA`.
 
@@ -1008,25 +1008,68 @@ Workshop (QoL/hobby) is time-boxed so tinkering never crowds out deep work. Set 
 
 #### `2.WA-H` — Systems & Workshop health *(quick, every week)*
 
-Rounds out the life-category ratings so **all** categories are trended (their `* Score` fields feed the annual/monthly/quarterly trend review). One rating per turn, five-level scale:
+Rounds out the life-category ratings so **all** categories are trended (their `* Score` fields feed the annual/monthly/quarterly trend review). One rating per turn, four-value scale — **Floor · Target · actual** before each pick:
 
 1. **Systems:** quick check — are your systems (automations, LCC, home/dev infra) running well? Any breakage or friction? Recommend 0–1 concrete change (→ a Systems Task/Project if warranted). **Rate `Systems Health`.** *(This is the standalone life-category `Systems Health` select for trending — distinct from the overall dev `Work Health` rated in `2.H`.)*
 2. **Workshop:** given this week's Workshop intention/actual, **rate `Workshop Health`** (is the hobby/QoL tinkering in a good place — neither crowded out nor crowding out deep work?).
 
-Write `Systems Health` + `Workshop Health` (select) to the Weekly Meeting Log at Phase 4 commit; the `Systems Score` / `Workshop Score` formulas populate automatically for trending.
+Write `Systems Health` + `Workshop Health` (select) to the Weekly Meeting Log at Phase 4 commit; the `Systems Score` / `Workshop Score` formulas populate automatically for trending (scores 1–3; `null` when Not assessed).
 
 #### `2.WA-mirror` — Todoist mirrors
 
 For each selected **Workshop / Admin** item, propose a **Todoist mirror** (due date + project) — **case-by-case approval** before create. Verify last week's mirrors via Todoist MCP.
 
-`advance --step 2.WA` → `2.sync`.
+`advance --step 2.WA` → `2.R`.
+
+---
+
+<a id="2r-repair-and-debt-required-runs-once-before-slate-sync"></a>
+### `2.R` — Repair & Debt *(REQUIRED — runs once, before slate sync)*
+
+**Purpose:** After per-domain ratings, see the whole register at once, pick **exactly one** domain to repair this week, and optionally take on **at most one** debt project. Placed immediately before `2.sync` so debt picks promote into the cumulative slate in one sweep.
+
+**Cap:** one repair domain · at most one debt project per week. More than that recreates the thirteen-domain overload in a new container.
+
+**Data source:** domain register (`departments` in D1 — Floor, Target, mechanism, last status) + this session's per-domain actuals + last weekly ops ratings for CL/TG department rows (read-only on the board — departments are rated in weekly ops, not re-rated here).
+
+#### `2.R.1` — Domain board (one turn)
+
+**Table 2.R.1 — All domains**
+
+| Area | Domain | Floor | Target | This week actual | Status | Trend vs last week |
+|------|--------|-------|--------|------------------|--------|--------------------|
+| Personal / Chrome Lot / Turbo Gear / Systems | one row per register row | from register | from register | session pulls | last confirmed status | ↑ / ↓ / − |
+
+Present read-only — the first moment personal and work domains appear together.
+
+#### `2.R.2` — One repair (one turn)
+
+**Table 2.R.2 — Repair pick**
+
+| Domain in repair | Move | Repair output (not a task unless buying a mechanism) |
+|------------------|------|------------------------------------------------------|
+| exactly one row | below floor → at floor **or** at floor → healthy | intentions / time block / mechanism change Aaron names |
+
+Set `in_repair` on exactly one register row. Repair produces **intentions or mechanism changes**, not a generic to-do — except when the repair *is* buying/installing a mechanism (that becomes a real Task).
+
+#### `2.R.3` — Debt projects (one turn)
+
+**Table 2.R.3 — Debt pick**
+
+| Debt project | Why now | Task IDs to add to slate |
+|--------------|---------|--------------------------|
+| at most one | | append to `notes.dev_slate_ids` |
+
+Debt is task-shaped: selected projects promote to the This Week slate and count against the 40h cap. **Append** Task IDs to the cumulative slate — **do NOT** run sync yet.
+
+`advance --step 2.R` → `2.sync`.
 
 ---
 
 <a id="2sync-commit-the-combined-slate-run-once"></a>
 ### `2.sync` — Commit the combined slate (run once)
 
-**Now** run the single sweep with the full accumulated set from every `.3` + `2.WA` (approval before Notion writes):
+**Now** run the single sweep with the full accumulated set from every `.3` + `2.WA` + `2.R.3` (approval before Notion writes):
 
 `node scripts/sync-dev-projects-this-week.mjs --selected=<all cumulative Task IDs>`
 
@@ -1074,11 +1117,12 @@ This list must **exactly match** the Notion Tasks view filtered to `This Week = 
 | `Systems Hours Intended` | 2.SY.2 |
 | `Chrome Lot Hours Intended` | 2.CL.2 |
 | `Dev Review`, `Work Health`, `Dev Week Rating`, `Dev Intentions Met` | 2.H |
-| `Dev Adjustments` | 2.H-adj *(A/B only; Aaron-supplied)* |
+| `Dev Adjustments` | 2.H-adj *(Below floor only; Aaron-supplied)* |
 | `Dev Projects Intended`, `Dev Priority Context` | 2.sync |
 | `This Week` slate synced (all domains) | 2.sync |
 | `Workshop Hours Intended`, `Workshop Focus` | 2.WA-W |
 | `Systems Health`, `Workshop Health` | 2.WA-H |
+| Repair domain + debt project (if any) | 2.R |
 | **Final slate = Notion view** | **2.check** |
 
 **Do not proceed to Phase 4 until `2.check` passes.**
@@ -1094,15 +1138,14 @@ This list must **exactly match** the Notion Tasks view filtered to `This Week = 
 4. **Store project KPIs on Weekly Meeting Log:** Write `Projects Completed` (count of projects marked Done this week) and `Projects In Progress` (count of projects with This Week checked for the new week).
 5. **Verify all FIELD CHECKs (REQUIRED):** Re-run Phase 1 (`1.check`) and Phase 2 (`2.check`). Confirm nothing is blank without N/A + reason. (Activity KPIs + Team Activity Details → **Weekly Ops** commit.)
 6. **Write / confirm `Week Intentions` (REQUIRED):** 1–3 sentence week theme capturing the overarching focus for the planning week. Agent proposes from session context; Aaron confirms or edits → write to Weekly Meeting Log. `node scripts/weekly-plan-log-check.mjs commit --ledger <path>` must pass before `workflow-notion-log complete`.
-7. **Record life health ratings (REQUIRED):** Verify weekly-rated selects are set — `Mind Health` (→ `Spirituality Health` in Phase 4), `Fitness Health` (1.3), `Sleep Health` (1.4), `Social Health` (1.5), `Parenting Health` (1.6), `Enjoyment Health` (1.7), `Work Health` (2.H). Values: **Very Unhealthy → Very Healthy** (five-level scale). Admin is not rated in weekly plan.
-8. **Update Values DB Health (with approval):** For each category where this week's rating differs from current Values DB Health, update via `personal_notion_update_page` on the category page in Values DB (`342f40c2-487b-80c5`). Include **Personal Enjoyment** when added to Values DB.
-9. **Record Starved Values:** Derive from weekly health ratings — set `Starved Values` multi_select to every **rated** category marked **Unhealthy or Very Unhealthy** (A or B: Spirituality, Fitness, Work, Social, Parenting, Personal Enjoyment). Admin excluded from weekly rating.
-10. **Confirm accomplishment fields (REQUIRED):** Verify Phase 2 (`2.sync`) wrote `Logged/Unlogged/Total Accomplishments Count`, `Focused Output Hours Estimate`, and `Accomplishments`. Backfill from habit summary if missing.
-10b. **Write Workshop intention (REQUIRED):** From Phase 2.WA-W, write `Workshop Hours Intended` (number, 0 allowed) + `Workshop Focus` (rich_text — selected item(s) + one-line intention) to the Weekly Meeting Log. `weekly-plan-log-check` commit gate requires `Workshop Hours Intended`.
-11. **Body comp already persisted.** Withings written in Phase 0 (`--days 28`). Don't re-run here.
-12. **Execute remaining:** Create any Todoist/Calendar/Notion items not yet committed during earlier phases.
-13. **Log to Notion:** Finalize the Weekly Meeting Log entry (`322f40c2-487b-81bd`) with key decisions, action items, and plan summary. Set `Status = Done`, `Session Complete = Complete`.
-14. **Personal Time Blocks (`4.tb` — REQUIRED after scheduling, before 4b):**
+7. **Record life health ratings (REQUIRED):** Verify weekly-rated selects are set — `Mind Health` (→ `Spirituality Health` in Phase 4), `Fitness Health` (1.3), `Sleep Health` (1.4), `Social Health` (1.5), `Parenting Health` (1.6), `Enjoyment Health` (1.7), `Work Health` (2.H), `Systems Health` / `Workshop Health` (2.WA-H). Values: **Below floor / At floor / Healthy / Not assessed** (four-value scale). Admin is not rated in weekly plan.
+8. **Update Values DB Health (with approval):** For each category where this week's status differs from current Values DB Health, update via `personal_notion_update_page` on the category page in Values DB (`342f40c2-487b-80c5`). Include **Personal Enjoyment** when added to Values DB. Use the four-value vocabulary.
+9. **Confirm accomplishment fields (REQUIRED):** Verify Phase 2 (`2.sync`) wrote `Logged/Unlogged/Total Accomplishments Count`, `Focused Output Hours Estimate`, and `Accomplishments`. Backfill from habit summary if missing.
+9b. **Write Workshop intention (REQUIRED):** From Phase 2.WA-W, write `Workshop Hours Intended` (number, 0 allowed) + `Workshop Focus` (rich_text — selected item(s) + one-line intention) to the Weekly Meeting Log. `weekly-plan-log-check` commit gate requires `Workshop Hours Intended`.
+10. **Body comp already persisted.** Withings written in Phase 0 (`--days 28`). Don't re-run here.
+11. **Execute remaining:** Create any Todoist/Calendar/Notion items not yet committed during earlier phases.
+12. **Log to Notion:** Finalize the Weekly Meeting Log entry (`322f40c2-487b-81bd`) with key decisions, action items, and plan summary. Set `Status = Done`, `Session Complete = Complete`.
+13. **Personal Time Blocks (`4.tb` — REQUIRED after scheduling, before 4b):**
 
     **Delegate to subskill** — execute [`context/skills/plan-weekly-schedule/SKILL.md`](../plan-weekly-schedule/SKILL.md) **end-to-end** (Gates 0–4). Do not inline a shortened version. Weekly plan provides ledger context only:
 
@@ -1137,15 +1180,15 @@ This list must **exactly match** the Notion Tasks view filtered to `This Week = 
 
 *Source: script conflict section + agent notes from Phase 1.5/1.6 social/parenting pre-commits and Work calendar pull.*
 
-15. **Week Tracker summary (4b — REQUIRED):**
+14. **Week Tracker summary (4b — REQUIRED):**
     - Planning week was confirmed at **0a** (`planning_week_page_id` on ledger). Optional gate — `node scripts/weekly-plan-section-preview.mjs --ledger <path> --all` (full print preview).
     - After Aaron confirms, run `node scripts/weekly-plan-week-summary.mjs --ledger <path>` (uses ledger planning week — no end-of-session week picker). This (1) renders a **print PDF** via Playwright (also saves `output/weekly-plan-print-{week}.html` + `.pdf`), (2) uploads PDF to `Plan Records/weekly/`, (3) sets **`Plan Doc URL`** on the planning week record, (4) appends/replaces the **Weekly Plan** section on that Notion page. Aaron approves production writes.
-16. **Update context files** if anything changed.
+15. **Update context files** if anything changed.
 
 <a id="cross-cutting-rules"></a>
 ## Cross-Cutting Rules
 
-- **Table contract per phase.** Phase 1 = life domains → `1.check`. Phase 2 = domain-first loop `2.TG` → `2.CL` → `2.SY` (each `.1` review · `.2` time goal · `.3` select) → `2.H` dev health → `2.WA` Workshop/Admin → `2.sync` → `2.check`. CL ops → **Weekly Ops** skill.
+- **Table contract per phase.** Phase 1 = life domains → `1.check`. Phase 2 = domain-first loop `2.TG` → `2.CL` → `2.SY` (each `.1` review · `.2` time goal · `.3` select) → `2.H` dev health → `2.WA` Workshop/Admin → `2.R` Repair & Debt → `2.sync` → `2.check`. CL ops → **Weekly Ops** skill.
 - **FIELD CHECK gates.** Run `1.check` before Phase 2 development; `2.check` after development; verify all in Phase 4 commit.
 - **Route every item into a bucket.** Each surfaced item is Automated (n8n), Delegated (team 1:1s), or a Scheduled slice (calendar + Todoist mirror).
 - **Capacity is non-negotiable.** If total planned work exceeds available hours minus 10-15% buffer, the system pushes back. Something must move.
@@ -1162,7 +1205,7 @@ This list must **exactly match** the Notion Tasks view filtered to `This Week = 
 - **Phase 0:** Wellness + journal feelings + social + dev data pulls; trend files; 4-week log history.
 - **Phase 0b:** Data integrity table; remediation before Phase 1.
 - **Phase 1:** Life review (values, mind, fitness, sleep, social, parenting, personal enjoyment) + targets on Weekly Meeting Log.
-- **Phase 2:** Development review + next-week dev plan.
+- **Phase 2:** Development review + Repair & Debt + next-week dev plan.
 - **Phase 4:** Full Weekly Meeting Log finalized + all FIELD CHECKs; Values DB sync (with approval).
 - **Phase 4.tb** — Personal Time Blocks calendar — one-time Mon–Fri structure events; adjust-if-exists or full regenerate with approval. Skill → `context/skills/plan-weekly-schedule/SKILL.md`.
 - **Phase 4b:** Planning week record (from 0a) gets domain-by-domain plan summary + linked Google Doc in `Plan Records/weekly/`.

@@ -27,7 +27,7 @@
   - [Phase 5: External Environment (~5 min)](#phase-5-external-environment-5-min)
   - [Phase 6: Capacity & Time Reality (~3 min)](#phase-6-capacity-and-time-reality-3-min)
 - [Part C -- Look Forward Strategically (per domain) -- ~35 min](#part-c-look-forward-strategically-per-domain-35-min)
-  - [Sustained Unhealthy Domain Gate (conditional, before domain blocks)](#sustained-unhealthy-domain-gate-conditional-before-domain-blocks)
+  - [Sustained Below-Floor Domain Gate (conditional, before domain blocks)](#sustained-below-floor-domain-gate-conditional-before-domain-blocks)
   - [Phase 7: Personal Strategic Forward-Look (~10 min)](#phase-7-personal-strategic-forward-look-10-min)
   - [Phase 8: Chrome Lot Strategic Forward-Look (~12 min)](#phase-8-chrome-lot-strategic-forward-look-12-min)
   - [Phase 9: Turbo Gear Strategic Forward-Look (~12 min)](#phase-9-turbo-gear-strategic-forward-look-12-min)
@@ -153,7 +153,7 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 | `C.1` | Part C Phase 7 sub-tables (7A→7B→7C) — one per turn |
 | `C.2` | Part C Phase 8 sub-tables (8A→8B→8C) — one per turn |
 | `C.3` | Part C Phase 9 sub-tables (9A→9B→9C) — one per turn |
-| `C.gate` | Table C.gate (sustained unhealthy) or N/A |
+| `C.gate` | Table C.gate (sustained below-floor) or N/A |
 | `D.1` | Table D.1-A — one project commit per turn |
 | `D.2` | Table D.2-A (KPI targets + instrumentation gate) |
 | `D.check` | Table D.check |
@@ -369,7 +369,7 @@ Pick the **2-3 metrics that matter most for Q[next]** and name them explicitly. 
 <a id="phase-3b-monthly-health-trend-review-8-min"></a>
 ### Phase 3b: Monthly Health Trend Review (~8 min)
 
-**Life-category Score trend:** pull the Weekly Meeting Log per-category **`* Score`** fields (1–5) across the quarter's ~13 weeks and show each category's average + direction — the quarter-level view of sustained life-health trends (feeds the sustained-unhealthy gate).
+**Life-category Score trend:** pull the Weekly Meeting Log per-category **`* Score`** fields (1–3; `null` when Not assessed) across the quarter's ~13 weeks and show each category's average + direction — the quarter-level view of sustained life-health trends (feeds the sustained below-floor gate).
 
 Pull the **3 Monthly Plan Log entries** from the outgoing quarter (chronological). Build domain-health and life-context tables:
 
@@ -377,22 +377,22 @@ Pull the **3 Monthly Plan Log entries** from the outgoing quarter (chronological
 WORK DOMAIN HEALTH -- INTRA-QUARTER
 | Domain      | Mo1 | Mo2 | Mo3 | Streak        |
 |-------------|-----|-----|-----|---------------|
-| Chrome Lot  | H/U |     |     | N mos Unhealthy |
-| Turbo Gear  | H/U |     |     |               |
+| Chrome Lot  | ↓/=/↑ |     |     | N mos Below floor |
+| Turbo Gear  | ↓/=/↑ |     |     |               |
 ```
 
-Data source: `Chrome Lot Health` and `Turbo Gear Health` select properties on each Monthly Plan Log entry. For months before those properties existed, annotate `(no monthly snapshot)` and **do not false-trigger** the strategy gate.
+Data source: `Chrome Lot Health` and `Turbo Gear Health` select properties on each Monthly Plan Log entry (four-value scale). For months before those properties existed, annotate `(no monthly snapshot)` and **do not false-trigger** the strategy gate. Use glyphs: **↓** Below floor · **=** At floor · **↑** Healthy · **—** Not assessed.
 
 Also show life-category context (not a separate gate — monthly Phase 1d handles life):
 
 ```
-LIFE HEALTH -- UNHEALTHY COUNT PER MONTH
-| Month | Spirituality | Fitness | Work | Social | Admin | Parenting | Total Unhealthy |
-|-------|--------------|---------|------|--------|-------|-----------|-----------------|
-| Mo1   | H/U          |         |      |        |       |           | N/6             |
+LIFE HEALTH -- BELOW-FLOOR COUNT PER MONTH
+| Month | Spirituality | Fitness | Work | Social | Admin | Parenting | Total Below floor |
+|-------|--------------|---------|------|--------|-------|-----------|-------------------|
+| Mo1   | ↓/=/↑        |         |      |        |       |           | N/6               |
 ```
 
-**Streak computation:** For each work domain, count consecutive months rated Unhealthy ending at Mo3. A streak of **3** (all months in the quarter) triggers the **Sustained Unhealthy Domain Gate** before Part C.
+**Streak computation:** For each work domain, count consecutive months rated **Below floor** ending at Mo3. A streak of **3** (all months in the quarter) triggers the **Sustained Below-Floor Domain Gate** before Part C.
 
 **End of Part A:** state elapsed time. Target was 33 min (was 25 min; +8 min for Phase 3b).
 
@@ -446,10 +446,10 @@ This surfaces the "I wanted Q[X] to be about TG but 60% of my hours went to CL f
 
 **Pre-step (shared, ~2 min):** ensure Quarter Tracker (`121f40c2-487b-802e`) has records for Q[next+1], Q[next+2], Q[next+3]. Create any that are missing via `personal_notion_create_database_entry` so future-quarter project assignments in 7C/8C/9C have somewhere to land.
 
-<a id="sustained-unhealthy-domain-gate-conditional-before-domain-blocks"></a>
-### Sustained Unhealthy Domain Gate (conditional, before domain blocks)
+<a id="sustained-below-floor-domain-gate-conditional-before-domain-blocks"></a>
+### Sustained Below-Floor Domain Gate (conditional, before domain blocks)
 
-**Triggers when Chrome Lot or Turbo Gear was Unhealthy for all 3 months of the outgoing quarter** (from Phase 3b streak table).
+**Triggers when Chrome Lot or Turbo Gear was Below floor for all 3 months of the outgoing quarter** (from Phase 3b streak table).
 
 When triggered for a domain:
 
@@ -457,9 +457,9 @@ When triggered for a domain:
 2. Mandatory strategy rethink via `AskQuestion`: What approach failed? What gets cut, delegated, or restructured?
 3. Name **1–3 structural changes** (not KPI tweaks) before committing Q[next] theme and roadmap for that domain.
 4. Log outcomes in Quarterly Meeting Log `Lessons Learned` (Phase 14) and append a **Health Intervention Notes** block to the quarterly page body via `personal_notion_append_blocks`.
-5. An Unhealthy domain **cannot receive "more projects"** in Part D until rethink is documented — cut or restructure first.
+5. A Below-floor domain **cannot receive "more projects"** in Part D until rethink is documented — cut or restructure first.
 
-If no 3-month unhealthy streaks: proceed directly to domain blocks.
+If no 3-month below-floor streaks: proceed directly to domain blocks.
 
 Each domain block follows the same shape: context recap → name a theme → walk the roadmap → name the no-list.
 
@@ -489,16 +489,16 @@ Use the Project Assessment Rules at the top of this file. Every live project end
 <a id="phase-8-chrome-lot-strategic-forward-look-12-min"></a>
 ### Phase 8: Chrome Lot Strategic Forward-Look (~12 min)
 
-**8A: CL Department Deep Read (4 min).** Pull the **Departments** DB (`39bf40c2-487b-816d-97a3-f6f870b3b6e1`, filter `Domain = Chrome Lot`) and display each department's Picture of Success page content. For each — this is the **KPI-driven re-assessment**:
+**8A: CL Department Deep Read (4 min).** Pull the **Departments** DB (`39bf40c2-487b-816d-97a3-f6f870b3b6e1`, filter `Domain = Chrome Lot`) and display each department's Picture of Success page content. For each — compare **review-period actual vs written Floor and Target** (from the domain register):
 
-- Pull the dept's **KPI vs Target** (from the dashboard / Pipedrive / Knack) and set **Health** (Healthy / Unhealthy / Critical / Stalled) + **Last Assessed**.
+- Pull the dept's **actual vs Floor/Target** (from the dashboard / Pipedrive / Knack) and set **status** on the four-value scale (Below floor / At floor / Healthy / Not assessed) + **Last Assessed**.
 - Confirm/refresh Priority and the Picture of Success if reality moved.
-- **Fix loop** — for every non-Healthy dept: either confirm its linked **`🚀 Fix Projects`** are on track (via the goal-trajectory review) or **create a fix-Project now** (Domain = Chrome Lot) linked to the dept + a **`🥅 Goal`** ("Get [Dept] to Healthy by [date]"). Never leave a Critical/Stalled dept without an owner-project.
+- **Fix loop** — for every dept **Below floor**: either confirm its linked **`🚀 Fix Projects`** are on track (via the goal-trajectory review) or **create a fix-Project now** (Domain = Chrome Lot) linked to the dept + a **`🥅 Goal`** ("Get [Dept] to At floor by [date]"). Never leave a Below-floor dept without an owner-project.
 
 Edit dept pages via `personal_notion_update_page`.
 
 **8B: CL Theme (2 min).** Via AskQuestion, name the CL theme for Q[next] in one sentence. Examples:
-- "Rebuild team Pipedrive cadence and resolve the two Unhealthy departments."
+- "Rebuild team Pipedrive cadence and lift the two Below-floor departments."
 - "Instrument CL revenue and churn so next quarter has real numbers."
 - "Get Aaron out of field work."
 
@@ -511,7 +511,7 @@ Written as a callout at the top of the **Chrome Lot** section on the Quarter Tra
 <a id="phase-9-turbo-gear-strategic-forward-look-12-min"></a>
 ### Phase 9: Turbo Gear Strategic Forward-Look (~12 min)
 
-**9A: TG Department Deep Read (4 min).** Pull the **Departments** DB (filter `Domain = Turbo Gear`). Same as 8A — KPI vs Target → set Health + Last Assessed, and spawn/verify `🚀 Fix Projects` (linked to a `🥅 Goal`) for every non-Healthy dept.
+**9A: TG Department Deep Read (4 min).** Pull the **Departments** DB (filter `Domain = Turbo Gear`). Same as 8A — **actual vs Floor/Target** → set status on the four-value scale + Last Assessed, and spawn/verify `🚀 Fix Projects` (linked to a `🥅 Goal`) for every Below-floor dept.
 
 **9B: TG Theme (2 min).** Via AskQuestion, name the TG theme for Q[next] in one sentence. Examples:
 - "Land the first three external demos."
@@ -629,7 +629,7 @@ These are the dates that get eaten first when things get busy. Block them now so
    - **Watch metrics** (from Phase 3): Sleep Avg, Heart Rate Avg, Resting HR Avg, HRV Avg, Steps Avg (quarter means) plus Sleep Delta, Heart Rate Delta, Resting HR Delta, HRV Delta, Steps Delta (this-quarter avg minus last-quarter avg, signed). Also Workout Active Minutes (quarter total in minutes). Omit any field where the underlying data is null. Resting HR + HRV will stay null until those Health Sync folders are enabled.
    - Project counts (Assigned, Completed, Carried Over, broken out by Personal/CL/TG)
    - Business metrics (CL Revenue, CL Customer Count, CL Churn, TG Demos Given, TG Features Shipped)
-   - Starved Values, Key Wins, Key Misses
+   - Key Wins, Key Misses
    - **Planning context (REQUIRED — monthly + weekly plans read these):**
      - `Priority Stack` (rich_text) — from Phase 13b (`quarterly_priority_stack`)
      - `Domains Parked` (multi_select) — from Phase 13b (`quarterly_domains_parked`)

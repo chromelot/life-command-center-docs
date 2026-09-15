@@ -84,7 +84,7 @@ Within a single ledger step that spans multiple tables (e.g. weekly plan `1.2` =
 - Skipping `gate` because "we're close enough"
 - Using prior-week memory instead of named pull output files
 - **`Workout Active Minutes` = N/A** when Workouts DB has review-week entries — use `daily-health-sections.mjs` aggregate (`Workout logged min`)
-- **`Behavioral Adjustments` blank** when a domain rated **Unhealthy** in that step — Table 1.4-G (and equivalents) required **only for Unhealthy domains**; Healthy = no adjustments
+- **`Behavioral Adjustments` blank** when a domain rated **Below floor** in that step — Table 1.4-G (and equivalents) required **only for Below floor domains**; At floor or better = no adjustments
 - **Advancing step `1.5` without fuel Stage 1 (+ Stage 2 when applicable) and recovery intentions when triggered**
 
 ### Weekly plan — Phase 1 hard stops (before `1.check`)
@@ -92,9 +92,9 @@ Within a single ledger step that spans multiple tables (e.g. weekly plan `1.2` =
 | Step | Rule |
 |------|------|
 | `1.3-B` | `Workout Active Minutes` = Workouts DB `Minutes` sum (script aggregate). Fail FIELD CHECK if sessions exist and field blank. **Nutrition** (`Calories Avg` / `Protein Avg` / `Protein Days`) = Nutrition Log per-day means from `daily-health-sections.mjs` — persist only when ≥1 day logged; blank/`—` is OK (voluntary logging, **not** a hard-stop). |
-| `1.4` | If `Sleep Health` = Unhealthy → Table **1.4-G** required; if Healthy → skip (no adjustments) |
+| `1.4` | If `Sleep Health` = Below floor → Table **1.4-G** required; if At floor or better → skip (no adjustments) |
 | `1.5` | Fuel **Stage 1 + 2** + **1.5-E-b recovery intentions** when triggered; all in `Social Review` |
-| `1.check` | `Workout Active Minutes` Fail if Workouts exist and blank; `Behavioral Adjustments` only Fail for **Unhealthy** domains that contributed none |
+| `1.check` | `Workout Active Minutes` Fail if Workouts exist and blank; `Behavioral Adjustments` only Fail for **Below floor** domains that contributed none |
 | `0b` | Prior week log must have `Week Intentions`, `Social Intentions`, and core KPI numbers — `node scripts/weekly-plan-log-check.mjs prior-week` (also enforced by `workflow-progress advance --step 0b`) |
 | Phase 4 complete | `Week Intentions` + all 1.check/2.check fields — `node scripts/weekly-plan-log-check.mjs commit --ledger <path>` (enforced by `workflow-notion-log complete`) |
 | `4.tb` | Dry-run `weekly-time-blocks.mjs --ledger` before Tables 4.tb-A/B; `--apply` only after Aaron approves calendar write |
@@ -114,8 +114,8 @@ Monthly/quarterly: contracts in each `SKILL.md` **Present exactly** map + phase 
 - **0a:** `weekly-plan-weeks.mjs` → Aaron confirms Review + Planning Week Tracker rows before any pull.
 - **2.1-A (review):** Queued dev work = Tasks on review-week `📅 Week Tracker` (ledger `review_week_page_id`) — **Chrome Lot · Turbo Gear · Personal (Admin)**.
 - **2.1-C (accomplished):** Content now **2.1-F Turn 1** — same tree with ~~strikethrough~~ on Done; all three types.
-- **2.1-D (dev health):** Agent summarizes output, time, and month-goal progress; Aaron rates Healthy/Unhealthy. No agent recommendations.
-- **2.1-E (adjustments):** **Only if Unhealthy.** Aaron states commitments; agent captures verbatim — never proposes adjustments.
+- **2.1-D (dev health):** Agent summarizes output, time, and month-goal progress; Aaron picks status on four-value scale after Floor · Target · actual. No agent recommendations.
+- **2.1-E (adjustments):** **Only if Below floor.** Aaron states commitments; agent captures verbatim — never proposes adjustments.
 - **2.1-F (plan close-out):** Turn 1 = accomplished · Turn 2 = still open + mark-Done letters · Turn 3 = carryover A/B · then **2.1-G/H** = project adds. All three Task types in one flow.
 - **2.1-S / 2.2:** Sync covers CL/TG/Personal in one `--selected` pass. **2.2** = Todoist mirror check for selected Personal items (carryover selection is in 2.1-F).
 - **2.check:** One bulleted tree (CL/TG + Personal) must **exactly match** Notion `This Week` filtered view before Phase 4.

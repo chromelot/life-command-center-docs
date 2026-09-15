@@ -20,7 +20,7 @@
 - [Phase 1c: Quarterly Plan Checkpoint (~5 min)](#phase-1c-quarterly-plan-checkpoint-5-min)
   - [Quarterly plan completeness gate](#quarterly-plan-completeness-gate)
   - [Quarterly progress review (run only when gate passes)](#quarterly-progress-review-run-only-when-gate-passes)
-- [Phase 1d: Sustained Unhealthy Gate (~10 min, conditional)](#phase-1d-sustained-unhealthy-gate-10-min-conditional)
+- [Phase 1d: Sustained Below-Floor Gate (~10 min, conditional)](#phase-1d-sustained-below-floor-gate-10-min-conditional)
 - [Phase 2: Fitness Review & Reprioritization (~5 min)](#phase-2-fitness-review-and-reprioritization-5-min)
 - [Phase 3: Dev Work Review & Goals (~10 min)](#phase-3-dev-work-review-and-goals-10-min)
 - [Phase 3b: Idea Projects Scrub (~8 min)](#phase-3b-idea-projects-scrub-8-min)
@@ -158,7 +158,7 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 | `1.1` | Phase 1 Wellness Trends | Yes — Table 1.1-A, 1.1-B |
 | `1.2` | Phase 1b Identity Check | Yes — one category per turn |
 | `1.3` | Phase 1c Quarterly gate | Yes — Table 1.3-A |
-| `1.4` | Phase 1d Sustained unhealthy (conditional) | Yes or N/A |
+| `1.4` | Phase 1d Sustained below-floor (conditional) | Yes or N/A |
 | `1.check` | Phase 1 FIELD CHECK | Yes — Table 1.check |
 | `2.1` | Phase 2 Fitness | Yes — Table 2.1-A |
 | `3.1` | Phase 3 Dev goals | Yes |
@@ -185,7 +185,7 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 | `6.1` | Table 6.1-A (personal finances), then Table 6.1-B (CL finances) |
 | `7.1` | Table 7.1-A (CS health monthly) |
 | `8.1` | Table 8.1-A (people & ops trends) |
-| `8.2` | AskQuestion Chrome Lot Healthy/Unhealthy, then Turbo Gear |
+| `8.2` | Table 8.2-A — Chrome Lot status, then Turbo Gear (four-value scale) |
 | `9.1` | Table 9.1-A (KPI update — one Quarterly Outcome page per turn) |
 | `10.1` | Table 10.1-A (Bus trip — one option per turn until confirmed) |
 | `11.1` | Table 11.1-A (PTO blocks + coverage) |
@@ -369,7 +369,7 @@ Then pull the rest of the data via MCP tools in parallel:
 
 **Purpose:** Spot intra-month trajectories and month-over-month drift in mental health and energy.
 
-**Life-category health trend:** pull the Weekly Meeting Log per-category **`* Score`** fields (1–5) for the review month's weeks and show each category's average + direction — surfaces which life categories are drifting before Phase 1b Identity check.
+**Life-category health trend:** pull the Weekly Meeting Log per-category **`* Score`** fields (1–3; `null` when Not assessed) for the review month's weeks and show each category's average + direction — surfaces which life categories are drifting before Phase 1b Identity check.
 
 Present wellness metrics using the **dual-level trend format**:
 
@@ -406,7 +406,7 @@ WELLNESS -- INTRA-MONTH TRAJECTORY
 LIFE HEALTH -- WEEKLY TRAJECTORY (last N weeks)
 | Category     | Wk-4 | Wk-3 | Wk-2 | Wk-1 | Streak        |
 |--------------|------|------|------|------|---------------|
-| Spirituality | H/U  |      |      |      | N wks Unhealthy |
+| Spirituality | ↓/=/↑ |      |      |      | N wks Below floor |
 | Fitness      |      |      |      |      |               |
 | Work         |      |      |      |      |               |
 | Social       |      |      |      |      |               |
@@ -414,10 +414,12 @@ LIFE HEALTH -- WEEKLY TRAJECTORY (last N weeks)
 | Parenting    |      |      |      |      |               |
 ```
 
-**Streak computation:** For each category, count consecutive weeks rated Unhealthy ending at the most recent week with data. A streak of **3+** triggers Phase 1d.
+Use three-state glyphs per week: **↓** Below floor · **=** At floor · **↑** Healthy · **—** Not assessed. Legacy A–E values normalize at read time via `normalizeStatus()`.
+
+**Streak computation:** For each category, count consecutive weeks rated **Below floor** ending at the most recent week with data. A streak of **3+** triggers Phase 1d.
 
 Then proceed with qualitative assessment:
-1. Values category check: pull Health statuses from Values DB (`342f40c2-487b-80c5`). Which of the 6 categories got attention and which got starved?
+1. Values category check: pull Health statuses from Values DB (`342f40c2-487b-80c5`). Which of the 6 categories got attention and which slipped below floor?
 2. Social connectedness trend: Small Talk count this month vs. last month from Monthly Plan Log.
 3. Dating health check (if active): net positive or net negative to energy and structure this month?
 4. If depression or anxiety trended upward (3+ weeks or month-over-month), flag for proactive intervention (therapy session, med review, workload reduction)
@@ -429,17 +431,16 @@ Then proceed with qualitative assessment:
 
 **Purpose:** Am I living in alignment with my values, or just checking boxes?
 
-Read `context/self/values.md` for the 6 value categories and their Pictures of Success. For each category, rate on the **same five-level scale as weekly plan** (one lettered decision per turn — never AskQuestion):
+Read `context/self/values.md` for the 6 value categories and their Pictures of Success. For each category, rate on the **same four-value scale as weekly plan** (one lettered decision per turn — never AskQuestion):
 
-| | Rating |
-|---|--------|
-| **A** | Very Unhealthy |
-| **B** | Unhealthy |
-| **C** | Okay |
-| **D** | Healthy |
-| **E** | Very Healthy |
+| Status | Meaning |
+|--------|---------|
+| **Below floor** | Missed the written floor |
+| **At floor** | Running without excelling — **a pass** |
+| **Healthy** | Hitting target |
+| **Not assessed** | Not reviewed this month |
 
-*Colloquial mapping Aaron may use: "somewhat unhealthy" → **B**; "somewhat healthy" → **D**.*
+*Legacy colloquial mapping normalizes at read time: "unhealthy" → **Below floor**; "okay" / "somewhat healthy" → **At floor** or **Healthy** per evidence.*
 
 **Table 1.2-A** *(one category per turn)*
 
@@ -447,10 +448,11 @@ Read `context/self/values.md` for the 6 value categories and their Pictures of S
 |-------|-------|
 | Category | [Spirituality / Fitness / Work / Social / Admin / Parenting] |
 | Picture of Success | 1-line from `values.md` |
-| Values DB Health | current select |
-| June weekly trend | from Table 1.1-B |
-| Evidence | 1–2 lines from review month |
-| Monthly rating | Aaron's letter → canonical label |
+| Values DB Health | current select (four-value) |
+| Floor · Target | from domain register |
+| Review month actual | evidence from review month |
+| Weekly trend | from Table 1.1-B (↓/=/↑) |
+| Monthly status | Aaron's pick → four-value label |
 
 1. **Spirituality** — practicing state management regularly?
 2. **Fitness** — training consistently and connecting body to mind?
@@ -459,9 +461,9 @@ Read `context/self/values.md` for the 6 value categories and their Pictures of S
 5. **Admin** — duties under control or piling up?
 6. **Parenting** — investing in Matthew?
 
-Cross-reference with the weekly life-health trajectory from Phase 1 and Values DB. Discrepancies (e.g. mostly Healthy weeks but Unhealthy monthly rating) are discussion points.
+Cross-reference with the weekly life-health trajectory from Phase 1 and Values DB. Discrepancies (e.g. mostly At-floor weeks but Below-floor monthly status) are discussion points.
 
-For any area rated **Unhealthy or Very Unhealthy** (A or B), capture one specific action for **planning month**. Don't over-plan — one action per flagged area.
+For any area rated **Below floor**, capture one specific action for **planning month**. Don't over-plan — one action per flagged area.
 
 Store ratings in session state (`monthly_life_health`) for Phase 12 commit.
 
@@ -499,14 +501,14 @@ Whether or not the full quarterly session happened, review what's committed **on
 
 **Outputs:** Quarterly alignment notes carried into Phases 3–4 and Phase 9. If gate failed, monthly plan **stops here** — no Phase 1d or Phase 2+. Escalation to full quarterly plan is mandatory unless Aaron explicitly overrides.
 
-<a id="phase-1d-sustained-unhealthy-gate-10-min-conditional"></a>
-## Phase 1d: Sustained Unhealthy Gate (~10 min, conditional)
+<a id="phase-1d-sustained-below-floor-gate-10-min-conditional"></a>
+## Phase 1d: Sustained Below-Floor Gate (~10 min, conditional)
 
-**Triggers when any life category has been Unhealthy or Very Unhealthy for 3+ consecutive weeks** (from Phase 1 life-health trajectory, including weeks spanning month boundaries).
+**Triggers when any life category has been Below floor for 3+ consecutive weeks** (from Phase 1 life-health trajectory, including weeks spanning month boundaries).
 
 When triggered:
 
-1. **Pause** Phases 2–11 until this gate completes. Do not set planning-month goals while a sustained-unhealthy area lacks a substantive response.
+1. **Pause** Phases 2–11 until this gate completes. Do not set planning-month goals while a sustained below-floor area lacks a substantive response.
 2. Present the streak table + one-sentence evidence per flagged category (KPI data from weekly logs).
 3. One `AskQuestion` per flagged category: name **one substantive change** for planning month — approach shift, boundary, delegation, or cut (not a task tweak).
 4. Draft `Health Intervention Notes` for Phase 12 (category → change committed).
@@ -786,13 +788,13 @@ Data sources: Knack Invoices (`object_18`) for CL revenue/AR. QuickBooks for P&L
 <a id="phase-8b-work-domain-health-rating-5-min"></a>
 ## Phase 8b: Work Domain Health Rating (~5 min)
 
-**Purpose:** Rate Chrome Lot and Turbo Gear as Healthy or Unhealthy at the domain level. Results stored on Monthly Plan Log in Phase 12.
+**Purpose:** Rate Chrome Lot and Turbo Gear on the **four-value floor scale** (Below floor / At floor / Healthy / Not assessed). Results stored on Monthly Plan Log in Phase 12.
 
-1. **Chrome Lot brief:** Summarize review-month signals from Phases 4 (sales), 6 (financial), and 7 (CS health) — revenue trend, churn, invoice aging, pipeline velocity.
-2. **Turbo Gear brief:** Summarize from Phases 3 and 5 — dev velocity, features shipped, demos, deep work minutes.
-3. **Department drift check (light — not a full re-rating).** Pull the **Departments** DB (`39bf40c2-487b-816d-97a3-f6f870b3b6e1`) Health by `Domain`. Surface: any dept that **slipped** since last month, and any **Critical/Stalled** dept whose `🚀 Fix Projects` are behind (goal-trajectory `Behind Projects`). If so, pull that fix-Project's tasks into the planning month / bump Priority. Domain rating stays the two business-level selects; full KPI re-rating is the **quarterly** deep read (8A/9A).
-4. One `AskQuestion`: **Chrome Lot — Healthy or Unhealthy?**
-5. One `AskQuestion`: **Turbo Gear — Healthy or Unhealthy?**
+1. **Chrome Lot brief:** Summarize review-month signals from Phases 4 (sales), 6 (financial), and 7 (CS health) — revenue trend, churn, invoice aging, pipeline velocity. Show **Floor · Target · review-month actual** from the CL domain register.
+2. **Turbo Gear brief:** Summarize from Phases 3 and 5 — dev velocity, features shipped, demos, deep work minutes. Show **Floor · Target · review-month actual** from the TG domain register.
+3. **Department drift check (light — not a full re-rating).** Pull the **Departments** DB (`39bf40c2-487b-816d-97a3-f6f870b3b6e1`) status by `Domain`. Surface: any dept that **slipped below floor** since last month, and any **Below floor** dept whose `🚀 Fix Projects` are behind (goal-trajectory `Behind Projects`). If so, pull that fix-Project's tasks into the planning month / bump Priority. Full KPI re-rating is the **quarterly** deep read (8A/9A).
+4. **Table 8.2-A — Chrome Lot** — Aaron picks one status (four-value scale) after Floor · Target · actual.
+5. **Table 8.2-B — Turbo Gear** — same.
 
 Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 commit.
 
@@ -906,7 +908,6 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
      - `Domains Parked` (multi_select) — from Phase 11b (`monthly_domains_parked`)
      - `Priority Stack` (rich_text) — **optional snapshot** auto-generated from linked Task titles (not authoritative)
      - **`🌙 Month` on Tasks** — authoritative; written in Phase 11b via Notion API
-   - `Starved Values` — derived from life-health selects (categories rated Unhealthy)
    - Key Wins, Key Misses, Action Items (Action Items commit **planning month** priorities)
    Compare against last month's entry to show trend direction.
 5. **Append per-user Pipedrive detail sections** to the Monthly Plan Log page using `personal_notion_append_blocks`. Pull completed activities from **review month** (use `pipedrive_get_activities` with `done: "1"` and filter by `marked_as_done_time` within review month bounds). Also pull all open activities per user. Append the following structure:
@@ -1001,7 +1002,7 @@ Store in session state (`monthly_cl_health`, `monthly_tg_health`) for Phase 12 c
 - **Phase 1:** Wellness + life-health trajectory tables; observation notes; intervention tasks only if needed.
 - **Phase 1b:** `monthly_life_health` ratings captured; flagged areas for later phases.
 - **Phase 1c:** Quarterly alignment notes; escalation to full quarterly plan if gate failed.
-- **Phase 1d:** Health Intervention Notes drafted when 3+ week unhealthy streaks fire; pauses Phases 2–11 until resolved.
+- **Phase 1d:** Health Intervention Notes drafted when 3+ week below-floor streaks fire; pauses Phases 2–11 until resolved.
 - **Phase 2:** Fitness targets; optional Todoist recurring updates; body-comp for Phase 12 Monthly Log.
 - **Phase 3:** Tasks updates; dev goals; Todoist if needed.
 - **Phase 3b:** Idea Projects Scrub across TG / CL / Personal — Idea→Roadmapped promotions (cap 3/Domain), delegations, archives; held items annotated with hold count for next month.
