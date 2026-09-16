@@ -1,7 +1,7 @@
 > **Source:** [`context/skills/weekly-planning/SKILL.md`](https://github.com/chromelot/life-command-center/blob/main/context/skills/weekly-planning/SKILL.md) in the private workspace repo. Do not edit this mirror directly.
 
 ﻿---
-updated: 2026-06-18
+updated: 2026-09-15
 status: active
 tags: [skill, weekly-planning, procedure]
 ---
@@ -20,6 +20,7 @@ tags: [skill, weekly-planning, procedure]
 - [Phase 0a: Confirm Review + Planning Weeks (~1 min)](#phase-0a-confirm-review-planning-weeks-1-min)
 - [Phase 0: Data Pull (silent, before conversation)](#phase-0-data-pull-silent-before-conversation)
   - [Wellness pulls (run first)](#wellness-pulls-run-first)
+  - [Domain register pull (canonical board for `1.R` + `3.R`)](#domain-register-pull-canonical-board-for-1r-3r)
   - [Social pulls (with wellness; used in Phase 1.5)](#social-pulls-with-wellness-used-in-phase-15)
   - [Development pulls (after wellness/social; silent until Phase 2+)](#development-pulls-after-wellnesssocial-silent-until-phase-2)
 - [Phase 0b: Data Integrity Gate (~3 min)](#phase-0b-data-integrity-gate-3-min)
@@ -28,16 +29,20 @@ tags: [skill, weekly-planning, procedure]
   - [1.1 Values Context (~1 min) — **first table to Aaron**](#11-values-context-1-min-first-table-to-aaron)
   - [1.2 Mind — Review · Mood · Rate · Intentions (~6 min)](#12-mind-review-mood-rate-intentions-6-min)
   - [1.3 Fitness — Review · Rate · Intentions (~5 min)](#13-fitness-review-rate-intentions-5-min)
+  - [1.3b Health & Care — Review · Rate · Intentions (~2 min)](#13b-health-and-care-review-rate-intentions-2-min)
   - [1.4 Sleep and Schedule — Review · Rate · Intentions (~5 min)](#14-sleep-and-schedule-review-rate-intentions-5-min)
   - [1.5 Social — Review · Rate · Intentions (~5 min)](#15-social-review-rate-intentions-5-min)
   - [1.6 Parenting — Review · Rate · Intentions (~4 min)](#16-parenting-review-rate-intentions-4-min)
   - [1.7 Personal Enjoyment (~2 min)](#17-personal-enjoyment-2-min)
+  - [1.8 Money & Admin — Review · Rate · Intentions (~2 min)](#18-money-and-admin-review-rate-intentions-2-min)
+  - [`1.R` — Personal Repair & Debt *(REQUIRED — closes Phase 1)*](#1r-personal-repair-and-debt-required-closes-phase-1)
 - [Phase 2: Development (domain-first, ~18 min)](#phase-2-development-domain-first-18-min)
   - [Per-domain loop — run `2.TG` → `2.CL` → `2.SY`](#per-domain-loop-run-2tg-2cl-2sy)
   - [`2.H` — Dev health review (one turn, after all three domains)](#2h-dev-health-review-one-turn-after-all-three-domains)
   - [`2.WA` — Workshop + Admin (lighter tail)](#2wa-workshop-admin-lighter-tail)
-  - [`2.R` — Repair & Debt *(REQUIRED — runs once, before slate sync)*](#2r-repair-and-debt-required-runs-once-before-slate-sync)
   - [`2.sync` — Commit the combined slate (run once)](#2sync-commit-the-combined-slate-run-once)
+- [Phase 3: Operations (~10 min)](#phase-3-operations-10-min)
+  - [`3.R` — Work Repair & Debt *(REQUIRED — closes Phase 3)*](#3r-work-repair-and-debt-required-closes-phase-3)
 - [Phase 4: Commit (~5 min)](#phase-4-commit-5-min)
 - [Cross-Cutting Rules](#cross-cutting-rules)
 - [Outputs](#outputs)
@@ -52,7 +57,7 @@ tags: [skill, weekly-planning, procedure]
 <a id="trigger"></a>
 ## Trigger
 
-This skill activates when Aaron says "weekly plan", "weekly meeting", "plan this week", "sprint planning", or "Monday review". Target duration: ~50 minutes (Phase 1 life ~28 min · Phase 2 dev domain-first ~18 min · Phase 4 commit ~5 min). **CL operations** run in the **ZPT Attention Queue** (`#/queue`) — see `context/systems/attention-queue.md`. Not a separate weekly-ops session.
+This skill activates when Aaron says "weekly plan", "weekly meeting", "plan this week", "sprint planning", or "Monday review". Target duration: ~60 minutes (Phase 1 life ~30 min incl. the personal repair · Phase 2 dev domain-first ~18 min · Phase 3 operations + work repair ~10 min · Phase 4 commit ~5 min). **CL operations** run in the **ZPT Attention Queue** (`#/queue`) — see `context/systems/attention-queue.md`. Not a separate weekly-ops session.
 
 <a id="inputs"></a>
 ## Inputs
@@ -108,12 +113,15 @@ Load via the router. Read these before starting:
     | `1.5` | `social` | After fuel check + social Notion sync |
     | `1.6` | `parenting` | |
     | `1.7` | `enjoyment` | |
+    | `1.R` (after the personal repair + debt picks) | — | Board only; no section preview |
     | `2.WA` (after Workshop/Admin) | `development` | Includes CL/TG/Systems + Workshop/Admin dev tree when on log |
-    | `2.R` (after Repair & Debt, before sync) | — | Board only; no section preview |
-    | `2.sync` (after the combined slate sweep + **Table 2.S** confirmed) | `development` | Includes debt picks from 2.R.3 |
+    | `3.R` (after the work repair + debt picks) | — | Board only; no section preview |
+    | `2.sync` (after the combined slate sweep + **Table 2.S** confirmed) | `development` | Includes debt picks from `1.R.3` **and** `3.R.3` |
+
+    `1.3b` (Health & Care) and `1.8` (Money & Admin) have **no print-section slug** — they rate to the log and render in the week summary, but `weekly-plan-section-preview.mjs` has no section for them. Skip the preview on those two steps.
 
     Optional before **4b** write: `--all` for full seven-domain preview.
-12. **Phase gates:** `node scripts/workflow-progress.mjs gate --workflow weekly-plan --phase <1|2>` before Phase 2 (work) or Phase 4 (commit)
+12. **Phase gates:** `node scripts/workflow-progress.mjs gate --workflow weekly-plan --phase <1|2>` before Phase 2 (development) or Phase 3 (operations). The **Phase 3** check (`3.R` repair + debt) has no registry gate yet — verify it inline against the Phase 3 FIELD CHECK before `4.tb`.
 13. **Tangents:** fix/interrupt, then resume ledger `current_step` — do not skip ahead
 
 <a id="interaction-style"></a>
@@ -136,8 +144,9 @@ Each phase ends with an inline **FIELD CHECK** listing its required Weekly Meeti
 4. **Workshop/Admin mirrors** — Phase 2.WA creates Todoist mirrors for selected Workshop/Admin items (case-by-case approval); verify last week's mirrors via Todoist MCP.
 
 **Gate rules:**
-- Before **Phase 2 (Work)**: Phase 1 FIELD CHECK (`1.check`) must pass.
-- Before **Phase 4 (Commit)**: Phase 2 development block complete (through `2.check`).
+- Before **Phase 2 (Work)**: Phase 1 FIELD CHECK (`1.check`) must pass — which requires the personal repair pick at `1.R`.
+- Before **Phase 3 (Operations)**: Phase 2 development block complete (through `2.check`).
+- Before **Phase 4 (Commit)**: Phase 3 complete (through `3.R`) — the work repair pick is set or explicitly declined.
 - Each phase delivers **only** its table contract (see per-phase **Present** blocks below).
 
 <a id="procedure"></a>
@@ -232,6 +241,16 @@ Use `days: 28` for 4-week trend context. Returns `stats`, `trend` (last-7 vs pri
 
 Also query **Weekly Meeting Log** (`322f40c2-487b-81bd`) — last **4 entries** sorted by Meeting Date descending (script above summarizes; keep raw entries for Phase 1).
 
+<a id="domain-register-pull-canonical-board-for-1r-3r"></a>
+### Domain register pull (canonical board for `1.R` + `3.R`)
+
+```
+node scripts/weekly-domain-board.mjs --ledger <path>
+```
+Output: `output/weekly-domain-board-YYYY-MM-DD.md` (Sunday of the review week). **Canonical source for both repair boards** — every `departments` register row with Area, Domain, Held by, Floor, Target, this week's actual (from the row's `evidence` key), proposed status, current status, and `in_repair`. Read this file at `1.R` and `3.R`; do not re-query the register ad-hoc.
+
+> **Proposed statuses are suppressed while the week is still in progress.** The script counts elapsed days and, for rate-based floors, prints `—` instead of a proposal — three lifts on day three is on-target pace, not a third of the way to failing. Pre-turnover (Fri/Sat) sessions therefore read the **actuals as pace** and rate the prior complete week; only a complete week's proposals are comparable to a weekly floor.
+
 <a id="social-pulls-with-wellness-used-in-phase-15"></a>
 ### Social pulls (with wellness; used in Phase 1.5)
 
@@ -297,11 +316,11 @@ DATA INTEGRITY CHECK
 <a id="phase-1-life-review-28-min"></a>
 ## Phase 1: Life Review (~28 min)
 
-**Purpose:** Values context first, then mind → fitness → sleep → social → parenting → personal enjoyment — one domain at a time (review → rate health where applicable → set intentions). Mind includes wellness screening. Work health rates in Phase 2.H.
+**Purpose:** Values context first, then mind → fitness → health & care → sleep → social → parenting → personal enjoyment → money & admin — one domain at a time (review → rate health where applicable → set intentions) — then **one personal repair** at `1.R`. Mind includes wellness screening. Work health rates in Phase 2.H; the **work** repair runs at `3.R`.
 
 > **Intentions vs targets — keep them separate (do not restate numbers).** Every recurring **numeric goal** lives in a **structured target field** that drives the dashboard widgets: `Strength Target`, `Cardio Target` (fitness) · `Sleep Target Hours`, `Target Wake Time` (sleep) · `Calorie Target`, `Weight Goal Direction` (nutrition) · `Social Target` (social small-talk/sarges) · `Workshop Hours Intended` (workshop). The `*Intentions` rich_text fields (`Mind/Fitness/Sleep/Social/Parenting Intentions`, `Week Intentions`) capture **only qualitative changes** for the week — behavioral shifts, experiments, focus themes, one-off adjustments. **Never** write "5 strength workouts" or "3–5 sarges" into an intention field; that number goes in its target field. If a domain has no qualitative change this week, **leave its intention blank** (better empty than restating a target). This keeps the weekly printout + dashboard clean and non-redundant.
 
-**Phase 1 order (session):** `1.0` → `1.1` Values → `1.2` Mind (incl. wellness) → `1.3` Fitness → `1.4` Sleep and Schedule → `1.5` Social → `1.6` Parenting → `1.7` Personal enjoyment → `1.check`
+**Phase 1 order (session):** `1.0` → `1.1` Values → `1.2` Mind (incl. wellness) → `1.3` Fitness → `1.3b` Health & Care → `1.4` Sleep and Schedule → `1.5` Social → `1.6` Parenting → `1.7` Personal enjoyment → `1.8` Money & Admin → `1.R` Personal — repair & debt → `1.check`
 
 **Print / Week Tracker domain order (Phase 4b):** Sleep and Schedule → Spirituality & Mind → Fitness → Social → Parenting → Personal Enjoyment → Development Work. Each domain renders as **three parts**: *What happened last week* · **Targets for next week** (the structured numbers — Strength/Cardio, Sleep hours + wake time, Calories + direction, Social target, Workshop hours — rendered as a compact line/badges) · *Intentions for next week* (**qualitative only** — behavioral changes / experiments; **omit the line entirely when blank**, don't pad with restated targets). Four-value status badge when rated (**Below floor** / **At floor** / **Healthy** / **Not assessed**); **trend arrow** (↑ / ↓ / −) vs the **prior week's** same-domain rating (numeric score 1–3; `null` when not assessed). This keeps the printout's intentions section clean and meaningful (targets are shown once, as numbers, not repeated as prose).
 
@@ -599,6 +618,35 @@ Write the estimator inputs + which method won into `Calorie Rationale` so the ne
 
 Sync Notion, then **print preview:** `--section fitness` — present verbatim; Aaron confirms → advance.
 
+<a id="13b-health-and-care-review-rate-intentions-2-min"></a>
+### 1.3b Health & Care — Review · Rate · Intentions (~2 min)
+
+**Purpose:** The body-maintenance domain that is not training — skin treatments, whitening, dental/medical follow-through, prescriptions. Rated against the **`Health & Care`** register domain (Floor · Target · mechanism live there, same as every other Phase 1 domain).
+
+**Data sources:** `output/weekly-domain-board-*.md` (Floor · Target · actual for `Health & Care`), `context/self/skin.md` + `skin_get_context`, prior week's care intentions.
+
+**Table 1.3b-A — Care review (last week)**
+
+| Item | Last week | Target |
+|------|-----------|--------|
+| Skin treatments | count from care log | `skinTreatmentTarget` |
+| Whitening sessions | count from care log | `whiteningTarget` |
+| Appointments / follow-ups | list or `—` | — |
+
+**Table 1.3b-B — Health & Care health** *(after Floor · Target · actual)*
+
+| Floor | Target | This week actual | Status | → Log field |
+|-------|--------|------------------|--------|-------------|
+| from domain register (`Health & Care`) | from domain register | domain board actual | four-value scale | `care_health` |
+
+**Table 1.3b-C — Care intentions (upcoming week)**
+
+| Intentions (0–2 bullets, qualitative) | Skin treatment target | Whitening target | → Log field(s) |
+|---------------------------------------|-----------------------|------------------|----------------|
+| | number | number | `careIntentions`, `skinTreatmentTarget`, `whiteningTarget` |
+
+No print-section slug — skip the preview here and `advance --step 1.3b` → `1.4`.
+
 <a id="14-sleep-and-schedule-review-rate-intentions-5-min"></a>
 ### 1.4 Sleep and Schedule — Review · Rate · Intentions (~5 min)
 
@@ -841,6 +889,78 @@ Sync Notion, then **print preview:** `--section parenting` — present verbatim;
 
 Sync Notion, then **print preview:** `--section enjoyment` — present verbatim; Aaron confirms → advance.
 
+<a id="18-money-and-admin-review-rate-intentions-2-min"></a>
+### 1.8 Money & Admin — Review · Rate · Intentions (~2 min)
+
+**Purpose:** The last Phase 1 life domain — money hygiene and personal-life admin (bills paid, budget reviewed, statements reconciled, custody/legal/house paperwork moving). Rated against the **`Money & Admin`** register domain; rolls up to the **Admin** Values category.
+
+**Data sources:** `output/weekly-domain-board-*.md` (Floor · Target · actual for `Money & Admin`), SimpleFIN / Finance dashboard tiles, prior week's `moneyIntentions`.
+
+**Table 1.8-A — Money & admin review (last week)**
+
+| Item | Last week | Note |
+|------|-----------|------|
+| Bills / statements handled | Aaron's narrative | — |
+| Budget or accounts reviewed | yes / no | — |
+| Admin paperwork moved | list or `—` | custody, will, house |
+
+**Table 1.8-B — Money & Admin health** *(after Floor · Target · actual)*
+
+| Floor | Target | This week actual | Status | → Log field |
+|-------|--------|------------------|--------|-------------|
+| from domain register (`Money & Admin`) | from domain register | domain board actual | four-value scale | `money_health` |
+
+**Table 1.8-C — Money & admin intentions (upcoming week)**
+
+| Intentions (0–2 bullets, qualitative) | → Log field |
+|---------------------------------------|-------------|
+| behavioral change only — **blank if no change** | `moneyIntentions` |
+
+No print-section slug — skip the preview here and `advance --step 1.8` → `1.R`.
+
+<a id="1r-personal-repair-and-debt-required-closes-phase-1"></a>
+### `1.R` — Personal Repair & Debt *(REQUIRED — closes Phase 1)*
+
+**Purpose:** Every personal domain has now been rated one at a time. This is the first moment they appear **side by side**, so the comparison — not the individual rating — drives the choice of what to fix. Pick **exactly one** personal domain to repair this week and **at most one** personal debt project to pay down.
+
+> **The cap is per section, not per week.** One personal repair (`1.R`) + one work repair (`3.R`) = **at most two domains in repair per week**. Personal and work draw on different capacity, so one of each is affordable where two of either is not. The cap still exists: without it, the thirteen-domain list comes straight back in a new container.
+
+**Data source:** `output/weekly-domain-board-*.md` — rows whose **Area = `Personal`**. Overlay this session's fresh ratings (`1.2`–`1.8`) on top of the register's stored status; a domain rated this session shows the fresh pick.
+
+#### `1.R.1` — Personal domain board (one turn)
+
+**Table 1.R.1 — Personal domains** *(read-only; sorted worst-first — **Below floor** rows at top, then At floor / Not assessed, then Healthy)*
+
+| Domain | Held by | Floor | Target | Status | Reviewed |
+|--------|---------|-------|--------|--------|----------|
+| one row per `Personal`-area register row | `delegation` or `—` | `floor_md` | `target_md` | effective status + trend ↑ / ↓ / − vs review-week log | `this week` when rated in this session, else **N days since review** |
+
+Lead the turn with the count of domains below floor. If nothing is below floor, say so — the repair is then a push from **At floor → Healthy**, not a rescue.
+
+#### `1.R.2` — One personal repair (one turn)
+
+**Table 1.R.2 — Personal repair pick**
+
+| Domain in repair | Move | Repair output |
+|------------------|------|---------------|
+| exactly one row | **Below floor → At floor** *or* **At floor → Healthy** | intention · time block (`4.tb`) · mechanism change — Aaron names it |
+
+Set `in_repair` on exactly one `Personal` register row (`personalRepairDomainId` + `personalRepairMove`).
+
+> **A repair is never a checkbox task.** It produces an **intention**, a **time block** scheduled at Phase `4.tb`, or a **change to the mechanism** that holds the domain. The only exception is when the repair *is* buying or installing a mechanism — that one becomes a real Task.
+
+#### `1.R.3` — Personal debt (one turn)
+
+**Table 1.R.3 — Personal debt pick**
+
+| Debt project | Why now | Task IDs to add to slate |
+|--------------|---------|--------------------------|
+| at most one (`personalDebtProjectIds`) | | append to `notes.dev_slate_ids` |
+
+**Debt is task-shaped** — unlike a repair. The selected project promotes onto the This Week slate and counts against the 40h cap. **Append** its Task IDs to the cumulative slate; **do NOT** run the sync here — the single sweep happens at `2.sync`.
+
+`advance --step 1.R` → `1.check`.
+
 **FIELD CHECK — Phase 1** *(Table 1.check)*
 
 | Group | Required Notion fields |
@@ -854,6 +974,9 @@ Sync Notion, then **print preview:** `--section enjoyment` — present verbatim;
 | `1.5` | Fuel **Stage 1 + 2** + **recovery intentions** (1.5-E-b when triggered) in `Social Review` |
 | 1.6 | `Parenting Health`, `Parenting Intentions` |
 | 1.7 | `Personal Enjoyment`, `Enjoyment Health` |
+| 1.3b | `care_health`, `careIntentions` (optional), `skinTreatmentTarget`, `whiteningTarget` |
+| 1.8 | `money_health`, `moneyIntentions` (qualitative, optional) |
+| 1.R | Personal repair domain + move (`personalRepairDomainId`, `personalRepairMove`) + `in_repair` set on exactly one `Personal` register row; personal debt project (`personalDebtProjectIds`) if any, with its Task IDs appended to `notes.dev_slate_ids` |
 
 **Do not proceed to Phase 2 (Work) until Table 1.check passes.**
 
@@ -862,7 +985,7 @@ Sync Notion, then **print preview:** `--section enjoyment` — present verbatim;
 
 **Purpose:** Review and plan dev work **one domain at a time** — **Turbo Gear → Chrome Lot → Systems** — surfacing the **strategy layer** (active **Goals** + their **milestones**, and **standalone Projects**), not just the Task tracker. For each dev domain: *review last week → set a weekly time goal → select the Goals / milestones / projects to get done this week.* Then a lighter **Workshop + Admin** tail, one **overall dev-health** rating, and a **single combined slate sync**.
 
-**Step codes (ledger order):** `2.TG` Turbo Gear → `2.CL` Chrome Lot → `2.SY` Systems → `2.H` dev health → `2.WA` Workshop + Admin → `2.R` Repair & Debt → `2.sync` commit slate → `2.check`. Each dev-domain ledger step spans three turns: **`.1` Review · `.2` Time goal · `.3` Select work** (advance the ledger once, after `.3`).
+**Step codes (ledger order):** `2.TG` Turbo Gear → `2.CL` Chrome Lot → `2.SY` Systems → `2.H` dev health → `2.WA` Workshop + Admin → `2.sync` commit slate → `2.check`. Each dev-domain ledger step spans three turns: **`.1` Review · `.2` Time goal · `.3` Select work** (advance the ledger once, after `.3`). **Repair & debt is no longer a Phase 2 step** — it is section-scoped: personal at `1.R`, work at `3.R`.
 
 **Source files:** `output/weekly-dev-review-*.md` — now includes, per dev domain, a **`## Domain goals & projects — {domain}`** block (active Goals + their milestones + standalone Projects) alongside the existing review-week queue / time / carryover sections — plus `output/weekly-habits-*.md` and `node scripts/scan-tg-backlog.mjs` (TG orphan backlog).
 
@@ -1019,57 +1142,14 @@ Write `Systems Health` + `Workshop Health` (select) to the Weekly Meeting Log at
 
 For each selected **Workshop / Admin** item, propose a **Todoist mirror** (due date + project) — **case-by-case approval** before create. Verify last week's mirrors via Todoist MCP.
 
-`advance --step 2.WA` → `2.R`.
-
----
-
-<a id="2r-repair-and-debt-required-runs-once-before-slate-sync"></a>
-### `2.R` — Repair & Debt *(REQUIRED — runs once, before slate sync)*
-
-**Purpose:** After per-domain ratings, see the whole register at once, pick **exactly one** domain to repair this week, and optionally take on **at most one** debt project. Placed immediately before `2.sync` so debt picks promote into the cumulative slate in one sweep.
-
-**Cap:** one repair domain · at most one debt project per week. More than that recreates the thirteen-domain overload in a new container.
-
-**Data source:** domain register (`departments` in D1 — Floor, Target, mechanism, last status) + this session's per-domain actuals + last weekly ops ratings for CL/TG department rows (read-only on the board — departments are rated in weekly ops, not re-rated here).
-
-#### `2.R.1` — Domain board (one turn)
-
-**Table 2.R.1 — All domains**
-
-| Area | Domain | Floor | Target | This week actual | Status | Trend vs last week |
-|------|--------|-------|--------|------------------|--------|--------------------|
-| Personal / Chrome Lot / Turbo Gear / Systems | one row per register row | from register | from register | session pulls | last confirmed status | ↑ / ↓ / − |
-
-Present read-only — the first moment personal and work domains appear together.
-
-#### `2.R.2` — One repair (one turn)
-
-**Table 2.R.2 — Repair pick**
-
-| Domain in repair | Move | Repair output (not a task unless buying a mechanism) |
-|------------------|------|------------------------------------------------------|
-| exactly one row | below floor → at floor **or** at floor → healthy | intentions / time block / mechanism change Aaron names |
-
-Set `in_repair` on exactly one register row. Repair produces **intentions or mechanism changes**, not a generic to-do — except when the repair *is* buying/installing a mechanism (that becomes a real Task).
-
-#### `2.R.3` — Debt projects (one turn)
-
-**Table 2.R.3 — Debt pick**
-
-| Debt project | Why now | Task IDs to add to slate |
-|--------------|---------|--------------------------|
-| at most one | | append to `notes.dev_slate_ids` |
-
-Debt is task-shaped: selected projects promote to the This Week slate and count against the 40h cap. **Append** Task IDs to the cumulative slate — **do NOT** run sync yet.
-
-`advance --step 2.R` → `2.sync`.
+`advance --step 2.WA` → `2.sync`.
 
 ---
 
 <a id="2sync-commit-the-combined-slate-run-once"></a>
 ### `2.sync` — Commit the combined slate (run once)
 
-**Now** run the single sweep with the full accumulated set from every `.3` + `2.WA` + `2.R.3` (approval before Notion writes):
+**Now** run the single sweep with the full accumulated set from every `.3` + `2.WA` + the debt picks from **both** `1.R.3` (personal) **and** `3.R.3` (work) (approval before Notion writes):
 
 `node scripts/sync-dev-projects-this-week.mjs --selected=<all cumulative Task IDs>`
 
@@ -1078,6 +1158,8 @@ Debt is task-shaped: selected projects promote to the This Week slate and count 
 3. **Toggl tasks** — same script chains `sync-dev-projects-toggl-tasks.mjs`: create/assign Focus tasks for the slate; **delete** off-slate mirrors (and clear `Toggl Task ID`).
 
 *Pre-turnover: "keep finishing" items keep their current-week link untouched — this sweep only manages the **planning-week** slate.*
+
+> **Debt picks from both repair steps land here.** `1.R.3` resolves before this sweep, so its Task IDs are already on `notes.dev_slate_ids`. `3.R.3` resolves **after** it (Operations runs after Development), so when a work debt project is picked at `3.R`, append its Task IDs to the same cumulative slate and **re-run this sweep** at Phase 4 step 3 before confirming the slate. The slate is one list for the week, not one per phase.
 
 → Write `Deep Work Minutes` (sum of the three domains' review-week actual dev minutes from each `2.{D}-B`), `Dev Projects Intended` (slate snapshot), `Dev Priority Context` (incl. the TG backlog health line).
 
@@ -1122,10 +1204,76 @@ This list must **exactly match** the Notion Tasks view filtered to `This Week = 
 | `This Week` slate synced (all domains) | 2.sync |
 | `Workshop Hours Intended`, `Workshop Focus` | 2.WA-W |
 | `Systems Health`, `Workshop Health` | 2.WA-H |
-| Repair domain + debt project (if any) | 2.R |
 | **Final slate = Notion view** | **2.check** |
 
-**Do not proceed to Phase 4 until `2.check` passes.**
+*Repair & debt is no longer checked here — personal repair is gated at `1.check`, work repair at `3.R`.*
+
+**Do not proceed to Phase 3 (Operations) until `2.check` passes.**
+
+<a id="phase-3-operations-10-min"></a>
+## Phase 3: Operations (~10 min)
+
+**Purpose:** Office ops and field/CRM review, then the **work** repair. Ops review and assignment run as `3.ops.1` / `3.ops.2` (Office ops — review · this week) and `3.field.1` / `3.field.2` (Field & CRM — review · this week); the operational detail lives in the **Weekly Ops** skill and the ZPT **Attention Queue** (`#/queue`). Phase 3 closes with `3.R`.
+
+**Step codes (ledger order):** `3.ops.1` → `3.ops.2` → `3.field.1` → `3.field.2` → `3.R` Work — repair & debt → `4.tb`.
+
+<a id="3r-work-repair-and-debt-required-closes-phase-3"></a>
+### `3.R` — Work Repair & Debt *(REQUIRED — closes Phase 3)*
+
+**Purpose:** The work-side mirror of `1.R`. Every work-area domain side by side, worst-first; pick **exactly one** to repair and **at most one** work debt project to pay down.
+
+> **Per-section cap.** One personal repair (`1.R`) + one work repair (`3.R`) = **at most two domains in repair per week** — never two work repairs. Personal and work draw on different capacity, which is why one of each is affordable. The cap itself stays: drop it and the thirteen-domain list returns in a new container.
+
+**Scope:** every register row whose Area is **not** `Personal` — **Chrome Lot, Turbo Gear, Systems, Workshop, Admin**.
+
+**Data source:** `output/weekly-domain-board-*.md` (see Phase 0 § *Domain register pull*), overlaid with this session's fresh ratings (`2.H`, `2.WA-H`, the ops steps).
+
+> **A stale review is itself a signal.** Departments that were **not** rated in this session display their **last register status** plus **how many days since review** — an unreviewed department reads as unreviewed, not silently as a pass. A CL department last rated 40 days ago is information, not a blank.
+
+#### `3.R.1` — Work domain board (one turn)
+
+**Table 3.R.1 — Work domains** *(read-only; sorted worst-first — **Below floor** rows at top, then At floor / Not assessed, then Healthy)*
+
+| Domain | Held by | Floor | Target | Status | Reviewed |
+|--------|---------|-------|--------|--------|----------|
+| one row per non-`Personal` register row (domain name · area) | `delegation` or `—` | `floor_md` | `target_md` | effective status + trend ↑ / ↓ / − vs review-week log | `this week` when rated in this session, else **N days since review** |
+
+Lead the turn with the count of domains below floor. If nothing is below floor, the repair is a push from **At floor → Healthy**.
+
+#### `3.R.2` — One work repair (one turn)
+
+**Table 3.R.2 — Work repair pick**
+
+| Domain in repair | Move | Repair output |
+|------------------|------|---------------|
+| exactly one row | **Below floor → At floor** *or* **At floor → Healthy** | intention · time block (`4.tb`) · mechanism change — Aaron names it |
+
+Set `in_repair` on exactly one non-`Personal` register row (`workRepairDomainId` + `workRepairMove`).
+
+> **A repair is never a checkbox task** — intention, time block, or mechanism change. Exception: when the repair *is* buying or installing a mechanism, that becomes a real Task.
+
+#### `3.R.3` — Work debt (one turn)
+
+**Table 3.R.3 — Work debt pick**
+
+| Debt project | Why now | Task IDs to add to slate |
+|--------------|---------|--------------------------|
+| at most one (`workDebtProjectIds`) | | append to `notes.dev_slate_ids` |
+
+**Debt is task-shaped** — it goes on the This Week slate and counts against the 40h cap. Append its Task IDs to the cumulative slate and **re-run the `2.sync` sweep** at Phase 4 step 3 so the slate reflects both repair steps.
+
+**FIELD CHECK — Phase 3** *(gate)*
+
+| Field | Step |
+|-------|------|
+| `opsHoursIntended` | 3.ops.2 |
+| `fieldHoursIntended`, `fieldActivityTarget` | 3.field.2 |
+| Work repair domain + move (`workRepairDomainId`, `workRepairMove`) + `in_repair` on exactly one non-`Personal` register row | 3.R.2 |
+| Work debt project (`workDebtProjectIds`) if any + Task IDs on `notes.dev_slate_ids` | 3.R.3 |
+
+`advance --step 3.R` → `4.tb`.
+
+**Do not proceed to Phase 4 until the work repair is set (or explicitly declined for the week).**
 
 <a id="phase-4-commit-5-min"></a>
 ## Phase 4: Commit (~5 min)
@@ -1134,11 +1282,11 @@ This list must **exactly match** the Notion Tasks view filtered to `This Week = 
 
 1. **Summary table:** Everything planned across all phases (project selections, personal items, dev intentions)
 2. **Final capacity check:** Total planned hours vs. available hours. If total exceeds available, something must move. This is non-negotiable.
-3. **Confirm "This Week" checkboxes:** Verify all selected Tasks have `This Week = true` and no deselected ones still have it checked.
+3. **Confirm "This Week" checkboxes:** Verify all selected Tasks have `This Week = true` and no deselected ones still have it checked. **If `3.R.3` picked a work debt project after the `2.sync` sweep, re-run `sync-dev-projects-this-week.mjs` with the full cumulative slate first** — otherwise the sweep would clear that debt project's week link.
 4. **Store project KPIs on Weekly Meeting Log:** Write `Projects Completed` (count of projects marked Done this week) and `Projects In Progress` (count of projects with This Week checked for the new week).
-5. **Verify all FIELD CHECKs (REQUIRED):** Re-run Phase 1 (`1.check`) and Phase 2 (`2.check`). Confirm nothing is blank without N/A + reason. (Activity KPIs + Team Activity Details → **Weekly Ops** commit.)
+5. **Verify all FIELD CHECKs (REQUIRED):** Re-run Phase 1 (`1.check`), Phase 2 (`2.check`), and the Phase 3 check (incl. both repair picks). Confirm nothing is blank without N/A + reason. (Activity KPIs + Team Activity Details → **Weekly Ops** commit.)
 6. **Write / confirm `Week Intentions` (REQUIRED):** 1–3 sentence week theme capturing the overarching focus for the planning week. Agent proposes from session context; Aaron confirms or edits → write to Weekly Meeting Log. `node scripts/weekly-plan-log-check.mjs commit --ledger <path>` must pass before `workflow-notion-log complete`.
-7. **Record life health ratings (REQUIRED):** Verify weekly-rated selects are set — `Mind Health` (→ `Spirituality Health` in Phase 4), `Fitness Health` (1.3), `Sleep Health` (1.4), `Social Health` (1.5), `Parenting Health` (1.6), `Enjoyment Health` (1.7), `Work Health` (2.H), `Systems Health` / `Workshop Health` (2.WA-H). Values: **Below floor / At floor / Healthy / Not assessed** (four-value scale). Admin is not rated in weekly plan.
+7. **Record life health ratings (REQUIRED):** Verify weekly-rated selects are set — `Mind Health` (→ `Spirituality Health` in Phase 4), `Fitness Health` (1.3), `care_health` (1.3b), `Sleep Health` (1.4), `Social Health` (1.5), `Parenting Health` (1.6), `Enjoyment Health` (1.7), `money_health` (1.8), `Work Health` (2.H), `Systems Health` / `Workshop Health` (2.WA-H). Values: **Below floor / At floor / Healthy / Not assessed** (four-value scale). The **Admin** Values category is now covered by `1.8` Money & Admin.
 8. **Update Values DB Health (with approval):** For each category where this week's status differs from current Values DB Health, update via `personal_notion_update_page` on the category page in Values DB (`342f40c2-487b-80c5`). Include **Personal Enjoyment** when added to Values DB. Use the four-value vocabulary.
 9. **Confirm accomplishment fields (REQUIRED):** Verify Phase 2 (`2.sync`) wrote `Logged/Unlogged/Total Accomplishments Count`, `Focused Output Hours Estimate`, and `Accomplishments`. Backfill from habit summary if missing.
 9b. **Write Workshop intention (REQUIRED):** From Phase 2.WA-W, write `Workshop Hours Intended` (number, 0 allowed) + `Workshop Focus` (rich_text — selected item(s) + one-line intention) to the Weekly Meeting Log. `weekly-plan-log-check` commit gate requires `Workshop Hours Intended`.
@@ -1188,8 +1336,9 @@ This list must **exactly match** the Notion Tasks view filtered to `This Week = 
 <a id="cross-cutting-rules"></a>
 ## Cross-Cutting Rules
 
-- **Table contract per phase.** Phase 1 = life domains → `1.check`. Phase 2 = domain-first loop `2.TG` → `2.CL` → `2.SY` (each `.1` review · `.2` time goal · `.3` select) → `2.H` dev health → `2.WA` Workshop/Admin → `2.R` Repair & Debt → `2.sync` → `2.check`. CL ops → **Weekly Ops** skill.
-- **FIELD CHECK gates.** Run `1.check` before Phase 2 development; `2.check` after development; verify all in Phase 4 commit.
+- **Table contract per phase.** Phase 1 = life domains (`1.2` → `1.3` → `1.3b` → `1.4` → `1.5` → `1.6` → `1.7` → `1.8`) → `1.R` personal repair & debt → `1.check`. Phase 2 = domain-first loop `2.TG` → `2.CL` → `2.SY` (each `.1` review · `.2` time goal · `.3` select) → `2.H` dev health → `2.WA` Workshop/Admin → `2.sync` → `2.check`. Phase 3 = `3.ops.1/.2` → `3.field.1/.2` → `3.R` work repair & debt. CL ops detail → **Weekly Ops** skill.
+- **Repair is section-scoped, one per section.** One personal repair (`1.R`) + one work repair (`3.R`) — at most two domains `in_repair` per week, never two of the same section. Debt: at most one project per section, both landing on the single This Week slate.
+- **FIELD CHECK gates.** Run `1.check` before Phase 2 development; `2.check` after development; the Phase 3 check after `3.R`; verify all in Phase 4 commit.
 - **Route every item into a bucket.** Each surfaced item is Automated (n8n), Delegated (team 1:1s), or a Scheduled slice (calendar + Todoist mirror).
 - **Capacity is non-negotiable.** If total planned work exceeds available hours minus 10-15% buffer, the system pushes back. Something must move.
 - **Delegation by default.** For any task deferred 3+ times, suggest delegation before rescheduling. Use the delegation framework in `context/systems/capacity-rules.md`.
@@ -1202,10 +1351,11 @@ This list must **exactly match** the Notion Tasks view filtered to `This Week = 
 
 - **Pre-Phase 0:** Monthly plan gate pass (or full monthly plan run + resume).
 - **Phase 0a:** Review + Planning Week Tracker rows confirmed on ledger + Weekly Meeting Log relations.
-- **Phase 0:** Wellness + journal feelings + social + dev data pulls; trend files; 4-week log history.
+- **Phase 0:** Wellness + journal feelings + social + dev data pulls; **domain board** (`weekly-domain-board.mjs`); trend files; 4-week log history.
 - **Phase 0b:** Data integrity table; remediation before Phase 1.
-- **Phase 1:** Life review (values, mind, fitness, sleep, social, parenting, personal enjoyment) + targets on Weekly Meeting Log.
-- **Phase 2:** Development review + Repair & Debt + next-week dev plan.
+- **Phase 1:** Life review (values, mind, fitness, health & care, sleep, social, parenting, personal enjoyment, money & admin) + targets on Weekly Meeting Log + **one personal domain in repair** and at most one personal debt project (`1.R`).
+- **Phase 2:** Development review + next-week dev plan + the single combined slate sweep.
+- **Phase 3:** Office ops + field/CRM plan + **one work domain in repair** and at most one work debt project (`3.R`).
 - **Phase 4:** Full Weekly Meeting Log finalized + all FIELD CHECKs; Values DB sync (with approval).
 - **Phase 4.tb** — Personal Time Blocks calendar — one-time Mon–Fri structure events; adjust-if-exists or full regenerate with approval. Skill → `context/skills/plan-weekly-schedule/SKILL.md`.
 - **Phase 4b:** Planning week record (from 0a) gets domain-by-domain plan summary + linked Google Doc in `Plan Records/weekly/`.
