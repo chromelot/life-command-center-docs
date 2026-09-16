@@ -121,7 +121,7 @@ Load via the router. Read these before starting:
     `1.3b` (Health & Care) and `1.8` (Money & Admin) have **no print-section slug** — they rate to the log and render in the week summary, but `weekly-plan-section-preview.mjs` has no section for them. Skip the preview on those two steps.
 
     Optional before **4b** write: `--all` for full seven-domain preview.
-12. **Phase gates:** `node scripts/workflow-progress.mjs gate --workflow weekly-plan --phase <1|2>` before Phase 2 (development) or Phase 3 (operations). The **Phase 3** check (`3.R` repair + debt) has no registry gate yet — verify it inline against the Phase 3 FIELD CHECK before `4.tb`.
+12. **Phase gates:** `node scripts/workflow-progress.mjs gate --workflow weekly-plan --phase <1|2|3>` before Phase 2 (development), Phase 3 (operations), or `4.tb`. Gate **1** requires `1.R` (personal repair + debt); gate **3** requires `3.R` (work repair + debt).
 13. **Tangents:** fix/interrupt, then resume ledger `current_step` — do not skip ahead
 
 <a id="interaction-style"></a>
