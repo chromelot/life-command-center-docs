@@ -121,7 +121,7 @@ Load via the router. Read these before starting:
     `1.3b` (Health & Care) and `1.8` (Money & Admin) have **no print-section slug** — they rate to the log and render in the week summary, but `weekly-plan-section-preview.mjs` has no section for them. Skip the preview on those two steps.
 
     Optional before **4b** write: `--all` for full seven-domain preview.
-12. **Phase gates:** `node scripts/workflow-progress.mjs gate --workflow weekly-plan --phase <1|2|3>` before Phase 2 (development), Phase 3 (operations), or `4.tb`. Gate **1** requires `1.R` (personal repair + debt); gate **3** requires `3.R` (work repair + debt).
+12. **Phase gates:** `node scripts/workflow-progress.mjs gate --workflow weekly-plan --phase <1|2|3>` before Phase 2 (development), Phase 3 (operations), or `4.tb`. Gate **1** requires `1.R` (prior-repair retro + personal repair with intent + debt); gate **3** requires `3.R` (prior-repair retro + work repair with intent + debt).
 13. **Tangents:** fix/interrupt, then resume ledger `current_step` — do not skip ahead
 
 <a id="interaction-style"></a>
@@ -927,6 +927,39 @@ No print-section slug — skip the preview here and `advance --step 1.8` → `1.
 
 **Data source:** `output/weekly-domain-board-*.md` — rows whose **Area = `Personal`**. Overlay this session's fresh ratings (`1.2`–`1.8`) on top of the register's stored status; a domain rated this session shows the fresh pick.
 
+**Sub-step order within `1.R`:** `1.R.0` retrospective on **last week's** repair → `1.R.1` comparative board → `1.R.2` pick repair + intent → `1.R.3` pick debt. The retro runs **first** — before the board, before any new pick.
+
+#### The repair loop across weeks *(applies to `1.R` and `3.R` alike)*
+
+A repair is not a one-week gesture; it is a loop with four beats:
+
+| Beat | Where | What happens |
+|------|-------|--------------|
+| **Pick** | `1.R.2` / `3.R.2` | One domain, one move, and **the intent** — the specific change Aaron is making |
+| **Visible** | week board (`weekrepair` widget) | The domain, the move, and the intent text render all week on the **Personal — This Week** dashboard |
+| **Review** | next week's `1.R.0` / `3.R.0` | Outcome picked against the domain's **fresh** rating from that session |
+| **Resolve** | same turn | Either the rating changed (repair done → domain back to maintenance) or the **mechanism** gets adjusted (`*_repair_retro`) |
+
+> **The loop is the whole point.** Without `.0`, the repair slot just rotates — a new domain every week, nothing ever seen through, and the register slowly fills with domains that were "worked on" and never fixed. The retro is what converts a repair from an intention into a closed loop.
+
+**In-week surface — `weekrepair` widget.** The active repair(s) render on the **`personal-week`** dashboard (*Personal — This Week*) via the `weekrepair` widget, reading `week.plan.repairs` (both sections, filtered to rows with a domain). Each card shows **scope** (Personal / Work), **domain**, **the move** (Below floor → At floor, or At floor → Healthy, with the target status badge), and **the intent text**. It has **no checkbox by design** — a repair is not a task, so there is nothing to tick. When no repair is set the widget says so explicitly rather than rendering empty.
+
+#### `1.R.0` — Last week's repair: retrospective (one turn, first) *(REQUIRED when one exists)*
+
+Opens the step. Read the **review week's** log fields `personal_repair_domain` / `personal_repair_move` / `personal_repair_intent`. If the review week had **no** personal repair, skip straight to `1.R.1`.
+
+**Table 1.R.0 — Prior personal repair**
+
+| Domain | Move attempted | What he said he'd do | Reads now | Outcome |
+|--------|----------------|----------------------|-----------|---------|
+| `personal_repair_domain` from review-week log | Below floor → At floor *or* At floor → Healthy | `personal_repair_intent`, quoted verbatim | that domain's **fresh** rating from this session (`1.2`–`1.8`) | **Worked** / **Partial** / **Didn't work** → `personal_repair_outcome` |
+
+Show the *now* rating **before** asking for the outcome — the fresh rating is the evidence, not Aaron's memory of the week.
+
+- **Worked**, and the domain now rates above Below floor → note that **if that's the new normal rather than one good week**, the repair is done and the domain returns to maintenance (clear `in_repair`). Do not re-pick it at `1.R.2` on reflex.
+- **Partial** or **Didn't work** → **required** free text: *"What blocked it — and does the mechanism need to change?"* → `personal_repair_retro`. The framing to hold him to: **effort is rarely the answer twice — what would hold this without you?** A retro that just says "be more disciplined" is not an answer.
+- **Didn't work** → warn: **two failed attempts on the same domain means the floor is set wrong or nothing is holding it.** Revisit the floor itself (`floor_md` on the register row), not the effort.
+
 #### `1.R.1` — Personal domain board (one turn)
 
 **Table 1.R.1 — Personal domains** *(read-only; sorted worst-first — **Below floor** rows at top, then At floor / Not assessed, then Healthy)*
@@ -941,11 +974,13 @@ Lead the turn with the count of domains below floor. If nothing is below floor, 
 
 **Table 1.R.2 — Personal repair pick**
 
-| Domain in repair | Move | Repair output |
-|------------------|------|---------------|
-| exactly one row | **Below floor → At floor** *or* **At floor → Healthy** | intention · time block (`4.tb`) · mechanism change — Aaron names it |
+| Domain in repair | Move | Intent — *"What are you actually going to do?"* |
+|------------------|------|------------------------------------------------|
+| exactly one row | **Below floor → At floor** *or* **At floor → Healthy** | the specific change — a time block, a different default, a person or service to ask. **Explicitly not "try harder."** |
 
-Set `in_repair` on exactly one `Personal` register row (`personalRepairDomainId` + `personalRepairMove`).
+Set `in_repair` on exactly one `Personal` register row (`personalRepairDomainId` → `personal_repair_domain`, `personalRepairMove` → `personal_repair_move`), and capture the intent text (`personalRepairIntent` → `personal_repair_intent`).
+
+**The intent is required, not optional colour.** It is what renders on the week board all week, and it is what gets read back verbatim at next week's `1.R.0`. "A repair without a stated move is just a wish" — if Aaron can't name the change, the pick isn't ready.
 
 > **A repair is never a checkbox task.** It produces an **intention**, a **time block** scheduled at Phase `4.tb`, or a **change to the mechanism** that holds the domain. The only exception is when the repair *is* buying or installing a mechanism — that one becomes a real Task.
 
@@ -976,7 +1011,8 @@ Set `in_repair` on exactly one `Personal` register row (`personalRepairDomainId`
 | 1.7 | `Personal Enjoyment`, `Enjoyment Health` |
 | 1.3b | `care_health`, `careIntentions` (optional), `skinTreatmentTarget`, `whiteningTarget` |
 | 1.8 | `money_health`, `moneyIntentions` (qualitative, optional) |
-| 1.R | Personal repair domain + move (`personalRepairDomainId`, `personalRepairMove`) + `in_repair` set on exactly one `Personal` register row; personal debt project (`personalDebtProjectIds`) if any, with its Task IDs appended to `notes.dev_slate_ids` |
+| `1.R.0` | `personal_repair_outcome` — **required whenever the review week had a personal repair**; `personal_repair_retro` — **required when outcome = Partial or Didn't work** |
+| 1.R | Personal repair domain + move + **intent** (`personalRepairDomainId` → `personal_repair_domain`, `personalRepairMove` → `personal_repair_move`, `personalRepairIntent` → `personal_repair_intent`) + `in_repair` set on exactly one `Personal` register row; personal debt project (`personalDebtProjectIds`) if any, with its Task IDs appended to `notes.dev_slate_ids` |
 
 **Do not proceed to Phase 2 (Work) until Table 1.check passes.**
 
@@ -1230,6 +1266,22 @@ This list must **exactly match** the Notion Tasks view filtered to `This Week = 
 
 > **A stale review is itself a signal.** Departments that were **not** rated in this session display their **last register status** plus **how many days since review** — an unreviewed department reads as unreviewed, not silently as a pass. A CL department last rated 40 days ago is information, not a blank.
 
+**Sub-step order within `3.R`:** `3.R.0` retrospective on **last week's** work repair → `3.R.1` comparative board → `3.R.2` pick repair + intent → `3.R.3` pick debt. Same four-beat loop as `1.R` — see *The repair loop across weeks* in the `1.R` section.
+
+#### `3.R.0` — Last week's work repair: retrospective (one turn, first) *(REQUIRED when one exists)*
+
+Read the **review week's** log fields `work_repair_domain` / `work_repair_move` / `work_repair_intent`. If the review week had no work repair, skip to `3.R.1`.
+
+**Table 3.R.0 — Prior work repair**
+
+| Domain | Move attempted | What he said he'd do | Reads now | Outcome |
+|--------|----------------|----------------------|-----------|---------|
+| `work_repair_domain` from review-week log | Below floor → At floor *or* At floor → Healthy | `work_repair_intent`, quoted verbatim | that domain's status as of this session (`2.H`, `2.WA-H`, the ops steps — or its register status + days since review if unrated) | **Worked** / **Partial** / **Didn't work** → `work_repair_outcome` |
+
+- **Worked**, and the domain now rates above Below floor → if that's the **new normal rather than one good week**, the repair is done and the domain returns to maintenance (clear `in_repair`).
+- **Partial** / **Didn't work** → **required** free text: *"What blocked it — and does the mechanism need to change?"* → `work_repair_retro`. **Effort is rarely the answer twice — what would hold this without you?** On the work side that usually means delegation, a Process Street workflow, or an automation, not more of Aaron's hours.
+- **Didn't work** → warn: two failed attempts on the same domain means **the floor is set wrong or nothing is holding it** — revisit `floor_md`, not the effort.
+
 #### `3.R.1` — Work domain board (one turn)
 
 **Table 3.R.1 — Work domains** *(read-only; sorted worst-first — **Below floor** rows at top, then At floor / Not assessed, then Healthy)*
@@ -1244,11 +1296,13 @@ Lead the turn with the count of domains below floor. If nothing is below floor, 
 
 **Table 3.R.2 — Work repair pick**
 
-| Domain in repair | Move | Repair output |
-|------------------|------|---------------|
-| exactly one row | **Below floor → At floor** *or* **At floor → Healthy** | intention · time block (`4.tb`) · mechanism change — Aaron names it |
+| Domain in repair | Move | Intent — *"What are you actually going to do?"* |
+|------------------|------|------------------------------------------------|
+| exactly one row | **Below floor → At floor** *or* **At floor → Healthy** | the specific change — a time block, a different default, a person or service to ask. **Explicitly not "try harder."** |
 
-Set `in_repair` on exactly one non-`Personal` register row (`workRepairDomainId` + `workRepairMove`).
+Set `in_repair` on exactly one non-`Personal` register row (`workRepairDomainId` → `work_repair_domain`, `workRepairMove` → `work_repair_move`), and capture the intent text (`workRepairIntent` → `work_repair_intent`).
+
+**The intent is required.** It renders on the week board all week (`weekrepair` widget, scope **Work**) and is read back verbatim at next week's `3.R.0`.
 
 > **A repair is never a checkbox task** — intention, time block, or mechanism change. Exception: when the repair *is* buying or installing a mechanism, that becomes a real Task.
 
@@ -1268,12 +1322,13 @@ Set `in_repair` on exactly one non-`Personal` register row (`workRepairDomainId`
 |-------|------|
 | `opsHoursIntended` | 3.ops.2 |
 | `fieldHoursIntended`, `fieldActivityTarget` | 3.field.2 |
-| Work repair domain + move (`workRepairDomainId`, `workRepairMove`) + `in_repair` on exactly one non-`Personal` register row | 3.R.2 |
+| `work_repair_outcome` *(required when the review week had a work repair)*; `work_repair_retro` *(required when outcome = Partial / Didn't work)* | 3.R.0 |
+| Work repair domain + move + **intent** (`work_repair_domain`, `work_repair_move`, `work_repair_intent`) + `in_repair` on exactly one non-`Personal` register row | 3.R.2 |
 | Work debt project (`workDebtProjectIds`) if any + Task IDs on `notes.dev_slate_ids` | 3.R.3 |
 
 `advance --step 3.R` → `4.tb`.
 
-**Do not proceed to Phase 4 until the work repair is set (or explicitly declined for the week).**
+**Do not proceed to Phase 4 until last week's work repair is closed out (`3.R.0`, when one existed) and this week's work repair is set with its intent (or explicitly declined for the week).**
 
 <a id="phase-4-commit-5-min"></a>
 ## Phase 4: Commit (~5 min)
@@ -1284,9 +1339,27 @@ Set `in_repair` on exactly one non-`Personal` register row (`workRepairDomainId`
 2. **Final capacity check:** Total planned hours vs. available hours. If total exceeds available, something must move. This is non-negotiable.
 3. **Confirm "This Week" checkboxes:** Verify all selected Tasks have `This Week = true` and no deselected ones still have it checked. **If `3.R.3` picked a work debt project after the `2.sync` sweep, re-run `sync-dev-projects-this-week.mjs` with the full cumulative slate first** — otherwise the sweep would clear that debt project's week link.
 4. **Store project KPIs on Weekly Meeting Log:** Write `Projects Completed` (count of projects marked Done this week) and `Projects In Progress` (count of projects with This Week checked for the new week).
-5. **Verify all FIELD CHECKs (REQUIRED):** Re-run Phase 1 (`1.check`), Phase 2 (`2.check`), and the Phase 3 check (incl. both repair picks). Confirm nothing is blank without N/A + reason. (Activity KPIs + Team Activity Details → **Weekly Ops** commit.)
+5. **Verify all FIELD CHECKs (REQUIRED):** Re-run Phase 1 (`1.check`), Phase 2 (`2.check`), and the Phase 3 check (incl. both repair retros and both repair picks). Confirm nothing is blank without N/A + reason. (Activity KPIs + Team Activity Details → **Weekly Ops** commit.)
 6. **Write / confirm `Week Intentions` (REQUIRED):** 1–3 sentence week theme capturing the overarching focus for the planning week. Agent proposes from session context; Aaron confirms or edits → write to Weekly Meeting Log. `node scripts/weekly-plan-log-check.mjs commit --ledger <path>` must pass before `workflow-notion-log complete`.
 7. **Record life health ratings (REQUIRED):** Verify weekly-rated selects are set — `Mind Health` (→ `Spirituality Health` in Phase 4), `Fitness Health` (1.3), `care_health` (1.3b), `Sleep Health` (1.4), `Social Health` (1.5), `Parenting Health` (1.6), `Enjoyment Health` (1.7), `money_health` (1.8), `Work Health` (2.H), `Systems Health` / `Workshop Health` (2.WA-H). Values: **Below floor / At floor / Healthy / Not assessed** (four-value scale). The **Admin** Values category is now covered by `1.8` Money & Admin.
+7b. **Record the repair-loop fields (REQUIRED):** Verify the D1 `meeting_logs` record carries this week's repair picks **and** last week's close-out. These are the fields that make the loop work across weeks — a blank `*_repair_intent` leaves the week board with nothing to show, and a blank `*_repair_outcome` breaks next week's `.0` retro.
+
+    | D1 log field | Set at | Required when |
+    |--------------|--------|---------------|
+    | `money_health` | 1.8 | always (four-value scale) |
+    | `personal_repair_domain` | 1.R.2 | a personal repair is picked |
+    | `personal_repair_move` | 1.R.2 | a personal repair is picked |
+    | `personal_repair_intent` | 1.R.2 | a personal repair is picked |
+    | `personal_repair_outcome` | 1.R.0 | the **review week** had a personal repair |
+    | `personal_repair_retro` | 1.R.0 | outcome = **Partial** or **Didn't work** |
+    | `work_repair_domain` | 3.R.2 | a work repair is picked |
+    | `work_repair_move` | 3.R.2 | a work repair is picked |
+    | `work_repair_intent` | 3.R.2 | a work repair is picked |
+    | `work_repair_outcome` | 3.R.0 | the **review week** had a work repair |
+    | `work_repair_retro` | 3.R.0 | outcome = **Partial** or **Didn't work** |
+
+    Repair **move** values are stored as `below-to-floor` / `floor-to-healthy`; outcome as `Worked` / `Partial` / `Didn't work`. Debt picks persist alongside as `personal_debt_project_ids` / `work_debt_project_ids`.
+
 8. **Update Values DB Health (with approval):** For each category where this week's status differs from current Values DB Health, update via `personal_notion_update_page` on the category page in Values DB (`342f40c2-487b-80c5`). Include **Personal Enjoyment** when added to Values DB. Use the four-value vocabulary.
 9. **Confirm accomplishment fields (REQUIRED):** Verify Phase 2 (`2.sync`) wrote `Logged/Unlogged/Total Accomplishments Count`, `Focused Output Hours Estimate`, and `Accomplishments`. Backfill from habit summary if missing.
 9b. **Write Workshop intention (REQUIRED):** From Phase 2.WA-W, write `Workshop Hours Intended` (number, 0 allowed) + `Workshop Focus` (rich_text — selected item(s) + one-line intention) to the Weekly Meeting Log. `weekly-plan-log-check` commit gate requires `Workshop Hours Intended`.
@@ -1338,6 +1411,7 @@ Set `in_repair` on exactly one non-`Personal` register row (`workRepairDomainId`
 
 - **Table contract per phase.** Phase 1 = life domains (`1.2` → `1.3` → `1.3b` → `1.4` → `1.5` → `1.6` → `1.7` → `1.8`) → `1.R` personal repair & debt → `1.check`. Phase 2 = domain-first loop `2.TG` → `2.CL` → `2.SY` (each `.1` review · `.2` time goal · `.3` select) → `2.H` dev health → `2.WA` Workshop/Admin → `2.sync` → `2.check`. Phase 3 = `3.ops.1/.2` → `3.field.1/.2` → `3.R` work repair & debt. CL ops detail → **Weekly Ops** skill.
 - **Repair is section-scoped, one per section.** One personal repair (`1.R`) + one work repair (`3.R`) — at most two domains `in_repair` per week, never two of the same section. Debt: at most one project per section, both landing on the single This Week slate.
+- **Repair closes its loop.** Each repair step runs `.0` retro → `.1` board → `.2` pick + intent → `.3` debt. The retro on **last week's** repair happens *before* a new one is chosen, judged against this session's fresh rating — never on memory. Between sessions the repair stays visible on the week board (`weekrepair` widget). Skipping `.0` is what turns the repair slot into a rotation where nothing is ever seen through.
 - **FIELD CHECK gates.** Run `1.check` before Phase 2 development; `2.check` after development; the Phase 3 check after `3.R`; verify all in Phase 4 commit.
 - **Route every item into a bucket.** Each surfaced item is Automated (n8n), Delegated (team 1:1s), or a Scheduled slice (calendar + Todoist mirror).
 - **Capacity is non-negotiable.** If total planned work exceeds available hours minus 10-15% buffer, the system pushes back. Something must move.
@@ -1353,12 +1427,13 @@ Set `in_repair` on exactly one non-`Personal` register row (`workRepairDomainId`
 - **Phase 0a:** Review + Planning Week Tracker rows confirmed on ledger + Weekly Meeting Log relations.
 - **Phase 0:** Wellness + journal feelings + social + dev data pulls; **domain board** (`weekly-domain-board.mjs`); trend files; 4-week log history.
 - **Phase 0b:** Data integrity table; remediation before Phase 1.
-- **Phase 1:** Life review (values, mind, fitness, health & care, sleep, social, parenting, personal enjoyment, money & admin) + targets on Weekly Meeting Log + **one personal domain in repair** and at most one personal debt project (`1.R`).
+- **Phase 1:** Life review (values, mind, fitness, health & care, sleep, social, parenting, personal enjoyment, money & admin) + targets on Weekly Meeting Log + **last week's personal repair closed out** (`1.R.0`) and **one personal domain in repair with a stated intent**, at most one personal debt project (`1.R`).
 - **Phase 2:** Development review + next-week dev plan + the single combined slate sweep.
-- **Phase 3:** Office ops + field/CRM plan + **one work domain in repair** and at most one work debt project (`3.R`).
+- **Phase 3:** Office ops + field/CRM plan + **last week's work repair closed out** (`3.R.0`) and **one work domain in repair with a stated intent**, at most one work debt project (`3.R`).
 - **Phase 4:** Full Weekly Meeting Log finalized + all FIELD CHECKs; Values DB sync (with approval).
 - **Phase 4.tb** — Personal Time Blocks calendar — one-time Mon–Fri structure events; adjust-if-exists or full regenerate with approval. Skill → `context/skills/plan-weekly-schedule/SKILL.md`.
 - **Phase 4b:** Planning week record (from 0a) gets domain-by-domain plan summary + linked Google Doc in `Plan Records/weekly/`.
+- **Between sessions:** the week's repair(s) — scope, domain, move, and intent text — render on the **`personal-week`** dashboard via the `weekrepair` widget (no checkbox), and come back as the input to next week's `1.R.0` / `3.R.0`.
 
 <a id="failure-modes-and-graceful-degradation"></a>
 ## Failure modes & graceful degradation
