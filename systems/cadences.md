@@ -25,6 +25,12 @@ Daily morning/evening Cursor reviews were retired. The PD ↔ Todoist loop is re
 | 5:00 PM CT (Mon–Sat) | Team Evening Defer | Defer open activities due ≤ today (Sat → Mon; closed Sun; no Teams DMs) |
 | On demand | CL Bot (`today`, `deal gaps`) | AM day summary (replaces retired 9am Morning DM) |
 
+### Tier 1 (GitHub Actions → ZPT)
+
+| Time | Workflow | What |
+|---|---|---|
+| ~6:15 AM CT daily | `childcare-coverage-sync.yml` | Resync current week's `childcare_week` cache (sitters + Hoegenauer co-op). See [`childcare-coverage.md`](childcare-coverage.md). |
+
 > Daily morning/evening Cursor sessions remain retired.
 
 ---
