@@ -12,6 +12,34 @@
 >
 > Inactive members live in the bottom section and in [`../cast.md`](../cast.md). Do not assign them work.
 
+## Family — childcare (editorial)
+
+Paid sitter arrangements are managed in ZPT at `#/calendar/childcare`. Family co-op volunteers use the Hoegenauer Calendar. Canonical windows → [`../systems/childcare-coverage.md`](../systems/childcare-coverage.md).
+
+### Emma Douglas — school drop-off
+
+| Field | Value |
+|---|---|
+| Role | Paid sitter — takes Matthew to school |
+| Standing window | Mon–Thu 07:30–08:15 (school days only; not Friday) |
+| Managed in | ZPT `#/calendar/childcare` |
+
+### Emma Young — pickup + evenings
+
+| Field | Value |
+|---|---|
+| Role | Paid sitter — school pickup and evening coverage |
+| Standing windows | Tue 17:00–19:30; Thu 17:00–22:00 (school days only) |
+| Managed in | ZPT `#/calendar/childcare` |
+
+### Caryss — family co-op (Monday)
+
+| Field | Value |
+|---|---|
+| Role | Family co-op volunteer — uses Hoegenauer Calendar interface |
+| Standing window | Mondays (specific times vary by claimed shift) |
+| Managed in | Hoegenauer Calendar only — **not** ZPT sitter rules |
+
 ## Active — Chrome Lot team
 
 ### Lexie Logan — senior, exceeding
