@@ -6,7 +6,7 @@
 >
 > **What lives here now (editorial):** performance notes, delegation skills, CS coverage, standing 1:1 topics, contextual notes.
 >
-> **1:1 recency + status badge:** canonical on Airtable — `Management Status`, `Last 1:1`, optional `1:1 Interval Override` on Payable Employees. ZPT Attention Queue and the n8n 1:1 Reminder Check read those fields. Dates copied below are **editorial snapshots** — do not treat them as the system of record.
+> **1:1 recency + status badge:** canonical on Airtable — `Management Status`, `Last 1:1`, optional `1:1 Interval Override` on Payable Employees. ZPT Departments (person reviews) and the n8n 1:1 Reminder Check read those fields. Dates copied below are **editorial snapshots** — do not treat them as the system of record.
 >
 > **Platform IDs:** Use `airtable_lookup_employee` MCP (or [`../systems/airtable-roster.md`](../systems/airtable-roster.md)) — **Airtable wins** over any IDs copied below.
 >

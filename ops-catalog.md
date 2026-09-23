@@ -45,7 +45,7 @@ Full schedule and tier ownership: [`cadences.md`](cadences.md). Agent intent rou
 |---|---|---|---|---|---|---|
 | weekly plan | Tier 2 (Cursor) | Weekly (~Fridays) | ~40 min (life + dev) | 1 life + 2 dev + commit | Monthly plan (review month) must exist | "weekly plan", "weekly meeting", "Monday review", "sprint planning" |
 | plan weekly schedule | Tier 2 (Cursor) | On demand | — | — | — | "plan weekly schedule", "weekly schedule", "time blocks", "schedule my week", "refactor time blocks" |
-| what should I work on ops | Tier 2 (Cursor) | On demand | — | — | — | "what should I work on ops", "attention queue", "ops queue", "department review" |
+| department review | Tier 2 (Cursor) | On demand | — | — | — | "department review", "departments" |
 | monthly plan | Tier 2 (Cursor) | Monthly (first week) | 83 min | 14 | Quarterly plan must be committed | "monthly plan", "monthly review" |
 | quarterly plan | Tier 2 (Cursor) | Quarterly (week 1) + mid-quarter week 6 | 90–120 min / 15 min checkpoint | 5-part, 14 phases | None (top-level strategic gate) | "quarterly plan", "strategy review" |
 | annual plan | Tier 2 (Cursor) | On demand | — | — | — | "annual plan", "year kickoff", "plan this year" |
@@ -90,7 +90,7 @@ Spec files: `n8n/conventions.md`, `n8n/bots/cl-bot/teams-bot.md`, `n8n/sync/pd-t
 |---|---|---|---|
 | "weekly plan", "weekly meeting", "Monday review", "sprint planning" | `.cursor/rules/weekly-meeting.mdc` | `context/skills/weekly-planning/SKILL.md` | systems/cadences.md, systems/capacity-rules.md, systems/notion-databases.md, systems/time-blocks.md, self/values.md, people/index.md |
 | "plan weekly schedule", "weekly schedule", "time blocks", "schedule my week", "refactor time blocks" | `.cursor/rules/plan-weekly-schedule.mdc` | `context/skills/plan-weekly-schedule/SKILL.md` | config/bus-schedule.json, family/bus-schedule.md, systems/time-blocks.md, config/time-blocks.json, family/matthew.md |
-| "what should I work on ops", "attention queue", "ops queue", "department review" | `—` | `context/—/SKILL.md` | systems/attention-queue.md, work/chrome-lot/work-ops-roadmap.md |
+| "department review", "departments" | `—` | `context/—/SKILL.md` | work/systems/department-workspace-plan.md, systems/weekly-plan-app.md |
 | "monthly plan", "monthly review" | `.cursor/rules/monthly-plan.mdc` | `context/skills/monthly-plan/SKILL.md` | systems/cadences.md, systems/notion-databases.md, self/values.md, people/index.md, work/chrome-lot/, work/turbo-gear/ |
 | "quarterly plan", "strategy review" | `.cursor/rules/strategy-review.mdc` | `context/skills/quarterly-plan/SKILL.md` | self/values.md, work/chrome-lot/, work/turbo-gear/, self/, people/index.md |
 | "annual plan", "year kickoff", "plan this year" | `.cursor/rules/annual-plan.mdc` | `context/skills/annual-plan/SKILL.md` | self/values.md, systems/notion-databases.md (Goals/Projects/Year Tracker), work/chrome-lot/, work/turbo-gear/ |
@@ -172,7 +172,7 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 ## Health / staleness
 
 <!-- AUTO:HEALTH_REPORT -->
-⚠ **20 issue(s)** across 170 context files.
+⚠ **20 issue(s)** across 167 context files.
 
 ### stale (2)
 - `context/self/current-priorities.md` — 33d old (threshold 14d)
@@ -208,7 +208,7 @@ Full audit: `node scripts/audit-context.mjs`
 ## Last generated
 
 <!-- AUTO:LAST_GENERATED -->
-**2026-09-23 11:06:34** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
+**2026-09-23 11:46:03** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
 <!-- /AUTO:LAST_GENERATED -->
 
 ## See also

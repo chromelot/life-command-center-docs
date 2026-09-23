@@ -50,8 +50,6 @@ Daily morning/evening Cursor reviews were retired. The PD ↔ Todoist loop is re
 | Workflow | Duration | Trigger |
 |---|---|---|
 | Weekly Plan | ~40 min | "weekly plan", "weekly meeting", "Monday review", "sprint planning" |
-| Attention Queue (ops) | ~20 min / item | Open `#/queue` in ZPT — ranked departments + people; replaces retired weekly-ops workflow. See [`attention-queue.md`](attention-queue.md). |
-
 #### Weekly Plan — Pre-Phase 0 gate + 9-phase workflow
 
 **Pre-Phase 0 — Monthly plan gate:** Query Monthly Plan Log for `Monthly Plan for [Planning Month YYYY]` (current calendar month). If no entry exists, pause and run the full monthly plan (~83 min) before continuing. Hard prerequisite — no weekly-only bypass.
@@ -67,7 +65,7 @@ Daily morning/evening Cursor reviews were retired. The PD ↔ Todoist loop is re
 7. Personal Life & Social (Bus, social, dating, compulsion scan)
 8. Commit (summary, capacity check, execute, log to Weekly Meeting Log)
 
-> **Ops cadence (2026-08-25):** Chrome Lot operations run through the **ZPT Attention Queue** (`#/queue`) — one entity at a time, ~20 minutes. The legacy weekly-ops Cursor workflow is retired. Milestone trail: [`work/chrome-lot/work-ops-roadmap.md`](../../work/chrome-lot/work-ops-roadmap.md).
+> **Ops cadence:** Chrome Lot operations are stewarded in the **weekly plan** — rate each domain, pick one **personal** and one **professional** domain to elevate (`personal_repair_domain` / `work_repair_domain` in D1 `meeting_logs`). Department reviews live at `#/departments` in ZPT. The legacy weekly-ops Cursor workflow and Attention Queue page are retired.
 
 ---
 

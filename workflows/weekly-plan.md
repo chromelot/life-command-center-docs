@@ -57,7 +57,7 @@ tags: [skill, weekly-planning, procedure]
 <a id="trigger"></a>
 ## Trigger
 
-This skill activates when Aaron says "weekly plan", "weekly meeting", "plan this week", "sprint planning", or "Monday review". Target duration: ~60 minutes (Phase 1 life ~30 min incl. the personal repair · Phase 2 dev domain-first ~18 min · Phase 3 operations + work repair ~10 min · Phase 4 commit ~5 min). **CL operations** run in the **ZPT Attention Queue** (`#/queue`) — see `context/systems/attention-queue.md`. Not a separate weekly-ops session.
+This skill activates when Aaron says "weekly plan", "weekly meeting", "plan this week", "sprint planning", or "Monday review". Target duration: ~60 minutes (Phase 1 life ~30 min incl. the personal repair · Phase 2 dev domain-first ~18 min · Phase 3 operations + work repair ~10 min · Phase 4 commit ~5 min). **CL operations** are stewarded in this session via domain ratings and **`work_repair_domain`** — not a separate weekly-ops session. Department reviews live at `#/departments` in ZPT when needed.
 
 <a id="inputs"></a>
 ## Inputs
@@ -270,7 +270,7 @@ node scripts/weekly-dev-review.mjs --ledger <path>
 ```
 Output: `output/weekly-dev-review-YYYY-MM-DD.md` — **canonical Phase 2 source** (prior week plan, dev time by day, monthly incomplete by domain, personal carryover).
 
-Also run `weekly-habit-summary.mjs` (logged/unlogged accomplishments). Todoist MCP in Phase 2.WA for Workshop/Admin mirror completion check. Ops context → **Attention Queue** `#/queue` in ZPT (not weekly-ops-pull).
+Also run `weekly-habit-summary.mjs` (logged/unlogged accomplishments). Todoist MCP in Phase 2.WA for Workshop/Admin mirror completion check. Ops context → ZPT **Departments** `#/departments` for review history (not weekly-ops-pull).
 4. **Habit source DBs** (past 7 days — habit summary script is canonical; MCP only if script missing):
    - Workouts: **D1** `workouts` domain (via `weekly-habit-summary.mjs` — not Notion)
    - Small Talk (`121f40c2-487b-802d`): query all, count entries
@@ -1249,7 +1249,7 @@ This list must **exactly match** the Notion Tasks view filtered to `This Week = 
 <a id="phase-3-operations-10-min"></a>
 ## Phase 3: Operations (~10 min)
 
-**Purpose:** Office ops and field/CRM review, then the **work** repair. Ops review and assignment run as `3.ops.1` / `3.ops.2` (Office ops — review · this week) and `3.field.1` / `3.field.2` (Field & CRM — review · this week); the operational detail lives in the **Weekly Ops** skill and the ZPT **Attention Queue** (`#/queue`). Phase 3 closes with `3.R`.
+**Purpose:** Office ops and field/CRM review, then the **work** repair. Ops review and assignment run as `3.ops.1` / `3.ops.2` (Office ops — review · this week) and `3.field.1` / `3.field.2` (Field & CRM — review · this week). Phase 3 closes with `3.R` — pick exactly one **professional** domain to elevate (`work_repair_domain`).
 
 **Step codes (ledger order):** `3.ops.1` → `3.ops.2` → `3.field.1` → `3.field.2` → `3.R` Work — repair & debt → `4.tb`.
 
@@ -1461,5 +1461,5 @@ Set `in_repair` on exactly one non-`Personal` register row (`workRepairDomainId`
 - `../../systems/health-data.md`
 - `../../self/values.md`, `../../self/current-priorities.md`
 - `../../people/index.md`
-- `../../systems/attention-queue.md` — CL operations (daily queue surface)
+- `../../systems/weekly-plan-app.md` — in-app weekly wizard (domain ratings + repair picks)
 - `../../work/turbo-gear/overview.md`

@@ -35,7 +35,7 @@ Every user-facing sub-step should define:
 
 ### Weekly ops reference (legacy)
 
-> **Retired 2026-08-25.** Chrome Lot operations run via **ZPT Attention Queue** (`#/queue`) and D1 `queue_visits` — not the weekly-ops Cursor workflow. Historical ledger tables lived in `context/skills/weekly-ops/SKILL.md` (deleted).
+> **Retired 2026-08-25.** Chrome Lot ops stewardship is part of the **weekly plan** (domain ratings + `work_repair_domain`). Department reviews use D1 `queue_visits` via `#/departments`. The weekly-ops Cursor workflow and Attention Queue page are retired. Historical ledger tables lived in `context/skills/weekly-ops/SKILL.md` (deleted).
 
 ## Section completion checklist (before every `advance`)
 
