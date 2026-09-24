@@ -1019,6 +1019,8 @@ Set `in_repair` on exactly one `Personal` register row (`personalRepairDomainId`
 <a id="phase-2-development-domain-first-18-min"></a>
 ## Phase 2: Development (domain-first, ~18 min)
 
+> **ZPT in-app wizard (2026-09):** Phase 2 is **roadmap-centric** in the dashboard — `2.R` review Current phase → `2.W` unified Development slate + single `dev_hours_intended` → `2.H` overall dev health → Workshop/Admin unchanged. Legacy Cursor ledger steps `2.TG` / `2.CL` / `2.SY` are retired in ZPT. Day board shows **Dev time** only (no per-domain CL/TG/Systems tiles).
+
 **Purpose:** Review and plan dev work **one domain at a time** — **Turbo Gear → Chrome Lot → Systems** — surfacing the **strategy layer** (active **Goals** + their **milestones**, and **standalone Projects**), not just the Task tracker. For each dev domain: *review last week → set a weekly time goal → select the Goals / milestones / projects to get done this week.* Then a lighter **Workshop + Admin** tail, one **overall dev-health** rating, and a **single combined slate sync**.
 
 **Step codes (ledger order):** `2.TG` Turbo Gear → `2.CL` Chrome Lot → `2.SY` Systems → `2.H` dev health → `2.WA` Workshop + Admin → `2.sync` commit slate → `2.check`. Each dev-domain ledger step spans three turns: **`.1` Review · `.2` Time goal · `.3` Select work** (advance the ledger once, after `.3`). **Repair & debt is no longer a Phase 2 step** — it is section-scoped: personal at `1.R`, work at `3.R`.

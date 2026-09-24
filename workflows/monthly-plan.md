@@ -563,6 +563,8 @@ If no 3-week streaks: skip silently (~0 min).
 <a id="phase-3-dev-work-review-and-goals-10-min"></a>
 ## Phase 3: Dev Work Review & Goals (~10 min)
 
+> **ZPT in-app wizard (2026-09):** Development phase uses roadmap steps — `2.R` retrospective → `2.S` pick 1–3 roadmap phases + set `due_date` → `2.C` single monthly `dev_hours_intended` → `2.H` one `work_health` rating. Commits `roadmap_phase_targets` on the monthly meeting_log. Retires per-domain TG/CL/SY wizard steps and authoritative `🌙 Month` task linking in ZPT (phase due dates on `#/roadmap` instead).
+
 **Purpose:** Project completion progress against quarterly targets, not individual task triage.
 
 1. Pull all Tasks assigned to the current quarter. How many are Done vs. In Progress vs. Not Started?
