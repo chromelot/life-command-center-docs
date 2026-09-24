@@ -36,10 +36,11 @@ tags: [skill, weekly-planning, procedure]
   - [1.7 Personal Enjoyment (~2 min)](#17-personal-enjoyment-2-min)
   - [1.8 Money & Admin — Review · Rate · Intentions (~2 min)](#18-money-and-admin-review-rate-intentions-2-min)
   - [`1.R` — Personal Repair & Debt *(REQUIRED — closes Phase 1)*](#1r-personal-repair-and-debt-required-closes-phase-1)
-- [Phase 2: Development (domain-first, ~18 min)](#phase-2-development-domain-first-18-min)
-  - [Per-domain loop — run `2.TG` → `2.CL` → `2.SY`](#per-domain-loop-run-2tg-2cl-2sy)
-  - [`2.H` — Dev health review (one turn, after all three domains)](#2h-dev-health-review-one-turn-after-all-three-domains)
-  - [`2.WA` — Workshop + Admin (lighter tail)](#2wa-workshop-admin-lighter-tail)
+- [Phase 2: Development (roadmap-centric, ~15 min)](#phase-2-development-roadmap-centric-15-min)
+  - [`2.R` — Roadmap review (one turn)](#2r-roadmap-review-one-turn)
+  - [`2.W` — This week: slate + unified time goal (one or more turns)](#2w-this-week-slate-unified-time-goal-one-or-more-turns)
+  - [`2.H` — Dev health review (one turn, after `2.W`)](#2h-dev-health-review-one-turn-after-2w)
+  - [`2.WK` / `2.AD` — Workshop + Admin (lighter tail)](#2wk-2ad-workshop-admin-lighter-tail)
   - [`2.sync` — Commit the combined slate (run once)](#2sync-commit-the-combined-slate-run-once)
 - [Phase 3: Operations (~10 min)](#phase-3-operations-10-min)
   - [`3.R` — Work Repair & Debt *(REQUIRED — closes Phase 3)*](#3r-work-repair-and-debt-required-closes-phase-3)
@@ -1016,100 +1017,68 @@ Set `in_repair` on exactly one `Personal` register row (`personalRepairDomainId`
 
 **Do not proceed to Phase 2 (Work) until Table 1.check passes.**
 
-<a id="phase-2-development-domain-first-18-min"></a>
-## Phase 2: Development (domain-first, ~18 min)
+<a id="phase-2-development-roadmap-centric-15-min"></a>
+## Phase 2: Development (roadmap-centric, ~15 min)
 
-> **ZPT in-app wizard (2026-09):** Phase 2 is **roadmap-centric** in the dashboard — `2.R` review Current phase → `2.W` unified Development slate + single `dev_hours_intended` → `2.H` overall dev health → Workshop/Admin unchanged. Legacy Cursor ledger steps `2.TG` / `2.CL` / `2.SY` are retired in ZPT. Day board shows **Dev time** only (no per-domain CL/TG/Systems tiles).
+> **ZPT in-app wizard (2026-09):** Phase 2 is **roadmap-centric** — `2.R` review Current phase → `2.W` unified Development slate + single `dev_hours_intended` → `2.H` overall dev health → `2.WK` Workshop → `2.AD` Admin → `2.check`. Legacy ledger steps `2.TG` / `2.CL` / `2.SY` are retired. Day board and Personal — This week show **one Dev time** widget (`goal.dev_total_target_min`), not per-domain TG/CL/Systems tiles.
 
-**Purpose:** Review and plan dev work **one domain at a time** — **Turbo Gear → Chrome Lot → Systems** — surfacing the **strategy layer** (active **Goals** + their **milestones**, and **standalone Projects**), not just the Task tracker. For each dev domain: *review last week → set a weekly time goal → select the Goals / milestones / projects to get done this week.* Then a lighter **Workshop + Admin** tail, one **overall dev-health** rating, and a **single combined slate sync**.
+**Purpose:** Review the **Current roadmap phase**, set **one unified deep-work time goal**, and queue **Development** work for the week from Current-phase projects + carryover + active Goals (any legacy TG/CL/Systems domain tag). Then Workshop + Admin blocks, overall dev health, and slate confirmation.
 
-**Step codes (ledger order):** `2.TG` Turbo Gear → `2.CL` Chrome Lot → `2.SY` Systems → `2.H` dev health → `2.WA` Workshop + Admin → `2.sync` commit slate → `2.check`. Each dev-domain ledger step spans three turns: **`.1` Review · `.2` Time goal · `.3` Select work** (advance the ledger once, after `.3`). **Repair & debt is no longer a Phase 2 step** — it is section-scoped: personal at `1.R`, work at `3.R`.
+**Step codes (ledger / ZPT order):** `2.R` roadmap review → `2.W` this week (slate + hours) → `2.H` dev health → `2.WK` Workshop → `2.AD` Admin → `2.check`. **Repair & debt is not Phase 2** — personal at `1.R`, work at `3.R`.
 
-**Source files:** `output/weekly-dev-review-*.md` — now includes, per dev domain, a **`## Domain goals & projects — {domain}`** block (active Goals + their milestones + standalone Projects) alongside the existing review-week queue / time / carryover sections — plus `output/weekly-habits-*.md` and `node scripts/scan-tg-backlog.mjs` (TG orphan backlog).
+**Source files:** `output/weekly-dev-review-*.md` — § *Roadmap — Current phase (D1 / ZPT)* + *Unified dev time* for `2.R`/`2.W`; legacy § *Domain goals & projects*, carryover, and time punches for extra context; `output/weekly-habits-*.md`.
 
-**Layer model — read `context/systems/horizon-roadmap.md`.** **Goal** = finish-line outcome (the *why*). **Milestone** = a Projects row linked to a Goal (`🥅 Goals` set) — a stop on that goal's trail. **Standalone project** = a Projects row with no Goal. **Task** = the execution unit — the *only* layer that carries `📅 Week Tracker` (the weekly slate), Toggl, and time. **Selecting a milestone / standalone project for the week means promoting it to its Task tree and putting those Tasks on This Week** (`node scripts/promote-roadmap-to-dev-project.mjs --page=<projectId>` or the ▶ Start webhook); if it already has an open Task tree, just queue those Tasks.
+**Layer model — read `context/systems/horizon-roadmap.md`.** **Roadmap phase** = the current execution horizon. **Goal** = finish-line outcome. **Project** = milestone or standalone on the roadmap. **Task** = execution unit on This Week. Promote roadmap picks in ZPT or via D1 task APIs; legacy Notion promote scripts remain for Notion-era rows only.
 
-**Selection accumulates across domains — sync ONCE.** Each `.3` records the resulting **Task IDs** into a running slate (ledger `notes.dev_slate_ids`). The actual `📅 Week Tracker` write happens **only** at `2.sync`, with the cumulative set — because `sync-dev-projects-this-week.mjs` **clears** the week relation on every open Task *not* passed in `--selected` (full-DB sweep). **Never** run the sync mid-loop with a single domain's IDs (it would clobber the other domains' picks).
-
-**Presentation:** group by domain; nest sub-items under parents; letter each selectable root.
+**Presentation:** letter selectable roots; nest children; group by domain tag when helpful.
 
 ---
 
-<a id="per-domain-loop-run-2tg-2cl-2sy"></a>
-### Per-domain loop — run `2.TG` → `2.CL` → `2.SY`
+<a id="2r-roadmap-review-one-turn"></a>
+### `2.R` — Roadmap review (one turn)
 
-The three dev domains share one shape. `{D}` = the domain: **Turbo Gear** (`2.TG`) · **Chrome Lot** (`2.CL`) · **Systems** (`2.SY`). Deep work = all three. Run three turns per domain, then `advance --step 2.{code}`.
+**Table 2.R-A — Current phase + last week**
 
-#### `.1` — Review last week (one turn)
+Source: `weekly-dev-review` § *Roadmap — Current phase* + *Unified dev time* + § *Table 2.1-B* dev totals.
 
-**Table 2.{D}-A — {D} accomplishments & carryover**
+| Current phase | Open projects in phase | Review-week dev logged | Prior `dev_hours_intended` |
+|---------------|------------------------|------------------------|----------------------------|
+| name + due | count + top items | hours (CL+TG+Systems) | hours |
 
-Bulleted tree (parents → sub-items) of that domain's review-week queued Tasks — `weekly-dev-review` § *Review week — queued dev work* → **{D}** group. ~~Strikethrough~~ finished (Status = Done); open items plain. Weave in the domain's rows from `weekly-dev-review` § *Table 2.1-B² — Activity summaries* (what actually shipped). Note any **detected unlogged** wins for this domain from `weekly-habits` sweep (Aaron flags: count as shipped y/n).
+Narrative: what shipped in the phase last week, what's stuck, capacity flags from Phase 1.2. Optional qualitative note → `Dev Review`.
 
-→ Contributes to `Accomplishments`, accomplishment counts, `Focused Output Hours Estimate`, `Dev Review` (written cumulatively; finalize at `2.sync`).
+`advance --step 2.R` → `2.W`.
 
-**Table 2.{D}-B — {D} time logged (review week)**
+<a id="2w-this-week-slate-unified-time-goal-one-or-more-turns"></a>
+### `2.W` — This week: slate + unified time goal (one or more turns)
 
-*Source: `weekly-dev-review` § Table 2.1-B — this domain's category column (Turbo Gear → **TG Dev**; Systems → **Systems**; Chrome Lot → **CL Dev**). `Total Time` formula.*
+**Table 2.W-G — Unified dev time goal** *(REQUIRED)*
 
-| Day | {D} min |
-|-----|---------|
-| … each day | |
-| **Total** | |
+| Last week actual (h) | This week goal (h) | → D1 field |
+|----------------------|--------------------|------------|
+| 2.R dev total ÷ 60 | Aaron sets | **`dev_hours_intended`** → `goal.dev_total_target_min` |
 
-Last week's **actual** dev minutes for the domain — anchors the time goal in `.2`, and the three domains' totals sum into `Deep Work Minutes` at `2.sync`.
+Agent shows last week's unified dev actual + capacity note; Aaron sets **one** deep-work hours target for the week. Prefills from prior week's `dev_hours_intended` in ZPT.
 
-#### `.2` — Weekly time goal (one turn) — REQUIRED
+**Table 2.W-Slate — Development picks** *(lettered)*
 
-**Table 2.{D}-G — {D} weekly time goal**
+Present unified slate candidates:
 
-| Last week actual (h) | This week goal (h) | → Notion field |
-|----------------------|--------------------|----------------|
-| 2.{D}-B total ÷ 60 | Aaron sets | **`Turbo Gear Hours Intended`** / **`Systems Hours Intended`** / **`Chrome Lot Hours Intended`** |
+1. **Current-phase projects** (pre-filled in ZPT from roadmap)
+2. **Carryover** from review week (all deep-work domains)
+3. **Active Goals + milestones** across TG/CL/Systems/Development (from `weekly-dev-review` § *Domain goals & projects*)
+4. **Standalone projects** + optional TG orphan backlog (`scan-tg-backlog.mjs`, capacity-gated)
 
-Agent shows last week's actual + a one-line capacity note (energy/capacity flags from Phase 1.2, upcoming calendar); Aaron gives the **hours** he wants to spend in this domain this week. Write the number to the Weekly Meeting Log field at commit.
+Letter each selectable root. In ZPT, Aaron edits the Development slate directly; in Cursor ledger, collect Task IDs → `notes.dev_slate_ids` and sync once before `2.check` (D1/ZPT writes — not legacy Notion sweep unless explicitly repairing old data).
 
-> **Dashboard wiring (automatic):** the three `* Hours Intended` numbers dual-write to D1 and feed the daily dashboard's **Development → "Dev time — week vs goal"** tiles — `goal.tg_dev_target_min` / `goal.systems_target_min` / `goal.cl_dev_target_min` (minutes = hours × 60) plus the **Total Dev** goal (`goal.dev_total_target_min`). Each week's goals appear on the day board once the log syncs to D1 (next snapshot rebuild). Nothing extra to do here — just set the number.
+`advance --step 2.W` → `2.H`.
 
-#### `.3` — Select work (one or more turns) — the strategy layer
+<a id="2h-dev-health-review-one-turn-after-2w"></a>
+### `2.H` — Dev health review (one turn, after `2.W`)
 
-Present, for this domain, from `weekly-dev-review` § **Domain goals & projects — {D}**:
+**Table 2.H — Dev health** *(agent summarizes unified deep work; Aaron rates once)*
 
-**Table 2.{D}-Goals — Active Goals + milestones** *(lettered)*
-
-Each active Goal (`Status` = In progress / Not started) with progress % + target date, and its **open milestones** (Projects linked via `🥅 Goals`, Status not Done/Paused) nested beneath with completion %. Letter each **milestone** as a selectable pick.
-
-**Table 2.{D}-Proj — Standalone Projects** *(lettered)*
-
-Open standalone Projects (`🥅 Goals` empty, Status Roadmapped / In progress) with completion %. Letter each.
-
-**Table 2.{D}-Carry — Open carryover Tasks** *(this domain, from 2.{D}-A)* — branch on turnover state (Phase 0a):
-
-- **Pre-turnover (Fri/Sat — review week still current):** **A** = keep finishing this week (leave on current week; WeekDefer sweeps it Sunday) · **B** = defer now onto the planning-week slate (reply letters). *"Keep finishing" items are simply not added to the slate — leave their `📅 Week Tracker` on the current week.*
-- **Post-turnover (Sun/Mon — auto-defer already ran):** **A** = continue all remaining open items · **B** = prune (reply letters to drop → clears `📅 Week Tracker`, back to backlog).
-
-Before/while presenting, mark any items Aaron names as **Done** now (`Status → Done`) and re-fetch. Archive **empty Task records** (no `Name`) — do not present.
-
-**(Turbo Gear only) Table 2.TG-Backlog — TG orphan-task backlog** *(capacity-gated)*
-
-`node scripts/scan-tg-backlog.mjs` — un-queued TG **standalone Tasks** (bugs / small features / optimizations with **no Project**), grouped by Priority (High → Medium → Low → Unset), oldest-first, with a health line. This is **bottom-up** (orphan Tasks), distinct from the top-down Goals/Projects above. Surface only enough to fill the remaining TG hours from `2.TG-G` — cap **~3–5**, High/Medium first. Flag any **High aging past ~14d** as "must address." Record the backlog health line in `Dev Priority Context`. *(Browsing view: [Turbo Gear Backlog](https://notion.so/39bf40c2487b81f9a232d2ba0f1ab8e6).)*
-
-**Reply:** letters of the milestones / standalone Projects / backlog / carryover items to **commit this week**.
-
-**On selection — approval before any write:**
-
-1. For each selected **milestone / standalone Project** **not yet promoted** (Status Roadmapped, no linked `Task`): promote → `node scripts/promote-roadmap-to-dev-project.mjs --page=<projectId>` (or ▶ Start). Creates its Task tree, Status → In progress. For already-promoted picks, take their **open Task IDs**.
-2. For carryover keep/defer + TG-backlog picks: collect the **Task IDs** directly.
-3. **Append** every resulting Task ID to the cumulative slate — record in ledger `notes.dev_slate_ids`. **Do NOT** run `sync-dev-projects-this-week.mjs` yet — the single sweep happens at `2.sync`.
-
-`advance --step 2.{code}` → next domain (or `2.H` after `2.CL`).
-
-<a id="2h-dev-health-review-one-turn-after-all-three-domains"></a>
-### `2.H` — Dev health review (one turn, after all three domains)
-
-**Table 2.H — Dev health** *(agent summarizes across TG + Systems + CL; Aaron rates once — no task list, selection is already done)*
-
-Cover briefly: **(1) Output** — accomplishments vs queued work across the three domains (from each `.1-A`); **(2) Time** — total dev minutes logged (sum of the three `.1-B` totals) vs realistic capacity and vs the goals just set in `.2`; **(3) Goal progress** — what moved on the domains' Goals/milestones this review week (`Progress` / `Completion` %), what's stuck. **Agent does not recommend** — narrative only.
+Cover briefly: **(1) Output** — accomplishments vs queued work; **(2) Time** — review-week dev total vs `dev_hours_intended` just set; **(3) Roadmap/goal progress** — what moved on Current phase + active Goals. **Agent does not recommend** — narrative only.
 
 Then show **Floor · Target · this week's actual** for Work, and Aaron picks one status (four-value scale):
 
@@ -1121,14 +1090,14 @@ Fold the summary into `Dev Review`. Optional forward theme (qualitative, 0–2 b
 
 **Table 2.H-adj — Adjustments** *(only if `Work Health` = Below floor; skip when At floor or better)* — ask what adjustments Aaron commits to; capture his words only → `Dev Adjustments`.
 
-`advance --step 2.H` → `2.WA`.
+`advance --step 2.H` → `2.WK`.
 
 ---
 
-<a id="2wa-workshop-admin-lighter-tail"></a>
-### `2.WA` — Workshop + Admin (lighter tail)
+<a id="2wk-2ad-workshop-admin-lighter-tail"></a>
+### `2.WK` / `2.AD` — Workshop + Admin (lighter tail)
 
-*Systems is now a first-class **dev** domain (handled in `2.SY`). This step covers only the two **non-dev** blocks — Workshop (QoL/hobby) and Admin (personal-life/legal) — which sit in their own blocks, never the deep-work block, and don't count as dev. One ledger step (`2.WA`); present the sub-tables below across turns, then advance.*
+*Workshop (QoL/hobby) and Admin (personal-life/legal) sit in **separate blocks** — never the deep-work block, and don't count as dev. ZPT uses `2.WK.1`/`2.WK.3` and `2.AD.1`/`2.AD.3`; Cursor ledger may use a combined `2.WA` step. Present the sub-tables below across turns, then advance.*
 
 **Domain → block mapping (single-axis labels, see `capacity-rules.md`):**
 - **Workshop** = QoL/hobby (home automation, Plex, dashboards) — schedule a **separate Workshop block, capped ~3 hr/wk**. Never in the deep-work block. Does not count as dev.
@@ -1232,17 +1201,14 @@ This list must **exactly match** the Notion Tasks view filtered to `This Week = 
 
 | Field | Step |
 |-------|------|
-| `Deep Work Minutes`, `Accomplishments`, counts | 2.{D}.1 / 2.sync |
-| `Turbo Gear Hours Intended` | 2.TG.2 |
-| `Systems Hours Intended` | 2.SY.2 |
-| `Chrome Lot Hours Intended` | 2.CL.2 |
-| `Dev Review`, `Work Health`, `Dev Week Rating`, `Dev Intentions Met` | 2.H |
+| `dev_hours_intended` → `goal.dev_total_target_min` | 2.W |
+| `Deep Work Minutes`, `Accomplishments`, `Dev Review` | 2.R / 2.W |
+| `Work Health`, `Dev Week Rating`, `Dev Intentions Met` | 2.H |
 | `Dev Adjustments` | 2.H-adj *(Below floor only; Aaron-supplied)* |
-| `Dev Projects Intended`, `Dev Priority Context` | 2.sync |
-| `This Week` slate synced (all domains) | 2.sync |
-| `Workshop Hours Intended`, `Workshop Focus` | 2.WA-W |
-| `Systems Health`, `Workshop Health` | 2.WA-H |
-| **Final slate = Notion view** | **2.check** |
+| `This Week` slate synced (Development + Workshop + Admin) | 2.W / 2.WK / 2.AD |
+| `Workshop Hours Intended`, `Workshop Focus` | 2.WK |
+| `Workshop Health` | 2.WK / 2.AD |
+| **Final slate = ZPT/D1 view** | **2.check** |
 
 *Repair & debt is no longer checked here — personal repair is gated at `1.check`, work repair at `3.R`.*
 
@@ -1411,7 +1377,7 @@ Set `in_repair` on exactly one non-`Personal` register row (`workRepairDomainId`
 <a id="cross-cutting-rules"></a>
 ## Cross-Cutting Rules
 
-- **Table contract per phase.** Phase 1 = life domains (`1.2` → `1.3` → `1.3b` → `1.4` → `1.5` → `1.6` → `1.7` → `1.8`) → `1.R` personal repair & debt → `1.check`. Phase 2 = domain-first loop `2.TG` → `2.CL` → `2.SY` (each `.1` review · `.2` time goal · `.3` select) → `2.H` dev health → `2.WA` Workshop/Admin → `2.sync` → `2.check`. Phase 3 = `3.ops.1/.2` → `3.field.1/.2` → `3.R` work repair & debt. CL ops detail → **Weekly Ops** skill.
+- **Table contract per phase.** Phase 1 = life domains (`1.2` → … → `1.8`) → `1.R` personal repair & debt → `1.check`. Phase 2 = roadmap-centric `2.R` → `2.W` → `2.H` → `2.WK`/`2.AD` → `2.check`. Phase 3 = `3.ops.1/.2` → `3.field.1/.2` → `3.R` work repair & debt. CL ops detail → **Weekly Ops** skill.
 - **Repair is section-scoped, one per section.** One personal repair (`1.R`) + one work repair (`3.R`) — at most two domains `in_repair` per week, never two of the same section. Debt: at most one project per section, both landing on the single This Week slate.
 - **Repair closes its loop.** Each repair step runs `.0` retro → `.1` board → `.2` pick + intent → `.3` debt. The retro on **last week's** repair happens *before* a new one is chosen, judged against this session's fresh rating — never on memory. Between sessions the repair stays visible on the week board (`weekrepair` widget). Skipping `.0` is what turns the repair slot into a rotation where nothing is ever seen through.
 - **FIELD CHECK gates.** Run `1.check` before Phase 2 development; `2.check` after development; the Phase 3 check after `3.R`; verify all in Phase 4 commit.

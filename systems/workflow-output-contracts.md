@@ -109,16 +109,15 @@ Within a single ledger step that spans multiple tables (e.g. weekly plan `1.2` =
 
 Monthly/quarterly: contracts in each `SKILL.md` **Present exactly** map + phase table blocks (`1.check` / `12.check` monthly; `A.check` / `E.4` quarterly).
 
-**Dev tracker rule (weekly plan Phase 2):**
+**Dev tracker rule (weekly plan Phase 2 — roadmap-centric, 2026-09):**
 
-- **0a:** `weekly-plan-weeks.mjs` → Aaron confirms Review + Planning Week Tracker rows before any pull.
-- **2.1-A (review):** Queued dev work = Tasks on review-week `📅 Week Tracker` (ledger `review_week_page_id`) — **Chrome Lot · Turbo Gear · Personal (Admin)**.
-- **2.1-C (accomplished):** Content now **2.1-F Turn 1** — same tree with ~~strikethrough~~ on Done; all three types.
-- **2.1-D (dev health):** Agent summarizes output, time, and month-goal progress; Aaron picks status on four-value scale after Floor · Target · actual. No agent recommendations.
-- **2.1-E (adjustments):** **Only if Below floor.** Aaron states commitments; agent captures verbatim — never proposes adjustments.
-- **2.1-F (plan close-out):** Turn 1 = accomplished · Turn 2 = still open + mark-Done letters · Turn 3 = carryover A/B · then **2.1-G/H** = project adds. All three Task types in one flow.
-- **2.1-S / 2.2:** Sync covers CL/TG/Personal in one `--selected` pass. **2.2** = Todoist mirror check for selected Personal items (carryover selection is in 2.1-F).
-- **2.check:** One bulleted tree (CL/TG + Personal) must **exactly match** Notion `This Week` filtered view before Phase 4.
+- **0a:** `weekly-plan-weeks.mjs` → Aaron confirms Review + Planning week pair before any pull.
+- **2.R (roadmap review):** `weekly-dev-review.mjs` § *Roadmap — Current phase* + *Unified dev time*; wizard shows Current-phase projects and last-week dev stats. No per-domain TG/CL/Systems loop.
+- **2.W (this week):** Unified **Development** slate from Current phase + carryover; single **`dev_hours_intended`** → `goal.dev_total_target_min`. Goals scoped across `Development` + legacy TG/CL/Systems domains.
+- **2.H (dev health):** Agent summarizes output + unified dev time vs goal; Aaron rates `Work Health` on four-value scale. Adjustments only if Below floor.
+- **2.WK / 2.AD:** Workshop + Admin unchanged (per-domain review + hours).
+- **2.check:** FIELD CHECK — `dev_hours_intended`, `Work Health`, slate synced, Workshop/Admin hours. Final tree must match D1/ZPT This Week slate before Phase 3.
+- **Legacy pulls:** `weekly-dev-review` Notion sections (carryover, domain goals, time punches) remain useful context; per-domain `2.TG`/`2.CL`/`2.SY` ledger steps are retired in ZPT.
 - **4.tb:** After Phase 4 scheduling commits, before 4b — `weekly-time-blocks.mjs --ledger` dry-run → Tables **4.tb-A** + **4.tb-B** + Bus schedule; adjust-if-exists or `--force`. Spec → `context/skills/plan-weekly-schedule/SKILL.md`.
 - **4b:** `weekly-plan-week-summary.mjs --ledger` → writes to **planning week** from step 0a (print PDF + `Plan Records/weekly/` + `Plan Doc URL` + Notion `Weekly Plan` section). **Mid-session:** `weekly-plan-section-preview.mjs --section <slug>` before advancing; optional `--all` before 4b.
 - **2.2-A/C:** Planning month Personal Tasks (`🌙 Month`) — no free-text monthly priorities.
