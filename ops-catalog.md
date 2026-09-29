@@ -175,8 +175,8 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 ⚠ **20 issue(s)** across 171 context files.
 
 ### stale (2)
-- `context/self/current-priorities.md` — 38d old (threshold 14d)
-- `context/systems/operations-catalog.md` — 114d old (threshold 30d)
+- `context/self/current-priorities.md` — 39d old (threshold 14d)
+- `context/systems/operations-catalog.md` — 115d old (threshold 30d)
 
 ### missing-frontmatter (15)
 - `context/self/recovery-2026-08.md` — no-frontmatter
@@ -208,7 +208,7 @@ Full audit: `node scripts/audit-context.mjs`
 ## Last generated
 
 <!-- AUTO:LAST_GENERATED -->
-**2026-09-28 16:31:37** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
+**2026-09-28 20:57:12** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
 <!-- /AUTO:LAST_GENERATED -->
 
 ## See also
