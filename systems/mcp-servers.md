@@ -30,6 +30,7 @@ Inventory of every MCP server configured in this workspace, plus how to choose b
 | Control Elegoo Neptune 4 Pro (status, G-code, print jobs) | `neptune-printer` (lcc-hub LAN only) |
 | Create / read FigJam flowcharts (shapes, connectors) | `TalkToFigma` (lcc-hub + Figma Desktop open) |
 | Custody calendar / Matthew OFW events / co-parent messages (read-only) | `ofw` |
+| QuickBooks Online — P&L, accounts, admin snapshot, read-only query, categorize purchase (write needs approval) | `qbo` |
 
 ## Servers
 
@@ -304,6 +305,13 @@ Located in `scripts/` in the workspace. Use these BEFORE MCP calls when a workfl
 
 **Retired scripts**: `morning-data-pull.mjs`, `evening-data-pull.mjs` were deleted when daily Cursor reviews were replaced by n8n workflows.
 
+### qbo — QuickBooks Online (Chrome Lot)
+
+- **Path:** `scripts/qbo-mcp/index.mjs` — `npm install` once in `scripts/qbo-mcp/`
+- **Auth:** `secrets/quickbooks-lcc.json` on lcc-hub (refresh via `scripts/qbo-oauth.mjs`)
+- **Tools:** `qbo_company_info`, `qbo_list_accounts`, `qbo_query` (SELECT only), `qbo_profit_and_loss`, `qbo_admin_snapshot`, `qbo_update_purchase_expense_account` (write — Aaron approval per txn)
+- **Detail:** [quickbooks-online.md](quickbooks-online.md)
+
 ## MCP capabilities matrix
 
 | Service | Read | Write | Known gaps |
@@ -320,6 +328,7 @@ Located in `scripts/` in the workspace. Use these BEFORE MCP calls when a workfl
 | Airtable | Payable Employees roster, schema, fuzzy name/email lookup | Create/update rows, add fields | PII redacted on read; Cloud fallback: `scripts/airtable-lookup.mjs` |
 | Neptune printer | Status, temps, file list, object query | G-code, upload, start/pause/cancel print, E-stop, restarts | **lcc-hub LAN only** — cloud agents cannot reach `192.168.1.x`; print/control writes need Aaron approval |
 | TalkToFigma | FigJam selection, nodes, export | Create shapes/connectors/stickies via plugin bridge | **lcc-hub only** — Figma Desktop + plugin + WebSocket :3055; see [figma-mcp.md](figma-mcp.md) |
+| QBO (`qbo`) | Company, COA, SQL SELECT, P&L report, admin snapshot | Update purchase expense account (approved only) | ZPT has no `/api/qbo` yet — MCP + scripts only; tokens on hub + optional D1 via `/api/intuit/callback` |
 
 ## See also
 
