@@ -185,6 +185,15 @@ Process Street's remote MCP (~105 tools, workflow authoring) requires **OAuth lo
 - **Scheduled PD Teams DMs**: retired for 9am Morning DM and 5pm Evening Defer (2026-06-06). Reconciler optional DM via `RECONCILER_DM_ENABLED` in deploy script.
 - **Weekly Hours Report**: Tue 8 AM CT, lives inside the `Teams Bot` workflow itself
 
+**Cursor Teams MCP** (separate from CL Bot — delegated Graph as Aaron):
+
+- **Location**: `~/.cursor/mcp-servers/teams-mcp` (wired in gitignored `.cursor/mcp.json` → `mcpServers.teams`)
+- **Build**: `cd ~/.cursor/mcp-servers/teams-mcp && npm run build`
+- **Directory tools**: `teams_list_users` (optional `search`, `top`, `include_guests`), `teams_get_user` (`user_id` = GUID or UPN)
+- **Also**: teams/channels/chats/messaging + `teams_list_members` (per team id)
+- **Graph scope**: must include delegated **`User.Read.All`** on the MCP app registration; refresh token must be re-issued after adding the scope → `n8n/tools/teams-setup.md`
+- **Not available** on Cloud Agents unless that MCP is registered on the agent environment (local lcc-hub Cursor has it)
+
 ### hubstaff — employee time tracking
 
 - **Org**: 678423 (Chrome Lot)
