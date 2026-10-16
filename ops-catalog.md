@@ -172,13 +172,13 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 ## Health / staleness
 
 <!-- AUTO:HEALTH_REPORT -->
-⚠ **20 issue(s)** across 180 context files.
+⚠ **21 issue(s)** across 181 context files.
 
 ### stale (2)
-- `context/self/current-priorities.md` — 55d old (threshold 14d)
-- `context/systems/operations-catalog.md` — 131d old (threshold 30d)
+- `context/self/current-priorities.md` — 56d old (threshold 14d)
+- `context/systems/operations-catalog.md` — 132d old (threshold 30d)
 
-### missing-frontmatter (15)
+### missing-frontmatter (16)
 - `context/self/recovery-2026-08.md` — no-frontmatter
 - `context/skills/annual-plan/SKILL.md` — no-frontmatter
 - `context/skills/planning-sprint/SKILL.md` — no-frontmatter
@@ -191,9 +191,10 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 - `context/systems/notion-guides/n8n-automations.md` — no-frontmatter
 - `context/systems/notion-guides/pd-todoist-automation.md` — no-frontmatter
 - `context/systems/readings-curation.md` — no-frontmatter
+- `context/work/finances/zpt-contractor-1099-plan.md` — no-frontmatter
 - `context/work/systems/week-dashboard-v3-plan.md` — no-frontmatter
 - `context/work/turbo-gear/knack-tg-env-setup.md` — no-frontmatter
-- `context/workflow-execution.md` — no-frontmatter
+- _…and 1 more_
 
 ### broken-see-also (3)
 - `context/systems/audiobook-pipeline.md` — ../../output/audiobook-handoff-2026-05-05.md
@@ -208,7 +209,7 @@ Full audit: `node scripts/audit-context.mjs`
 ## Last generated
 
 <!-- AUTO:LAST_GENERATED -->
-**2026-10-15 07:39:02** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
+**2026-10-16 14:34:44** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
 <!-- /AUTO:LAST_GENERATED -->
 
 ## See also
