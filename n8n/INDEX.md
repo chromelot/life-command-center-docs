@@ -21,6 +21,7 @@
 | Roadmap ⏸ Pause | [`webhooks/roadmap-pause/roadmap-pause.md`](webhooks/roadmap-pause/roadmap-pause.md) |
 | Flic → morning supplements | [`webhooks/flic-supplements/flic-supplements.md`](webhooks/flic-supplements/flic-supplements.md) |
 | Sonoff → NB-UVB Teams card | [`webhooks/sonoff-uv-button/sonoff-uv-button.md`](webhooks/sonoff-uv-button/sonoff-uv-button.md) |
+| Flic → Keralyt 5 gel (hands) | [`webhooks/flic-skin-keralyt/flic-skin-keralyt.md`](webhooks/flic-skin-keralyt/flic-skin-keralyt.md) |
 | Flic → silicone cream (hands) | [`webhooks/flic-skin-silicone/flic-skin-silicone.md`](webhooks/flic-skin-silicone/flic-skin-silicone.md) |
 | Flic → Plano office arrive/leave | [`webhooks/flic-plano-office/flic-plano-office.md`](webhooks/flic-plano-office/flic-plano-office.md) |
 | Task 📋 Todoist mirror | [`webhooks/dev-project-todoist-mirror/dev-project-todoist-mirror.md`](webhooks/dev-project-todoist-mirror/dev-project-todoist-mirror.md) |
