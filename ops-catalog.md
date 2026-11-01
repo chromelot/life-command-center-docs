@@ -175,21 +175,21 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 ⚠ **41 issue(s)** across 185 context files.
 
 ### stale (22)
-- `context/README.md` — 185d old (threshold 180d)
-- `context/archive/gmail-spam-filter-guide.md` — 185d old (threshold 180d)
-- `context/archive/index.md` — 185d old (threshold 180d)
-- `context/archive/knack-migration-status.md` — 185d old (threshold 180d)
-- `context/archive/teams-chats.md` — 185d old (threshold 180d)
-- `context/family/index.md` — 185d old (threshold 180d)
-- `context/research/index.md` — 185d old (threshold 180d)
-- `context/research/llm-context-architecture.md` — 185d old (threshold 180d)
-- `context/self/admin.md` — 185d old (threshold 180d)
-- `context/self/current-priorities.md` — 71d old (threshold 14d)
-- `context/self/index.md` — 185d old (threshold 180d)
-- `context/self/social.md` — 185d old (threshold 180d)
-- `context/skills/index.md` — 185d old (threshold 180d)
-- `context/systems/hubstaff.md` — 185d old (threshold 180d)
-- `context/systems/operations-catalog.md` — 147d old (threshold 30d)
+- `context/README.md` — 186d old (threshold 180d)
+- `context/archive/gmail-spam-filter-guide.md` — 186d old (threshold 180d)
+- `context/archive/index.md` — 186d old (threshold 180d)
+- `context/archive/knack-migration-status.md` — 186d old (threshold 180d)
+- `context/archive/teams-chats.md` — 186d old (threshold 180d)
+- `context/family/index.md` — 186d old (threshold 180d)
+- `context/research/index.md` — 186d old (threshold 180d)
+- `context/research/llm-context-architecture.md` — 186d old (threshold 180d)
+- `context/self/admin.md` — 186d old (threshold 180d)
+- `context/self/current-priorities.md` — 72d old (threshold 14d)
+- `context/self/index.md` — 186d old (threshold 180d)
+- `context/self/social.md` — 186d old (threshold 180d)
+- `context/skills/index.md` — 186d old (threshold 180d)
+- `context/systems/hubstaff.md` — 186d old (threshold 180d)
+- `context/systems/operations-catalog.md` — 148d old (threshold 30d)
 - _…and 7 more_
 
 ### missing-frontmatter (16)
@@ -223,7 +223,7 @@ Full audit: `node scripts/audit-context.mjs`
 ## Last generated
 
 <!-- AUTO:LAST_GENERATED -->
-**2026-10-31 17:36:58** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
+**2026-10-31 19:41:47** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
 <!-- /AUTO:LAST_GENERATED -->
 
 ## See also
