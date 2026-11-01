@@ -172,7 +172,7 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 ## Health / staleness
 
 <!-- AUTO:HEALTH_REPORT -->
-⚠ **41 issue(s)** across 186 context files.
+⚠ **41 issue(s)** across 187 context files.
 
 ### stale (22)
 - `context/README.md` — 186d old (threshold 180d)
@@ -223,7 +223,7 @@ Full audit: `node scripts/audit-context.mjs`
 ## Last generated
 
 <!-- AUTO:LAST_GENERATED -->
-**2026-11-01 11:08:02** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
+**2026-11-01 11:08:46** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
 <!-- /AUTO:LAST_GENERATED -->
 
 ## See also
