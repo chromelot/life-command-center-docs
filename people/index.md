@@ -14,7 +14,7 @@
 
 ## Family — childcare (editorial)
 
-Paid sitter arrangements are managed in ZPT at `#/calendar/childcare`. Family co-op volunteers use the Hoegenauer Calendar. Canonical windows → [`../systems/childcare-coverage.md`](../systems/childcare-coverage.md).
+Recurring helpers are defined on the Weekly Planning Calendar template; per-week edits live in `household_week`. Summary → [`../systems/childcare-coverage.md`](../systems/childcare-coverage.md).
 
 ### Emma Douglas — school drop-off
 
@@ -32,13 +32,13 @@ Paid sitter arrangements are managed in ZPT at `#/calendar/childcare`. Family co
 | Standing windows | Tue 17:00–19:30; Thu 17:00–22:00 (school days only) |
 | Managed in | ZPT `#/calendar/childcare` |
 
-### Caryss — family co-op (Monday)
+### Caryss — helper (Monday)
 
 | Field | Value |
 |---|---|
-| Role | Family co-op volunteer — uses Hoegenauer Calendar interface |
-| Standing window | Mondays (specific times vary by claimed shift) |
-| Managed in | Hoegenauer Calendar only — **not** ZPT sitter rules |
+| Role | Matthew helper — Monday evenings on the weekly template |
+| Standing window | Mon 17:00–19:00 (template) |
+| Managed in | ZPT Weekly Planning Calendar + `household_week` |
 
 ## Active — Chrome Lot team
 

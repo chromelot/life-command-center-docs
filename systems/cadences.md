@@ -29,7 +29,7 @@ Daily morning/evening Cursor reviews were retired. The PD ↔ Todoist loop is re
 
 | Time | Workflow | What |
 |---|---|---|
-| ~6:15 AM CT daily | `childcare-coverage-sync.yml` | Resync current week's `childcare_week` cache (sitters + Hoegenauer co-op). See [`childcare-coverage.md`](childcare-coverage.md). |
+| ~6:15 AM CT daily | `household-week-ensure.yml` | Ensure current + next `household_week` from template. See [`childcare-coverage.md`](childcare-coverage.md). |
 
 > Daily morning/evening Cursor sessions remain retired.
 
