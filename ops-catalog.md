@@ -172,27 +172,27 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 ## Health / staleness
 
 <!-- AUTO:HEALTH_REPORT -->
-⚠ **44 issue(s)** across 194 context files.
+⚠ **45 issue(s)** across 195 context files.
 
 ### stale (23)
-- `context/README.md` — 188d old (threshold 180d)
-- `context/archive/gmail-spam-filter-guide.md` — 188d old (threshold 180d)
-- `context/archive/index.md` — 188d old (threshold 180d)
-- `context/archive/knack-migration-status.md` — 188d old (threshold 180d)
-- `context/archive/teams-chats.md` — 188d old (threshold 180d)
-- `context/family/index.md` — 188d old (threshold 180d)
-- `context/research/index.md` — 188d old (threshold 180d)
-- `context/research/llm-context-architecture.md` — 188d old (threshold 180d)
-- `context/self/admin.md` — 188d old (threshold 180d)
-- `context/self/current-priorities.md` — 74d old (threshold 14d)
-- `context/self/index.md` — 188d old (threshold 180d)
-- `context/self/social.md` — 188d old (threshold 180d)
-- `context/skills/index.md` — 188d old (threshold 180d)
-- `context/systems/audiobook-pipeline.md` — 181d old (threshold 180d)
-- `context/systems/hubstaff.md` — 188d old (threshold 180d)
+- `context/README.md` — 189d old (threshold 180d)
+- `context/archive/gmail-spam-filter-guide.md` — 189d old (threshold 180d)
+- `context/archive/index.md` — 189d old (threshold 180d)
+- `context/archive/knack-migration-status.md` — 189d old (threshold 180d)
+- `context/archive/teams-chats.md` — 189d old (threshold 180d)
+- `context/family/index.md` — 189d old (threshold 180d)
+- `context/research/index.md` — 189d old (threshold 180d)
+- `context/research/llm-context-architecture.md` — 189d old (threshold 180d)
+- `context/self/admin.md` — 189d old (threshold 180d)
+- `context/self/current-priorities.md` — 75d old (threshold 14d)
+- `context/self/index.md` — 189d old (threshold 180d)
+- `context/self/social.md` — 189d old (threshold 180d)
+- `context/skills/index.md` — 189d old (threshold 180d)
+- `context/systems/audiobook-pipeline.md` — 182d old (threshold 180d)
+- `context/systems/hubstaff.md` — 189d old (threshold 180d)
 - _…and 8 more_
 
-### missing-frontmatter (18)
+### missing-frontmatter (19)
 - `context/self/recovery-2026-08.md` — no-frontmatter
 - `context/skills/annual-plan/SKILL.md` — no-frontmatter
 - `context/skills/planning-sprint/SKILL.md` — no-frontmatter
@@ -207,8 +207,8 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 - `context/systems/readings-curation.md` — no-frontmatter
 - `context/work/finances/zpt-contractor-1099-plan.md` — no-frontmatter
 - `context/work/legal/warner-discovery-redactions.md` — no-frontmatter
-- `context/work/legal/warner-email-reexport-plan.md` — no-frontmatter
-- _…and 3 more_
+- `context/work/legal/warner-email-qa-completion-plan.md` — no-frontmatter
+- _…and 4 more_
 
 ### broken-see-also (3)
 - `context/systems/audiobook-pipeline.md` — ../../output/audiobook-handoff-2026-05-05.md
@@ -223,7 +223,7 @@ Full audit: `node scripts/audit-context.mjs`
 ## Last generated
 
 <!-- AUTO:LAST_GENERATED -->
-**2026-11-03 17:40:01** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
+**2026-11-03 18:32:42** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
 <!-- /AUTO:LAST_GENERATED -->
 
 ## See also
