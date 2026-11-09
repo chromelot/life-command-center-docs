@@ -21,7 +21,7 @@ Legacy path on the Turbo Gear PC: `c:\Users\hoege\Documents\Turbo Gear Repo\` �
 
 All repos: `torchcommercialmedia` — `turbo-gear` (frontend), `turbo-gear-api`, `turbo-gear-workspace`.
 
-**Branching (solo dev, no human reviewer):** `main` is the **live app** — **default is to commit directly to `main`** (auto-deploys; no users yet). CI must pass; **no required review, no CODEOWNERS**. Use a `feat/*` branch only to preview a risky change (Vercel preview) before self-merging. `dev`/dev.turbogear.com is the **future preview sandbox**, optional today. Reviewer = CI + Bugbot + verify loop. See TG `branching-and-prs.mdc` + `environments.mdc`.
+**Branching (2026-11-09 — staff + owner):** `main` is **live** and **protected** on both app repos: CI required, **CODEOWNERS** on red-zone paths, **enforce_admins**, hooks block dangerous agent commands. **Aaron** may still merge via PR after green CI + scope-gate (+ owner review when routed). **Staff** always ship via branch + PR from **tg-dev** (`context/systems/tg-dev.md`). Interactive TG work is moving off lcc-hub to tg-dev; keep the checkout here for legacy scripts only until tg-dev is live. See TG `branching-and-prs.mdc` + `APPROVAL_POLICY.md`.
 
 ## Dev stack commands
 
@@ -62,16 +62,7 @@ Template for workspace root: `C:\Tools\lcc\Turbo Gear\.env.example`
 
 ## RC / My Machines worker (lcc-hub)
 
-The **lcc-hub** Cursor worker must expose **both** workspace roots or RC agents get *transient infrastructure errors* on TG file reads/writes:
-
-| Role | Path |
-|---|---|
-| Assignment (primary) | `C:\Users\Aaron\Resilio Sync\Life Command Center` |
-| Execution (TG) | `C:\Tools\lcc\Turbo Gear` |
-
-Configured in `scripts/lcc-hub/cursor-agent-worker.ps1` via `agent worker --worker-dir … --worker-dir … start`. After changing worker scripts, run `register-cursor-worker.ps1` and restart the worker (or let the watchdog recover).
-
-Verify: `agent worker debug` should list **Execution workspaces:** with both paths.
+**LCC-only RC (2026-11-09):** The lcc-hub worker should expose **only** the Life Command Center root for Remote Control — not Turbo Gear. TG interactive work belongs on **tg-dev** per `context/systems/tg-dev.md`. If an older worker still lists `C:\Tools\lcc\Turbo Gear` as a second `--worker-dir`, remove it after tg-dev is provisioned so follow-ups and paths stay LCC-only.
 
 ### Supervision model (why it used to crash-loop)
 
