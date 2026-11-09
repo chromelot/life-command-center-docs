@@ -58,7 +58,7 @@ Template for workspace root: `C:\Tools\lcc\Turbo Gear\.env.example`
 | **LCC session** (default) | Planning + TG implementation in one chat | Agent reads `.cursor/rules/turbo-gear-dev.mdc`, edits files under `C:\Tools\lcc\Turbo Gear\`, loads TG rules from junction path on demand |
 | **TG workspace** | Deep TG-only session with all rules auto-loaded | Cursor → Open Folder → `C:\Tools\lcc\Turbo Gear` |
 
-Multi-root option: open `C:\Tools\lcc\life-command-center-with-turbo-gear.code-workspace` (both LCC + TG roots).
+**Remote Control / agents:** open `C:\Tools\lcc\life-command-center-with-turbo-gear.code-workspace` — **Life Command Center only** (Turbo Gear root removed 2026-11-09 so staff follow-ups never run against lcc-hub creds). Interactive TG work happens on **tg-dev** (see `context/systems/tg-dev.md` when provisioned). The `C:\Tools\lcc\Turbo Gear` checkout remains on disk for scripts/CI.
 
 ## RC / My Machines worker (lcc-hub)
 
