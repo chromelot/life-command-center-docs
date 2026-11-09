@@ -62,7 +62,7 @@ Template for workspace root: `C:\Tools\lcc\Turbo Gear\.env.example`
 
 ## RC / My Machines worker (lcc-hub)
 
-**LCC-only RC (2026-11-09):** The lcc-hub worker should expose **only** the Life Command Center root for Remote Control — not Turbo Gear. TG interactive work belongs on **tg-dev** per `context/systems/tg-dev.md`. If an older worker still lists `C:\Tools\lcc\Turbo Gear` as a second `--worker-dir`, remove it after tg-dev is provisioned so follow-ups and paths stay LCC-only.
+**LCC-only RC (2026-11-09):** `scripts/lcc-hub/cursor-agent-worker.ps1` registers a single `--worker-dir` — Life Command Center only. TG interactive work belongs on **tg-dev** (`scripts/tg-dev/register-cursor-worker-tg.ps1`). After pulling this change, copy the worker script to `C:\Tools\lcc\` (register task) and restart `LCC-CursorAgentWorker` so Remote Control stops offering TG paths.
 
 ### Supervision model (why it used to crash-loop)
 
