@@ -2,7 +2,7 @@
 
 # Turbo Gear — development from lcc-hub
 
-Aaron implements Turbo Gear from the **Life Command Center** Cursor workspace. The app code lives on disk at a fixed path; LCC agents edit those files by absolute path and follow TG's own Cursor rules (cloned from GitHub).
+Interactive Turbo Gear work happens in the team hub on **tg-dev** (`context/systems/tg-dev.md`). This checkout stays on lcc-hub for plan execution only: LCC agents edit it by absolute path and follow TG's own Cursor rules. Staff do not open it.
 
 ## Paths
 
@@ -21,7 +21,7 @@ Legacy path on the Turbo Gear PC: `c:\Users\hoege\Documents\Turbo Gear Repo\` �
 
 All repos: `torchcommercialmedia` — `turbo-gear` (frontend), `turbo-gear-api`, `turbo-gear-workspace`.
 
-**Branching (2026-11-09 — staff + owner):** `main` is **live** and **protected** on both app repos: CI required, **CODEOWNERS** on red-zone paths, **enforce_admins**, hooks block dangerous agent commands. **Aaron** may still merge via PR after green CI + scope-gate (+ owner review when routed). **Staff** always ship via branch + PR from **tg-dev** (`context/systems/tg-dev.md`). Interactive TG work is moving off lcc-hub to tg-dev; keep the checkout here for legacy scripts only until tg-dev is live. See TG `branching-and-prs.mdc` + `APPROVAL_POLICY.md`.
+**Branching:** App `main` is live and protected. Staff and Aaron ship from the hub on tg-dev: `scripts/hub/change.mjs` makes a worktree and a pull request. This lcc-hub checkout is for plan execution, not for opening a work session. See `context/systems/tg-dev.md` and TG `branching-and-prs.mdc`.
 
 ## Dev stack commands
 
