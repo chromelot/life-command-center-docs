@@ -88,6 +88,7 @@ Domain: chromelot. Sales Pipeline 1, CS Pipeline 6, Dormant Pipeline 12. Full co
 - **Repo path**: `agents/cl-data/` (`agent-sdk validate`, `agent-sdk eval`, `agent-sdk deploy --dir agents/cl-data`)
 - **Slug**: `cl-data` (Cursor Team Chrome Lot, status `running`, application id in `agent-sdk deployment get cl-data --json`)
 - **ZPT grants**: `GET /api/work-accounts/:teamsUserId/grants` with bearer `DATA_AGENT_TOKEN` (`secrets/data-agent.json` → Pages + hosted agent)
+- **QBO (read)**: live Chrome Lot file via `DEV_REPORT_TOKEN` → `POST /api/cron-qbo?job=proxy` (D1 `QUICKBOOKS_LCC_*` on ZPT). Optional hosted `QBO_*` env for direct Intuit refresh. Reconnect: `GET /api/intuit/oauth` when `invalid_grant`.
 - **Teams bot**: **separate Azure Bot registration** for staff CL Data Agent only — **never** the personal **LCC bot** (`n8n/bots/lcc-bot/lcc-bot.md`; messaging endpoint `https://n8n.turbogear.com/webhook/lcc-bot`). Register a new single-tenant bot in the Chrome Lot tenant; set Azure **Messaging endpoint** to the Cursor-hosted URL (from `agent-sdk deployment get cl-data`): `…/engine/v1/channels/teams/api/messages` on the `public` engine URL (no alias token). Hosted secrets: `MICROSOFT_APP_ID`, `MICROSOFT_APP_PASSWORD`, `MICROSOFT_APP_TENANT_ID` on deployment `cl-data` only — not Aaron's `TEAMS_LCC_BOT_*`.
 
 ### notion-personal — Personal Notion
