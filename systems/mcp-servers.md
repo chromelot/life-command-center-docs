@@ -88,7 +88,7 @@ Domain: chromelot. Sales Pipeline 1, CS Pipeline 6, Dormant Pipeline 12. Full co
 - **Repo path**: `agents/cl-data/` (`agent-sdk validate`, `agent-sdk eval`, `agent-sdk deploy --dir agents/cl-data`)
 - **Slug**: `cl-data` (Cursor Team Chrome Lot, status `running`, application id in `agent-sdk deployment get cl-data --json`)
 - **ZPT grants**: `GET /api/work-accounts/:teamsUserId/grants` with bearer `DATA_AGENT_TOKEN` (`secrets/data-agent.json` → Pages + hosted agent)
-- **Teams bot**: reuses **LCC bot** app registration (`n8n/.secrets.local` → `TEAMS_LCC_BOT_APP_ID` / `TEAMS_LCC_BOT_APP_SECRET`, tenant `TEAMS_BOT_TENANT_ID`); channel route `POST …/v1/channels/teams/api/messages` (set messaging endpoint in Azure to the Cursor-hosted public URL for that path)
+- **Teams bot**: **separate Azure Bot registration** for staff CL Data Agent only — **never** the personal **LCC bot** (`n8n/bots/lcc-bot/lcc-bot.md`; messaging endpoint `https://n8n.turbogear.com/webhook/lcc-bot`). Register a new single-tenant bot in the Chrome Lot tenant; set Azure **Messaging endpoint** to the Cursor-hosted URL (from `agent-sdk deployment get cl-data`): `…/engine/v1/channels/teams/api/messages` on the `public` engine URL (no alias token). Hosted secrets: `MICROSOFT_APP_ID`, `MICROSOFT_APP_PASSWORD`, `MICROSOFT_APP_TENANT_ID` on deployment `cl-data` only — not Aaron's `TEAMS_LCC_BOT_*`.
 
 ### notion-personal — Personal Notion
 
