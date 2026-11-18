@@ -83,6 +83,13 @@ Inventory of every MCP server configured in this workspace, plus how to choose b
 
 Domain: chromelot. Sales Pipeline 1, CS Pipeline 6, Dormant Pipeline 12. Full configuration → [pipedrive.md](pipedrive.md).
 
+### cl-data — hosted CL Data Agent (Teams + grants)
+
+- **Repo path**: `agents/cl-data/` (`agent-sdk validate`, `agent-sdk eval`, `agent-sdk deploy --dir agents/cl-data`)
+- **Slug**: `cl-data` (Cursor Team Chrome Lot, status `running`, application id in `agent-sdk deployment get cl-data --json`)
+- **ZPT grants**: `GET /api/work-accounts/:teamsUserId/grants` with bearer `DATA_AGENT_TOKEN` (`secrets/data-agent.json` → Pages + hosted agent)
+- **Teams bot**: reuses **LCC bot** app registration (`n8n/.secrets.local` → `TEAMS_LCC_BOT_APP_ID` / `TEAMS_LCC_BOT_APP_SECRET`, tenant `TEAMS_BOT_TENANT_ID`); channel route `POST …/v1/channels/teams/api/messages` (set messaging endpoint in Azure to the Cursor-hosted public URL for that path)
+
 ### notion-personal — Personal Notion
 
 - **Token**: `secrets/notion-personal.json` (not in repo)
