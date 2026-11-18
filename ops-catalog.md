@@ -172,7 +172,7 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 ## Health / staleness
 
 <!-- AUTO:HEALTH_REPORT -->
-⚠ **58 issue(s)** across 222 context files.
+⚠ **64 issue(s)** across 224 context files.
 
 ### stale (26)
 - `context/README.md` — 203d old (threshold 180d)
@@ -210,6 +210,18 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 - `context/work/legal/warner-email-qa-completion-plan.md` — no-frontmatter
 - _…and 14 more_
 
+### missing-updated (2)
+- `context/skills/execution-plan-author/SKILL.md`
+- `context/skills/execution-plan-run/SKILL.md`
+
+### missing-status (2)
+- `context/skills/execution-plan-author/SKILL.md`
+- `context/skills/execution-plan-run/SKILL.md`
+
+### missing-tags (2)
+- `context/skills/execution-plan-author/SKILL.md`
+- `context/skills/execution-plan-run/SKILL.md`
+
 ### broken-see-also (3)
 - `context/systems/audiobook-pipeline.md` — ../../output/audiobook-handoff-2026-05-05.md
 - `context/work/chrome-lot/social-media.md` — ../../skills/weekly-ops/SKILL.md
@@ -223,7 +235,7 @@ Full audit: `node scripts/audit-context.mjs`
 ## Last generated
 
 <!-- AUTO:LAST_GENERATED -->
-**2026-11-17 20:12:39** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
+**2026-11-17 20:13:47** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
 <!-- /AUTO:LAST_GENERATED -->
 
 ## See also
