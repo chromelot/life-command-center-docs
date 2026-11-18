@@ -128,8 +128,30 @@ ${SHARED_CONSTS}    // common helpers + secret constants
 | `GET /webhook/todoist-callback` | **Todoist OAuth Exchange** + **Todoist OAuth Respond** | Handles the redirect from Todoist OAuth, exchanges `code` for token, stores it on the user's `Person` record, replies with HTML success page. |
 | Schedule: `0 8 * * 2` (Tue 8am CT) | **Weekly Hours Report** | Computes last full Mon–Sun. Pulls Hubstaff daily totals + Time Doctor worklog. Builds Markdown with risk-flag section. DMs Aaron. |
 | `POST /webhook/weekly-hours-report` | **Weekly Hours Report** (same node, manual fire) | Same as above, on demand. Used for testing or ad-hoc pulls. |
+| `POST /webhook/cl-data-reply` | **CL Data Reply** | Authenticated callback from the hosted CL Data Agent: posts the agent's answer into the user's 1:1 DM. Header `x-cl-data-secret` must match `CL_DATA_RELAY_SECRET`. |
+| Schedule: `0 18 * * 0` (Sun 6pm CT) + `POST /webhook/roster-reconcile` | **Roster Reconcile** | Airtable roster drift check; DM Aaron on mismatches. |
 
 Every Code node has a top-level `try/catch` so a transient failure surfaces in Teams (or in the response body for OAuth callback) rather than silently dying.
+
+---
+
+## CL Data Agent relay
+
+Free-text fallback for **1:1 chats only** (group chats and channels still require an `@mention` and must use explicit commands — otherwise the bot refuses data questions and points the user to DM).
+
+| Direction | Mechanism |
+|---|---|
+| **Outbound (user → agent)** | When the first line of an inbound message is not a registered skill (and `CL_DATA_RELAY_SECRET` is set), the dispatcher posts `_Looking that up..._`, then `POST`s JSON `{ teamsUserId, text, conversationId }` to the hosted cl-data **`clbot`** channel (`CL_DATA_ASK_URL`, default Cursor Agent SDK URL). Header: `x-cl-data-secret: CL_DATA_RELAY_SECRET`. Response is typically **202** with an empty body (handled with `json: false` + `returnFullResponse: true` so empty bodies do not fail JSON parse). |
+| **Inbound (agent → user)** | `POST https://n8n.turbogear.com/webhook/cl-data-reply` with body `{ conversationId, text }` and the same `x-cl-data-secret` header. Resolves `convRef` from `staticData.conversations.byConvId` (legacy map fallback) and posts via `postActivity`. Refuses `conversationId` values containing `@thread.v2` (no group-chat data answers). |
+
+**Secrets** (`n8n/.secrets.local`):
+
+| Key | Purpose |
+|---|---|
+| `CL_DATA_RELAY_SECRET` | Shared HMAC-style gate for both legs. Must match the cl-data deployment secret **`CLBOT_RELAY_SECRET`**. If unset, free-text falls through to `Unknown command` (legacy behavior). |
+| `CL_DATA_ASK_URL` | Optional override for the outbound ask endpoint (default baked into deploy script). |
+
+The existing **`ask`** command (OpenAI + Knack tools in-process) is unchanged. Free-text relay is separate and asynchronous — answers arrive via `cl-data-reply`.
 
 ---
 
@@ -425,6 +447,7 @@ For group chat / channel sends, capture the convId by `@mention`ing the bot in t
 | **Todoist (per-user)** | OAuth (auth code flow) | Token stored on each `Person` record (`person.todoistToken`). Triggered by `connect todoist`. | Redirect URI `https://n8n.turbogear.com/webhook/todoist-callback` must be whitelisted in the Todoist app config. |
 | **Hubstaff** | OAuth refresh token (rotates on every refresh) | Seed in `HUBSTAFF_REFRESH_TOKEN`. Live token cached in `staticData.hubstaff.{accessToken, refreshToken, expiresAt}`. | **Refresh tokens rotate** — only one workflow can refresh at a time. That's a major reason all bot logic stays in one workflow. |
 | **Time Doctor 2** | Long-lived JWT (~6 month lifetime) | `TIMEDOCTOR_TOKEN` + `TIMEDOCTOR_COMPANY_ID`. Re-mint manually every ~6 months. | Re-mint: `POST https://api2.timedoctor.com/api/1.0/login {email, password, permissions:'read'}`. Company ID stays the same. |
+| **CL Data Agent** (hosted) | Shared secret header | `CL_DATA_RELAY_SECRET` (+ optional `CL_DATA_ASK_URL`) in `.secrets.local`. Same value as cl-data `CLBOT_RELAY_SECRET`. | Outbound ask + inbound `cl-data-reply`; see **CL Data Agent relay** above. |
 
 ---
 
