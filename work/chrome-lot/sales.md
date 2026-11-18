@@ -18,8 +18,8 @@ Chrome Lot's job right now is to **protect revenue + replace churn + pursue mode
 ### Part A — Aaron's sales activity
 
 1. Review Pipeline 1: new leads, stale deals, overdue activities
-2. Plan Aaron's sales stops for the week (realistically **2-3 stops**)
-3. **Route planning**: Aaron uses Mapsly manually to cluster stops geographically
+2. Set **Business focus** sliders (`field_afternoons`, `sales_focus`) — the **field rotation** proposes visits/calls from account health; accept/swap picks in weekly planning (replaces a fixed weekly stop cap)
+3. **Route planning**: rotation groups by location; Mapsly for one-off adjustments
 4. Review any rescheduled-3x activities — decide: do, delegate, or drop
 5. Accountability: activities completed last week vs. planned
 
@@ -33,8 +33,8 @@ Chrome Lot's job right now is to **protect revenue + replace churn + pursue mode
 
 ## Cap
 
-- **Max 3 Pipedrive activities/day** (cross-cutting rule). If suggesting more for any single day, cap at 3.
-- **Max 2-3 sales stops/week for Aaron** specifically. Sales stops are slower than CS stops because they often turn into discovery conversations.
+- **Max 3 Pipedrive Today items/day** for Aaron, **promises first** (nightly picker). Visits are weekly via `field_afternoons` + rotation — not a separate 2–3 stop/week manual cap.
+- Sales stops are slower than CS stops (often discovery); rotation scores and the sales_focus slider size the week.
 
 ## See also
 

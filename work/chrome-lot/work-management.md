@@ -29,18 +29,18 @@ Kevin's **Daily Operations Check-In** / **Daily Closeout** (Process Street) are 
 
 Summarize the review week: which days needed **backup-tier photographers** (rank contains `Backup`) or had **call-ins** driving coverage changes. Name photographers and customers if action is needed.
 
-## Org priority — Sales vs Hiring
+## Business focus (replaces Ops Priority)
 
-Current posture for **where Aaron and ops attention goes this planning week**:
+Weekly ops posture is set on the ZPT **Business focus** card (D1 `business_focus`), not the retired Weekly Ops Log **Ops Priority** letter:
 
-| Priority | When |
-|----------|------|
-| **Sales** | Account Management / new business debt is the binding constraint (stale pipeline, AM follow-ups, CS not the bottleneck) |
-| **Hiring** | **Only when Knack hiring app shows HIRING ACTIVE: yes** (≥1 open position with `field_172` = Open) **and** personnel/delegation strain or unhealthy pipeline (zero review-week apps, Unhealthy job ad on open req) |
-| **Service delivery** | Field coverage / backups / call-in pattern is the binding constraint *(ops priority label — not the Photographer Management department)* |
-| **Balanced** | No single domain dominates |
+| Slider | Values | Meaning |
+|--------|--------|---------|
+| **`field_afternoons`** | 0–3 | **0 = Hire** (hiring is ops — no field afternoons). **1 = Maintain** (default), 2 = Water, 3 = Grow. Visit count = afternoons × 3, grouped by location. |
+| **`sales_focus`** | 0–4 | Service ↔ Sales mix (0 = Service … 4 = Sales; default 1 = Service-leaning). Drives rotation call vs visit mix. |
 
-**Hiring active gate:** `weekly-data-pull.mjs` → **HIRING — KNACK HIRING APP** section. If **HIRING ACTIVE: no**, Weekly Ops Phase 1.3 option **B (Hiring)** is N/A.
+**Hiring weeks:** set **`field_afternoons` = 0** (Hire). Hiring review still gates on Knack **HIRING ACTIVE: yes** (`weekly-data-pull.mjs` → **HIRING — KNACK HIRING APP**). When **HIRING ACTIVE: no**, hiring-specific ops steps are N/A.
+
+Field coverage stress (backups, call-ins, unassigned jobs) is **ops morning** work — handled in ops, not via a fourth weekly priority letter.
 
 ### Knack hiring app (read-only)
 
@@ -62,9 +62,9 @@ When **HIRING ACTIVE: yes**, Phase 2 opens with:
 2. **Table 2.1-C** — applications imported by week (`field_113`)
 3. **Table 2.1-D** — one pipeline issue per turn when unhealthy: repost ad, step in on applicant review, or redelegate review
 
-When **HIRING ACTIVE: no**, step is N/A (ops priority option B also N/A in Phase 1.3).
+When **HIRING ACTIVE: no**, step is N/A.
 
-Use Departments **Priority** + **Health** (briefing **DEPARTMENTS**) plus Phase 2.1 (hiring), Phase 8 (sales), and hiring briefing signals. Aaron confirms one letter in Phase 1.3; stored on Weekly Ops Log as **Ops Priority**.
+Use Departments **Priority** + **Health** (briefing **DEPARTMENTS**) plus Phase 2.1 (hiring), Phase 8 (sales), hiring briefing signals, and the **Business focus** sliders (carry forward each week in ZPT).
 
 ## Department health (in-phase — not a separate phase)
 

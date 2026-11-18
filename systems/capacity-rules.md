@@ -13,21 +13,20 @@ These rules exist because Aaron's #1 failure mode is overcommitment: trying to d
 ### Task execution
 
 - **Max 5 must-do** Todoist tasks per day (P1/P2 priority). If the day looks heavier, defer.
-- **Pipedrive activities**: not capped per day. Open activities mirror in real time to the shared Todoist `Pipedrive` project; `Team Evening Defer` (5pm Mon–Sat) rolls anything unfinished forward.
+- **Pipedrive (Aaron): 3 Today items a day, promises first.** The nightly picker fills tomorrow; field **visits** are planned weekly via the Business focus `field_afternoons` slider (`field-rotation.md`), not a daily stop cap. Open activities still mirror in real time to the shared Todoist `Pipedrive` project; teammates keep `Team Evening Defer` (5pm Mon–Sat).
 - **Max 1 self-initiated meeting** per day. Protect focus time.
 - **If total committed work exceeds 8 hours**, flag as overcommitted. Something must move.
 
-### Time blocks (ideal day structure)
+### Time blocks (ideal day structure — school year)
 
-- 5:30-7:00 AM — Reflection, reading, morning routine (protected, no work)
-- 7:00-8:30 AM — Gym workout (protected, no distractions)
-- On demand — CL Bot `today` / `deal gaps` (replaces retired 9am Morning DM)
-- 9:00-12:00 PM — **Dev block** (current task from dev queue, see `../work/turbo-gear/` and `../work/chrome-lot/` Tasks)
-- 12:00-1:00 PM — Lunch + Todoist quick tasks
-- 1:00-4:00 PM — Operations, meetings, Pipedrive activities, field work
-- 4:00-5:00 PM — Todoist cleanup, respond to messages, handle subordinate needs
-- 5:00 PM — n8n Team Evening Defer auto-fires (Mon–Sat)
-- After 5:00 PM — Social, Bus time. Work is done.
+Matches `time-blocks.md` + ZPT weekly template (`weekly-time-blocks.mjs`):
+
+- Morning — gym before first comms; Bus drop/pickup blocks as scheduled
+- **Mon** — **Allen office** (bizdev morning)
+- **Tue–Fri until noon** — **Ops** (Pipedrive Today ≤3, comms, people, office tasks)
+- **Tue–Fri afternoon** — **Dev** or **field** (field afternoons from Business focus slider; field-first when Emma covers pickup; 15-minute down-shift before pickup on dev days)
+- **No evening work blocks** — after pickup = Bus / personal; optional Workshop/Admin only per `current-priorities.md`, not calendar work blocks
+- Teammates: n8n Team Evening Defer still runs 5pm Mon–Sat (Aaron's queue uses the nightly picker instead)
 
 ### Responsiveness
 
@@ -120,7 +119,7 @@ The weekly plan must check **before finalizing**:
 - **Pipedrive activities**: If >3 activities suggested for any day, cap at 3
 - **Total weekly hours**: Sum of all planned work (dev + ops + field + meetings) **must not exceed 40h**; recommend cuts if over
 - **Deferred task check**: Any task deferred 3+ times must route through delegation framework before rescheduling again
-- **CS stop delegation**: Weekly CS check-in batch (6-9 stops) **must distribute across team**, not pile on Aaron
+- **Field visits and CS/sales touchpoints**: sized by **Business focus sliders + field rotation** (`field-rotation.md`), not a fixed weekly stop batch — delegate accounts via rotation/triage when capacity is tight
 - **Tasks**: 1-3 selected via This Week. One Thing Framework applied.
 
 ## Intervention protocol

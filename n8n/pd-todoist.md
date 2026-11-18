@@ -6,6 +6,8 @@
 
 Webhook-driven and team-wide: everyone with a Pipedrive seat (and Todoist-only sub-AMs delegated via the org's `Sub Account Manager Email` field) sees their PD activities mirrored into the shared **Pipedrive** Todoist project (`6gfPq74rf2fJwGJx`, Chrome Lot workspace) the moment they're created in PD.
 
+**Aaron queue (2026-11-18):** Activities with `Queue:` markers (`commit`, `flex`, `pick`, `triage`, `snoozed`) plus optional `Eligible:`, `Offered:`, `Source:` in the PD **note** — see `context/systems/pipedrive.md`. Todoist due dates mirror only `commit` and `pick`. **`POST /api/cron-pd-picker`** (nightly) replaces evening defer for Aaron and caps **Today at 3** (promises first). **Teammates** still use **`Team Evening Defer`** and unchanged deferral/auto-next behavior. Pipeline **12** parked-deal **revisit dates** are stored in **D1**, not PD custom fields.
+
 ## Architecture
 
 ```

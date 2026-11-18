@@ -26,6 +26,8 @@ Chrome Lot's CRM. Domain: `chromelot`.
 
 During **weekly plan Phase 6**, stale Sales Pipeline 1 deals Aaron no longer actively pursues move to **Pipeline 12** after one-by-one review. Each move requires case-by-case approval before `pipedrive_update_deal`. Stale detection uses the **Stale** label (same signal as CL Bot `stale deals`); fallback: no activity in 14+ days.
 
+**Parked Pipeline 12 revisit dates** live in **D1** (set from weekly triage **Park** and the nightly next-step check). When revisit is due, deals resurface through triage — not a manual PD stage shuffle.
+
 ## CS pipeline stages (Pipeline 6)
 
 | Stage ID | Name |
@@ -62,10 +64,25 @@ When a deal has **Sub Account Manager Email** (1 or 2) set, automation adds the 
 ## Operating rules (always active)
 
 - **Every activity must have a deal.** When creating a Pipedrive activity, search for and attach the appropriate deal. For customer service on existing customers, look for a deal ending in "CS". For new business, attach the relevant Pipeline 1 deal. **Never leave `deal_id` empty.**
-- **Cap at 3 activities/day.** If planning more than 3, defer the rest with Aaron's input on timing.
+- **Aaron: 3 Today items/day, promises first.** The nightly picker (`POST /api/cron-pd-picker`) fills tomorrow; weekly **field visits** come from Business focus + rotation, not extra daily slots.
 - **Pipedrive is the system of record for customer tasks.** Any Todoist task involving customer/prospect contact should ALSO have a corresponding Pipedrive activity.
 
-## Deferral tracking (evening defer)
+## Aaron queue markers + nightly picker (2026-11-18)
+
+Applies only to Aaron (`18865844`). **Teammates unchanged** — they keep `Team Evening Defer` and copy-type auto-next.
+
+Activity **`note`** markers (alongside `Deferrals: N`):
+
+| Marker | Values |
+|--------|--------|
+| `Queue:` | `commit` \| `flex` \| `pick` \| `triage` \| `snoozed` |
+| `Eligible:` | `YYYY-MM-DD` (check-backs) |
+| `Offered:` | offer count from the picker |
+| `Source:` | `auto-next` \| `rotation` \| `triage` \| `zpt` |
+
+**Nightly picker** (`POST /api/cron-pd-picker`, GitHub Actions): classifies unmarked activities, moves stale promises to triage, fills **tomorrow to 3 items** (promises → eligible check-backs → rotation calls). Only `commit` and `pick` get Todoist due dates. Full rules → `context/work/systems/compliance-reset-plan.md`.
+
+## Deferral tracking (evening defer — teammates + unmarked Aaron)
 
 Pipedrive activities cannot have custom fields. The n8n `Team Evening Defer` workflow (5pm CT Mon–Sat) defers overdue open activities to the next day, but **never to Fri/Sat/Sun** — those snap to Monday. It tracks how many times each activity has been auto-deferred:
 

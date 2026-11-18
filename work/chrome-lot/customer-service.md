@@ -39,12 +39,8 @@ A customer is flagged for CS attention if **any** of the following — see [../.
 2. **Staleness check**: Calculate days since last activity per CS deal. Flag any 60+ days overdue.
 3. **HJD flag**: Any customer with `field_1035 > 10`.
 4. **Health status review**: `field_1601` = `Needs Attention` or `At Risk`.
-5. **Propose weekly check-in batch** (~6-9 stops), prioritized by:
-   - AT RISK / Needs Attention stage first
-   - Days overdue (most stale first)
-   - Account value (`field_459`)
-   - Grouped by geography where possible
-6. **Delegation**: Assign stops to Tristen, Lexie, Ran, or Aaron based on the ownership table above. **Spread across the week — don't pile on Aaron.**
+5. **Field rotation + Business focus** — weekly visit/call picks from account health and the `field_afternoons` / `sales_focus` sliders (see `../../systems/field-rotation.md`). Replaces the retired fixed weekly CS stop batch; triage handles stale promises (`#/pipedrive/triage`).
+6. **Delegation**: Assign accounts/stops to Tristen, Lexie, Ran, or Aaron per the ownership table and rotation recommendations. **Spread across the week — don't pile on Aaron.**
 
 ### Part B — Late invoice review
 
@@ -65,7 +61,7 @@ A customer is flagged for CS attention if **any** of the following — see [../.
 ## Pipedrive operating rules (always)
 
 - **Every CS activity must have a deal attached.** Search for `[Company] CS` in Pipeline 6 first.
-- **Cap 3 activities/day.** If planning more, defer.
+- **Cap 3 Today items/day for Aaron** (promises first); weekly visits via rotation, not a fixed stop count.
 - For full Pipedrive details (user IDs, API quirks, completion-time filtering) → [../../systems/pipedrive.md](../../systems/pipedrive.md).
 
 ## See also
