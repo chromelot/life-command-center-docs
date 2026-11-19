@@ -72,7 +72,7 @@ Lynn Lomibao owns weekly photographer reminders for the Vmax and vDubs accounts.
 ## Sale stops vs. CS stops
 
 - **CS stops** — see [customer-service.md](customer-service.md). Weekly visit/call load from **Business focus** + field rotation, distributed across team.
-- **Sale stops** — see [sales.md](sales.md). Prospects, slower (often turn into discovery), Aaron does 2-3/week max.
+- **Sale stops** — see [sales.md](sales.md). Prospects, slower (often turn into discovery). Weekly count comes from the Business focus `sales_focus` slider and field rotation.
 
 ## See also
 
