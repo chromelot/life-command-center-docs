@@ -172,9 +172,9 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 ## Health / staleness
 
 <!-- AUTO:HEALTH_REPORT -->
-⚠ **66 issue(s)** across 230 context files.
+⚠ **65 issue(s)** across 230 context files.
 
-### stale (24)
+### stale (23)
 - `context/README.md` — 205d old (threshold 180d)
 - `context/archive/gmail-spam-filter-guide.md` — 205d old (threshold 180d)
 - `context/archive/index.md` — 205d old (threshold 180d)
@@ -190,7 +190,7 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 - `context/systems/audiobook-pipeline.md` — 198d old (threshold 180d)
 - `context/systems/calibre.md` — 191d old (threshold 180d)
 - `context/systems/hubstaff.md` — 205d old (threshold 180d)
-- _…and 9 more_
+- _…and 8 more_
 
 ### missing-frontmatter (33)
 - `context/self/recovery-2026-08.md` — no-frontmatter
@@ -235,7 +235,7 @@ Full audit: `node scripts/audit-context.mjs`
 ## Last generated
 
 <!-- AUTO:LAST_GENERATED -->
-**2026-11-20 13:39:49** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
+**2026-11-20 14:02:55** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
 <!-- /AUTO:LAST_GENERATED -->
 
 ## See also
