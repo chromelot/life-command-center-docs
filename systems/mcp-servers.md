@@ -167,6 +167,16 @@ Process Street's remote MCP (~105 tools, workflow authoring) requires **OAuth lo
 - **Role**: Customers, jobs, photographers, invoices. Being replaced by Turbo Gear.
 - **Field reference**: → [knack-fields.md](knack-fields.md)
 
+### knack-chatgpt — personal ChatGPT connector
+
+- **Path**: `mcp/knack-chatgpt/`
+- **URL**: `https://knack-chatgpt.aaron-4ad.workers.dev/mcp`
+- **Role**: Read-only Knack for a private ChatGPT plugin. Same app as `knack`. No create, update, or delete.
+- **Sign-in**: OAuth passphrase in `secrets/knack-chatgpt.json` (`loginPassphrase`). Worker secrets: `KNACK_APP_ID`, `KNACK_API_KEY`, `LOGIN_PASSPHRASE`, `TOKEN_SECRET`.
+- **Tools**: `search`, `fetch`, `list_objects`, `describe_object`, `query_records`
+- **Deploy**: `node scripts/deploy-knack-chatgpt.mjs`
+- **ChatGPT**: Plugins → Add custom MCP server → that URL → OAuth. Keep it personal. Do not publish it to the app directory.
+
 ### knack-assets — Chrome Lot asset / equipment tracking
 
 - **Path**: `mcp/knack-assets/` in workspace (local Node MCP)
