@@ -19,6 +19,7 @@ Inventory of every MCP server configured in this workspace, plus how to choose b
 | Run a Process Street workflow check, manage runs/tasks | `processstreet` (API-key MCP) |
 | Send a Teams message via the CL Bot, look up convIds | `teams` |
 | Read Hubstaff hours / activity | `hubstaff` |
+| Read Time Doctor hours / who's tracked (contractors) | `timedoctor` |
 | Pull body comp + watch metrics in one call | `health-data` |
 | Skin condition context (logs, meds snapshot, Drive index) | `skin-care` |
 | List Make scenarios / pull blueprints for n8n migration | `make` |
@@ -223,6 +224,16 @@ Process Street's remote MCP (~105 tools, workflow authoring) requires **OAuth lo
 - **Best for weekly review**: `hubstaff_get_weekly_report` with org ID — gives complete hours-per-member breakdown with names
 - **Member + project IDs**: → [hubstaff.md](hubstaff.md)
 
+### timedoctor — contractor time tracking
+
+- **Path**: `mcp/timedoctor/` (local Node MCP, read-only)
+- **API**: Time Doctor 2, `https://api2.timedoctor.com/api/1.0`
+- **Auth**: `TIMEDOCTOR_TOKEN` + `TIMEDOCTOR_COMPANY_ID` in `n8n/.secrets.local` (same JWT the CL Bot uses). `TIMEDOCTOR_ENV_FILE` points at that file; the server loads only `TIMEDOCTOR_*` keys. Re-mint ~every 6 months → `n8n/bots/cl-bot/teams-bot.md`
+- **Tools**: `timedoctor_status`, `timedoctor_list_users`, `timedoctor_list_projects`, `timedoctor_hours`, `timedoctor_worklog`, `timedoctor_raw_get` (GET only)
+- **Dates**: `timedoctor_hours` / `timedoctor_worklog` take inclusive `YYYY-MM-DD` in America/Chicago. Default is today. Max 31 days.
+- **Setup**: `cd mcp/timedoctor && npm install && npm test` → reload MCP in Cursor
+- **Writes**: none. This MCP does not clock people in or edit time.
+
 ### skin-care — skin condition context
 
 - **Location**: `mcp/skin-care/` in workspace (local Node MCP)
@@ -354,6 +365,7 @@ Located in `scripts/` in the workspace. Use these BEFORE MCP calls when a workfl
 | Google Sheets | Read/write cell ranges | Append rows, update values | — |
 | Notion (both) | Query DB, get page, get block children | Create/update page, append blocks, archive | Block-level mutation is paginated |
 | Hubstaff | Hours, activity, time entries, projects, members | None (read-only) | — |
+| Time Doctor (`timedoctor`) | Users, projects, hours, worklog | None (read-only) | JWT in `n8n/.secrets.local`; re-mint ~6 months |
 | Airtable | Payable Employees roster, schema, fuzzy name/email lookup | Create/update rows, add fields | PII redacted on read; Cloud fallback: `scripts/airtable-lookup.mjs` |
 | Neptune printer | Status, temps, file list, object query | G-code, upload, start/pause/cancel print, E-stop, restarts | **lcc-hub LAN only** — cloud agents cannot reach `192.168.1.x`; print/control writes need Aaron approval |
 | TalkToFigma | FigJam selection, nodes, export | Create shapes/connectors/stickies via plugin bridge | **lcc-hub only** — Figma Desktop + plugin + WebSocket :3055; see [figma-mcp.md](figma-mcp.md) |
