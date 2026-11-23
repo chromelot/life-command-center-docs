@@ -176,7 +176,17 @@ Process Street's remote MCP (~105 tools, workflow authoring) requires **OAuth lo
 - **Sign-in**: OAuth passphrase in `secrets/knack-chatgpt.json` (`loginPassphrase`). Worker secrets: `KNACK_APP_ID`, `KNACK_API_KEY`, `LOGIN_PASSPHRASE`, `TOKEN_SECRET`.
 - **Tools**: `search`, `fetch`, `list_objects`, `describe_object`, `query_records`
 - **Deploy**: `node scripts/deploy-knack-chatgpt.mjs`
-- **ChatGPT**: Plugins → Add custom MCP server → that URL → OAuth. Keep it personal. Do not publish it to the app directory.
+- **ChatGPT**: Plugins → Add custom MCP server → that URL → OAuth. Keep it personal. Do not publish it to the app directory. Lynn and Lexie use the same URL and the passphrase in `secrets/knack-chatgpt.json`.
+
+### tg-chatgpt — Chrome Lot Turbo Gear for ChatGPT
+
+- **Path**: `mcp/tg-chatgpt/`
+- **Role**: Read-only Turbo Gear for a personal ChatGPT plugin. One passphrase for Aaron, Lynn, and Lexie. The Worker reads as the company, so all three see dealers, jobs, cars, invoices, tasks, people, QA, call-ins, products, workflows, tickets, and CRM. No create, update, or delete. Pay reports are not included.
+- **Sign-in**: OAuth passphrase in `secrets/tg-chatgpt.json` (`loginPassphrase`). Worker secrets: `TG_ACCESS_TOKEN`, `LOGIN_PASSPHRASE`, `TOKEN_SECRET`.
+- **Tools**: `search`, `fetch`, `list_objects`, `describe_object`, `query_records`
+- **Cars**: a vehicle belongs to a dealer. Query Cars with `company_id` set to that dealer's id.
+- **Deploy**: `node scripts/deploy-tg-chatgpt.mjs`
+- **ChatGPT**: Plugins → Add custom MCP server → the URL ending in `/mcp` → OAuth. Keep it personal. Do not publish it to the app directory.
 
 ### knack-assets — Chrome Lot asset / equipment tracking
 
