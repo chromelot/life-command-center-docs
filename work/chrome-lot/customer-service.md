@@ -31,6 +31,19 @@ A customer is flagged for CS attention if **any** of the following — see [../.
 - `field_1428 > 3` (Adjusted Late Invoices)
 - `field_1491 > 1` (Aged Invoices)
 
+## Health stages
+
+Turbo Gear reads the Knack customer mirror and returns one stage. Knack stays read-only. Active means `field_464 = Yes`.
+
+| Stage | When |
+|---|---|
+| At Risk | `field_1601 = At Risk`, or `field_1410 = Max Escalation` |
+| Needs Attention | `field_1035 > 10`, or `field_1601 = Needs Attention`, or `field_1410 = Account Manager Follow Up`, or `field_1428 > 3`, or `field_1491 > 1` |
+| Happy | Active, and none of the above |
+| Inactive | `field_464` is not Yes |
+
+At Risk wins over Needs Attention. Inactive wins over every signal. `field_1035` is the display day count. The engine joins the customer through the Turbo Gear CRM org `knackId` or `linkedCompanyId`. It does not join on `field_1591`.
+
 ## Weekly CS workflow (Phase 4 of weekly meeting)
 
 ### Part A — Check-in cadence
