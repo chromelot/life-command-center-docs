@@ -194,7 +194,7 @@ Process Street's remote MCP (~105 tools, workflow authoring) requires **OAuth lo
 - **Role**: Read-only Zero Pit Stop life log for Aaron's personal ChatGPT plugin. Journal, habits, health, blood pressure, food, workouts, strength sets, skin, measurements, labs, teeth whitening, small talk, morning routine, evening stack, and the supplement, product, and procedure lists. Taxes, team, bookkeeping, CRM, and dev work are not included. No create, update, or delete.
 - **Sign-in**: OAuth passphrase in `secrets/zpt-chatgpt.json` (`loginPassphrase`). Worker secrets: `ZPT_INGEST_TOKEN`, `LOGIN_PASSPHRASE`, `TOKEN_SECRET`. The ingest token is the existing `MEDIA_INGEST_TOKEN`. The Worker only sends GET.
 - **Tools**: `search`, `fetch`, `list_objects`, `describe_object`, `query_records`
-- **Dates**: America/Chicago. A query with no dates uses the last 30 days. Search uses the last 45 days. Habit `medication` is the prescription series. Habit `supplements` is supplements only. A skipped habit is not a miss.
+- **Dates**: America/Chicago. A query with no dates uses the last 30 days. Search uses the last 45 days. The daily pill check-off that is logged is habit `supplements`. Habit `medication` is a separate series and is often empty, so an empty result is not missed doses. A skipped habit is not a miss.
 - **Deploy**: `node scripts/deploy-zpt-chatgpt.mjs`
 - **ChatGPT**: Plugins → Add custom MCP server → the URL ending in `/mcp` → OAuth. Aaron only. Keep it personal. Do not publish it to the app directory.
 
