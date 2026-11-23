@@ -2,11 +2,11 @@
 
 # Chrome Lot — Customer Service
 
-CS for existing customers. Pipeline 6 in Pipedrive. Used by weekly meeting Phase 4.
+CS for existing customers. Customer Service pipeline in **Turbo Gear CRM**. Used by weekly meeting Phase 4.
 
 ## Pipeline structure
 
-- **Pipedrive Pipeline 6**: CS deals
+- **Turbo Gear CRM — CS pipeline**: CS deals (`[Company] CS`)
 - **Naming convention**: `[Company] CS` (e.g., "Earth Motorcars CS", "iDrive1 CS")
 - **Stages**: 28 = Needs Attention, 61 = Happy, 26 = AT RISK
 
@@ -48,7 +48,7 @@ At Risk wins over Needs Attention. Inactive wins over every signal. `field_1035`
 
 ### Part A — Check-in cadence
 
-1. **Cross-reference Knack & Pipedrive**: Current customers in Knack (`field_464 = Yes`) vs. open CS deals in Pipeline 6. Flag mismatches.
+1. **Cross-reference Knack & CRM**: Current customers in Knack (`field_464 = Yes`) vs. open CS deals in Turbo Gear. Flag mismatches.
 2. **Staleness check**: Calculate days since last activity per CS deal. Flag any 60+ days overdue.
 3. **HJD flag**: Any customer with `field_1035 > 10`.
 4. **Health status review**: `field_1601` = `Needs Attention` or `At Risk`.
@@ -60,7 +60,7 @@ At Risk wins over Needs Attention. Inactive wins over every signal. `field_1035`
 1. Pull customers where `field_1410` ∈ {`Account Manager Follow Up`, `Max Escalation`}
 2. Pull customers where `field_1428 > 3` OR `field_1491 > 1`
 3. Combine both lists (deduplicate). Review each one by one.
-4. Create Pipedrive activities (escalation follow-up) assigned to either Aaron or the account manager (`field_1438`).
+4. Create CRM activities (escalation follow-up) assigned to either Aaron or the account manager (`field_1438`).
 
 ### Invoice escalation rules
 
@@ -69,17 +69,18 @@ At Risk wins over Needs Attention. Inactive wins over every signal. `field_1035`
 | `field_1410 = "Account Manager Follow Up"` or `"Max Escalation"` | Always flag |
 | `field_1428 > 3` | Flag |
 | `field_1491 > 1` | Flag |
-| Any one trigger | Create Pipedrive activity |
+| Any one trigger | Create Turbo Gear CRM activity on the CS deal |
 
-## Pipedrive operating rules (always)
+## CRM operating rules (always)
 
-- **Every CS activity must have a deal attached.** Search for `[Company] CS` in Pipeline 6 first.
+- **Every CS activity must have a deal attached.** Search for `[Company] CS` on the CS pipeline first.
 - **Cap 3 Today items/day for Aaron** (promises first); weekly visits via rotation, not a fixed stop count.
-- For full Pipedrive details (user IDs, API quirks, completion-time filtering) → [../../systems/pipedrive.md](../../systems/pipedrive.md).
+- System of record → [../../systems/tg-crm.md](../../systems/tg-crm.md). Legacy Pipedrive IDs → [../../systems/pipedrive.md](../../systems/pipedrive.md) (archive).
 
 ## See also
 
-- [../../systems/pipedrive.md](../../systems/pipedrive.md) — full Pipedrive config
+- [../../systems/tg-crm.md](../../systems/tg-crm.md) — live CRM
+- [../../systems/pipedrive.md](../../systems/pipedrive.md) — Pipedrive archive
 - [../../systems/knack-fields.md](../../systems/knack-fields.md) — Knack field reference
 - [../../people/index.md](../../people/index.md) — delegation matrix
 - [sales.md](sales.md) — Pipeline 1 sales workflow

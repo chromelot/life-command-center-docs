@@ -1,23 +1,24 @@
 > **Source:** [`n8n/sync/pd-todoist/pd-todoist-sync.md`](https://github.com/chromelot/life-command-center/blob/main/n8n/sync/pd-todoist/pd-todoist-sync.md) in the private workspace repo. Do not edit this mirror directly.
 
-# PD ↔ Todoist real-time sync
+# CRM ↔ Todoist real-time sync
+
+**System of record:** **Turbo Gear CRM** → [`context/systems/tg-crm.md`](../../context/systems/tg-crm.md). Pipedrive sync **froze** 2026-11-23T15:39:54.830Z; inbound PD webhooks unregistered. Do not write to Pipedrive.
 
 **Status:** Active (team-wide, real-time). Legacy v1 `Morning Pipedrive Sync` / `Evening Pipedrive Close` removed 2026-06-05.
 
-Webhook-driven and team-wide: everyone with a Pipedrive seat (and Todoist-only sub-AMs delegated via the org's `Sub Account Manager Email` field) sees their PD activities mirrored into the shared **Pipedrive** Todoist project (`6gfPq74rf2fJwGJx`, Chrome Lot workspace) the moment they're created in PD.
+Webhook-driven and team-wide: CRM activities from **Turbo Gear** (`POST /webhook/tg-activity-event`, HMAC) mirror into the shared **Pipedrive** Todoist project (`6gfPq74rf2fJwGJx`, Chrome Lot workspace — name is legacy). Todoist-only sub-AMs still resolve via deal Sub AM Email → Airtable.
 
-**Aaron queue (2026-11-18):** Activities with `Queue:` markers (`commit`, `flex`, `pick`, `triage`, `snoozed`) plus optional `Eligible:`, `Offered:`, `Source:` in the PD **note** — see `context/systems/pipedrive.md`. Todoist due dates mirror only `commit` and `pick`. **`POST /api/cron-pd-picker`** (nightly) replaces evening defer for Aaron and caps **Today at 3** (promises first). **Teammates** still use **`Team Evening Defer`** and unchanged deferral/auto-next behavior. Pipeline **12** parked-deal **revisit dates** are stored in **D1**, not PD custom fields.
+**Aaron queue (2026-11-18):** Activities with `Queue:` markers (`commit`, `flex`, `pick`, `triage`, `snoozed`) plus optional `Eligible:`, `Offered:`, `Source:` in the activity **note** — see `context/systems/field-rotation.md`. Todoist due dates mirror only `commit` and `pick`. **`POST /api/cron-pd-picker`** (nightly) replaces evening defer for Aaron and caps **Today at 3** (promises first). **Teammates** still use **`Team Evening Defer`** where applicable. Parked-deal **revisit dates** live in **D1**.
 
 ## Architecture
 
 ```
               ┌─────────────────────────────┐
-              │       Pipedrive             │
+              │    Turbo Gear CRM           │
               │  (activities, deals, orgs)  │
               └──┬───────────────────────┬──┘
-                 │ activity.{added,       │ PUT /activities/{id}
-                 │   updated, deleted}    │ POST /activities (auto-next)
-                 │     webhook            │ POST /notes
+                 │ tg-activity-event     │ TG API (complete, reschedule, notes)
+                 │ webhook               │
                  ▼                        ▲
         ┌────────────────────┐            │
         │ PD Activity Mirror │            │  ┌────────────────────┐

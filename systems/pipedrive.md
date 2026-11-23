@@ -1,8 +1,10 @@
 > **Source:** [`context/systems/pipedrive.md`](https://github.com/chromelot/life-command-center/blob/main/context/systems/pipedrive.md) in the private workspace repo. Do not edit this mirror directly.
 
-# Pipedrive — pipelines, stages, user IDs, quirks
+> **ARCHIVE — read-only history (2026-11-23).** Turbo Gear is the live CRM → [`tg-crm.md`](tg-crm.md). Pipedrive sync **froze** 2026-11-23T15:39:54.830Z (9:39 America/Chicago); webhooks unregistered; **agents must not write** to Pipedrive. Subscription remains until Aaron cancels — do not instruct anyone to cancel it as part of routine agent work.
 
-Chrome Lot's CRM. Domain: `chromelot`.
+# Pipedrive — pipelines, stages, user IDs, quirks (archive)
+
+Former Chrome Lot CRM. Domain: `chromelot`. Kept for ID mapping and historical context during cutover.
 
 ## Pipelines
 

@@ -96,7 +96,7 @@ Spec files: `n8n/conventions.md`, `n8n/bots/cl-bot/teams-bot.md`, `n8n/sync/pd-t
 | "annual plan", "year kickoff", "plan this year" | `.cursor/rules/annual-plan.mdc` | `context/skills/annual-plan/SKILL.md` | self/values.md, systems/notion-databases.md (Goals/Projects/Year Tracker), work/chrome-lot/, work/turbo-gear/ |
 | "1:1 prep", "person check-in", "<name> check-in" | `.cursor/rules/person-checkin.mdc` | `(inline in rule)` | people/index.md, [domain folder for that person] |
 | "team sync", "roster diff", "people sync", "audit roster" | `.cursor/rules/team-sync.mdc` | `(inline in rule)` | systems/airtable-roster.md, people/index.md, cast.md |
-| "pd cleanup", "pipedrive cleanup", "deal cleanup", "crm cleanup" | `.cursor/rules/pd-cleanup.mdc` | `context/skills/pd-cleanup/SKILL.md` | systems/pipedrive.md, systems/knack-fields.md, work/chrome-lot/customer-service.md |
+| "pd cleanup", "pipedrive cleanup", "deal cleanup", "crm cleanup" | `.cursor/rules/pd-cleanup.mdc` | `context/skills/pd-cleanup/SKILL.md` | systems/tg-crm.md, systems/pipedrive.md (archive), systems/knack-fields.md, work/chrome-lot/customer-service.md |
 | Custody-related file edits | `.cursor/rules/custody-modification.mdc` | `(inline in rule)` | family/custody/ |
 
 ### Mismatches
@@ -172,7 +172,7 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 ## Health / staleness
 
 <!-- AUTO:HEALTH_REPORT -->
-⚠ **66 issue(s)** across 231 context files.
+⚠ **66 issue(s)** across 232 context files.
 
 ### stale (24)
 - `context/README.md` — 208d old (threshold 180d)
@@ -235,7 +235,7 @@ Full audit: `node scripts/audit-context.mjs`
 ## Last generated
 
 <!-- AUTO:LAST_GENERATED -->
-**2026-11-23 09:40:19** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
+**2026-11-23 09:51:22** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
 <!-- /AUTO:LAST_GENERATED -->
 
 ## See also
