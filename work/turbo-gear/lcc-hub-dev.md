@@ -21,7 +21,7 @@ Legacy path on the Turbo Gear PC: `c:\Users\hoege\Documents\Turbo Gear Repo\` â€
 
 All repos: `torchcommercialmedia` â€” `turbo-gear` (frontend), `turbo-gear-api`, `turbo-gear-workspace`.
 
-**Branching:** App `main` is live and protected. Staff and Aaron ship from the hub on tg-dev: `scripts/hub/change.mjs` makes a worktree and a pull request. This lcc-hub checkout is for plan execution, not for opening a work session. See `context/systems/tg-dev.md` and TG `branching-and-prs.mdc`.
+**Branching:** App `main` is live and protected. Staff and Aaron ship from the hub on tg-dev: `scripts/hub/change.mjs` makes a worktree and a pull request. ZPT merges it (`context/systems/zpt-merge-queue.md`). Plan agents queue with `node scripts/zpt-queue-change.mjs --pr <url>` and never run `gh pr merge`. This lcc-hub checkout is for plan execution, not for opening a work session. See `context/systems/tg-dev.md` and TG `branching-and-prs.mdc`.
 
 ## Dev stack commands
 

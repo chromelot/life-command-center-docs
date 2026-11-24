@@ -172,7 +172,7 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 ## Health / staleness
 
 <!-- AUTO:HEALTH_REPORT -->
-⚠ **69 issue(s)** across 234 context files.
+⚠ **70 issue(s)** across 235 context files.
 
 ### stale (27)
 - `context/README.md` — 209d old (threshold 180d)
@@ -192,7 +192,7 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 - `context/systems/calibre.md` — 195d old (threshold 180d)
 - _…and 12 more_
 
-### missing-frontmatter (33)
+### missing-frontmatter (34)
 - `context/self/recovery-2026-08.md` — no-frontmatter
 - `context/skills/annual-plan/SKILL.md` — no-frontmatter
 - `context/skills/planning-sprint/SKILL.md` — no-frontmatter
@@ -205,10 +205,10 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 - `context/systems/notion-guides/n8n-automations.md` — no-frontmatter
 - `context/systems/notion-guides/pd-todoist-automation.md` — no-frontmatter
 - `context/systems/readings-curation.md` — no-frontmatter
+- `context/systems/zpt-merge-queue.md` — no-frontmatter
 - `context/work/finances/zpt-contractor-1099-plan.md` — no-frontmatter
 - `context/work/legal/warner-discovery-redactions.md` — no-frontmatter
-- `context/work/legal/warner-email-qa-completion-plan.md` — no-frontmatter
-- _…and 18 more_
+- _…and 19 more_
 
 ### missing-updated (2)
 - `context/skills/execution-plan-author/SKILL.md`
@@ -235,7 +235,7 @@ Full audit: `node scripts/audit-context.mjs`
 ## Last generated
 
 <!-- AUTO:LAST_GENERATED -->
-**2026-11-24 09:32:28** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
+**2026-11-24 09:39:59** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
 <!-- /AUTO:LAST_GENERATED -->
 
 ## See also
