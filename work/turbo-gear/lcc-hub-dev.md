@@ -23,6 +23,8 @@ All repos: `torchcommercialmedia` — `turbo-gear` (frontend), `turbo-gear-api`,
 
 **Branching:** App `main` is live and protected. Staff and Aaron ship from the hub on tg-dev: `scripts/hub/change.mjs` makes a worktree and a pull request. ZPT merges it (`context/systems/zpt-merge-queue.md`). Plan agents queue with `node scripts/zpt-queue-change.mjs --pr <url>` and never run `gh pr merge`. This lcc-hub checkout is for plan execution, not for opening a work session. See `context/systems/tg-dev.md` and TG `branching-and-prs.mdc`.
 
+**Git auth on lcc-hub:** the three base repos set `credential.helper store --file=C:/Users/Aaron/.git-credentials` locally (forward slashes; backslashes get eaten), and their worktrees inherit it. Remote URLs carry no token. `gh` is not signed in (the PAT lacks `read:org`), so set `$env:GH_TOKEN` from `secrets/github-token.txt` in the same command. `LCC-TgBaseSync` fast-forwards the base checkouts to `origin/main` every 15 minutes (log `C:\Tools\lcc\logs\tg-base-sync.log`); it skips a dirty checkout. `C:\Tools\lcc\Turbo Gear` is excluded from Defender real-time scanning.
+
 ## Dev stack commands
 
 From `C:\Tools\lcc\Turbo Gear`:
