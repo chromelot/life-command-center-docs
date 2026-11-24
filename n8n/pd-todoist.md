@@ -2,9 +2,11 @@
 
 # CRM ↔ Todoist real-time sync
 
+> **Retired (CRM phase 2, 2026-11-24).** Do not use Todoist for CRM activities. The workflows below are inactive and their deploy scripts exit without calling n8n. Staff CRM is the Turbo Gear app. The rest of this page is history.
+
 **System of record:** **Turbo Gear CRM** → [`context/systems/tg-crm.md`](../../context/systems/tg-crm.md). Pipedrive sync **froze** 2026-11-23T15:39:54.830Z; inbound PD webhooks unregistered. Do not write to Pipedrive.
 
-**Status:** Active (team-wide, real-time). Legacy v1 `Morning Pipedrive Sync` / `Evening Pipedrive Close` removed 2026-06-05.
+**Status:** Retired 2026-11-24. Legacy v1 `Morning Pipedrive Sync` / `Evening Pipedrive Close` removed 2026-06-05.
 
 Webhook-driven and team-wide: CRM activities from **Turbo Gear** (`POST /webhook/tg-activity-event`, HMAC) mirror into the shared **Pipedrive** Todoist project (`6gfPq74rf2fJwGJx`, Chrome Lot workspace — name is legacy). Todoist-only sub-AMs still resolve via deal Sub AM Email → Airtable.
 
