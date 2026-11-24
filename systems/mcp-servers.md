@@ -71,7 +71,7 @@ Inventory of every MCP server configured in this workspace, plus how to choose b
 
 | Project | ID | Notes |
 |---|---|---|
-| Pipedrive | `6gfPq74rf2fJwGJx` | Shared — all team PD activity mirrors land here |
+| Pipedrive | `6gfPq74rf2fJwGJx` | **Retired** — archived shared CRM mirror; staff work is Turbo Gear CRM + companion app |
 | Recurring | `6VrfxRV66H7GwQQg` | **CL team recurring ops only** — not for personal habits |
 | Customer Projects | `6VpXPGr3F574xMwc` | CL customer work |
 | Fake Demos | `6Vm7xh838xXRGVWm` | CL demo tasks |
