@@ -124,7 +124,7 @@ ${SHARED_CONSTS}    // common helpers + secret constants
 | Webhook / trigger | Code node | What it does |
 |---|---|---|
 | `POST /webhook/teams-bot` | **Dispatcher** | Validates inbound Bot Framework JWT, captures conversation reference, parses commands, routes to skill handler, posts reply. |
-| `POST /webhook/teams-bot-send` | **Send** | Used by daily syncs + scheduled sends. Body: `{ text\|html, convId\|aadId\|email }` or `{ mode: "pd-follow-up-card", email, nextActivityId, ... }` for Adaptive Card follow-up capture. Optional `attachments` array for raw Bot Framework attachments. Resolves a convRef and posts via `postActivity`. |
+| `POST /webhook/teams-bot-send` | **Send** | Used by daily syncs + scheduled sends. Body: `{ text\|html, convId\|aadId\|email }`. Optional `attachments` array for raw Bot Framework attachments. Resolves a convRef and posts via `postActivity`. There is no CRM follow-up card. |
 | `GET /webhook/todoist-callback` | **Todoist OAuth Exchange** + **Todoist OAuth Respond** | Handles the redirect from Todoist OAuth, exchanges `code` for token, stores it on the user's `Person` record, replies with HTML success page. |
 | Schedule: `0 8 * * 2` (Tue 8am CT) | **Weekly Hours Report** | Computes last full Mon–Sun. Pulls Hubstaff daily totals + Time Doctor worklog. Builds Markdown with risk-flag section. DMs Aaron. |
 | `POST /webhook/weekly-hours-report` | **Weekly Hours Report** (same node, manual fire) | Same as above, on demand. Used for testing or ad-hoc pulls. |
@@ -223,10 +223,10 @@ A skill's `requires` field accepts any of:
 |---|---|
 | `help`, `ping` | any |
 | `whoami`, `today`, `deals`, `pipeline`, `stale deals`, `stale activities`, `connect/disconnect todoist`, `add`, `chats here`, `permissions` | `Self` |
-| `queue` | `Authorized Delegate` — delegated Todoist tasks in the shared Pipedrive project |
+| `queue` | `Authorized Delegate` — open Turbo Gear activities assigned to the caller |
 | `my orgs`, `plan <org> <title> [date]` | `Account Manager` OR `Authorized Delegate` — **owned** + **delegated** deals. `plan` uses pick + draft Adaptive Cards; PD write on **Schedule** only. |
 | `org <name>`, `org history <name>` | `Account Manager` OR `Authorized Delegate` (portfolio-scoped) · **also** `Owner` OR `Sales & CS Manager` (org-wide search across open Sales / CS / Social Media deals via Pipedrive search) |
-| `am guide` | `Self` — full AM playbook (PD↔Todoist, auto-next card, commands); auto-detects role |
+| `am guide` | `Self` — AM playbook (Turbo Gear app, commands); auto-detects role |
 | `manager guide` (`mgr guide`) | `Self` — unified manager playbook; sections filtered by `Sales & CS Manager` / `Photographer Manager` categories |
 | `team status`, `weekly hours`, `schedule`, `photog roster/flags/overdue`, `mine photogs` | `Owner` OR `Photographer Manager` |
 | `cs health`, `sales health`, `team pipeline`, `team gaps`, `team stale`, `delegation map`, `am status <name>`, `ar status` | `Owner` OR `Sales & CS Manager` |
@@ -269,7 +269,7 @@ The current mapping is also visible live via `admin skills`.
 | `help`, `ping` | any | Lists commands available to caller (filtered by their categories) / health check. |
 | `whoami` | Self | Shows what the bot knows about you (aadId, email, categories, Airtable record id, todoist linked?). |
 | `permissions [<email>]` | Self _(Owner-only for cross-user lookup)_ | Your categories + platform IDs from Airtable. |
-| `today` | Self | Tasks due today. Prefers Todoist if connected, else Pipedrive activities. |
+| `today` | Self | Turbo Gear activities due today or overdue for the caller. Complete them in the Turbo Gear app. |
 | `deals` | Self | Owned + delegated open deals in Sales, CS, and Social Media — **grouped by pipeline** with stage and next-activity (or last-touch for CS on owned deals). |
 | `deal gaps` (`gaps`) | Self | Open Sales / CS / Social Media deals you own or delegate with **no next activity** — Adaptive Card list; **Schedule** per row opens the same draft card as `plan` (+3 days default). |
 | `pipeline` | Self | Your open deals grouped by stage with values. |
@@ -277,9 +277,9 @@ The current mapping is also visible live via `admin skills`.
 | `stale activities` | Self | Your open activities overdue >7 days. (`stale` is an alias.) |
 | `add <text>` | Self | Quick-capture a task into your Todoist inbox. |
 | `connect todoist` / `disconnect todoist` | Self | Manage your stored Todoist OAuth token. |
-| `am guide` [`full`\|`sub`\|`promote`\|`demote`\|`exit`] | Self | Account-management playbook: PD↔Todoist sync, **auto-next + follow-up card**, CL Bot commands, recurring automations. Auto-detects path from PS run or roster. |
+| `am guide` [`full`\|`sub`\|`promote`\|`demote`\|`exit`] | Self | Account-management playbook: Turbo Gear app, CL Bot commands. Auto-detects path from PS run or roster. |
 | `manager guide` (`mgr guide`) | Self | Manager playbook (3 messages): weekly loops, domain commands, full filtered command list. Shows Sales & CS block, Photographer ops block, or both based on roster categories. |
-| `queue` | Authorized Delegate | Open tasks in the shared Pipedrive Todoist project (due now / upcoming / undated). |
+| `queue` | Authorized Delegate | Open Turbo Gear activities assigned to the caller (due now / upcoming / undated). |
 | `my orgs` | Account Manager OR Authorized Delegate | Owned + delegated deals **grouped by pipeline** (Sales / CS / Social Media), tagged owned/delegated. |
 | `org <name>` | Account Manager OR Authorized Delegate | Quick deal status: pipeline, stage, next/last activity (owned or delegated). |
 | `org history <name>` | AM/Delegate (portfolio) OR Owner/Sales & CS Manager (org-wide) | Call-prep: open + recent completed activities, recent deal notes. Multiple matches → **Adaptive Card** picker. |
@@ -414,21 +414,7 @@ Content-Type: application/json
   // "aadId":  "<azureAdObjectId>"         // direct AAD lookup
 }
 
-// PD follow-up capture (Adaptive Card) — used by Todoist Events after auto-next:
-{
-  "mode": "pd-follow-up-card",
-  "email": "ran@chromelot.com",
-  "nextActivityId": 12345,
-  "completedActivityId": 12340,
-  "dealId": 218,
-  "dealTitle": "Earth Motorcars CS",
-  "completedSubject": "Quarterly check-in",
-  "defaultNextSubject": "Follow-up: Quarterly check-in",
-  "defaultDueDate": "2026-06-08"
-}
 ```
-
-Card submit is handled by the inbound dispatcher (`activity.value.action === "pdFollowUpSubmit"`): **what happened** → completed activity `note`; **next action** → follow-up subject; **notes for next time** → follow-up activity `note`; **when** → follow-up due date. Mirror follows follow-up subject/date via PD webhook.
 
 The bot resolves the convRef from `staticData.conversations`. If the recipient has never DM'd the bot, the lookup fails — they need to DM the bot once first to capture their conversation reference.
 
@@ -455,9 +441,9 @@ For group chat / channel sends, capture the convId by `@mention`ing the bot in t
 
 These are separate n8n workflows that POST to `teams-bot-send` for delivery:
 
-### Team-wide PD ↔ Todoist sync (active)
+### Team-wide PD ↔ Todoist sync (retired 2026-11-24)
 
-Detailed architecture → [`pd-todoist-sync.md`](pd-todoist-sync.md). Legacy v1 morning/evening batch sync removed 2026-06-05.
+Do not use Todoist for CRM activities. These workflows are off. History → [`pd-todoist-sync.md`](../../sync/pd-todoist/pd-todoist-sync.md). Legacy v1 morning/evening batch sync removed 2026-06-05.
 
 | Workflow | Schedule | Manual webhook | What it does |
 |---|---|---|---|
@@ -531,7 +517,7 @@ The rotating refresh token expired or was invalidated by another consumer. Mint 
 
 ### `today` / `add` returns "status code 401"
 
-The user's stored Todoist OAuth token has been revoked (Todoist app permissions panel, account password reset, etc.). As of 2026-04-29 the bot detects this automatically: `callTodoist` re-throws a tagged `TODOIST_AUTH_EXPIRED` error, the affected handler wipes the dead token, and the user gets `⚠️ Your Todoist connection expired. Run \`connect todoist\` to re-link.` `today` additionally falls back to Pipedrive in the same reply.
+The user's stored Todoist OAuth token has been revoked (Todoist app permissions panel, account password reset, etc.). As of 2026-04-29 the bot detects this automatically: `callTodoist` re-throws a tagged `TODOIST_AUTH_EXPIRED` error, the affected handler wipes the dead token, and the user gets `⚠️ Your Todoist connection expired. Run \`connect todoist\` to re-link.` `today` reads Turbo Gear and does not use that token. `add` still does.
 
 If a user reports the raw `status code 401` with this code path, the deploy is older than the fix — redeploy the bot. Manually verify a stored token is dead with:
 
