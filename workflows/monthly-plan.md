@@ -82,7 +82,7 @@ At session start, compute both from `Today's date` (America/Chicago):
 Phase 0 data pulls:
 
 - Weekly Meeting Log entries with Meeting Date in **review month**
-- Pipedrive/Knack/Hubstaff aggregates for **review month**
+- Pipedrive/Knack/Hubstaff aggregates for **review month** (Hubstaff = **team** sales/ops efficiency — **not** Aaron's dev/ops/office/gym goals; those → `GET /api/tracked-goals?grain=month`)
 - `health_get_summary` slices: **review month** avg vs month before review month (MoM baseline)
 - MoM baseline = prior **Monthly Plan Log** entry titled `Monthly Plan for [Review Month YYYY]` (when reviewing May and planning June, baseline is `Monthly Plan for May 2026`, which holds April retrospective KPIs)
 
@@ -338,6 +338,8 @@ Use the returned `daily` (one row per date) to slice **review month** vs. the mo
 
 Before other pulls, run `node scripts/period-tracker-ensure.mjs --planning-and-review` (idempotent — same logic as n8n `Period Tracker Create`). Store `planning_month_page_id` and `review_month_page_id` from stdout for Phase 12.
 
+**Tracked time goals (review month):** `GET /api/tracked-goals?from=<reviewMonthStart>&to=<reviewMonthEnd>&grain=month` (owner session). Present the four-number retrospective (dev, ops, office hours, gym visits): period totals, weekly averages, sum of weekly goals, weeks met. Dev/ops weeks before **2026-11-22** show *not tracked*. **Retired for scoring these four:** Hubstaff, Toggl, Notion Time Punches. ZPT monthly wizard has a read-only **Tracked review** step + `trackedretro` on the committed plan page (`context/systems/weekly-plan-app.md`).
+
 Equivalent via MCP: `ensureMonthRow` in `scripts/lib/period-tracker-create.mjs` — creates if missing with:
 
 - Title: `[FullMonthName] [YYYY]` (e.g. `July 2026`)
@@ -569,7 +571,7 @@ If no 3-week streaks: skip silently (~0 min).
 
 1. Pull all Tasks assigned to the current quarter. How many are Done vs. In Progress vs. Not Started?
 2. What shipped in **review month** vs. what stalled? Which projects had "This Week" set but didn't move?
-3. Dev hours spent vs. budgeted (from capacity math, Time Punches `Category = CL Dev` + `TG Dev` for deep work minutes). Plot weekly Deep Work Minutes from Weekly Meeting Log to show intra-month trajectory.
+3. Dev hours spent vs. budgeted — from `GET /api/tracked-goals?grain=month` (ledger `dev_min` vs sum of weekly `dev_hours_intended`; **not** Time Punches or Toggl). Plot weekly met/not from tracked-goals week rows for intra-month trajectory.
 4. **Quarterly progress check**: Are we on track to complete the quarter's assigned projects? If not, which ones are at risk and why?
 5. Non-TG dev: did personal and CL projects get attention, or consumed by ops?
 6. Compare Projects Completed, Projects In Progress against previous Monthly Plan Log entry -- flag if >20% change in either direction.

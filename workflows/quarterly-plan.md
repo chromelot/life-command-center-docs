@@ -193,11 +193,12 @@ Read `context/workflow-execution.md`, `context/systems/workflow-output-contracts
 
 **Table B.3-A — Capacity reality** *(step `B.3`)*
 
-| Domain | Hubstaff hrs | Intended hrs | Gap |
-|--------|--------------|--------------|-----|
-| Chrome Lot | | | |
-| Turbo Gear | | | |
-| Personal | | | |
+Aaron's deep work / ops / office / gym: from `GET /api/tracked-goals?grain=quarter` on the outgoing quarter (weekly goals summed inside the quarter; dev/ops untracked before week starting **2026-11-22**). **Do not** use Hubstaff for those four.
+
+| Lens | Actual source | Intended source |
+|------|---------------|-----------------|
+| Dev + ops + office + gym | tracked-goals rollup | weekly `meeting_logs` goals |
+| CL / TG / team (optional) | Hubstaff by project | quarterly themes / dept targets |
 
 **FIELD CHECK — Part A** *(step `A.check`)*
 
@@ -279,8 +280,9 @@ Pull data in parallel:
 7. **Quarterly Meeting Log** (`344f40c2-487b-80ed`): Last 2 entries (outgoing quarter AND the one before it) for quarter-over-quarter trend comparison
 8. **Weekly Meeting Log** (`322f40c2-487b-81bd`): All entries from the outgoing quarter for habit KPI averages
 9. **Monthly Plan Log** (`344f40c2-487b-806d`): All entries from the outgoing quarter (typically 3) for intra-quarter month-over-month trajectory analysis. Body-comp fields (Weight Avg / Body Fat Avg / Lean Mass Avg + Deltas) feed Phase 3's Personal Habits trajectory.
-10. **Hubstaff** (recent 90 days): Time-by-project and by-team-member for Phase 6 time-reality check
-11. **Health Data + Watch metrics**: Loaded via the `health-data` MCP `health_get_summary({ days: 200 })` call above. Used in Phase 3 for body-comp + recovery QoQ trend.
+10. **Tracked goals** (outgoing quarter): `GET /api/tracked-goals?grain=quarter` — Aaron's four time goals (read-only retrospective; ZPT **Tracked review** step)
+11. **Hubstaff** (recent 90 days): Time-by-project and by-**team-member** for CL sales efficiency — **not** Aaron's dev/ops/office/gym scorecard
+12. **Health Data + Watch metrics**: Loaded via the `health-data` MCP `health_get_summary({ days: 200 })` call above. Used in Phase 3 for body-comp + recovery QoQ trend.
 
 Orient: "We're closing Q[X] and planning Q[Y]. This session runs in five parts -- Look Back, Look Around, Look Forward Strategically, Plan Tactically, Commit. Target 90-120 minutes. I'll announce part transitions and flag time overruns."
 
@@ -429,13 +431,13 @@ Capture as a one-paragraph narrative in the Quarterly Meeting Log entry at Phase
 <a id="phase-6-capacity-and-time-reality-3-min"></a>
 ### Phase 6: Capacity & Time Reality (~3 min)
 
-Pull last quarter's Hubstaff totals and calendar analysis. Present:
+Pull last quarter's **`GET /api/tracked-goals?grain=quarter`** (dev, ops, office hours, gym visits vs weekly committed goals; weeks-met counts). Present:
 
-- Where did hours actually go (by project / by domain / by activity type)?
-- Where did you *intend* them to go?
-- Where's the gap?
+- Where did **tracked** hours go vs the sum of weekly goals?
+- Untracked dev/ops weeks (before **2026-11-22**) — label *not tracked*, not failure.
+- Optional: Hubstaff **team** totals for CL field vs office sales context — **not** a substitute for the four tracked goals.
 
-This surfaces the "I wanted Q[X] to be about TG but 60% of my hours went to CL field work" pattern before Part C tries to make allocation decisions.
+This surfaces allocation gaps before Part C makes domain decisions.
 
 **End of Part B:** state elapsed time. Target was 15 min.
 
