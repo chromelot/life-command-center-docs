@@ -172,12 +172,11 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 ## Health / staleness
 
 <!-- AUTO:HEALTH_REPORT -->
-⚠ **81 issue(s)** across 252 context files.
+⚠ **80 issue(s)** across 252 context files.
 
-### stale (27)
+### stale (26)
 - `context/README.md` — 210d old (threshold 180d)
 - `context/archive/gmail-spam-filter-guide.md` — 210d old (threshold 180d)
-- `context/archive/index.md` — 210d old (threshold 180d)
 - `context/archive/knack-migration-status.md` — 210d old (threshold 180d)
 - `context/archive/teams-chats.md` — 210d old (threshold 180d)
 - `context/family/index.md` — 210d old (threshold 180d)
@@ -190,7 +189,8 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 - `context/skills/index.md` — 210d old (threshold 180d)
 - `context/systems/audiobook-pipeline.md` — 203d old (threshold 180d)
 - `context/systems/calibre.md` — 196d old (threshold 180d)
-- _…and 12 more_
+- `context/systems/deezer-streamrip-to-plex.md` — 185d old (threshold 180d)
+- _…and 11 more_
 
 ### missing-updated (2)
 - `context/archive/skills/execution-plan-author.md`
@@ -238,7 +238,7 @@ Full audit: `node scripts/audit-context.mjs`
 ## Last generated
 
 <!-- AUTO:LAST_GENERATED -->
-**2026-11-25 14:12:51** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
+**2026-11-25 14:24:49** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
 <!-- /AUTO:LAST_GENERATED -->
 
 ## See also
