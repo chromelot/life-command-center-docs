@@ -172,7 +172,7 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 ## Health / staleness
 
 <!-- AUTO:HEALTH_REPORT -->
-⚠ **78 issue(s)** across 252 context files.
+⚠ **81 issue(s)** across 252 context files.
 
 ### stale (27)
 - `context/README.md` — 210d old (threshold 180d)
@@ -192,6 +192,18 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 - `context/systems/calibre.md` — 196d old (threshold 180d)
 - _…and 12 more_
 
+### missing-updated (2)
+- `context/archive/skills/execution-plan-author.md`
+- `context/archive/skills/execution-plan-run.md`
+
+### missing-status (2)
+- `context/archive/skills/execution-plan-author.md`
+- `context/archive/skills/execution-plan-run.md`
+
+### missing-tags (2)
+- `context/archive/skills/execution-plan-author.md`
+- `context/archive/skills/execution-plan-run.md`
+
 ### missing-frontmatter (42)
 - `context/self/recovery-2026-08.md` — no-frontmatter
 - `context/skills/annual-plan/SKILL.md` — no-frontmatter
@@ -210,22 +222,13 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 - `context/work/finances/zpt-contractor-1099-plan.md` — no-frontmatter
 - _…and 27 more_
 
-### missing-updated (2)
-- `context/skills/execution-plan-author/SKILL.md`
-- `context/skills/execution-plan-run/SKILL.md`
-
-### missing-status (2)
-- `context/skills/execution-plan-author/SKILL.md`
-- `context/skills/execution-plan-run/SKILL.md`
-
-### missing-tags (2)
-- `context/skills/execution-plan-author/SKILL.md`
-- `context/skills/execution-plan-run/SKILL.md`
-
-### broken-see-also (3)
+### broken-see-also (6)
 - `context/systems/audiobook-pipeline.md` — ../../output/audiobook-handoff-2026-05-05.md
 - `context/work/chrome-lot/social-media.md` — ../../skills/weekly-ops/SKILL.md
 - `context/work/chrome-lot/work-management.md` — ../../skills/weekly-ops/SKILL.md
+- `context/work/systems/bp-weight-instrumentation-plan.md` — ../../systems/execution-plans.md
+- `context/work/turbo-gear/crm-plan.md` — ../../systems/execution-plans.md
+- `context/work/turbo-gear/knack-tg-sync-plan.md` — ../../systems/execution-plans.md
 
 Full audit: `node scripts/audit-context.mjs`
 <!-- /AUTO:HEALTH_REPORT -->
@@ -235,7 +238,7 @@ Full audit: `node scripts/audit-context.mjs`
 ## Last generated
 
 <!-- AUTO:LAST_GENERATED -->
-**2026-11-25 13:54:07** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
+**2026-11-25 14:10:00** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
 <!-- /AUTO:LAST_GENERATED -->
 
 ## See also
