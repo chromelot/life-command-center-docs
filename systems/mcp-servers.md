@@ -205,6 +205,7 @@ Process Street's remote MCP (~105 tools, workflow authoring) requires **OAuth lo
 - **Credentials**: `secrets/knack-assets.env` (see `mcp/knack-assets/knack-assets.env.example`)
 - **Tools**: `knack_assets_status`, `knack_assets_list_objects`, `knack_assets_get_fields`, `knack_assets_get_records`, `knack_assets_get_all_records`, `knack_assets_search_records`, `knack_assets_get_record`, `knack_assets_create_record`, `knack_assets_update_record`, `knack_assets_delete_record`, `knack_assets_get_view_records`, `knack_assets_create_view_record`, `knack_assets_update_view_record`, `knack_assets_delete_view_record`, `knack_assets_raw_request`
 - **Setup**: `cd mcp/knack-assets && npm install && npm test` → register in `.cursor/mcp.json` → reload MCP
+- **App map + remote-session access**: → [knack-assets.md](knack-assets.md)
 
 ### knack-hiring — Chrome Lot hiring pipeline
 
