@@ -34,6 +34,8 @@ Full schedule and tier ownership: [`cadences.md`](cadences.md). Agent intent rou
 | Notion DB IDs and schemas | `context/systems/notion-databases.md` |
 | MCP inventory | `context/systems/mcp-servers.md` |
 | Capacity limits | `context/systems/capacity-rules.md` |
+| Agent plan runs (plan mode → ZPT tasks) | `context/systems/plan-runs.md` + `node scripts/plan-run.mjs` |
+| Delivery canary / benchmark health | `context/systems/delivery-benchmarks.md` |
 | Meeting log outputs | Notion Weekly / Monthly / Quarterly Meeting Log DBs |
 
 ---
@@ -172,7 +174,7 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 ## Health / staleness
 
 <!-- AUTO:HEALTH_REPORT -->
-⚠ **83 issue(s)** across 256 context files.
+⚠ **85 issue(s)** across 258 context files.
 
 ### stale (26)
 - `context/README.md` — 211d old (threshold 180d)
@@ -206,13 +208,14 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 - `context/archive/skills/execution-plan-run.md`
 - `context/work/systems/delivery-overhaul-fixes-plan.md`
 
-### missing-frontmatter (43)
+### missing-frontmatter (45)
 - `context/self/recovery-2026-08.md` — no-frontmatter
 - `context/skills/annual-plan/SKILL.md` — no-frontmatter
 - `context/skills/planning-sprint/SKILL.md` — no-frontmatter
 - `context/skills/weekly-planning/SKILL.md` — no-frontmatter
 - `context/systems/cursor-model-strategy.md` — no-frontmatter
 - `context/systems/cursor-team-rules.md` — no-frontmatter
+- `context/systems/delivery-benchmarks.md` — no-frontmatter
 - `context/systems/knack-assets.md` — no-frontmatter
 - `context/systems/media-ingest-rotate.md` — no-frontmatter
 - `context/systems/notion-databases.md` — no-frontmatter
@@ -220,9 +223,8 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 - `context/systems/notion-guides/cl-bot.md` — no-frontmatter
 - `context/systems/notion-guides/n8n-automations.md` — no-frontmatter
 - `context/systems/notion-guides/pd-todoist-automation.md` — no-frontmatter
-- `context/systems/readings-curation.md` — no-frontmatter
-- `context/systems/zpt-merge-queue.md` — no-frontmatter
-- _…and 28 more_
+- `context/systems/plan-runs.md` — no-frontmatter
+- _…and 30 more_
 
 ### broken-see-also (6)
 - `context/systems/audiobook-pipeline.md` — ../../output/audiobook-handoff-2026-05-05.md
@@ -240,7 +242,7 @@ Full audit: `node scripts/audit-context.mjs`
 ## Last generated
 
 <!-- AUTO:LAST_GENERATED -->
-**2026-11-26 13:22:49** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
+**2026-11-26 13:24:44** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
 <!-- /AUTO:LAST_GENERATED -->
 
 ## See also
