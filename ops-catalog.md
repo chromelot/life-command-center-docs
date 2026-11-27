@@ -177,21 +177,21 @@ Project runbooks: `context/projects/plex-media-stack.md`, `n8n/README.md`.
 ⚠ **85 issue(s)** across 258 context files.
 
 ### stale (26)
-- `context/README.md` — 211d old (threshold 180d)
-- `context/archive/gmail-spam-filter-guide.md` — 211d old (threshold 180d)
-- `context/archive/knack-migration-status.md` — 211d old (threshold 180d)
-- `context/archive/teams-chats.md` — 211d old (threshold 180d)
-- `context/family/index.md` — 211d old (threshold 180d)
-- `context/projects/plex-media-stack.md` — 183d old (threshold 180d)
-- `context/research/index.md` — 211d old (threshold 180d)
-- `context/research/llm-context-architecture.md` — 211d old (threshold 180d)
-- `context/self/admin.md` — 211d old (threshold 180d)
-- `context/self/index.md` — 211d old (threshold 180d)
-- `context/self/social.md` — 211d old (threshold 180d)
-- `context/skills/index.md` — 211d old (threshold 180d)
-- `context/systems/audiobook-pipeline.md` — 204d old (threshold 180d)
-- `context/systems/calibre.md` — 197d old (threshold 180d)
-- `context/systems/deezer-streamrip-to-plex.md` — 186d old (threshold 180d)
+- `context/README.md` — 212d old (threshold 180d)
+- `context/archive/gmail-spam-filter-guide.md` — 212d old (threshold 180d)
+- `context/archive/knack-migration-status.md` — 212d old (threshold 180d)
+- `context/archive/teams-chats.md` — 212d old (threshold 180d)
+- `context/family/index.md` — 212d old (threshold 180d)
+- `context/projects/plex-media-stack.md` — 184d old (threshold 180d)
+- `context/research/index.md` — 212d old (threshold 180d)
+- `context/research/llm-context-architecture.md` — 212d old (threshold 180d)
+- `context/self/admin.md` — 212d old (threshold 180d)
+- `context/self/index.md` — 212d old (threshold 180d)
+- `context/self/social.md` — 212d old (threshold 180d)
+- `context/skills/index.md` — 212d old (threshold 180d)
+- `context/systems/audiobook-pipeline.md` — 205d old (threshold 180d)
+- `context/systems/calibre.md` — 198d old (threshold 180d)
+- `context/systems/deezer-streamrip-to-plex.md` — 187d old (threshold 180d)
 - _…and 11 more_
 
 ### missing-updated (3)
@@ -242,7 +242,7 @@ Full audit: `node scripts/audit-context.mjs`
 ## Last generated
 
 <!-- AUTO:LAST_GENERATED -->
-**2026-11-26 17:13:56** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
+**2026-11-26 22:39:49** (America/Chicago) — source: `scripts/generate-ops-catalog.mjs`
 <!-- /AUTO:LAST_GENERATED -->
 
 ## See also
