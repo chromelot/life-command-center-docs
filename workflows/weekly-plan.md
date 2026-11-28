@@ -24,7 +24,7 @@ tags: [skill, weekly-planning, procedure]
   - [Social pulls (with wellness; used in Phase 1.5)](#social-pulls-with-wellness-used-in-phase-15)
   - [Development pulls (after wellness/social; silent until Phase 2+)](#development-pulls-after-wellnesssocial-silent-until-phase-2)
 - [Phase 0b: Data Integrity Gate (~3 min)](#phase-0b-data-integrity-gate-3-min)
-- [Step `0.tg` — Tracked goals (ZPT; mirror in Cursor ledger)](#step-0tg-tracked-goals-zpt-mirror-in-cursor-ledger)
+- [Tracked goals (distributed — ZPT; mirror in Cursor ledger)](#tracked-goals-distributed-zpt-mirror-in-cursor-ledger)
 - [Phase 1: Life Review (~28 min)](#phase-1-life-review-28-min)
   - [1.0 Create Weekly Log Entry](#10-create-weekly-log-entry)
   - [1.1 Values Context (~1 min) — **first table to Aaron**](#11-values-context-1-min-first-table-to-aaron)
@@ -79,8 +79,8 @@ Load via the router. Read these before starting:
 - `context/people/index.md` — delegation matrix, 1:1 tracking
 - `context/work/turbo-gear/overview.md` — TG strategic sequence (for Phase 2.4 project selection)
 - `context/systems/time-blocks.md` + `config/time-blocks.json` — weekly schedule template, color legend, step `4.tb` (Personal Time Blocks calendar)
-- `context/systems/time-ledger.md` — dev/ops plan goals + `GET /api/tracked-goals` (see step `0.tg`)
-- `context/systems/weekly-plan-app.md` — in-app step `0.tg` Tracked goals + longer-plan Tracked review
+- `context/systems/time-ledger.md` — dev/ops plan goals + `GET /api/tracked-goals` (wizard homes: `1.3` gym, `2.W` dev, Work Ops time sub-step, `3.field` office)
+- `context/systems/weekly-plan-app.md` — distributed tracked-goal rows + longer-plan Tracked review
 
 <a id="execution-protocol-mandatory-read-contextworkflow-executionmd-contextsystemsworkflow-output-contractsmd"></a>
 ## Execution Protocol (mandatory — read `context/workflow-execution.md` + `context/systems/workflow-output-contracts.md`)
@@ -316,16 +316,16 @@ DATA INTEGRITY CHECK
 
 **Outputs:** Integrity table presented; remediation attempted; known gaps flagged for Phase 1 footers.
 
-<a id="step-0tg-tracked-goals-zpt-mirror-in-cursor-ledger"></a>
-## Step `0.tg` — Tracked goals (ZPT; mirror in Cursor ledger)
+<a id="tracked-goals-distributed-zpt-mirror-in-cursor-ledger"></a>
+## Tracked goals (distributed — ZPT; mirror in Cursor ledger)
 
 **Purpose:** Set the week's four self-tracking goals and score last week from the rollup — not from Hubstaff, Toggl, or Time Punches.
 
-**ZPT:** Step `0.tg` **Tracked goals** immediately after `0b`. Four rows — **Dev time**, **Ops time**, **Office hours**, **Gym visits** — columns: last week's goal, tracked result, met/not, next week's goal. **Next** blocked until all four inputs are numbers (`dev_hours_intended`, `ops_hours_intended`, `office_hours_target`, `gym_visits_target`). Prefill next week from the review week's committed log when empty.
+**ZPT (no separate Goals step):** Same four-row UI on the step that owns each goal — **Gym visits** on Fitness `1.3` (Targets) · **Dev time** on `2.W` (editable, above roadmap) · **Ops time** on Work Ops **Time & Todoist** sub-step · **Office hours** on Work Field `3.field` (above field health). **Next** blocks on that step until its number is set (0 allowed). Prefill empty inputs from the review week's committed log.
 
-**Cursor ledger:** After `0b` and before `1.0`, call `GET /api/tracked-goals` for the review week (see Phase 0 §7). Present the same four rows; write goals to the D1 weekly `meeting_log` (dual-write). Advance `0.tg` only when all four are set.
+**Cursor ledger:** Call `GET /api/tracked-goals` for the review week when you reach each domain (Phase 0 §7). Write goals to the D1 weekly `meeting_log` (dual-write).
 
-**Context vs goals:** Hevy **strength/cardio session** counts and office-**day** chips (e.g. on sleep/schedule steps) stay review context — they are **not** weekly numeric goals. Sleep, calories, social, and other life targets are unchanged.
+**Context vs goals:** Hevy **strength/cardio session** counts and office-**day** chips stay review context — not weekly numeric goals.
 
 Contract → `context/systems/time-ledger.md` § Plan goals; UI → `context/systems/weekly-plan-app.md`.
 
@@ -334,7 +334,7 @@ Contract → `context/systems/time-ledger.md` § Plan goals; UI → `context/sys
 
 **Purpose:** Values context first, then mind → fitness → health & care → sleep → social → parenting → personal enjoyment → money & admin — one domain at a time (review → rate health where applicable → set intentions) — then **one personal repair** at `1.R`. Mind includes wellness screening. Work health rates in Phase 2.H; the **work** repair runs at `3.R`.
 
-> **Intentions vs targets — keep them separate (do not restate numbers).** The four **tracked time goals** (dev, ops, office hours, gym visits) are set on step **`0.tg`** — not on fitness, sleep, or Phase 2.W. Life-domain numeric targets still use structured fields: `Sleep Target Hours`, `Target Wake Time` (sleep) · `Calorie Target`, `Weight Goal Direction` (nutrition) · `Social Target` (social small-talk/sarges) · `Workshop Hours Intended` (workshop). **`Strength Target` / `Cardio Target` are retired as goals** — Hevy session counts remain review **context** on `1.3`, not targets. The `*Intentions` rich_text fields capture **only qualitative changes** for the week. If a domain has no qualitative change this week, **leave its intention blank**.
+> **Intentions vs targets — keep them separate (do not restate numbers).** The four **tracked time goals** (dev, ops, office hours, gym visits) each use the tracked-goals row on **`1.3` / `2.W` / Work Ops time / `3.field`** — do not duplicate them on other steps. Life-domain numeric targets still use structured fields: `Sleep Target Hours`, `Target Wake Time` (sleep) · `Calorie Target`, `Weight Goal Direction` (nutrition) · `Social Target` (social small-talk/sarges) · `Workshop Hours Intended` (workshop). **`Strength Target` / `Cardio Target` are retired as goals** — Hevy session counts remain review **context** on `1.3`, not targets. The `*Intentions` rich_text fields capture **only qualitative changes** for the week. If a domain has no qualitative change this week, **leave its intention blank**.
 
 **Phase 1 order (session):** `1.0` → `1.1` Values → `1.2` Mind (incl. wellness) → `1.3` Fitness → `1.3b` Health & Care → `1.4` Sleep and Schedule → `1.5` Social → `1.6` Parenting → `1.7` Personal enjoyment → `1.8` Money & Admin → `1.R` Personal — repair & debt → `1.check`
 
@@ -589,7 +589,7 @@ Copy **TABLE 1.3-B-supp** and **TABLE 1.3-C-supp** verbatim from `weekly-habits-
 |--------------------------|------------|
 | qualitative only — no strength/cardio **goal** counts | `fitness_intentions` |
 
-Gym **visit** goal → step `0.tg` (`gym_visits_target`). Strength/cardio sessions in Tables 1.3-B/C are **context**.
+Gym **visit** goal → Fitness `1.3` Targets row (`gym_visits_target`). Strength/cardio sessions in Tables 1.3-B/C are **context**.
 
 **Sub-step 1.3-N — Nutrition / calorie target (REQUIRED every week)**
 
@@ -1037,13 +1037,13 @@ Set `in_repair` on exactly one `Personal` register row (`personalRepairDomainId`
 <a id="phase-2-development-roadmap-centric-15-min"></a>
 ## Phase 2: Development (roadmap-centric, ~15 min)
 
-> **ZPT in-app wizard (2026-09+):** Step **`0.tg` Tracked goals** sets `dev_hours_intended`, `ops_hours_intended`, `office_hours_target`, `gym_visits_target` using `GET /api/tracked-goals` for last week. Phase 2 is **roadmap-centric** — `2.R` review Current phase → `2.W` unified Development slate (**dev-hours goal read-only**, from `0.tg`) → `2.H` overall dev health → `2.WK` Workshop → `2.AD` Admin → `2.check`. Legacy ledger steps `2.TG` / `2.CL` / `2.SY` are retired. Day board goals use ledger dev/ops + office + gym from week state — not Hubstaff/Toggl.
+> **ZPT in-app wizard (2026-09+):** Tracked goals are set on **`1.3` / `2.W` / Work Ops time / `3.field`** (`dev_hours_intended`, `ops_hours_intended`, `office_hours_target`, `gym_visits_target`) using `GET /api/tracked-goals` for last week. Phase 2 is **roadmap-centric** — `2.R` review Current phase → `2.W` unified Development slate + **editable dev-hours row** → `2.H` overall dev health → `2.WK` Workshop → `2.AD` Admin → `2.check`. Legacy ledger steps `2.TG` / `2.CL` / `2.SY` are retired. Day board goals use ledger dev/ops + office + gym from week state — not Hubstaff/Toggl.
 
 **Purpose:** Review the **Current roadmap phase**, set **one unified deep-work time goal**, and queue **Development** work for the week from Current-phase projects + carryover + active Goals (any legacy TG/CL/Systems domain tag). Then Workshop + Admin blocks, overall dev health, and slate confirmation.
 
 **Step codes (ledger / ZPT order):** `2.R` roadmap review → `2.W` this week (slate + hours) → `2.H` dev health → `2.WK` Workshop → `2.AD` Admin → `2.check`. **Repair & debt is not Phase 2** — personal at `1.R`, work at `3.R`.
 
-**Source files:** `GET /api/tracked-goals` (review week) for dev/ops actuals and met vs `0.tg` goals; `output/weekly-dev-review-*.md` — § *Roadmap — Current phase (D1 / ZPT)* + accomplishments; `output/weekly-habits-*.md`. **Retired for dev/ops score:** Time Punches, Hubstaff, Toggl timer totals (`dev.total_dev_min`).
+**Source files:** `GET /api/tracked-goals` (review week) for dev/ops actuals and met vs committed goals; `output/weekly-dev-review-*.md` — § *Roadmap — Current phase (D1 / ZPT)* + accomplishments; `output/weekly-habits-*.md`. **Retired for dev/ops score:** Time Punches, Hubstaff, Toggl timer totals (`dev.total_dev_min`).
 
 **Layer model — read `context/systems/horizon-roadmap.md`.** **Roadmap phase** = the current execution horizon. **Goal** = finish-line outcome. **Project** = milestone or standalone on the roadmap. **Task** = execution unit on This Week. Promote roadmap picks in ZPT or via D1 task APIs; legacy Notion promote scripts remain for Notion-era rows only.
 
@@ -1069,13 +1069,13 @@ Narrative: what shipped in the phase last week, what's stuck, capacity flags fro
 <a id="2w-this-week-slate-unified-time-goal-one-or-more-turns"></a>
 ### `2.W` — This week: slate + unified time goal (one or more turns)
 
-**Table 2.W-G — Unified dev time goal** *(read-only in ZPT; set on `0.tg`)*
+**Table 2.W-G — Unified dev time goal** *(editable tracked row on `2.W`)*
 
 | Last week actual (h) | This week goal (h) | Source |
 |----------------------|--------------------|--------|
-| tracked-goals review week | committed on `0.tg` | `dev_hours_intended` → `goal.dev_total_target_min` |
+| tracked-goals review week | entered on `2.W` | `dev_hours_intended` → `goal.dev_total_target_min` |
 
-If Cursor ledger runs before `0.tg`, collect dev goal there; otherwise confirm the ZPT/dual-write values. **Do not** re-open hours input on `2.W` in the app.
+Collect or confirm the dev goal on `2.W` (ZPT row or Cursor ledger).
 
 **Table 2.W-Slate — Development picks** *(lettered)*
 
@@ -1305,7 +1305,9 @@ Set `in_repair` on exactly one non-`Personal` register row (`workRepairDomainId`
 
 | Field | Step |
 |-------|------|
-| `ops_hours_intended`, `office_hours_target`, `gym_visits_target` (set on `0.tg`; confirmed in Phase 3 if ops reviewed) | `0.tg` / `3.ops.2` |
+| `ops_hours_intended` (Work Ops time sub-step) | `3.ops` |
+| `office_hours_target` | `3.field` |
+| `gym_visits_target` | `1.3` |
 | `fieldHoursIntended`, `fieldActivityTarget` | 3.field.2 |
 | `work_repair_outcome` *(required when the review week had a work repair)*; `work_repair_retro` *(required when outcome = Partial / Didn't work)* | 3.R.0 |
 | Work repair domain + move + **intent** (`work_repair_domain`, `work_repair_move`, `work_repair_intent`) + `in_repair` on exactly one non-`Personal` register row | 3.R.2 |
@@ -1412,7 +1414,7 @@ Set `in_repair` on exactly one non-`Personal` register row (`workRepairDomainId`
 - **Phase 0a:** Review + Planning Week Tracker rows confirmed on ledger + Weekly Meeting Log relations.
 - **Phase 0:** Wellness + journal feelings + social + dev data pulls; **domain board** (`weekly-domain-board.mjs`); trend files; 4-week log history.
 - **Phase 0b:** Data integrity table; remediation before Phase 1.
-- **`0.tg`:** Tracked goals — four numbers committed; last week from `GET /api/tracked-goals`.
+- **Tracked goals:** four numbers committed on domain steps; last week from `GET /api/tracked-goals`.
 - **Phase 1:** Life review (values, mind, fitness, health & care, sleep, social, parenting, personal enjoyment, money & admin) + targets on Weekly Meeting Log + **last week's personal repair closed out** (`1.R.0`) and **one personal domain in repair with a stated intent**, at most one personal debt project (`1.R`).
 - **Phase 2:** Development review + next-week dev plan + the single combined slate sweep.
 - **Phase 3:** Office ops + field/CRM plan + **last week's work repair closed out** (`3.R.0`) and **one work domain in repair with a stated intent**, at most one work debt project (`3.R`).
