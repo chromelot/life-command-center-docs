@@ -589,7 +589,7 @@ Copy **TABLE 1.3-B-supp** and **TABLE 1.3-C-supp** verbatim from `weekly-habits-
 |--------------------------|------------|
 | qualitative only — no strength/cardio **goal** counts | `fitness_intentions` |
 
-Gym **visit** goal → Fitness `1.3` Targets row (`gym_visits_target`). Strength/cardio sessions in Tables 1.3-B/C are **context**.
+Gym **visit** goal → Fitness `1.3` review row, under the gym check-in card (`gym_visits_target`). Strength/cardio sessions in Tables 1.3-B/C are **context**.
 
 **Sub-step 1.3-N — Nutrition / calorie target (REQUIRED every week)**
 
